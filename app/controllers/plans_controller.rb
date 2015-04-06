@@ -1,11 +1,27 @@
 class PlansController < ApplicationController
-  require 'pry'
 
   def index
     @plans = Plan.all
     respond_to do |format|
       format.html
       format.json { render json: @plans }
+    end
+  end
+
+  def new
+    @plan = Plan.new
+    respond_to do |format|
+      format.html
+      format.json { render json: @plan }
+    end
+  end  
+
+  def create
+    @plan = Plan.create(plan_params)
+    if @plan.save
+      redirect_to plans_path
+    else
+      redirect_to plan_new(@plan), alert: @plan.errors
     end
   end
 
