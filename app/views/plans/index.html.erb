@@ -1,0 +1,8 @@
+<% @plans.each do |plan| %>
+  <tr>
+    <td><%= plan.name %></td>
+    <td><%= plan.start_date %></td>
+    <td><%= plan.attendance %></td>
+    <td><%= plan.event_type %></td>
+  </tr>
+<% end %>
