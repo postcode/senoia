@@ -1,4 +1,12 @@
-<% @plans.each do |plan| %>
+<table>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>Start Date</td>
+      <td>Attendance</td>
+      <td>Event Type</td>
+    </tr>
+<% Plan.all.each do |plan| %>
   <tr>
     <td><%= plan.name %></td>
     <td><%= plan.start_date %></td>
@@ -6,3 +14,5 @@
     <td><%= plan.event_type %></td>
   </tr>
 <% end %>
+</tbody>
+</table>
