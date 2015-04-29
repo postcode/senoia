@@ -1,0 +1,32 @@
+<div class="row spacing">
+  <div class="large-12">
+    <h2><%= @user == @current_user ? "Your Account Settings" : "Edit User" %></h2>
+  </div>
+  <div class="large-5 medium-7 small-9 columns end">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
+      <div class="form-inputs">
+        <%= f.input :email, required: true, autofocus: true %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+        <%= f.input :name %>
+        <br>
+        <h4>Change Password</h4>
+        <%= f.input :password, autocomplete: "off", required: false %>
+        <%= f.input :password_confirmation, required: false %>
+        <%= f.input :current_password, required: true %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Update", class: 'button primary' %>
+      </div>
+    <% end %>
+    <br>
+
+    <p>Need to close your account? <%= link_to "Close my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+    <br><br>
+    <%= link_to "< Back", :back, class: 'back_link' %>
+  </div>
+</div>

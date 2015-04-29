@@ -6,15 +6,55 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
+    <!-- Foundation 3 for IE 8 and earlier -->
+    <!--[if lt IE 9]>
+      <%= stylesheet_link_tag 'ie8', :media => 'all' %>
+    <![endif]-->
+    <!-- Foundation 4 for IE 9 and earlier -->
+    <!--[if gt IE 8]>
+      <%= stylesheet_link_tag 'ie9', :media => 'all' %>
+      <%= stylesheet_link_tag 'ie/css/foundation4/normalize.css' %>
+      <%= stylesheet_link_tag 'ie/css/foundation4/foundation.min.css' %>
+    <![endif]-->
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
 
-    <%= yield %>
+  <body class="main" data-no-turbolink>
+    <%= render 'shared/mainnav' %>
+    <%= render 'shared/messages'  %>
 
+    <% if content_for? :content %>
+    <div class="row">
+      <%= yield :content %>
+    </div>
+    <% elsif content_for? :admin %>
+       <%= yield :admin %>
+    <% else %>
+      <div id="content" class="main-content">
+        <%= yield %>
+      </div>
+    <% end %>
+
+    
+    <%= render 'shared/footer' %>
   </body>
+  <!-- Foundation 3 for IE 8 and earlier -->
+  <!--[if lt IE 9]>
+      <%= javascript_include_tag "ie8" %>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Foundation 4 for IE 9 and later -->
+  <!--[if gt IE 8]>
+    <%= javascript_include_tag "ie9" %>
+    <%= javascript_include_tag "ie/foundation4/foundation.min.js" %>
+      <script>
+          $(document).foundation();
+      </script>
+  <![endif]-->
 </html>
