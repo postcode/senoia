@@ -1,18 +1,46 @@
-<table>
-  <tbody>
-    <tr>
-      <td>Name</td>
-      <td>Start Date</td>
-      <td>Attendance</td>
-      <td>Event Type</td>
-    </tr>
-<% Plan.all.each do |plan| %>
-  <tr>
-    <td><%= plan.name %></td>
-    <td><%= plan.start_date %></td>
-    <td><%= plan.attendance %></td>
-    <td><%= plan.event_type %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
+<div class="row">
+
+<div class="large-3 medium-3 small-12 columns">
+  <%= smart_listing_controls_for(:plans) do %>
+        <!-- # Add search box to form - it submits the form automatically on text change -->
+      <ul class="side-nav large-12 columns">
+        <li class="large-12 columns request_search">
+          <h4>SEARCH:</h4>
+          <div class="row collapse">
+            <div class="small-10 columns">
+              <%= text_field_tag :filter, '', placeholder: "I'd like to find...", autocomplete: :on %>
+            </div>
+            <div class="small-2 columns">
+              <button class="button postfix primary"><i class="fi-magnifying-glass"></i></button>
+            </div>
+          </div>
+        </li>
+        <hr>
+        <li class="large-12 columns status_filter">
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <div>
+              <%= hidden_field_tag :my_requests_check, "0", id: "mr" %>
+              <%= check_box_tag :my_requests_check %>
+              <span class=""><i class="fi-torso"></i><%= "My Requests" %></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="large-12 columns">
+          <h5>Event Date</h5>
+          <div class="row collapse">
+            <div class="large-5 medium-5 small-5 columns">
+              <%= text_field_tag :start_date, '', placeholder: "start", class: 'dateSelect' %>
+            </div>
+            <div class="Large-5 large-offset-1 medium-5 medium-offset-1 small-5 small-offset-1 columns end">
+              <%= text_field_tag :end_date, '', placeholder: "end", class: 'dateSelect'  %>
+            </div>
+          </div>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+  <div class="large-9 medium-9 small-12 columns end">
+      <%= smart_listing_render :plans  %>
+    </div>

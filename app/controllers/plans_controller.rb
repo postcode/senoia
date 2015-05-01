@@ -1,7 +1,9 @@
 class PlansController < ApplicationController
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
 
   def index
-    @plans = Plan.all
+    @plans = smart_listing_create(:plans, Plan.all, partial: "plans/listing")
     respond_to do |format|
       format.html
       format.json { render json: @plans }

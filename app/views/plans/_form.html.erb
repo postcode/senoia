@@ -1,15 +1,24 @@
-<%= simple_form_for @plan do |f| %>
-  <% if @plan.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@plan.errors.count, "error") %> prohibited this department from being saved:</h2>
-      <ul>
-      <% @plan.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+<div class="row">
+  <div class="large-12 columns">
+    <%= simple_form_for @plan do |f| %>
+      <% if @plan.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@plan.errors.count, "error") %> prohibited this department from being saved:</h2>
+          <ul>
+          <% @plan.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <%= f.input :name %>  
+      <%= f.input :name %>  
+      <%= f.input :start_date, as: :string, class: 'dateSelect', id: 'plan_start_date', placeholder: "Start Date" %>
+      <%= f.input :end_date, as: :string, class: 'dateSelect', id: 'plan_end_date', placeholder: "End Date" %>
+      <%= f.input :attendance %>
+      <%= f.input :alcohol %>
+      <%= f.submit class: "button" %>
 
-<% end %> 
+    <% end %> 
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<% unless smart_listing.empty? %>
+  <table id="all_plans" class="plan_table">
+    <thead>
+      <th width="75"><%= smart_listing.sortable "Name", "name" %></th>
+      <th width="75"><%= smart_listing.sortable "Start Date", "start_date" %></th>
+      <th width="100"><%= smart_listing.sortable "Attendance", "attendance" %></th>
+    </thead>
+    <tbody>
+      <% smart_listing.collection.each do |o| %>
+      <tr>
+        <td><%= o.name %></td>
+        <td><%= o.start_date.nil? ? o.created_at.strftime('%D') : o.start_date.strftime('%D') %></td>
+        <td><%= o.attendance %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= smart_listing.paginate %>
+  <h5><%= smart_listing.pagination_per_page_links %></h5>
+  <% else %>
+  <br>
+  <div class="text-center">
+    <h3>Your search didn't match any requests.</h3>
+    <p>Try different search terms.</p>
+  </div>
+  <% end %>
+</div>
