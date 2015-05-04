@@ -30,6 +30,7 @@ gem 'rack-attack'
 gem 'rack-mini-profiler'
 gem 'rakismet'
 gem 'sass-rails', '~> 5.0.0'
+gem "simple_calendar"
 gem 'simple_form'
 gem 'smart_listing'
 gem 'turbolinks'

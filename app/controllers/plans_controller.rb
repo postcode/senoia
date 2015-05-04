@@ -10,6 +10,13 @@ class PlansController < ApplicationController
     end
   end
 
+  def show
+    @plan = Plan.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def new
     @plan = Plan.new
     respond_to do |format|

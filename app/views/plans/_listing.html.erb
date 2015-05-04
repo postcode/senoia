@@ -1,5 +1,5 @@
 <% unless smart_listing.empty? %>
-  <table id="all_plans" class="plan_table">
+  <table id="all_plans" class="plan_table large-12 columns">
     <thead>
       <th width="75"><%= smart_listing.sortable "Name", "name" %></th>
       <th width="75"><%= smart_listing.sortable "Start Date", "start_date" %></th>
@@ -8,7 +8,7 @@
     <tbody>
       <% smart_listing.collection.each do |o| %>
       <tr>
-        <td><%= o.name %></td>
+        <td><%= link_to o.name, plan_path(o) %></td>
         <td><%= o.start_date.nil? ? o.created_at.strftime('%D') : o.start_date.strftime('%D') %></td>
         <td><%= o.attendance %></td>
       </tr>

@@ -26,4 +26,14 @@ RSpec.describe PlansController do
       end
     end
   end
+
+  describe 'GET show' do
+    let(:plan) { FactoryGirl.create(:plan) }
+    context 'when there is a plan' do
+      it 'renders the show page' do
+        get :show, id: plan.id
+        expect(response).to be_success
+      end
+    end
+  end
 end

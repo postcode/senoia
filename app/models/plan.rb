@@ -13,5 +13,7 @@
 #
 
 class Plan < ActiveRecord::Base
+  extend SimpleCalendar
+  has_calendar attribute: :start_date
   belongs_to :owner, class_name: User
 end

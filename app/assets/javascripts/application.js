@@ -13,8 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require foundation-datepicker
+//= require main
 //= require turbolinks
 //= require smart_listing
-//= require_tree .
 
 $(function(){ $(document).foundation(); });

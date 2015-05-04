@@ -1,0 +1,12 @@
+.plan_table {
+  margin-top: 1.2em;
+  border: none;
+  tr {
+    &:hover {
+      background: #eee;
+    }
+    .even {
+      background: #eee;
+    }
+  }
+}

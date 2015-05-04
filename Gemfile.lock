@@ -307,6 +307,8 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    simple_calendar (1.1.10)
+      rails (>= 3.0)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -413,6 +415,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.0)
   sdoc
   shoulda-matchers
+  simple_calendar
   simple_form
   simplecov
   smart_listing
