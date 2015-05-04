@@ -260,6 +260,6 @@ Devise.setup do |config|
   if Rails.env.development? or Rails.env.test?
       config.secret_key = ('x' * 128)
   else
-      config.secret_key = ENV['SECRET_TOKEN']
+      config.secret_key = ENV['SECRET_KEY_BASE']
   end
 end
