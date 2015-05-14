@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501144438) do
+ActiveRecord::Schema.define(version: 20150514005551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "event_types", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "permitters", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone_number"
+    t.text     "address"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "permitters_users", force: :cascade do |t|
+    t.integer "permitter_id"
+    t.integer "user_id"
+    t.boolean "contact"
+  end
 
   create_table "plans", force: :cascade do |t|
     t.string   "name"
@@ -22,10 +43,25 @@ ActiveRecord::Schema.define(version: 20150501144438) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "attendance"
-    t.integer  "event_type"
     t.boolean  "alcohol"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "event_type_id"
+    t.integer  "permitter_id"
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone_number"
+    t.text     "address"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "providers_users", force: :cascade do |t|
+    t.integer "provider_id"
+    t.integer "user_id"
+    t.boolean "contact"
   end
 
   create_table "users", force: :cascade do |t|

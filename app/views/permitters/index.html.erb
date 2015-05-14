@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="pageHeader small-12 large-12 columns">
+    <span class="pageTitle large-9 columns">
+      <h2>Permitting Agencies</h2>
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 medium-12 small-12 columns">
+    <%= link_to "New Provider", new_permitter_path, class: "button primary" %>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+      </thead>
+      <% @permitters.all.each do |p| %>
+      <tbody>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.address %></td>
+          <td><%= p.phone_number %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>  
+  </div>
+</div>

@@ -13,10 +13,23 @@
       <% end %>
 
       <%= f.input :name %>  
+      <%= f.association :event_type,
+                            collection: EventType.all,
+                            label_method: :name,
+                            value_method: :id,
+                            include_blank: false,
+                            label: "Event Type" %>
       <%= f.input :start_date, as: :string, class: 'dateSelect', id: 'plan_start_date', placeholder: "Start Date" %>
       <%= f.input :end_date, as: :string, class: 'dateSelect', id: 'plan_end_date', placeholder: "End Date" %>
       <%= f.input :attendance %>
       <%= f.input :alcohol %>
+
+      <%= f.association :permitter,
+                            collection: Permitter.all,
+                            label_method: :name,
+                            value_method: :id,
+                            include_blank: false,
+                            label: "Permitting Agency" %>
       <%= f.submit class: "button" %>
 
     <% end %> 

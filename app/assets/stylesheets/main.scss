@@ -1,4 +1,97 @@
-.plan_table {
+body {
+}
+/* NAV BAR */
+.top-bar-section li.active:not(.has-form) a:not(.button){
+  background: #789fd3;
+}
+
+/* LANDING PAGE */
+.landing{
+  margin-top: 1em;
+}
+.landing a:hover{
+  border: none;
+}
+.main-section{
+  text-align: center;
+  padding-top: 3em;
+}
+.main-section i{
+  color: #58585B; 
+  font-size: 9em;
+  padding-top: 2em;
+}
+.secondary-section{
+  margin-top: 4em;
+  padding-bottom: 5em;
+}
+
+/* NEW EVENT */
+.new-event{
+  margin-bottom: 5em;
+}
+.new-event h6{
+  font-weight: bold;
+}
+.new-event-info{
+  margin-top: 2em;
+  border: 1px solid #E6E7E8;
+  padding: 1em; 
+}
+.new-event-info h6{
+  background: #fff;
+  padding: .25em;
+  margin-top: -2.1em;
+}
+.new-event-info p{
+  margin-bottom: .25em;
+}
+.new-event-info i{
+  margin-right: .5em;
+}
+
+/* PLAN ARCHIVE */
+.plan-archive{
+  margin-top: 2em;
+}
+.filter{
+  background: #E6E7E8;
+  padding: 1em;
+}
+.plan-archive a{
+  color: white;
+  text-decoration: underline;
+  font-weight: bolder;
+}
+.plan-archive a:visited{
+  color: white;
+}
+.plan-archive a:hover{
+  border: none;
+}
+
+/* BUTTONS */
+.button{
+  background: #789fd3; 
+  color: #fff;
+}
+
+.button:hover {
+  background: #789fd3;
+  color: #FFF;
+  border: none;
+}
+.button:focus {
+  background: #f19b3b;
+}
+.button:link {
+  color: #fff;
+}
+.source {
+  float: right;
+}
+
+plan_table {
   margin-top: 1.2em;
   border: none;
   tr {
@@ -10,3 +103,9 @@
     }
   }
 }
+
+
+
+
+
+

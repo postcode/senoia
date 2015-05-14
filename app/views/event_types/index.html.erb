@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="pageHeader small-12 large-12 columns">
+    <span class="pageTitle large-9 columns">
+      <h2>Event Types</h2>
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 medium-12 small-12 columns">
+    <%= link_to "New Event Type", new_event_type_path, class: "button primary" %>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Description</th>
+      </thead>
+      <% @events.all.each do |e| %>
+      <tbody>
+        <tr>
+          <td><%= e.name %></td>
+          <td><%= e.description %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>  
+  </div>
+</div>
