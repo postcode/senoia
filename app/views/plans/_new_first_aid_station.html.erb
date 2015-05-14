@@ -4,6 +4,17 @@
   <div class="modal-body">
     <%= simple_fields_for :first_aid_station do |first_aid| %>
       <%= first_aid.input :name %>
+      <%= first_aid.input :level %>
+      <%= first_aid.input :md, label: "MDs", input_html: {value: 0}%>
+      <%= first_aid.input :rn, label: "RNs", input_html: {value: 0} %>
+      <%= first_aid.input :emt, label: "EMTs", input_html: {value: 0} %>
+      <%= first_aid.input :aed, label: "AEDs", input_html: {value: 0} %>
+      <%= first_aid.input :provider,
+                        collection: Provider.all,
+                        label_method: :name,
+                        value_method: :id,
+                        include_blank: false,
+                        label: "Provider" %>
     <% end %>
   </div>
   <div class="modal-footer">
