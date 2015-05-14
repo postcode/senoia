@@ -41,6 +41,6 @@ class PlansController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def plan_params
-      params.require(:plan).permit(:name, :start_date, :end_date, :attendance, :event_type, :owner, event_type_attributes: [:id, :name, :description], permitter_attributes: [:id, :name, :address, :phone_number], operational_period_attributes: [:id, :start_date, :end_date, :attendance, :plan_id])
+      params.require(:plan).permit(:name, :start_date, :end_date, :attendance, :event_type, :owner, event_type_attributes: [:id, :name, :description], permitter_attributes: [:id, :name, :address, :phone_number], operation_period_attributes: [:id, :start_date, :end_date, :attendance, :plan_id])
     end
 end

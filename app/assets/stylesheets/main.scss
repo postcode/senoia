@@ -1,8 +1,15 @@
 body {
 }
 /* NAV BAR */
-.top-bar-section li.active:not(.has-form) a:not(.button){
+.top-bar {
   background: #789fd3;
+}
+
+.top-bar-section {
+  font-weight: bold;
+  li:not(.has-form) a:not(.button) {
+    background: #789fd3;
+  }
 }
 
 /* LANDING PAGE */
@@ -91,7 +98,7 @@ body {
   float: right;
 }
 
-plan_table {
+.plan_table {
   margin-top: 1.2em;
   border: none;
   tr {
@@ -103,6 +110,19 @@ plan_table {
     }
   }
 }
+
+.input_label {
+  label {
+    font-weight: bold;
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+}
+
+.plan_form {
+  margin: 2em 0.5em;
+}
+
 
 
 
