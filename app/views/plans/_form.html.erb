@@ -1,5 +1,6 @@
 <div class="row">
   <h1>Enter Plan Information</h1>
+  <%= render 'plan_state' %>
   <div class="large-6 columns plan_form">
     <%= simple_form_for @plan do |f| %>
       <% if @plan.errors.any? %>
@@ -65,73 +66,151 @@
           </div>
         </div>
         <div class="row">
-        <div class="small-4 columns input_label">
-          <%= f.label :attendance, class: "inline", label: "Crowd Size" %>
+          <div class="small-4 columns input_label">
+            <%= f.label :attendance, class: "inline", label: "Crowd Size" %>
+          </div>
+          <div class="small-8 columns">
+            <%= op.input :attendance, label: false %>
+          </div>
         </div>
-        <div class="small-8 columns">
-          <%= op.input :attendance, label: false %>
-        </div>
-      </div>
 
-      <fieldset>
-        <legend>First Aid Stations</legend>
-
-        <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
-          <table>
-            <thead>
-              <th>Location</th>
-              <th>Lvl</th>
-              <th>MDs</th>
-              <th>RNs</th>
-              <th>EMTs</th>
-              <th>AEDs</th>
-              <th>Provider</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <%= first_aid.input :name, label: false %>
-                </td>
-                <td>
-                  <%= first_aid.input :level, label: false %>
-                </td>
-                <td>
-                  <%= first_aid.input :md, label: "MDs", input_html: {value: 0}, label: false%>
-                </td>
-                <td>
-                  <%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, label: false %>
-                </td>
-                <td>
-                  <%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, label: false %>
-                </td>
-                <td>
-                  <%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, label: false %>
-                </td>
-                <td>
-                  <%= first_aid.input :provider,
-                                    collection: Provider.all,
-                                    label_method: :name,
-                                    value_method: :id,
-                                    include_blank: false,
-                                    label: false %>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i></a>
-                  <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
-                </td>
-              </tr>
-            </tbody>
-          </table>  
-
+        <fieldset>
+          <legend>First Aid Stations</legend>
+          <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
+            <table>
+              <thead>
+                <th>Location</th>
+                <th>Lvl</th>
+                <th>MDs</th>
+                <th>RNs</th>
+                <th>EMTs</th>
+                <th>AEDs</th>
+                <th>Provider</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <%= first_aid.input :name, label: false %>
+                  </td>
+                  <td>
+                    <%= first_aid.input :level, label: false %>
+                  </td>
+                  <td>
+                    <%= first_aid.input :md, label: "MDs", input_html: {value: 0}, label: false%>
+                  </td>
+                  <td>
+                    <%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, label: false %>
+                  </td>
+                  <td>
+                    <%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, label: false %>
+                  </td>
+                  <td>
+                    <%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, label: false %>
+                  </td>
+                  <td>
+                    <%= first_aid.input :provider,
+                                      collection: Provider.all,
+                                      label_method: :name,
+                                      value_method: :id,
+                                      include_blank: false,
+                                      label: false %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i></a>
+                    <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>  
+          <% end %>
+        </fieldset>
+        <fieldset>
+          <legend>Mobile Teams</legend>
+          <%= op.simple_fields_for :mobile_teams do |mobile| %>
+            <table>
+              <thead>
+                <th>Location</th>
+                <th>Lvl</th>
+                <th>AEDs</th>
+                <th>Provider</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <%= mobile.input :name, label: false %>
+                  </td>
+                  <td>
+                    <%= mobile.input :level, label: false %>
+                  </td>
+                  <td>
+                    <%= mobile.input :aed, label: "AEDs", input_html: {value: 0}, label: false%>
+                  </td>
+                  <td>
+                    <%= mobile.input :provider,
+                                      collection: Provider.all,
+                                      label_method: :name,
+                                      value_method: :id,
+                                      include_blank: false,
+                                      label: false %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a id="new_mobile_team" href="#" data-reveal-id="new-mobile-team"><i class="fi-plus"></i></a>
+                    <%= render 'new_mobile_team', plan: @plan, operation_period: op %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>  
+          <% end %>
+        </fieldset>
+        <fieldset>
+          <legend>Transport</legend>
+          <%= op.simple_fields_for :transports do |t| %>
+            <table id="transport_table">
+              <thead>
+                <th>Location</th>
+                <th>Lvl</th>
+                <th>Provider</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a id="new_transport" href="#" data-reveal-id="new-transport"><i class="fi-plus"></i></a>
+                    <%= render 'new_transport', plan: @plan, operation_period: op %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>  
+          <% end %>
+        </fieldset>
+        <fieldset>
+          <legend>Dispatch</legend>
+          <%= op.simple_fields_for :dispatchs do |d| %>
+            <table id="dispatch_table">
+              <thead>
+                <th>Location</th>
+                <th>Lvl</th>
+                <th>Provider</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a id="new_dispatch" href="#" data-reveal-id="new-dispatch"><i class="fi-plus"></i></a>
+                    <%= render 'new_dispatch', plan: @plan, operation_period: op %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>  
+          <% end %>
+        </fieldset>
         <% end %>
-      <% end %>
-        
-      </fieldset>
 
       <%= f.submit class: "button" %>
 
     <% end %> 
   </div>
+  <%= render 'plan_sidebar' %>
 </div>

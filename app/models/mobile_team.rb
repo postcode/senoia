@@ -1,30 +1,20 @@
 # == Schema Information
 #
-# Table name: first_aid_stations
+# Table name: mobile_teams
 #
 #  id          :integer          not null, primary key
-#  name        :string
-#  md          :integer
-#  rn          :integer
-#  emt         :integer
-#  aed         :integer
 #  level       :string
+#  type        :string
+#  aed         :integer
 #  provider_id :integer
+#  name        :string
 #  lat         :decimal(10, 6)
 #  lng         :decimal(10, 6)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
-FactoryGirl.define do
-  factory :first_aid_station do
-    name ""
-md ""
-rn ""
-emt ""
-aed ""
-level ""
-provider_id 1
-  end
-
+class MobileTeam < ActiveRecord::Base
+  has_many :users, through: :mobile_teams_users
+  belongs_to :provider
 end

@@ -12,6 +12,7 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  event_type_id :integer
+#  permitter_id  :integer
 #
 
 class Plan < ActiveRecord::Base

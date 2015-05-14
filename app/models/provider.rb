@@ -12,4 +12,8 @@
 
 class Provider < ActiveRecord::Base
   has_many :users, through: :providers_users
+  has_many :first_aid_stations
+  has_many :dispatchs
+  has_many :transports
+  has_many :mobile_teams
 end

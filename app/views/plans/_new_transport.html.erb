@@ -1,0 +1,18 @@
+<div id="new-transport" class="reveal-modal small" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add Transport</h3>
+  <div class="modal-body">
+    <%= simple_fields_for :transport do |t| %>
+      <%= t.input :name %>
+      <%= t.input :level %>
+      <%= t.input :provider,
+                        collection: Provider.all,
+                        label_method: :name,
+                        value_method: :id,
+                        include_blank: false,
+                        label: "Provider" %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>

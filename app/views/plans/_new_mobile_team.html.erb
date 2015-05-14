@@ -1,0 +1,19 @@
+<div id="new-mobile-team" class="reveal-modal small" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add Mobile Team</h3>
+  <div class="modal-body">
+    <%= simple_fields_for :mobile_team do |mobile| %>
+      <%= mobile.input :name %>
+      <%= mobile.input :level %>
+      <%= mobile.input :aed, label: "AEDs", input_html: {value: 0} %>
+      <%= mobile.input :provider,
+                        collection: Provider.all,
+                        label_method: :name,
+                        value_method: :id,
+                        include_blank: false,
+                        label: "Provider" %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>

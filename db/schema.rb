@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514011925) do
+ActiveRecord::Schema.define(version: 20150514173124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dispatches", force: :cascade do |t|
+    t.string   "name"
+    t.string   "level"
+    t.integer  "provider_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "dispatchs_users", force: :cascade do |t|
+    t.integer "dispatch_id"
+    t.integer "user_id"
+    t.boolean "contact"
+  end
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name"
@@ -49,6 +63,24 @@ ActiveRecord::Schema.define(version: 20150514011925) do
     t.integer  "user_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+  end
+
+  create_table "mobile_teams", force: :cascade do |t|
+    t.string   "level"
+    t.string   "type"
+    t.integer  "aed"
+    t.integer  "provider_id"
+    t.string   "name"
+    t.decimal  "lat",         precision: 10, scale: 6
+    t.decimal  "lng",         precision: 10, scale: 6
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  create_table "mobile_teams_users", force: :cascade do |t|
+    t.integer "mobile_team_id"
+    t.integer "user_id"
+    t.boolean "contact"
   end
 
   create_table "operation_periods", force: :cascade do |t|
@@ -97,6 +129,22 @@ ActiveRecord::Schema.define(version: 20150514011925) do
 
   create_table "providers_users", force: :cascade do |t|
     t.integer "provider_id"
+    t.integer "user_id"
+    t.boolean "contact"
+  end
+
+  create_table "transports", force: :cascade do |t|
+    t.string   "name"
+    t.string   "level"
+    t.integer  "provider_id"
+    t.decimal  "lat",         precision: 10, scale: 6
+    t.decimal  "lng",         precision: 10, scale: 6
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  create_table "transports_users", force: :cascade do |t|
+    t.integer "transport_id"
     t.integer "user_id"
     t.boolean "contact"
   end

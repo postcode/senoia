@@ -1,13 +1,9 @@
 # == Schema Information
 #
-# Table name: first_aid_stations
+# Table name: transports
 #
 #  id          :integer          not null, primary key
 #  name        :string
-#  md          :integer
-#  rn          :integer
-#  emt         :integer
-#  aed         :integer
 #  level       :string
 #  provider_id :integer
 #  lat         :decimal(10, 6)
@@ -16,15 +12,8 @@
 #  updated_at  :datetime         not null
 #
 
-FactoryGirl.define do
-  factory :first_aid_station do
-    name ""
-md ""
-rn ""
-emt ""
-aed ""
-level ""
-provider_id 1
-  end
+require 'rails_helper'
 
+RSpec.describe Transport, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
