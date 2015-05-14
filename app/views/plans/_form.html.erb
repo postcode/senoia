@@ -72,22 +72,63 @@
           <%= op.input :attendance, label: false %>
         </div>
       </div>
-      <h4>First Aid Stations</h4>
+
+      <fieldset>
+        <legend>First Aid Stations</legend>
+
         <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
-          <%= first_aid.input :name %>
-          <%= first_aid.input :md, label: "MDs", input_html: {value: 0} %>
-          <%= first_aid.input :rn, label: "RNs", input_html: {value: 0} %>
-          <%= first_aid.input :emt, label: "EMTs", input_html: {value: 0} %>
-          <%= first_aid.input :aed, label: "AEDs", input_html: {value: 0} %>
-          <%= first_aid.input :level %>
-          <%= first_aid.input :provider,
-                            collection: Provider.all,
-                            label_method: :name,
-                            value_method: :id,
-                            include_blank: false,
-                            label: "Provider" %>
+          <table>
+            <thead>
+              <th>Location</th>
+              <th>Lvl</th>
+              <th>MDs</th>
+              <th>RNs</th>
+              <th>EMTs</th>
+              <th>AEDs</th>
+              <th>Provider</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= first_aid.input :name, label: false %>
+                </td>
+                <td>
+                  <%= first_aid.input :level, label: false %>
+                </td>
+                <td>
+                  <%= first_aid.input :md, label: "MDs", input_html: {value: 0}, label: false%>
+                </td>
+                <td>
+                  <%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, label: false %>
+                </td>
+                <td>
+                  <%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, label: false %>
+                </td>
+                <td>
+                  <%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, label: false %>
+                </td>
+                <td>
+                  <%= first_aid.input :provider,
+                                    collection: Provider.all,
+                                    label_method: :name,
+                                    value_method: :id,
+                                    include_blank: false,
+                                    label: false %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i></a>
+                  <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
+                </td>
+              </tr>
+            </tbody>
+          </table>  
+
         <% end %>
       <% end %>
+        
+      </fieldset>
 
       <%= f.submit class: "button" %>
 

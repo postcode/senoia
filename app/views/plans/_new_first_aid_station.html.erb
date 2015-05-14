@@ -1,0 +1,11 @@
+<div id="new-first-aid-station" class="reveal-modal small" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add First Aid Station</h3>
+  <div class="modal-body">
+    <%= simple_fields_for :first_aid_station do |first_aid| %>
+      <%= first_aid.input :name %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
