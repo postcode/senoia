@@ -21,5 +21,5 @@ class Plan < ActiveRecord::Base
   belongs_to :event_type
   belongs_to :permitter
 
-  accepts_nested_attributes_for :event_type
+  accepts_nested_attributes_for :event_type, :operational_period
 end
