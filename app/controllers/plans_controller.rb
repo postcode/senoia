@@ -28,10 +28,15 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.create(plan_params)
     if @plan.save
+      @plan.draft!
       redirect_to plans_path
     else
       redirect_to plan_new(@plan), alert: @plan.errors
     end
+  end
+
+  def new_first_aid_station
+    
   end
 
   private 

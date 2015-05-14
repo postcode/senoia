@@ -77,7 +77,7 @@
         <fieldset>
           <legend>First Aid Stations</legend>
           <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
-            <table>
+            <table id="first_aid_table">
               <thead>
                 <th>Location</th>
                 <th>Lvl</th>
@@ -116,7 +116,7 @@
                                       label: false %>
                   </td>
                 </tr>
-                <tr>
+                <tr class="more">
                   <td>
                     <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i></a>
                     <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>

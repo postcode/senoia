@@ -37,6 +37,7 @@ gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 gem 'unicorn'
 gem 'unicorn-worker-killer'
+gem 'workflow'
 
 group :development do
   gem 'better_errors'

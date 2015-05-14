@@ -27,4 +27,8 @@ $(function() {
     // $('form .add_fields').show();
     event.preventDefault();
   }
+
+  $("#new-first-aid-station-submit").click(function() {
+    update_first_aid()
+  })
 });

@@ -17,5 +17,6 @@
 //= require main
 //= require turbolinks
 //= require smart_listing
+//= require asset_update
 
 $(function(){ $(document).foundation(); });
