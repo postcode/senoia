@@ -35,10 +35,6 @@ class PlansController < ApplicationController
     end
   end
 
-  def new_first_aid_station
-    
-  end
-
   private 
 
    # Using a private method to encapsulate the permissible parameters is
