@@ -3,15 +3,15 @@
   <h3>Add Mobile Team</h3>
   <div class="modal-body">
     <%= simple_fields_for :mobile_team do |mobile| %>
-      <%= mobile.input :name %>
-      <%= mobile.input :level %>
-      <%= mobile.input :aed, label: "AEDs", input_html: {value: 0} %>
+      <%= mobile.input :name, required: false %>
+      <%= mobile.input :level, required: false %>
+      <%= mobile.input :aed, label: "AEDs", input_html: {value: 0}, required: false %>
       <%= mobile.input :provider,
                         collection: Provider.all,
                         label_method: :name,
                         value_method: :id,
                         include_blank: false,
-                        label: "Provider" %>
+                        label: "Provider", required: false %>
     <% end %>
   </div>
   <div class="modal-footer">

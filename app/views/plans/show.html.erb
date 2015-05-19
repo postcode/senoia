@@ -1,16 +1,6 @@
+<%= render 'form' %>
 <div class="row ">
   <div class="large-7 columns">
-    <h2><%= @plan.name %></h2>
-    <ul class="no-bullet">
-      <li><strong>Dates:</strong> <%= @plan.start_date.nil? ? "N/A" : @plan.start_date %></li>
-      <li><strong>Crowd Size:</strong> <%= @plan.attendance.nil? ? "N/A" : @plan.attendance %></li>
-      <li><strong>Event Type:</strong> </li>
-      <li><strong>Alcohol:</strong> <%= @plan.alcohol.nil? ? "N/A" : @plan.alcohol %></li>
-      <li><strong>Contact:</strong></li>
-      <li><strong>Contact:</strong></li>
-      <li><strong>Contact:</strong></li>
-
-    </ul>
     <%= link_to '< Back', plans_path %>
   </div>
 </div>

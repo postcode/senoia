@@ -123,6 +123,12 @@ body {
   margin: 2em 0.5em;
 }
 
+.button {
+  &.active {
+    background: #f19b3b;
+  }
+}
+
 
 
 

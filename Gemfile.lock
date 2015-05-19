@@ -273,6 +273,7 @@ GEM
     rdoc (4.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    role_model (0.8.2)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -412,6 +413,7 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rails_12factor
   rakismet
+  role_model
   rspec-rails
   sass-rails (~> 5.0.0)
   sdoc

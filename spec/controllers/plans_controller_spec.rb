@@ -16,10 +16,20 @@ RSpec.describe PlansController do
         expect(response).to be_success
       end
     end
+
+    context 'when logged in as an admin' do
+      login_admin
+      it 'renders the page' do
+        get :index
+        @plan = Plan.new(name:"Fun Run")
+        expect(response).to be_success
+      end
+    end
   end
 
   describe 'GET new' do
     context 'the default view' do
+      login_admin
       it 'renders the plan form' do
         get :new
         expect(response).to be_success
@@ -34,6 +44,13 @@ RSpec.describe PlansController do
         get :show, id: plan.id
         expect(response).to be_success
       end
+    end
+  end
+
+  describe "#create" do
+    it "creates a successful mesaage post" do
+      @plane = Plan.create(name: Faker::App.name)
+      expect(@plane).to be_an_instance_of Plan
     end
   end
 end

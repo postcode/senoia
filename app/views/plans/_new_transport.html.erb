@@ -3,14 +3,14 @@
   <h3>Add Transport</h3>
   <div class="modal-body">
     <%= simple_fields_for :transport do |t| %>
-      <%= t.input :name %>
-      <%= t.input :level %>
+      <%= t.input :name, required: false %>
+      <%= t.input :level, required: false %>
       <%= t.input :provider,
                         collection: Provider.all,
                         label_method: :name,
                         value_method: :id,
                         include_blank: false,
-                        label: "Provider" %>
+                        label: "Provider", required: false %>
     <% end %>
   </div>
   <div class="modal-footer">

@@ -27,10 +27,23 @@
 #
 
 class User < ActiveRecord::Base
+  require 'role_model'
+  include RoleModel
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :database_authenticatable, 
+         :registerable,
+         :recoverable, 
+         :rememberable, 
+         :trackable, 
+         :validatable, 
+         :confirmable
 
   has_many :plans
+
+  roles_attribute :roles_mask
+
+  # declare the valid roles -- do not change the order if you add more
+  # roles later, always append them at the end!
+  roles :admin, :user, :guest
 end

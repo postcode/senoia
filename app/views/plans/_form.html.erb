@@ -2,7 +2,7 @@
   <h1>Enter Plan Information</h1>
   <%= render 'plan_state' %>
   <div class="large-6 columns plan_form">
-    <%= simple_form_for @plan do |f| %>
+    <%= simple_form_for [@plan] do |f| %>
       <% if @plan.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@plan.errors.count, "error") %> prohibited this department from being saved:</h2>
@@ -88,34 +88,6 @@
                 <th>Provider</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <%= first_aid.input :name, label: false %>
-                  </td>
-                  <td>
-                    <%= first_aid.input :level, label: false %>
-                  </td>
-                  <td>
-                    <%= first_aid.input :md, label: "MDs", input_html: {value: 0}, label: false%>
-                  </td>
-                  <td>
-                    <%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, label: false %>
-                  </td>
-                  <td>
-                    <%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, label: false %>
-                  </td>
-                  <td>
-                    <%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, label: false %>
-                  </td>
-                  <td>
-                    <%= first_aid.input :provider,
-                                      collection: Provider.all,
-                                      label_method: :name,
-                                      value_method: :id,
-                                      include_blank: false,
-                                      label: false %>
-                  </td>
-                </tr>
                 <tr class="more">
                   <td>
                     <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i></a>
@@ -137,25 +109,6 @@
                 <th>Provider</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <%= mobile.input :name, label: false %>
-                  </td>
-                  <td>
-                    <%= mobile.input :level, label: false %>
-                  </td>
-                  <td>
-                    <%= mobile.input :aed, label: "AEDs", input_html: {value: 0}, label: false%>
-                  </td>
-                  <td>
-                    <%= mobile.input :provider,
-                                      collection: Provider.all,
-                                      label_method: :name,
-                                      value_method: :id,
-                                      include_blank: false,
-                                      label: false %>
-                  </td>
-                </tr>
                 <tr>
                   <td>
                     <a id="new_mobile_team" href="#" data-reveal-id="new-mobile-team"><i class="fi-plus"></i></a>
@@ -208,7 +161,9 @@
         </fieldset>
         <% end %>
 
-      <%= f.submit class: "button" %>
+      <div class="actions">
+        <%= f.submit class: "button" %>
+      </div>
 
     <% end %> 
   </div>

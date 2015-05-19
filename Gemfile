@@ -29,6 +29,7 @@ gem 'pg'
 gem 'rack-attack'
 gem 'rack-mini-profiler'
 gem 'rakismet'
+gem 'role_model'
 gem 'sass-rails', '~> 5.0.0'
 gem "simple_calendar"
 gem 'simple_form'

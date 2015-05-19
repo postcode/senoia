@@ -1,9 +1,15 @@
 class PlansController < ApplicationController
+  load_and_authorize_resource
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
   def index
-    @plans = smart_listing_create(:plans, Plan.all, partial: "plans/listing")
+    if !current_user.nil? && current_user.is_admin?
+      plans_scope = Plan.all
+    else
+      plans_scope = Plan.with_accepted_state
+    end
+    @plans = smart_listing_create(:plans, plans_scope, partial: "plans/listing")
     respond_to do |format|
       format.html
       format.json { render json: @plans }
@@ -28,7 +34,7 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.create(plan_params)
     if @plan.save
-      @plan.draft!
+      @plan.submit!
       redirect_to plans_path
     else
       redirect_to plan_new(@plan), alert: @plan.errors

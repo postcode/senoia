@@ -3,14 +3,14 @@
   <h3>Add Dispatch</h3>
   <div class="modal-body">
     <%= simple_fields_for :dispatch do |d| %>
-      <%= d.input :name %>
-      <%= d.input :level %>
+      <%= d.input :name, required: false %>
+      <%= d.input :level, required: false %>
       <%= d.input :provider,
                         collection: Provider.all,
                         label_method: :name,
                         value_method: :id,
                         include_blank: false,
-                        label: "Provider" %>
+                        label: "Provider", required: false %>
     <% end %>
   </div>
   <div class="modal-footer">

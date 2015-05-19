@@ -2,17 +2,18 @@
 #
 # Table name: plans
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  owner_id      :integer
-#  start_date    :datetime
-#  end_date      :datetime
-#  attendance    :integer
-#  alcohol       :boolean
-#  created_at    :datetime
-#  updated_at    :datetime
-#  event_type_id :integer
-#  permitter_id  :integer
+#  id             :integer          not null, primary key
+#  name           :string
+#  owner_id       :integer
+#  start_date     :datetime
+#  end_date       :datetime
+#  attendance     :integer
+#  alcohol        :boolean
+#  created_at     :datetime
+#  updated_at     :datetime
+#  event_type_id  :integer
+#  permitter_id   :integer
+#  workflow_state :string
 #
 
 class Plan < ActiveRecord::Base
@@ -25,6 +26,8 @@ class Plan < ActiveRecord::Base
   has_many :operation_period
 
   accepts_nested_attributes_for :event_type, :operation_period
+
+  validates_presence_of :name
 
   include Workflow
   workflow do
@@ -40,5 +43,9 @@ class Plan < ActiveRecord::Base
     end
     state :accepted
     state :rejected
+  end
+
+  def submit
+    puts "I'm sending an email!"
   end
 end

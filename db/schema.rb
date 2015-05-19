@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514203458) do
+ActiveRecord::Schema.define(version: 20150519155611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 20150514203458) do
     t.string   "role",                   default: "guest", null: false
     t.integer  "organization_id"
     t.string   "phone_number"
+    t.integer  "roles_mask"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

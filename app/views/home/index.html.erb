@@ -30,12 +30,9 @@
     <p>calendar</p>
     <%= month_calendar events: @plans do |date, plans| %>
       <%= date.day %>
-
-      <% plans.each do |plan| %>
-        <div>
-          <%= link_to plan.name, plan_path(plan) %>
-        </div>
-      <% end %>
+      <div>
+        <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!"><%= plans.count %></span>
+      </div>
     <% end %>
   </div>
 </div>
