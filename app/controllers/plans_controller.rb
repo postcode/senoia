@@ -37,7 +37,7 @@ class PlansController < ApplicationController
       @plan.submit!
       redirect_to plans_path
     else
-      redirect_to plan_new(@plan), alert: @plan.errors
+      redirect_to new_plan_path(@plan), alert: @plan.errors
     end
   end
 
@@ -48,6 +48,6 @@ class PlansController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def plan_params
-      params.require(:plan).permit(:name, :start_date, :end_date, :attendance, :event_type, :owner, event_type_attributes: [:id, :name, :description], permitter_attributes: [:id, :name, :address, :phone_number], operation_period_attributes: [:id, :start_date, :end_date, :attendance, :plan_id])
+      params.require(:plan).permit(:name, :start_date, :end_date, :attendance, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], operation_periods_attributes: [:id, :start_date, :end_date, :attendance, :plan_id], users_attributes: [:id, :email, :password, :address, :roles, :roles_mask])
     end
 end

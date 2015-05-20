@@ -7,7 +7,7 @@ gem 'rails', '~> 4.2.0'
 gem 'annotate'
 gem 'aws-sdk', '< 2.0'
 gem 'browser-timezone-rails'
-gem 'cancan'
+gem 'cancancan', '~> 1.10'
 gem 'compass'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem 'devise'

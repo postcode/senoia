@@ -67,7 +67,9 @@
         </div>
         <div class="row">
           <div class="small-4 columns input_label">
-            <%= f.label :attendance, class: "inline", label: "Crowd Size" %>
+            <%= f.label :attendance, class: "inline" do %>
+               Crowd Size<a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+              <% end %>
           </div>
           <div class="small-8 columns">
             <%= op.input :attendance, label: false %>
