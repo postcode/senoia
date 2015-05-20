@@ -68,7 +68,7 @@
         <div class="row">
           <div class="small-4 columns input_label">
             <%= f.label :attendance, class: "inline" do %>
-             Crowd Size<a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+             Crowd Size <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
             <% end %>
             <div id="attendance-comment" class="reveal-modal small" data-reveal>
               <a class="close-reveal-modal">&#215;</a>
@@ -90,8 +90,9 @@
         <fieldset>
           <legend>First Aid Stations</legend>
           <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
-            <table id="first_aid_table">
+            <table id="first_aid_table" class="asset_table">
               <thead>
+                <th></th>
                 <th>Location</th>
                 <th>Lvl</th>
                 <th>MDs</th>
@@ -103,13 +104,13 @@
               <tbody>
                 <tr class="more">
                   <td>
-                    <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i></a>
-                    <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
                   </td>
                 </tr>
               </tbody>
             </table>  
           <% end %>
+          <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station" class="button primary small"><i class="fi-plus"></i> Add a First Aid Station</a>
+          <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
         </fieldset>
         <fieldset>
           <legend>Mobile Teams</legend>

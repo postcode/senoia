@@ -11,4 +11,5 @@ function update_first_aid() {
   $("tr").on("click", ".edit_first_aid", function() {
     $(this).parents("tr").find("input").prop("disabled", false)
   })
+  $("table.asset_table").show()
 }
