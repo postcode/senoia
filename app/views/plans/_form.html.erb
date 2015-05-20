@@ -68,8 +68,19 @@
         <div class="row">
           <div class="small-4 columns input_label">
             <%= f.label :attendance, class: "inline" do %>
-               Crowd Size<a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
-              <% end %>
+             Crowd Size<a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+            <% end %>
+            <div id="attendance-comment" class="reveal-modal small" data-reveal>
+              <a class="close-reveal-modal">&#215;</a>
+              <h3>Add A Comment</h3>
+              <div class="modal-body">
+                <label>Enter your comment:</label>
+                <%= text_area(:attendance_comment, :text, cols: 20, rows: 5) %>
+              </div>
+              <div class="modal-footer">
+                <a href="#" class="button primary save-modal">Add Comment</a>
+              </div>
+            </div>
           </div>
           <div class="small-8 columns">
             <%= op.input :attendance, label: false %>
