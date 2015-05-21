@@ -123,19 +123,48 @@ legend{
 }
 .landing a:hover{
   border: none;
+  background: $darkgray;
 }
 .main-section{
+  background: $mediumgray;
   text-align: center;
-  padding-top: 3em;
+  margin: 0em 0em 1em 0em;
+  h2{
+    color: #fff;
+    padding: .5em 0em;
+  } 
 }
-.main-section i{
-  color: #58585B; 
-  font-size: 9em;
-  padding-top: 2em;
+.learn-more-landing{
+  height: 300px;
+  background-image:url('/assets/information_image.png');
 }
+/* https://www.flickr.com/photos/audiolucistore/14163042905/in/photolist-nzxidV-LaARx-cxUcBu-9uZpk3-5erWNG-6Jpuud-xsZh8-ovRNyN-ovMGNz-cu64t-bncE6P-hnZzLf-kXy2-bPMHr6-ao63dG-5AmR7f-5nRsb3-dQjSHb-6W49Xi-4YPqqU-72j5yj-7m7B7h-a42jmC-qCzR6b-sSF1Mq-7QpV8y-rrtnoF-4Mt8dp-isjzoi-fGXeu1-58jBvL-7vEVHQ-qcQE2T-e1wDLh-8RViG5-55yjt2-55R1Tu-ihgH2m-4wttVC-6225bv-q62zMt-68jpVn-qMU7aT-oHcbMi-2RF5eT-do8JT3-56eXRT-dV8sXM-6UT19W-7UNsX4*/
+.browse-landing{
+  height: 300px;  
+  background-image:url('/assets/search_image.png');
+}
+/*https://www.flickr.com/search/?license=4%2C5%2C6%2C9%2C10&advanced=1&text=book%20shelf*/
+.new-plan-landing{
+  height: 300px;  
+  background-image:url('/assets/event_image.png');
+}
+/*https://www.flickr.com/photos/goincase/5227334827/in/photolist-8XVswx-e1H2wz-e1H3Kg-ekwWmw-e5EhXp-3JGb4Y-e5EgaK-8jQw3k-9WJkPJ-6CuXU3-8p1kRq-88McgK-gcNj9F-8ZYJNJ-gcGgk8-9pW7GC-mrmShP-aDNQjH-gcP8ca-dKuzK9-6Dzu4H-2WJec-e1H1D6-e1NDSL-fHj6iU-jxYo2D-iWV5n6-ooSDcT-ia8dgf-p6TSpU-e1H2je-78vw29-ohYFB2-dPVD1P-gcQMW3-88QqRf-88QqAh-6CrgKt-aDSDr5-9pQmVW-mrm52b-8ZYJgW-88McoD-gcP6qe-9pWMWy-9pTGHr-gcFJVb-8ZVCMi-9pPUQh-aokzW3*/
+
 .secondary-section{
   margin-top: 4em;
   padding-bottom: 5em;
+}
+.calendar-header{
+  font-family: $primary-font;
+  font-size: 1.5em;
+  line-height: 1em;
+  padding-bottom: .5em;
+  a{
+    color: $darkgray;
+    &:hover{
+      background: none;
+    }
+  }
 }
 
 /* NEW EVENT */

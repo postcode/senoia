@@ -1,33 +1,43 @@
+<div class="landing">
 <div class="row">
+  <div class="large-12 columns pageTitle">
+    <h1>SAN FRANCISCO EVENT PLANS</h1>
+  </div>  
   <div class="large-4 columns">
     <div class="main-section">
-      <i class="fi-info"></i>        
-      <h2>Learn More</h2>
+      <div class="learn-more-landing">
+      </div>              
+      <h2><i class="fi-info"></i> &nbsp;Learn More</h2>
     </div>
   </div>  
   <div class="large-4 columns">
     <div class="main-section">
+      <div class="browse-landing">
+      </div>      
       <%= link_to plans_path do %>
-        <i class="fi-magnifying-glass"></i>
-        <h2>Browse Plans</h2>   
+        
+          <h2><i class="fi-magnifying-glass"></i> &nbsp;Browse Plans</h2>
+            
       <% end %>
-    </div>
+    </div>   
   </div>
   <div class="large-4 columns">
     <div class="main-section">
+      <div class="new-plan-landing">
+      </div>
       <%= link_to new_plan_path do %>
-        <i class="fi-plus"></i>
-        <h2>New Plan</h2> 
+        
+        <h2><i class="fi-plus"></i> &nbsp;New Plan</h2> 
       <% end %>
     </div>         
   </div>            
 </div>
-<div class="row">
-  <div class="large-5 large-offset-1 medium-8 small-12 columns">
+<div class="row secondary-section">
+  <div class="large-7 medium-8 small-12 columns">
       <p>Zombie ipsum brains reversus ab cerebellum viral inferno, brein nam rick mend grimes malum cerveau cerebro. De carne cerebro lumbering animata cervello corpora quaeritis. Summus thalamus brains sit​​, morbo basal ganglia vel maleficia? De braaaiiiins apocalypsi gorger omero prefrontal cortex undead survivor fornix dictum mauris. Hi brains mindless mortuis limbic cortex soulless creaturas optic nerve, imo evil braaiinns stalking monstra. </p>
+      <p>Zombie ipsum brains reversus ab cerebellum viral inferno, brein nam rick mend grimes malum cerveau cerebro. De carne cerebro lumbering animata cervello corpora quaeritis. Summus thalamus brains sit​​, morbo basal ganglia vel maleficia? De braaaiiiins apocalypsi gorger omero prefrontal cortex undead survivor fornix dictum mauris. Hi Zombie ipsum brains reversus ab cerebellum viral inferno, brein nam rick mend grimes malum cerveau cerebro. De carne cerebro lumbering animata cervello corpora quaeritis. Summus thalamus brains sit​​, morbo basal ganglia vel maleficia? De braaaiiiins apocalypsi gorger omero prefrontal cortex undead survivor fornix dictum mauris. Hi Zombie ipsum brains reversus ab cerebellum viral inferno, brein nam rick mend grimes malum cerveau cerebro. De carne cerebro lumbering animata cervello corpora quaeritis. Summus thalamus </p>
   </div>
-  <div class="large-6 columns">
-    <p>calendar</p>
+  <div class="large-5 columns">
     <%= month_calendar events: @plans do |date, plans| %>
       <%= date.day %>
       <div>
@@ -35,4 +45,5 @@
       </div>
     <% end %>
   </div>
+</div>
 </div>
