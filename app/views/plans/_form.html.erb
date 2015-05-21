@@ -3,7 +3,7 @@
     <h1>Enter Plan Information</h1>
   </div>
   <%= render 'plan_state' %>
-  <div class="large-8 columns plan_form">
+  <div class="large-12 columns plan_form">
     <%= simple_form_for [@plan] do |f| %>
       <% if @plan.errors.any? %>
         <div id="error_explanation">
@@ -16,24 +16,27 @@
         </div>
       <% end %>
       <div class="row">
-        <div class="small-5 columns input_label">
+        <div class="small-3 columns input_label">
           <%= f.label :name, class: "inline", label: "Event Name" %>
         </div>
-        <div class="small-7 columns">
+        <div class="small-5 columns end">
           <%= f.input :name, label: false %>  
         </div>
       </div>
       <div class="row">
-        <div class="large-8 new-event-info">
+        <div class="large-8 columns new-event-info">
           <h6>Event Plan Creator</h6>
           <p>CONTACT</p>            
           <p><i class="fi-torso"></i> John Doe</p>
           <p><i class="fi-mail"></i> john@example.gov</p>
           <p><i class="fi-telephone"></i> (123) 456-7890</p>     
         </div>
+        <div class="large-1 columns end">
+          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+        </div>
       </div>
       <div class="row">
-        <div class="large-8">
+        <div class="large-8 columns">
           <fieldset>
             <legend>Collaborators</legend>
              <%= f.simple_fields_for :users do |u| %>
@@ -51,12 +54,15 @@
             <% end %>
           </fieldset>
         </div>
+        <div class="large-1 columns end">
+          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+        </div>
       </div>
       <div class="row">
-        <div class="small-5 columns input_label">
+        <div class="small-3 columns input_label">
           <%= f.label :event_type, class: "inline" %>
         </div>
-        <div class="small-7 columns">
+        <div class="small-5 columns">
         <%= f.association :event_type,
                               collection: EventType.all,
                               label_method: :name,
@@ -64,13 +70,16 @@
                               include_blank: false,
                               label: false %>
         </div>
+        <div class="large-1 columns end">
+          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+        </div>
       </div>
 
       <div class="row">
-        <div class="small-5 columns input_label">
+        <div class="small-3 columns input_label">
           <%= f.label :permitter, class: "inline", label: "Permitting Agency" %>
         </div>
-        <div class="small-7 columns">
+        <div class="small-5 columns">
         <%= f.association :permitter,
                             collection: Permitter.all,
                             label_method: :name,
@@ -78,13 +87,27 @@
                             include_blank: false,
                             label: false %>
         </div>
+        <div class="large-1 columns end">
+          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+        </div>
+        <div class="large-3 columns end">
+          <div>
+            Comment added by John Q Public
+            <blockquote>
+              Permit changed to Streets.
+            </blockquote>
+          </div>
+        </div>
       </div>
        <div class="row">
-        <div class="small-4 columns input_label">
+        <div class="small-3 columns input_label">
           <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
         </div>
-        <div class="small-8 columns">
+        <div class="small-5 columns">
           <%= f.input :alcohol, label: "Yes" %>
+        </div>
+        <div class="large-1 columns end">
+          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
         </div>
       </div>
       <hr/>
@@ -126,7 +149,7 @@
         <div class="row">
           <div class="small-4 columns input_label">
             <%= f.label :attendance, class: "inline" do %>
-             Crowd Size <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+             Crowd Size
             <% end %>
             <div id="attendance-comment" class="reveal-modal small" data-reveal>
               <a class="close-reveal-modal">&#215;</a>
@@ -238,7 +261,7 @@
     <%= render 'plan_sidebar' %>
 
     <div class="large-12 columns text-center actions plan-action">
-      <a href="#" class="button large warning radius"><i class="fi-check"></i> SAVE PLAN</a>
+      <a href="#" class="button large warning radius"><i class="fi-check"></i> SAVE DRAFT</a>
       <%= f.submit "SUBMIT PLAN", class: "button large radius" %>
     </div>
 
