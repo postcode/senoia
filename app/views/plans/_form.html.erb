@@ -73,7 +73,13 @@
         </div>
       </div>
       <hr/>
-      
+      <ul class="tabs" data-tab>
+        <li class="tab-title active"><a href="#panel1">Operational Period 1</a></li>
+        <li class="tab-title"><a href="#panel2">Operational Period 2</a></li>
+        <li class="tab-title"><a href="#panel3">Operational Period 3</a></li>
+      </ul>
+      <div class="tabs-content">
+        <div class="content active" id="panel1">
       <%= f.simple_fields_for :operation_periods do |op| %>
         <div class="row">
           <h3>Operational Period <a href="#" class="button tiny radius right"><i class="fi-plus"></i> Add Operational Period</a></h3>
@@ -211,10 +217,12 @@
         <% end %>
 
         <%= render 'plan_sidebar' %>
+      </div>
+    </div>
 
     <div class="large-12 columns text-center actions plan-action">
-        <%= f.submit class: "button large radius" %>
-        <a href="#" class="button large warning radius"><i class="fi-check"></i> SUBMIT PLAN</a>
+      <%= f.submit class: "button large radius" %>
+      <a href="#" class="button large warning radius"><i class="fi-check"></i> SUBMIT PLAN</a>
     </div>
 
     <% end %> 

@@ -3,6 +3,8 @@
     <thead>
       <th width="75"><%= smart_listing.sortable "Name", "name" %></th>
       <th width="75"><%= smart_listing.sortable "Start Date", "start_date" %></th>
+      <th width="75"><%= smart_listing.sortable "End Date", "end_date" %></th>
+      <th width="100"><%= smart_listing.sortable "Event Type", "event_type" %></th>
       <th width="100"><%= smart_listing.sortable "Attendance", "attendance" %></th>
     </thead>
     <tbody>
@@ -10,6 +12,8 @@
       <tr>
         <td><%= link_to o.name, plan_path(o) %></td>
         <td><%= o.start_date.nil? ? o.created_at.strftime('%D') : o.start_date.strftime('%D') %></td>
+        <td><%= o.end_date.nil? ? o.created_at.strftime('%D') : o.end_date.strftime('%D') %></td>
+        <td><%= o.event_type.nil? ? "N/A" : o.event_type.name %></td>
         <td><%= o.attendance %></td>
       </tr>
     <% end %>
