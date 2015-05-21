@@ -1,7 +1,7 @@
 <div class="row">
   <h1>Enter Plan Information</h1>
   <%= render 'plan_state' %>
-  <div class="large-6 columns plan_form">
+  <div class="large-7 columns plan_form">
     <%= simple_form_for [@plan] do |f| %>
       <% if @plan.errors.any? %>
         <div id="error_explanation">

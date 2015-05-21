@@ -22,44 +22,6 @@
           </div>
         </li>
         <hr>
-        <li class="large-12 columns status_filter">
-          <div class="checkbox row collapse">
-            <div class="checkbox inline">
-              <div>
-              <%= hidden_field_tag :my_requests_check, "0", id: "mr" %>
-              <%= check_box_tag :my_requests_check %>
-              <span class=""><i class="fi-torso"></i><%= "My Requests" %></span>
-              </div>
-            </div>
-          </div>
-          <h5>Status</h5>
-          <div class="checkbox row collapse">
-            <div class="checkbox inline">
-              <% if can? :manage, Plan %>
-                <div>
-                  <%= hidden_field_tag :submitted_check, "0", id: "submit" %>
-                  <%= check_box_tag :submitted_check %>
-                  <span class="submitted"><i class="fi-flag"></i><%= "Submitted" %></span>
-                </div>
-                <div>
-                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
-                  <%= check_box_tag :awaiting_review_check %>
-                  <span class="overdue"><i class="fi-alert"></i><%= "Awating Review" %></span>
-                </div>
-                <div>
-                  <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
-                  <%= check_box_tag :reviewing_check %>
-                  <span class="overdue"><i class="fi-alert"></i><%= "Being Reviewed" %></span>
-                </div>
-                <div>
-                  <%= hidden_field_tag :accepted_check, "0", id: "accepted" %>
-                  <%= check_box_tag :accepted_check %>
-                  <span class="overdue"><i class="fi-alert"></i><%= "Accepted" %></span>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </li>
         <li class="large-12 columns">
           <h5>Event Date</h5>
           <div class="row collapse">
@@ -68,6 +30,93 @@
             </div>
             <div class="Large-5 large-offset-1 medium-5 medium-offset-1 small-5 small-offset-1 columns end">
               <%= text_field_tag :end_date, '', placeholder: "end", class: 'dateSelect'  %>
+            </div>
+          </div>
+        </li>
+        <li class="large-12 columns status_filter">
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <div>
+              <%= hidden_field_tag :my_requests_check, "0", id: "mr" %>
+              <%= check_box_tag :my_requests_check %>
+              <span class=""><i class="fi-torso"></i><%= "My Plans" %></span>
+              </div>
+            </div>
+          </div>
+          <h5>Status</h5>
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <% if can? :manage, Plan %>
+                <div>
+                  <%= hidden_field_tag :submitted_check, "0", id: "draft" %>
+                  <%= check_box_tag :submitted_check %>
+                  <span class="submitted"><%= "Draft" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
+                  <%= check_box_tag :awaiting_review_check %>
+                  <span class="overdue"><%= "Under Review" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
+                  <%= check_box_tag :reviewing_check %>
+                  <span class="overdue"><%= "Revision Requested" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :accepted_check, "0", id: "accepted" %>
+                  <%= check_box_tag :accepted_check %>
+                  <span class="overdue"><%= "Approved" %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <% if can? :manage, Plan %>
+                <h5>Alcohol</h5>
+                <div>
+                  <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
+                  <%= check_box_tag :reviewing_check %>
+                  <span class="overdue"><%= "Yes" %></span>
+                </div>
+                <h5>Event Type</h5>
+                <div class="row collapse">
+                  <div class="medium-12 small-12 columns">
+                    <%= select_tag 'eventtype', options_for_select(EventType.all.collect{ |d| [d.name, d.id] }), {prompt: "Event Type"}  %>
+                  </div>
+                </div>
+                <h5>Attendance</h5>
+                <div>
+                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
+                  <%= check_box_tag :awaiting_review_check %>
+                  <span class="overdue"><%= "> 1000" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
+                  <%= check_box_tag :awaiting_review_check %>
+                  <span class="overdue"><%= "1000 - 5000" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
+                  <%= check_box_tag :awaiting_review_check %>
+                  <span class="overdue"><%= "5000 - 25,000" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
+                  <%= check_box_tag :awaiting_review_check %>
+                  <span class="overdue"><%= "25,000 +" %></span>
+                </div>
+                
+                <h4>SEARCH BY CREATOR:</h4>
+                <div class="row collapse">
+                  <div class="small-10 columns">
+                    <%= text_field_tag :filter, '', placeholder: "I'd like to find...", autocomplete: :on %>
+                  </div>
+                  <div class="small-2 columns">
+                    <button class="button postfix primary"><i class="fi-magnifying-glass"></i></button>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
         </li>
