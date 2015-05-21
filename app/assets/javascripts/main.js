@@ -28,4 +28,7 @@ $(function() {
   $("#new-first-aid-station-submit").click(function() {
     update_first_aid()
   })
+
+  $(".day-alert").parent().addClass("day-alert")
+  $(".day-normal").parent().addClass("day-normal")
 });

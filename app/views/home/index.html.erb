@@ -37,11 +37,17 @@
       <h4>Zombie ipsum brains reversus ab cerebellum viral inferno, brein nam rick mend grimes malum cerveau cerebro. De carne cerebro lumbering animata cervello corpora quaeritis. Summus thalamus brains sit​​, morbo basal ganglia vel maleficia? De braaaiiiins apocalypsi gorger omero prefrontal cortex undead survivor fornix dictum mauris. Hi brains mindless mortuis limbic cortex soulless creaturas optic nerve, imo evil braaiinns stalking monstra. </h4>
   </div>
   <div class="large-5 columns">
-    <%= month_calendar events: @plans do |date, plans| %>
+    <%= month_calendar td: {class: "day"}, events: @plans do |date, plans| %>
       <%= date.day %>
-      <div>
-        <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!"><%= plans.count %></span>
-      </div>
+      <% if plans.count > 0 %>
+        <div class="day-plans <%= plans.count >= 5 ? 'day-alert' : 'day-normal' %>">
+          <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= plans.map.each do |p| p.name end %>"><%= plans.count %></span>
+        </div>
+      <% else %>
+        <div>
+          <span data-tooltip aria-haspopup="true" class="has-tip" title="This is a tooltip">&nbsp;</span>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
