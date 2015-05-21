@@ -81,6 +81,9 @@ ol{
   font-family:  $secondary-font;
   font-size: 14px;
 }
+.input_label label{
+  font-family: $secondary-font;
+}
 
 /* NAV BAR */
 .top-bar {
@@ -99,6 +102,23 @@ ol{
 .pageTitle{
   margin-top: 2em;
   margin-bottom: 2em;
+}
+fieldset{
+  padding-bottom: .3rem;
+  p{
+    margin-bottom: .25em;
+  }
+  i{
+    margin-right: .5em;
+  }
+}
+legend{
+  color: $typography;
+  font-family: $secondary-font;
+}
+hr{
+  border: 3px solid #eee;
+  margin-bottom: 2.25em;
 }
 
 /* LANDING PAGE */
@@ -139,12 +159,29 @@ ol{
   padding: .25em;
   margin-top: -2.1em;
 }
-.new-event-info p{
-  margin-bottom: .25em;
+.operational-period{
+  border-top: 5px solid #eee;
+  border-bottom: 5px solid #eee;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
-.new-event-info i{
-  margin-right: .5em;
+.plan-staff{
+  fieldset{
+    padding-top: .5rem;
+    padding-bottom: .75rem;
+  }
 }
+.plan-action{
+  border-top: 5px solid #eee;
+  margin-top: 2em;
+  margin-bottom: 5em;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;  
+}
+
+
 
 /* PLAN ARCHIVE */
 .plan-archive{
@@ -168,6 +205,13 @@ ol{
 .plan-archive a:hover{
   border: none;
 }
+.bottom-half{
+  fieldset{
+    padding-top: .5rem;
+    padding-bottom: .75rem;
+  }
+}
+
 
 /* BUTTONS */
 .button{
@@ -211,9 +255,13 @@ ol{
 }
 
 .plan_form {
-  margin: 2em 0.5em;
+  margin: 2em 0.5em 0em 0.5em;
 }
-
+.plan-state{
+  .button{
+    background: $mediumgray;
+  }
+}
 .button {
   &.active {
     background: #f19b3b;
@@ -223,6 +271,7 @@ ol{
 .asset_table {
   display: none;
 }
+
 
 
 

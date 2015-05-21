@@ -1,7 +1,9 @@
 <div class="row">
-  <h1>Enter Plan Information</h1>
+  <div class="large-12 columns pageTitle">
+    <h1>Enter Plan Information</h1>
+  </div>
   <%= render 'plan_state' %>
-  <div class="large-6 columns plan_form">
+  <div class="large-7 columns plan_form">
     <%= simple_form_for [@plan] do |f| %>
       <% if @plan.errors.any? %>
         <div id="error_explanation">
@@ -14,18 +16,18 @@
         </div>
       <% end %>
       <div class="row">
-        <div class="small-4 columns input_label">
+        <div class="small-5 columns input_label">
           <%= f.label :name, class: "inline", label: "Event Name" %>
         </div>
-        <div class="small-8 columns">
+        <div class="small-7 columns">
           <%= f.input :name, label: false %>  
         </div>
       </div>
       <div class="row">
-        <div class="small-4 columns input_label">
+        <div class="small-5 columns input_label">
           <%= f.label :event_type, class: "inline" %>
         </div>
-        <div class="small-8 columns">
+        <div class="small-7 columns">
         <%= f.association :event_type,
                               collection: EventType.all,
                               label_method: :name,
@@ -36,10 +38,10 @@
       </div>
 
       <div class="row">
-        <div class="small-4 columns input_label">
+        <div class="small-5 columns input_label">
           <%= f.label :permitter, class: "inline", label: "Permitting Agency" %>
         </div>
-        <div class="small-8 columns">
+        <div class="small-7 columns">
         <%= f.association :permitter,
                             collection: Permitter.all,
                             label_method: :name,
@@ -50,21 +52,45 @@
       </div>
       
       <%= f.input :alcohol %>
-
-      
+      <span class="plan-staff">
+        <fieldset>
+          <legend>EVENT PLAN CREATOR</legend>          
+          <p><i class="fi-torso"></i> John Doe</p>
+          <p><i class="fi-mail"></i> john@example.gov</p>
+          <p><i class="fi-telephone"></i> (123) 456-7890</p>
+        </fieldset>
+        <fieldset>
+          <legend>APPROVED EDITORS</legend>          
+          <p><i class="fi-torso"></i> John Doe</p>
+          <p><i class="fi-mail"></i> john@example.gov</p>
+          <p><i class="fi-telephone"></i> (123) 456-7890</p>
+        </fieldset>      
+      </span>
       <%= f.simple_fields_for :operation_periods do |op| %>
-        <h3>Operational Period</h3>
+      <div class="operational-period">
+        <h2>OPERATIONAL PERIOD</h2><br>
         <div class="row">
-          <div class="small-4 columns input_label">
-          <%= f.label :start_date, class: "inline", label: "Event Date" %>
-        </div>
-          <div class="small-4 columns">
-            <%= op.input :start_date, label: false, placeholder: "Start" %>
+          <div class="small-2 columns input_label">
+          <%= f.label :start_date, class: "inline", label: "START" %>
           </div>
-          <div class="small-4 columns">
-            <%= op.input :end_date, label: false, placeholder: "End" %>
+          <div class="small-3 columns">
+            <%= op.input :start_date, label: false, placeholder: "Date" %>
+          </div>
+          <div class="small-3 columns end">
+            <%= op.input :end_date, label: false, placeholder: "Time" %>
           </div>
         </div>
+        <div class="row">
+          <div class="small-2 columns input_label">
+          <%= f.label :start_date, class: "inline", label: "END" %>
+          </div>
+          <div class="small-3 columns">
+            <%= op.input :start_date, label: false, placeholder: "Date" %>
+          </div>
+          <div class="small-3 columns end">
+            <%= op.input :end_date, label: false, placeholder: "Time" %>
+          </div>
+        </div>        
         <div class="row">
           <div class="small-4 columns input_label">
             <%= f.label :attendance, class: "inline" do %>
@@ -82,13 +108,13 @@
               </div>
             </div>
           </div>
-          <div class="small-8 columns">
+          <div class="small-4 columns end">
             <%= op.input :attendance, label: false %>
           </div>
         </div>
 
         <fieldset>
-          <legend>First Aid Stations</legend>
+          <legend>FIRST AID STATIONS</legend>
           <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
             <table id="first_aid_table" class="asset_table">
               <thead>
@@ -109,11 +135,11 @@
               </tbody>
             </table>  
           <% end %>
-          <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station" class="button primary small"><i class="fi-plus"></i> Add a First Aid Station</a>
+          <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station" class="button primary tiny radius"><i class="fi-plus"></i> ADD FIRST AID STATION</a>
           <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
         </fieldset>
         <fieldset>
-          <legend>Mobile Teams</legend>
+          <legend>MOBILE TEAMS</legend>
           <%= op.simple_fields_for :mobile_teams do |mobile| %>
             <table>
               <thead>
@@ -134,7 +160,7 @@
           <% end %>
         </fieldset>
         <fieldset>
-          <legend>Transport</legend>
+          <legend>TRANSPORT</legend>
           <%= op.simple_fields_for :transports do |t| %>
             <table id="transport_table">
               <thead>
@@ -154,7 +180,7 @@
           <% end %>
         </fieldset>
         <fieldset>
-          <legend>Dispatch</legend>
+          <legend>DISPATCH</legend>
           <%= op.simple_fields_for :dispatchs do |d| %>
             <table id="dispatch_table">
               <thead>
@@ -173,13 +199,51 @@
             </table>  
           <% end %>
         </fieldset>
-        <% end %>
-
-      <div class="actions">
-        <%= f.submit class: "button" %>
       </div>
+      <fieldset>
+        <legend>RESPONSABILITY</legend>
+        <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
+        <a href="#" class="button tiny radius">ACCEPT</a>
+      </fieldset>
+      <fieldset>      
+        <legend>CPR & 911</legend>
+        <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
+        <a href="#" class="button tiny radius">ACCEPT</a>
+      </fieldset> 
+      <fieldset>      
+        <legend>COMMUNICATIONS</legend>
+        <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
+        <label>
+          <input type="text" placeholder="(123) 456-7890" />
+        </label> 
+        <a href="#" class="button tiny radius">ACCEPT</a>
+      </fieldset>
+      <fieldset>
+        <legend>SUPPLEMENTARY DOCUMENTS</legend>
+        <a href="#" class="button tiny radius"><i class="fi-plus"></i> UPLOAD</a>
+      </fieldset> 
+      <fieldset>
+        <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
+        <p> 
+        <label><i class="fi-torso"></i> Name
+          <input type="text" placeholder="" />
+        </label></p>
+        <p> 
+        <label><i class="fi-mail"></i> Email
+          <input type="text" placeholder="" />
+        </label></p>
+        <p> 
+        <label><i class="fi-telephone"></i> Phone
+          <input type="text" placeholder="" />
+        </label></p> 
+      </fieldset>                              
+        <% end %>
+    </div>    
+    <div class="large-12 columns text-center actions plan-action">
+        <%= f.submit class: "button large radius" %>
+        <a href="#" class="button large warning radius"><i class="fi-check"></i> SUBMIT PLAN</a>
+    </div>
 
     <% end %> 
-  </div>
-  <%= render 'plan_sidebar' %>
+  
 </div>
