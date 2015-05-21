@@ -1,13 +1,18 @@
-<div class="row">
-  <div class="large-9 columns">
-    <ul class="button-group radius">
-      <li><a href="#" class="button">Draft</a></li>
-      <li><a href="#" class="button <%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
-      <li><a href="#" class="button">Revision Requested</a></li>
-      <li><a href="#" class="button">Approved</a></li>          
-    </ul>
+<div class="row plan-state">
+  <div class="large-8 columns">
+    <ul class="breadcrumb">
+      <li><a href="#" class="review">Draft</a></li>
+      <li><a href="#" class="review <%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
+      <li><a href="#" class="review">Revision Requested</a></li>
+      <li><a href="#" class="review">Approved</a></li>
+    </ul>    
   </div> 
-  <div class="large-3 columns"> 
-    <a href="#" class="button tiny radius" style="background: gray;">Post Event<br>Treatment Report</a>
+
+  <div class="large-4 columns"> 
+    <ul class="button-group radius">
+      <li><a href="#" class="button tiny contact-list">Contact List<br><br></a></li>
+      <li><a href="#" class="button tiny">Post Event<br>Treatment Report</a></li>          
+    </ul>
   </div>         
 </div>
+
