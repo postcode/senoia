@@ -5,9 +5,9 @@ class PlansController < ApplicationController
 
   def index
     if !current_user.nil? && current_user.is_admin?
-      plans_scope = Plan.all
+      plans_scope = Plan.all.order(:start_date)
     else
-      plans_scope = Plan.with_accepted_state
+      plans_scope = Plan.with_accepted_state(:start_date)
     end
     @plans = smart_listing_create(:plans, plans_scope, partial: "plans/listing")
     respond_to do |format|
@@ -33,6 +33,8 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.create(plan_params)
+    @operational_period = OperationPeriod.create(params[:plan][:operation_period])
+    @plan.operation_period << @operational_period
     if @plan.save
       @plan.submit!
       redirect_to plans_path
