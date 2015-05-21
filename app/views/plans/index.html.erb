@@ -28,7 +28,7 @@
               <div>
               <%= hidden_field_tag :my_requests_check, "0", id: "mr" %>
               <%= check_box_tag :my_requests_check %>
-              <span class=""><i class="fi-torso"></i><%= "My Requests" %></span>
+              <span class=""><i class="fi-torso"></i><%= "My Plans" %></span>
               </div>
             </div>
           </div>
@@ -39,27 +39,92 @@
                 <div>
                   <%= hidden_field_tag :submitted_check, "0", id: "submit" %>
                   <%= check_box_tag :submitted_check %>
-                  <span class="submitted"><i class="fi-flag"></i><%= "Submitted" %></span>
+                  <span class="submitted"><%= "Draft" %></span>
                 </div>
                 <div>
                   <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
                   <%= check_box_tag :awaiting_review_check %>
-                  <span class="overdue"><i class="fi-alert"></i><%= "Awating Review" %></span>
+                  <span class="overdue"><%= "Under Review" %></span>
                 </div>
                 <div>
                   <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
                   <%= check_box_tag :reviewing_check %>
-                  <span class="overdue"><i class="fi-alert"></i><%= "Being Reviewed" %></span>
+                  <span class="overdue"><%= "Revision Requested" %></span>
                 </div>
                 <div>
                   <%= hidden_field_tag :accepted_check, "0", id: "accepted" %>
                   <%= check_box_tag :accepted_check %>
-                  <span class="overdue"><i class="fi-alert"></i><%= "Accepted" %></span>
+                  <span class="overdue"><%= "Approved" %></span>
                 </div>
               <% end %>
             </div>
           </div>
         </li>
+        <li class="large-12 columns status_filter">
+          <h5>Event Type</h5>
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <% if can? :manage, Plan %>
+                <div>
+                  <%= hidden_field_tag :submitted_check, "0", id: "submit" %>
+                  <%= check_box_tag :submitted_check %>
+                  <span class="submitted"><%= "Concert" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
+                  <%= check_box_tag :awaiting_review_check %>
+                  <span class="overdue"><%= "Athletic" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
+                  <%= check_box_tag :reviewing_check %>
+                  <span class="overdue"><%= "Festival" %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </li>  
+        <li class="large-12 columns status_filter">
+          <h5>ATTENDANCE</h5>
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <% if can? :manage, Plan %>
+                <div>
+                  <%= hidden_field_tag :submitted_check, "0", id: "submit" %>
+                  <%= check_box_tag :submitted_check %>
+                  <span class="submitted"><%= "+15,000" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
+                  <%= check_box_tag :awaiting_review_check %>
+                  <span class="overdue"><%= "14,999 - 5,000" %></span>
+                </div>
+                <div>
+                  <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
+                  <%= check_box_tag :reviewing_check %>
+                  <span class="overdue"><%= "5,000 - 1" %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </li>
+        <li class="large-12 columns">
+          <h5>CREATOR</h5>
+          <div class="row collapse">
+            <div class="large-12 medium-5 small-5 columns">
+              <%= text_field_tag :start_date, '', placeholder: "name", class: 'dateSelect' %>
+            </div>
+          </div>
+        </li>
+        <li class="large-12 columns">
+          <h5>ALCOHOL</h5>
+            <div class="row">
+              <div class="large-12 columns">
+                <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Yes</label>
+                <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">No</label>
+              </div>
+            </div>
+        </li>                                 
         <li class="large-12 columns">
           <h5>Event Date</h5>
           <div class="row collapse">

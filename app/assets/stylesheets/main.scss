@@ -116,10 +116,6 @@ legend{
   color: $typography;
   font-family: $secondary-font;
 }
-hr{
-  border: 3px solid #eee;
-  margin-bottom: 2.25em;
-}
 
 /* LANDING PAGE */
 .landing{
@@ -189,6 +185,10 @@ hr{
 }
 .side-nav{
   background: #eee;
+  h5{
+    margin-top: .75rem;
+    margin-bottom: .25rem;
+  }
   i{
     margin-left: .5em;
     margin-right: .35em;
@@ -205,11 +205,8 @@ hr{
 .plan-archive a:hover{
   border: none;
 }
-.bottom-half{
-  fieldset{
-    padding-top: .5rem;
-    padding-bottom: .75rem;
-  }
+input[type="checkbox"]{
+  margin: 0rem;
 }
 
 
