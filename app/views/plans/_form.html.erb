@@ -24,6 +24,35 @@
         </div>
       </div>
       <div class="row">
+        <div class="large-8 new-event-info">
+          <h6>Event Plan Creator</h6>
+          <p>CONTACT</p>            
+          <p><i class="fi-torso"></i> John Doe</p>
+          <p><i class="fi-mail"></i> john@example.gov</p>
+          <p><i class="fi-telephone"></i> (123) 456-7890</p>     
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-8">
+          <fieldset>
+            <legend>Collaborators</legend>
+             <%= f.simple_fields_for :users do |u| %>
+              <div class="row">
+                <div class="small-3 columns input_label">
+                  <%= u.label "Email", class: "inline" %>
+                </div>
+                <div class="small-8 columns">
+                  <%= u.input :email, label: false %>
+                </div>
+              </div>
+              <div class="row">
+                <a href="#" class="button small radius "><i class="fi-plus"></i> Add Editors</a>
+              </div>
+            <% end %>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row">
         <div class="small-5 columns input_label">
           <%= f.label :event_type, class: "inline" %>
         </div>
@@ -56,20 +85,6 @@
         </div>
         <div class="small-8 columns">
           <%= f.input :alcohol, label: false %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="large-12 columns new-event-info">
-          <h6>Event Plan Creator</h6>
-          <p>CONTACT</p>            
-          <p><i class="fi-torso"></i> John Doe</p>
-          <p><i class="fi-mail"></i> john@example.gov</p>
-          <p><i class="fi-telephone"></i> (123) 456-7890</p>     
-        </div>
-      </div>
-      <div class="row">
-        <div class="large-8">
-          <a href="#" class="button small radius "><i class="fi-plus"></i> Add Editors</a>
         </div>
       </div>
       <hr/>
