@@ -1,7 +1,7 @@
 <div class="row">
   <h1>Enter Plan Information</h1>
   <%= render 'plan_state' %>
-  <div class="large-7 columns plan_form">
+  <div class="large-8 columns plan_form">
     <%= simple_form_for [@plan] do |f| %>
       <% if @plan.errors.any? %>
         <div id="error_explanation">
@@ -48,12 +48,29 @@
                             label: false %>
         </div>
       </div>
-      
-      <%= f.input :alcohol %>
-
+       <div class="row">
+        <div class="small-4 columns input_label">
+          <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.input :alcohol, label: false %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns new-event-info">
+          <h6>Event Plan Creator</h6>
+          <p>CONTACT</p>            
+          <p><i class="fi-torso"></i> John Doe</p>
+          <p><i class="fi-mail"></i> john@example.gov</p>
+          <p><i class="fi-telephone"></i> (123) 456-7890</p>     
+        </div>
+      </div>
+      <hr/>
       
       <%= f.simple_fields_for :operation_periods do |op| %>
-        <h3>Operational Period</h3>
+        <div class="row">
+          <h3>Operational Period <a href="#" class="button tiny radius right"><i class="fi-plus"></i> Add Operational Period</a></h3>
+        </div>
         <div class="row">
           <div class="small-4 columns input_label">
           <%= f.label :start_date, class: "inline", label: "Event Date" %>
@@ -175,11 +192,14 @@
         </fieldset>
         <% end %>
 
+        <%= render 'plan_sidebar' %>
+
       <div class="actions">
+        <a href="#" class="button">Save Draft</a>
         <%= f.submit class: "button" %>
+        
       </div>
 
     <% end %> 
   </div>
-  <%= render 'plan_sidebar' %>
 </div>

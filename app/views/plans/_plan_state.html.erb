@@ -2,9 +2,8 @@
   <div class="large-9 columns">
     <ul class="button-group radius">
       <li><a href="#" class="button">Draft</a></li>
-      <li><a href="#" class="button <%= @plan.awaiting_review? ? 'active' : 'none' %>">Submitted</a></li>
-      <li><a href="#" class="button">Revision</a></li>
-      <li><a href="#" class="button">Under Review</a></li>
+      <li><a href="#" class="button <%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
+      <li><a href="#" class="button">Revision Requested</a></li>
       <li><a href="#" class="button">Approved</a></li>          
     </ul>
   </div> 
