@@ -94,6 +94,13 @@ ol{
   }
 }
 
+/* GENERAL */
+
+.pageTitle{
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
 /* LANDING PAGE */
 .landing{
   margin-top: 1em;
@@ -143,9 +150,12 @@ ol{
 .plan-archive{
   margin-top: 2em;
 }
-.filter{
-  background: #E6E7E8;
-  padding: 1em;
+.side-nav{
+  background: #eee;
+  i{
+    margin-left: .5em;
+    margin-right: .35em;
+  }
 }
 .plan-archive a{
   color: white;
@@ -181,7 +191,6 @@ ol{
 }
 
 .plan_table {
-  margin-top: 1.2em;
   border: none;
   tr {
     &:hover {
