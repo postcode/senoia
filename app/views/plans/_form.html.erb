@@ -84,10 +84,15 @@
           <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
         </div>
         <div class="small-8 columns">
-          <%= f.input :alcohol, label: false %>
+          <%= f.input :alcohol, label: "Yes" %>
         </div>
       </div>
       <hr/>
+
+      <div class="row">
+        <h3>Operational Period <a href="#" class="button tiny radius right"><i class="fi-plus"></i> Add Operational Period</a></h3>
+      </div>
+
       <ul class="tabs" data-tab>
         <li class="tab-title active"><a href="#panel1">Operational Period 1</a></li>
         <li class="tab-title"><a href="#panel2">Operational Period 2</a></li>
@@ -96,9 +101,6 @@
       <div class="tabs-content">
         <div class="content active" id="panel1">
       <%= f.simple_fields_for :operation_periods do |op| %>
-        <div class="row">
-          <h3>Operational Period <a href="#" class="button tiny radius right"><i class="fi-plus"></i> Add Operational Period</a></h3>
-        </div>
         <div class="row">
           <div class="small-2 columns input_label">
           <%= f.label :start_date, class: "inline", label: "START" %>
@@ -230,14 +232,14 @@
           <% end %>
         </fieldset>
         <% end %>
-
-        <%= render 'plan_sidebar' %>
       </div>
     </div>
 
+    <%= render 'plan_sidebar' %>
+
     <div class="large-12 columns text-center actions plan-action">
-      <%= f.submit class: "button large radius" %>
-      <a href="#" class="button large warning radius"><i class="fi-check"></i> SUBMIT PLAN</a>
+      <a href="#" class="button large warning radius"><i class="fi-check"></i> SAVE PLAN</a>
+      <%= f.submit "SUBMIT PLAN", class: "button large radius" %>
     </div>
 
     <% end %> 
