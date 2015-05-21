@@ -1,5 +1,6 @@
 <div class="row plan-state">
-  <div class="large-9 columns">
+  <div class="large-8 columns">
+  <!--
     <ul class="button-group radius">
       <li><a href="#" class="button">Draft</a></li>
       <li><a href="#" class="button <%= @plan.awaiting_review? ? 'active' : 'none' %>">Submitted</a></li>
@@ -7,8 +8,20 @@
       <li><a href="#" class="button">Under Review</a></li>
       <li><a href="#" class="button">Approved</a></li>          
     </ul>
+  -->
+    <ul class="breadcrumb">
+      <li><a href="#">Draft</a></li>
+      <li><a href="#" class="<%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
+      <li><a href="#">Revision Requested</a></li>
+      <li><a href="#">Approved</a></li>
+    </ul>    
   </div> 
-  <div class="large-3 columns"> 
-    <a href="#" class="button tiny radius" style="background: gray;">Post Event<br>Treatment Report</a>
+
+  <div class="large-4 columns"> 
+    <ul class="button-group radius">
+      <li><a href="#" class="button tiny contact-list">Contact List<br><br></a></li>
+      <li><a href="#" class="button tiny">Post Event<br>Treatment Report</a></li>          
+    </ul>
   </div>         
 </div>
+
