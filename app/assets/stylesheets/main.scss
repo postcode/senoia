@@ -1,5 +1,87 @@
 body {
 }
+/* FONTS */
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,300,800);
+
+/* COLORS */
+$postcodeblue: #86CBD9;
+$darkgray: #58585B;
+$mediumgray: #bcbcbc;
+$lightgray: #E6E7E8;
+$promptlyblue: #789FD3;
+$recordtracred: #EC916F;
+$green: #86CDB2;
+$orange: #EEA758;
+$yellow: #EDD364;
+
+/* Element Colors */
+$typography: #58585B;
+$btntext: #FFF; 
+
+/* TYPOGRAPHY */
+
+$primary-font: 'Montserrat', Arial, sans-serif;
+$secondary-font: "Open Sans", Arial, sans-serif;
+
+/* Headers */
+h1 {
+  color: $typography;
+    font-family: $primary-font;
+    font-size: 38px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+h2{
+  color: $typography;
+    font-family: $primary-font;
+    font-size: 30px;
+}
+h3{
+  color: $typography;
+  font-family: $secondary-font;
+    font-size: 26px;
+}
+h4{
+  color: $typography;
+  font-family: $secondary-font;
+    font-size: 20px;
+}
+h5{
+  color: $typography;
+  font-family: $secondary-font;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+h6{
+  color: $typography;
+  font-family: $secondary-font;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+p {
+  color: $typography;
+    font-family: $secondary-font;
+    font-size: 14px;
+}
+small{
+  font-size: 9px;
+  padding: 5px 10px 10px 0px;
+}
+
+
+ul{
+  color: $typography;
+  font-family:  $secondary-font;
+  font-size: 14px;
+}
+ol{
+  color: $typography;
+  font-family:  $secondary-font;
+  font-size: 14px;
+}
+
 /* NAV BAR */
 .top-bar {
   background: #789fd3;
