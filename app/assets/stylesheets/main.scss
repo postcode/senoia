@@ -88,6 +88,9 @@ ol{
 /* NAV BAR */
 .top-bar {
   background: #789fd3;
+  .name {
+    // background: asset-url("DEM_logo.jpg");
+  }
 }
 
 .top-bar-section {
@@ -350,6 +353,7 @@ input[type="checkbox"]{
 .asset_table {
   display: none;
 }
+
 
 
 
