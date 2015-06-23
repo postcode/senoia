@@ -24,6 +24,7 @@
 #  role                   :string           default("guest"), not null
 #  organization_id        :integer
 #  phone_number           :string
+#  roles_mask             :integer
 #
 
 class User < ActiveRecord::Base

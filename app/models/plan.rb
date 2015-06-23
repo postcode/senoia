@@ -18,6 +18,8 @@
 
 class Plan < ActiveRecord::Base
   extend SimpleCalendar
+  has_paper_trail
+  acts_as_commentable
   has_calendar attribute: :start_date
   belongs_to :owner, class_name: User
   belongs_to :event_type

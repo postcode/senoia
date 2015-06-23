@@ -12,6 +12,7 @@
 #
 
 class OperationPeriod < ActiveRecord::Base
+  acts_as_commentable
   has_many :first_aid_stations, through: :medical_assets
   has_many :mobile_teams, through: :medical_assets
   has_many :transports, through: :medical_assets
