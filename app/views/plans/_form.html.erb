@@ -32,7 +32,7 @@
           <p><i class="fi-telephone"></i> (123) 456-7890</p>     
         </div>
         <div class="large-3 columns end">
-          <div id="attendance-comment">
+          <div id="attendance_comment" class="comment-section">
             <a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
             <div class="new-comment-area">
               <label>Add A Comment:</label>
@@ -40,7 +40,7 @@
               <%= link_to "Add Comment", "#", id: "new-comment", class: "button primary tiny", :"data-href" => add_comment_plan_path(@plan) %>
             </div>
             <div class="existing-comments">
-              <!-- a partial goes here -->
+              <%= render partial: "existing_comments", locals: { plan: @plan, element_id: "attendance_comment_text" } %>
             </div>
           </div>
         </div>

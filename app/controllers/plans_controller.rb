@@ -3,6 +3,8 @@ class PlansController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
+  require 'pry'
+
   def index
     if !current_user.nil? && current_user.is_admin?
       plans_scope = Plan.all.order(:start_date)
@@ -45,12 +47,22 @@ class PlansController < ApplicationController
 
   def add_comment
     @plan = Plan.find(params[:id])
-    @comment = Comment.build_from(@plan, current_user.id, params[:comment_text], "test_id")
+    @comment = Comment.build_from(@plan, current_user.id, params[:comment_text], params[:element_id])
     @comment.save
     respond_to do |format|
       format.js
     end
     
+  end
+
+  def resolve_comment
+    @plan = Plan.find(params[:id])
+    @comment = Comment.find(params[:comment_id])
+    @comment.open = false
+    @comment.save
+    respond_to do |format|
+      format.js
+    end
   end
 
   private 

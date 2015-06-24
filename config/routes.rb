@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :plans do
     member do
       post :add_comment
+      post :resolve_comment
     end
   end
   resources :event_types

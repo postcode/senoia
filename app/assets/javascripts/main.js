@@ -38,6 +38,6 @@ $(function() {
   })
   $('#new-comment').click(function(event) {
     event.preventDefault();
-    $.post($(this).attr('data-href') + "?comment_text=" + $('#attendance_comment_text').val(), function(data){} );
+    $.post($(this).attr('data-href') + "?comment_text=" + $(this).siblings("textarea").val() + "&element_id=" + $(this).siblings("textarea").attr("id"), function(data){} );
   })
 });

@@ -32,6 +32,10 @@ class Comment < ActiveRecord::Base
   # NOTE: Comments belong to a user
   belongs_to :user
 
+  scope :plan, ->(plan_id) { where("commentable_id = ?", plan_id).order(created_at: :desc) }
+  scope :element, ->(element_id) { where("element_id = ?", element_id).order(created_at: :desc) }
+  scope :open, -> { where("open = ?", true).order(created_at: :desc) }
+
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme
