@@ -31,4 +31,13 @@ $(function() {
 
   $(".day-alert").parent().addClass("day-alert")
   $(".day-normal").parent().addClass("day-normal")
+
+  $('.comment').click(function(e) {
+    e.preventDefault();
+    $(this).siblings('.new-comment-area').toggle();
+  })
+  $('#new-comment').click(function(event) {
+    event.preventDefault();
+    $.post($(this).attr('data-href') + "?comment_text=" + $('#attendance_comment_text').val(), function(data){} );
+  })
 });

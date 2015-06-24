@@ -43,6 +43,16 @@ class PlansController < ApplicationController
     end
   end
 
+  def add_comment
+    @plan = Plan.find(params[:id])
+    @comment = Comment.build_from(@plan, current_user.id, params[:comment_text], "test_id")
+    @comment.save
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+
   private 
 
    # Using a private method to encapsulate the permissible parameters is

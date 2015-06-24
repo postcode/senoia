@@ -31,8 +31,18 @@
           <p><i class="fi-mail"></i> john@example.gov</p>
           <p><i class="fi-telephone"></i> (123) 456-7890</p>     
         </div>
-        <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+        <div class="large-3 columns end">
+          <div id="attendance-comment">
+            <a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+            <div class="new-comment-area">
+              <label>Add A Comment:</label>
+              <%= text_area(:attendance_comment, :text, cols: 10, rows: 5) %>
+              <%= link_to "Add Comment", "#", id: "new-comment", class: "button primary tiny", :"data-href" => add_comment_plan_path(@plan) %>
+            </div>
+            <div class="existing-comments">
+              <!-- a partial goes here -->
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -55,7 +65,17 @@
           </fieldset>
         </div>
         <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+          <a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+          <div id="attendance-comment" class="comment-area">
+            <h6>Add A Comment</h6>
+            <div class="modal-body">
+              <label>Enter your comment:</label>
+              <%= text_area(:attendance_comment, :text, cols: 20, rows: 5) %>
+            </div>
+            <div class="modal-footer">
+              <%= link_to "Add Comment", add_comment_plan_path(@plan), id: "new-comment", class: "button primary", remote: true %> 
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -151,17 +171,6 @@
             <%= f.label :attendance, class: "inline" do %>
              Crowd Size
             <% end %>
-            <div id="attendance-comment" class="reveal-modal small" data-reveal>
-              <a class="close-reveal-modal">&#215;</a>
-              <h3>Add A Comment</h3>
-              <div class="modal-body">
-                <label>Enter your comment:</label>
-                <%= text_area(:attendance_comment, :text, cols: 20, rows: 5) %>
-              </div>
-              <div class="modal-footer">
-                <a href="#" class="button primary save-modal">Add Comment</a>
-              </div>
-            </div>
           </div>
           <div class="small-4 columns end">
             <%= op.input :attendance, label: false %>
