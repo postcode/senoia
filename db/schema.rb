@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624143238) do
+ActiveRecord::Schema.define(version: 20150625001929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20150624143238) do
     t.string   "name"
     t.string   "level"
     t.integer  "provider_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "operation_period_id"
   end
 
   create_table "dispatchs_users", force: :cascade do |t|
@@ -64,10 +65,11 @@ ActiveRecord::Schema.define(version: 20150624143238) do
     t.integer  "aed"
     t.string   "level"
     t.integer  "provider_id"
-    t.decimal  "lat",         precision: 10, scale: 6
-    t.decimal  "lng",         precision: 10, scale: 6
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.decimal  "lat",                 precision: 10, scale: 6
+    t.decimal  "lng",                 precision: 10, scale: 6
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "operation_period_id"
   end
 
   create_table "first_aid_stations_users", force: :cascade do |t|
@@ -90,10 +92,11 @@ ActiveRecord::Schema.define(version: 20150624143238) do
     t.integer  "aed"
     t.integer  "provider_id"
     t.string   "name"
-    t.decimal  "lat",         precision: 10, scale: 6
-    t.decimal  "lng",         precision: 10, scale: 6
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.decimal  "lat",                 precision: 10, scale: 6
+    t.decimal  "lng",                 precision: 10, scale: 6
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "operation_period_id"
   end
 
   create_table "mobile_teams_users", force: :cascade do |t|
@@ -128,9 +131,6 @@ ActiveRecord::Schema.define(version: 20150624143238) do
   create_table "plans", force: :cascade do |t|
     t.string   "name"
     t.integer  "owner_id"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "attendance"
     t.boolean  "alcohol"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -157,10 +157,11 @@ ActiveRecord::Schema.define(version: 20150624143238) do
     t.string   "name"
     t.string   "level"
     t.integer  "provider_id"
-    t.decimal  "lat",         precision: 10, scale: 6
-    t.decimal  "lng",         precision: 10, scale: 6
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.decimal  "lat",                 precision: 10, scale: 6
+    t.decimal  "lng",                 precision: 10, scale: 6
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "operation_period_id"
   end
 
   create_table "transports_users", force: :cascade do |t|

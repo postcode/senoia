@@ -14,6 +14,7 @@ gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem 'devise'
 gem 'figaro'
 gem 'font-awesome-sass-rails'
+gem 'foundation-datetimepicker-rails'
 gem 'foundation-icons-sass-rails'
 gem 'foundation-rails','5.5.1'
 gem 'google-analytics-rails'

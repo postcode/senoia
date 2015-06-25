@@ -2,7 +2,7 @@
   <a class="close-reveal-modal">&#215;</a>
   <h3>Add First Aid Station</h3>
   <div class="modal-body">
-    <%= simple_fields_for :first_aid_station do |first_aid| %>
+    <%= simple_fields_for :first_aid_stations do |first_aid| %>
       <%= first_aid.input :name, required: false %>
       <%= first_aid.input :level, required: false %>
       <%= first_aid.input :md, label: "MDs", input_html: {value: 0, required: false}%>

@@ -13,11 +13,12 @@
 
 class OperationPeriod < ActiveRecord::Base
   acts_as_commentable
-  has_many :first_aid_stations, through: :medical_assets
-  has_many :mobile_teams, through: :medical_assets
-  has_many :transports, through: :medical_assets
-  has_many :dispatchs, through: :medical_assets
+  has_many :first_aid_stations
+  has_many :mobile_teams
+  has_many :transports
+  has_many :dispatchs
   belongs_to :plan
 
   accepts_nested_attributes_for :first_aid_stations, :mobile_teams, :transports, :dispatchs
+
 end

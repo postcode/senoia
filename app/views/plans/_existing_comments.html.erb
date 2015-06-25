@@ -1,10 +1,22 @@
 <% Comment.plan(plan.id).element(element_id).open.each do |c| %>
-  <div class="comment-area">
-    <div class="comment-header">
-      <p><%= User.find(c.user_id).last_name.present? ? User.find(c.user_id).first_name : User.find(c.user_id).email %></p>
-      <p><%= distance_of_time_in_words_to_now(c.created_at) %>&nbsp;ago <%= link_to "Resolve", resolve_comment_plan_path(plan, comment_id: c.id), class: "button secondary tiny", method: :post, remote: true %></p>
+  <% if c.parent_id.blank? %>
+    <div class="comment-area">
+      <div class="comment-header">
+        <p><%= User.find(c.user_id).last_name.present? ? User.find(c.user_id).first_name : User.find(c.user_id).email %></p>
+        <p><%= distance_of_time_in_words_to_now(c.created_at) %>&nbsp;ago <%= link_to "Resolve", resolve_comment_plan_path(plan, comment_id: c.id), class: "button secondary tiny", method: :post, remote: true %></p>
+      </div>
+      <blockquote><%= c.body %></blockquote>
+      <% if c.has_children? %>
+        <% c.children.each do |child| %>
+          <div class="comment-reply">
+            <p><%= User.find(child.user_id).last_name.present? ? User.find(child.user_id).first_name : User.find(child.user_id).email %></p>
+            <p><%= distance_of_time_in_words_to_now(child.created_at) %>&nbsp;ago</p>
+            <blockquote><%= child.body %></blockquote>
+          </div>
+        <% end %>
+      <% end %>
+      <%= text_area(:attendance_comment_reply, :text, cols: 10, rows: 1) %>
+      <%= link_to "Reply", "#", :"data-href" => add_comment_plan_path(plan, comment_id: c.id),  class: "button primary tiny reply-comment" %>
     </div>
-    <blockquote><%= c.body %></blockquote>
-    <%= link_to "Reply", "#", class: "button primary tiny" %>
-  </div>
+  <% end %>
 <% end %>

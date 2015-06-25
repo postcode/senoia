@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require foundation-datepicker
+//= require foundation-datetimepicker
 //= require main
 //= require turbolinks
 //= require smart_listing

@@ -1,7 +1,7 @@
 $(function() {
-  // $('.dateSelect').fdatepicker({
-  //   format: 'mm/dd/yyyy'
-  // }); 
+  $('.dateSelect').fdatetimepicker({
+    format: 'mm/dd/yyyy H:ii p'
+  }); 
 
   $('#all_plans tbody tr').css('cursor', 'pointer')
   $('#all_plans tbody tr').click(function() {
@@ -36,8 +36,12 @@ $(function() {
     e.preventDefault();
     $(this).siblings('.new-comment-area').toggle();
   })
-  $('#new-comment').click(function(event) {
+  $('.new-comment').click(function(event) {
     event.preventDefault();
     $.post($(this).attr('data-href') + "?comment_text=" + $(this).siblings("textarea").val() + "&element_id=" + $(this).siblings("textarea").attr("id"), function(data){} );
+  })
+  $('.reply-comment').click(function(event) {
+    event.preventDefault();
+    $.post($(this).attr('data-href') + "&comment_text=" + $(this).siblings("textarea").val(), function(data){} );
   })
 });

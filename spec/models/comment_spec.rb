@@ -15,6 +15,7 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  element_id       :string
+#  open             :boolean          default(TRUE)
 #
 
 require 'rails_helper'

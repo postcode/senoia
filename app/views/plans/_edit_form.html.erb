@@ -141,13 +141,13 @@
       </ul>
       <div class="tabs-content">
         <div class="content active" id="panel1">
-      <%= simple_fields_for :operation_periods do |op| %>
+      <%= f.simple_fields_for :operation_periods do |op| %>
         <div class="row">
           <div class="small-2 columns input_label">
           <%= op.label :start_date, class: "inline", label: "START" %>
           </div>
           <div class="small-4 columns end">
-            <%= op.input_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
+            <%= op.text_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
           </div>
         </div>
         <div class="row">
@@ -155,7 +155,7 @@
           <%= op.label :end_date, class: "inline", label: "END" %>
           </div>
           <div class="small-4 columns end">
-            <%= op.input_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
+            <%= op.text_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
           </div>
         </div>        
         <div class="row">

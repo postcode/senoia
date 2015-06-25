@@ -1,12 +1,14 @@
-.comment-header {
-  p {
-    font-size: 0.80em;
-    margin: 0px;
-  }
-}
-
 .comment-area {
   border: 1px solid #e3e3e3;
   margin: 0.25em 0em;
   padding: 0.5em;
+  p {
+    font-size: 0.80em;
+    margin: 0px;
+  }
+  .comment-header {
+  }
+  .comment-reply {
+    padding-left: 0.8em;
+  }
 }
