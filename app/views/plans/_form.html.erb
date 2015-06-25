@@ -171,28 +171,45 @@
         <%= image_tag "senoia_map.png" %>
         <fieldset>
           <legend>FIRST AID STATIONS</legend>
-          <%= f.simple_fields_for :first_aid_stations do |first_aid| %>
-            <table id="first_aid_table" class="asset_table">
+            <table id="first_aid_table" class="">
               <thead>
-                <th></th>
-                <th>Location</th>
+                <th>Name</th>
                 <th>Lvl</th>
                 <th>MDs</th>
                 <th>RNs</th>
                 <th>EMTs</th>
                 <th>AEDs</th>
                 <th>Provider</th>
+                <th>Contact Name</th>
+                <th>Contact Phone</th>
               </thead>
               <tbody>
+                <%= simple_fields_for :first_aid_stations do |first_aid| %>
                 <tr class="more">
-                  <td>
-                  </td>
+                  <td><%= first_aid.input :name, required: false %></td>
+                  <td><%= first_aid.input :level, required: false %></td>
+                  <td><%= first_aid.input :md, label: "MDs", input_html: {value: 0, required: false}%></td>
+                  <td><%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, required: false %></td>
+                  <td><%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, required: false %></td>
+                  <td><%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, required: false %></td>
+                  <td><%= first_aid.input :provider,
+                                    collection: Provider.all,
+                                    label_method: :name,
+                                    value_method: :id,
+                                    include_blank: false,
+                                    prompt: "Select a provider",
+                                    label: "Provider", required: false %></td>
+                  <%= simple_fields_for :user do |u| %>
+                    <td><%= u.input :name %></td>
+                    <td><%= u.input :phone_number %></td>
+                  <% end %>
                 </tr>
+                <% end %>
               </tbody>
-            </table>  
-          <% end %>
-          <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station" class="button primary tiny radius"><i class="fi-plus"></i> ADD FIRST AID STATION</a>
-          <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
+            </table> 
+            <%= link_to add_first_aid_station_path, remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
+              <i class="fi-plus"></i> ADD FIRST AID STATION
+            <% end %>
         </fieldset>
         <fieldset>
           <legend>MOBILE TEAMS</legend>

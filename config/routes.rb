@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get "/add_first_aid_station" => 'plans#add_first_aid_station', as: 'add_first_aid_station'
+
 
  
 end

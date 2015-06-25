@@ -1,27 +1,21 @@
-<div id="new-first-aid-station" class="reveal-modal small" data-reveal>
-  <a class="close-reveal-modal">&#215;</a>
-  <h3>Add First Aid Station</h3>
-  <div class="modal-body">
-    <%= simple_fields_for :first_aid_stations do |first_aid| %>
-      <%= first_aid.input :name, required: false %>
-      <%= first_aid.input :level, required: false %>
-      <%= first_aid.input :md, label: "MDs", input_html: {value: 0, required: false}%>
-      <%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, required: false %>
-      <%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, required: false %>
-      <%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, required: false %>
-      <%= first_aid.input :provider,
-                        collection: Provider.all,
-                        label_method: :name,
-                        value_method: :id,
-                        include_blank: false,
-                        label: "Provider", required: false %>
-      <%= simple_fields_for :user do |u| %>
-        <%= u.input :name %>
-        <%= u.input :phone_number %>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="modal-footer">
-    <a href="#" id="new-first-aid-station-submit" class="button primary save-modal">Add First Aid Station</a>
-  </div>
-</div>
+<%= simple_fields_for :first_aid_stations do |first_aid| %>
+<tr class="more">
+  <td><%= first_aid.input :name, required: false %></td>
+  <td><%= first_aid.input :level, required: false %></td>
+  <td><%= first_aid.input :md, label: "MDs", input_html: {value: 0, required: false}%></td>
+  <td><%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, required: false %></td>
+  <td><%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, required: false %></td>
+  <td><%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, required: false %></td>
+  <td><%= first_aid.input :provider,
+                    collection: Provider.all,
+                    label_method: :name,
+                    value_method: :id,
+                    include_blank: false,
+                    prompt: "Select a provider",
+                    label: "Provider", required: false %></td>
+  <%= simple_fields_for :user do |u| %>
+    <td><%= u.input :name %></td>
+    <td><%= u.input :phone_number %></td>
+  <% end %>
+</tr>
+<% end %>

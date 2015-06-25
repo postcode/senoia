@@ -29,6 +29,10 @@ $(function() {
     update_first_aid()
   })
 
+  $("#new_first_aid_station").click(function() {
+    update_first_aid()
+  })
+
   $(".day-alert").parent().addClass("day-alert")
   $(".day-normal").parent().addClass("day-normal")
 

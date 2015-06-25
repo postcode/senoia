@@ -20,6 +20,7 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
+    @operation_periods = @plan.operation_periods.all.includes(:first_aid_stations)
     respond_to do |format|
       format.html
     end
@@ -39,12 +40,13 @@ class PlansController < ApplicationController
     @operation_period.start_date = DateTime.strptime(operation_periods_params[:start_date], '%m/%d/%Y %H:%M %p')
     @operation_period.end_date = DateTime.strptime(operation_periods_params[:end_date], '%m/%d/%Y %H:%M %p')
     @operation_period.save
-    binding.pry
     @plan.operation_periods << @operation_period
     if params[:first_aid_stations].present? 
-      @first_aid_station = FirstAidStation.create(params[:plan][:first_aid_stations])
+      @first_aid_station = FirstAidStation.create(first_aid_stations_params)
       @operation_period.first_aid_stations << @first_aid_station
+      @operation_period.save
     end
+    binding.pry
     if @plan.save
       @plan.submit!
       redirect_to plans_path
@@ -81,6 +83,12 @@ class PlansController < ApplicationController
     end
   end
 
+  def add_first_aid_station
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private 
 
    # Using a private method to encapsulate the permissible parameters is
@@ -88,10 +96,14 @@ class PlansController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def plan_params
-      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], first_aid_stations_attributes: [:id, :name, :level, :md, :rn, :emt, :aed,:provider_id, :operation_period_id], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], mobile_teams_attributes: [:id, :name, :level, :provider_id], dispatchs_attributes: [:id, :name, :level], transports_attributes: [:id, :name, :level])
+      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], mobile_teams_attributes: [:id, :name, :level, :provider_id], dispatchs_attributes: [:id, :name, :level], transports_attributes: [:id, :name, :level])
     end
 
     def operation_periods_params
       params.require(:operation_periods).permit(:id, :start_date, :end_date, :attendance, :plan_id)
+    end
+
+    def first_aid_stations_params
+      params.require(:first_aid_stations).permit(:id, :name, :level, :md, :rn, :emt, :aed,:provider_id, :operation_period_id)
     end
 end

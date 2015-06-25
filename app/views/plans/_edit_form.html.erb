@@ -140,123 +140,130 @@
         <li class="tab-title"><a href="#panel3">Operational Period 3</a></li>
       </ul>
       <div class="tabs-content">
-        <div class="content active" id="panel1">
-      <%= f.simple_fields_for :operation_periods do |op| %>
-        <div class="row">
-          <div class="small-2 columns input_label">
-          <%= op.label :start_date, class: "inline", label: "START" %>
-          </div>
-          <div class="small-4 columns end">
-            <%= op.text_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-2 columns input_label">
-          <%= op.label :end_date, class: "inline", label: "END" %>
-          </div>
-          <div class="small-4 columns end">
-            <%= op.text_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
-          </div>
-        </div>        
-        <div class="row">
-          <div class="small-2 columns input_label">
-            <%= op.label :attendance, class: "inline" do %>
-             Crowd Size
+        <% @operation_periods.each do |operation_period| %>
+          <div class="content active" id="panel1">
+          <%= simple_fields_for operation_period do |op| %>
+            <div class="row">
+              <div class="small-2 columns input_label">
+              <%= op.label :start_date, class: "inline", label: "START" %>
+              </div>
+              <div class="small-4 columns end">
+                <%= op.text_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-2 columns input_label">
+              <%= op.label :end_date, class: "inline", label: "END" %>
+              </div>
+              <div class="small-4 columns end">
+                <%= op.text_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
+              </div>
+            </div>        
+            <div class="row">
+              <div class="small-2 columns input_label">
+                <%= op.label :attendance, class: "inline" do %>
+                 Crowd Size
+                <% end %>
+              </div>
+              <div class="small-4 columns end">
+                <%= op.input :attendance, label: false %>
+              </div>
+            </div>
+            <%= image_tag "senoia_map.png" %>
+            <fieldset>
+              <legend>FIRST AID STATIONS</legend>
+              <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
+                <table id="first_aid_table" class="asset_table_show">
+                  <thead>
+                    <th></th>
+                    <th>Location</th>
+                    <th>Lvl</th>
+                    <th>MDs</th>
+                    <th>RNs</th>
+                    <th>EMTs</th>
+                    <th>AEDs</th>
+                    <th>Provider</th>
+                  </thead>
+                  <tbody>
+                    <tr class="more">
+                      <td><%= first_aid.input :name, required: false %></td>
+                      <td><%= first_aid.input :level, required: false %></td>
+                      <td><%= first_aid.input :md, label: "MDs", required: false %></td>
+                      <td><%= first_aid.input :rn, label: "RNs", required: false %></td>
+                      <td><%= first_aid.input :emt, label: "EMTs", required: false %></td>
+                      <td><%= first_aid.input :aed, label: "AEDs", required: false %></td>
+                      <td><%= first_aid.input :provider %></td>
+                    </tr>
+                  </tbody>
+                </table>  
+              <% end %>
+              <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station" class="button primary tiny radius"><i class="fi-plus"></i> ADD FIRST AID STATION</a>
+              <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
+            </fieldset>
+            <fieldset>
+              <legend>MOBILE TEAMS</legend>
+              <%= op.simple_fields_for :mobile_teams do |mobile| %>
+                <table>
+                  <thead>
+                    <th>Location</th>
+                    <th>Lvl</th>
+                    <th>AEDs</th>
+                    <th>Provider</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <a id="new_mobile_team" href="#" data-reveal-id="new-mobile-team"><i class="fi-plus"></i></a>
+                        <%= render 'new_mobile_team', plan: @plan, operation_period: op %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>  
+              <% end %>
+            </fieldset>
+            <fieldset>
+              <legend>TRANSPORT</legend>
+              <%= f.simple_fields_for :transports do |t| %>
+                <table id="transport_table">
+                  <thead>
+                    <th>Location</th>
+                    <th>Lvl</th>
+                    <th>Provider</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <a id="new_transport" href="#" data-reveal-id="new-transport"><i class="fi-plus"></i></a>
+                        <%= render 'new_transport', plan: @plan, operation_period: op %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>  
+              <% end %>
+            </fieldset>
+            <fieldset>
+              <legend>DISPATCH</legend>
+              <%= f.simple_fields_for :dispatchs do |d| %>
+                <table id="dispatch_table">
+                  <thead>
+                    <th>Location</th>
+                    <th>Lvl</th>
+                    <th>Provider</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <a id="new_dispatch" href="#" data-reveal-id="new-dispatch"><i class="fi-plus"></i></a>
+                        <%= render 'new_dispatch', plan: @plan, operation_period: op %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>  
+              <% end %>
+            </fieldset>
             <% end %>
-          </div>
-          <div class="small-4 columns end">
-            <%= op.input :attendance, label: false %>
-          </div>
+          <% end %>
         </div>
-        <%= image_tag "senoia_map.png" %>
-        <fieldset>
-          <legend>FIRST AID STATIONS</legend>
-          <%= f.simple_fields_for :first_aid_stations do |first_aid| %>
-            <table id="first_aid_table" class="asset_table">
-              <thead>
-                <th></th>
-                <th>Location</th>
-                <th>Lvl</th>
-                <th>MDs</th>
-                <th>RNs</th>
-                <th>EMTs</th>
-                <th>AEDs</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <tr class="more">
-                  <td>
-                  </td>
-                </tr>
-              </tbody>
-            </table>  
-          <% end %>
-          <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station" class="button primary tiny radius"><i class="fi-plus"></i> ADD FIRST AID STATION</a>
-          <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
-        </fieldset>
-        <fieldset>
-          <legend>MOBILE TEAMS</legend>
-          <%= f.simple_fields_for :mobile_teams do |mobile| %>
-            <table>
-              <thead>
-                <th>Location</th>
-                <th>Lvl</th>
-                <th>AEDs</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <a id="new_mobile_team" href="#" data-reveal-id="new-mobile-team"><i class="fi-plus"></i></a>
-                    <%= render 'new_mobile_team', plan: @plan, operation_period: op %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>  
-          <% end %>
-        </fieldset>
-        <fieldset>
-          <legend>TRANSPORT</legend>
-          <%= f.simple_fields_for :transports do |t| %>
-            <table id="transport_table">
-              <thead>
-                <th>Location</th>
-                <th>Lvl</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <a id="new_transport" href="#" data-reveal-id="new-transport"><i class="fi-plus"></i></a>
-                    <%= render 'new_transport', plan: @plan, operation_period: op %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>  
-          <% end %>
-        </fieldset>
-        <fieldset>
-          <legend>DISPATCH</legend>
-          <%= f.simple_fields_for :dispatchs do |d| %>
-            <table id="dispatch_table">
-              <thead>
-                <th>Location</th>
-                <th>Lvl</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <a id="new_dispatch" href="#" data-reveal-id="new-dispatch"><i class="fi-plus"></i></a>
-                    <%= render 'new_dispatch', plan: @plan, operation_period: op %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>  
-          <% end %>
-        </fieldset>
-        <% end %>
-      </div>
     </div>
 
     <%= render 'plan_sidebar' %>
