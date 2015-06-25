@@ -9,6 +9,7 @@ gem 'annotate'
 gem 'aws-sdk', '< 2.0'
 gem 'browser-timezone-rails'
 gem 'cancancan', '~> 1.10'
+gem "cocoon"
 gem 'compass'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem 'devise'

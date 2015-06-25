@@ -175,14 +175,15 @@
               <%= op.simple_fields_for :first_aid_stations do |first_aid| %>
                 <table id="first_aid_table" class="asset_table_show">
                   <thead>
-                    <th></th>
-                    <th>Location</th>
+                    <th>Name</th>
                     <th>Lvl</th>
                     <th>MDs</th>
                     <th>RNs</th>
                     <th>EMTs</th>
                     <th>AEDs</th>
                     <th>Provider</th>
+                    <th>Contact Name</th>
+                    <th>Contact Phone</th>
                   </thead>
                   <tbody>
                     <tr class="more">
@@ -192,13 +193,14 @@
                       <td><%= first_aid.input :rn, label: "RNs", required: false %></td>
                       <td><%= first_aid.input :emt, label: "EMTs", required: false %></td>
                       <td><%= first_aid.input :aed, label: "AEDs", required: false %></td>
-                      <td><%= first_aid.input :provider %></td>
+                      <td><%= first_aid.association :provider, input_html: { value: Provider.find(first_aid.object.provider_id).name } %></td>
+                      <td><%= first_aid.input :contact_name, required: false %></td>
+                      <td><%= first_aid.input :contact_phone, required: false %></td>
                     </tr>
                   </tbody>
                 </table>  
               <% end %>
               <a id="new_first_aid_station" href="#" data-reveal-id="new-first-aid-station" class="button primary tiny radius"><i class="fi-plus"></i> ADD FIRST AID STATION</a>
-              <%= render 'new_first_aid_station', plan: @plan, operation_period: op %>
             </fieldset>
             <fieldset>
               <legend>MOBILE TEAMS</legend>

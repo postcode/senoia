@@ -41,12 +41,14 @@ class PlansController < ApplicationController
     @operation_period.end_date = DateTime.strptime(operation_periods_params[:end_date], '%m/%d/%Y %H:%M %p')
     @operation_period.save
     @plan.operation_periods << @operation_period
-    if params[:first_aid_stations].present? 
-      @first_aid_station = FirstAidStation.create(first_aid_stations_params)
-      @operation_period.first_aid_stations << @first_aid_station
-      @operation_period.save
+    if first_aid_stations_params.present? 
+      first_aid_stations_params[:id].each do |station|
+      binding.pry
+        @first_aid_station = FirstAidStation.create(station[1])
+        @operation_period.first_aid_stations << @first_aid_station
+        @operation_period.save
+      end
     end
-    binding.pry
     if @plan.save
       @plan.submit!
       redirect_to plans_path
@@ -84,6 +86,16 @@ class PlansController < ApplicationController
   end
 
   def add_first_aid_station
+    @operation_period = OperationPeriod.new
+    @operation_period.first_aid_stations.build
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_operation_period
+    @count = params[:count].to_i + 1
+    @operation_period = OperationPeriod.new
     respond_to do |format|
       format.js
     end
@@ -104,6 +116,6 @@ class PlansController < ApplicationController
     end
 
     def first_aid_stations_params
-      params.require(:first_aid_stations).permit(:id, :name, :level, :md, :rn, :emt, :aed,:provider_id, :operation_period_id)
+      params.require(:first_aid_stations).permit(id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone])
     end
 end

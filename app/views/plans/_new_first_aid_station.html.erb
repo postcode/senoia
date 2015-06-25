@@ -1,21 +1,19 @@
-<%= simple_fields_for :first_aid_stations do |first_aid| %>
+<%= simple_fields_for "first_aid_stations[id][#{DateTime.now.to_i}]" do |f| %>
 <tr class="more">
-  <td><%= first_aid.input :name, required: false %></td>
-  <td><%= first_aid.input :level, required: false %></td>
-  <td><%= first_aid.input :md, label: "MDs", input_html: {value: 0, required: false}%></td>
-  <td><%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, required: false %></td>
-  <td><%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, required: false %></td>
-  <td><%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, required: false %></td>
-  <td><%= first_aid.input :provider,
+  <td><%= f.input :name, required: false %></td>
+  <td><%= f.input :level, required: false %></td>
+  <td><%= f.input :md, label: "MDs", input_html: {value: 0, required: false}%></td>
+  <td><%= f.input :rn, label: "RNs", input_html: {value: 0}, required: false %></td>
+  <td><%= f.input :emt, label: "EMTs", input_html: {value: 0}, required: false %></td>
+  <td><%= f.input :aed, label: "AEDs", input_html: {value: 0}, required: false %></td>
+  <td><%= f.input :provider_id,
                     collection: Provider.all,
                     label_method: :name,
                     value_method: :id,
                     include_blank: false,
                     prompt: "Select a provider",
                     label: "Provider", required: false %></td>
-  <%= simple_fields_for :user do |u| %>
-    <td><%= u.input :name %></td>
-    <td><%= u.input :phone_number %></td>
-  <% end %>
+  <td><%= f.input :contact_name, required: false %></td>
+  <td><%= f.input :contact_phone, required: false %></td>
 </tr>
 <% end %>

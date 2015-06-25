@@ -131,150 +131,17 @@
       <hr/>
 
       <div class="row">
-        <h3>Operational Period <a href="#" class="button tiny radius right"><i class="fi-plus"></i> Add Operational Period</a></h3>
+        <h3>Operational Period <span class="add_operation_period_button"><%= link_to add_operation_period_path(1), remote: true, class: "button primary tiny radius right", id: "new_operation_period"  do %> 
+              <i class="fi-plus"></i> ADD OPERATIONAL PERIOD
+            <% end %></span></h3>
       </div>
 
       <ul class="tabs" data-tab>
         <li class="tab-title active"><a href="#panel1">Operational Period 1</a></li>
-        <li class="tab-title"><a href="#panel2">Operational Period 2</a></li>
-        <li class="tab-title"><a href="#panel3">Operational Period 3</a></li>
       </ul>
       <div class="tabs-content">
-        <div class="content active" id="panel1">
-      <%= simple_fields_for :operation_periods do |op| %>
-        <div class="row">
-          <div class="small-2 columns input_label">
-          <%= op.label :start_date, class: "inline", label: "START" %>
-          </div>
-          <div class="small-4 columns end">
-            <%= op.input_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-2 columns input_label">
-          <%= op.label :end_date, class: "inline", label: "END" %>
-          </div>
-          <div class="small-4 columns end">
-            <%= op.input_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
-          </div>
-        </div>        
-        <div class="row">
-          <div class="small-2 columns input_label">
-            <%= op.label :attendance, class: "inline" do %>
-             Crowd Size
-            <% end %>
-          </div>
-          <div class="small-4 columns end">
-            <%= op.input :attendance, label: false %>
-          </div>
-        </div>
-        <%= image_tag "senoia_map.png" %>
-        <fieldset>
-          <legend>FIRST AID STATIONS</legend>
-            <table id="first_aid_table" class="">
-              <thead>
-                <th>Name</th>
-                <th>Lvl</th>
-                <th>MDs</th>
-                <th>RNs</th>
-                <th>EMTs</th>
-                <th>AEDs</th>
-                <th>Provider</th>
-                <th>Contact Name</th>
-                <th>Contact Phone</th>
-              </thead>
-              <tbody>
-                <%= simple_fields_for :first_aid_stations do |first_aid| %>
-                <tr class="more">
-                  <td><%= first_aid.input :name, required: false %></td>
-                  <td><%= first_aid.input :level, required: false %></td>
-                  <td><%= first_aid.input :md, label: "MDs", input_html: {value: 0, required: false}%></td>
-                  <td><%= first_aid.input :rn, label: "RNs", input_html: {value: 0}, required: false %></td>
-                  <td><%= first_aid.input :emt, label: "EMTs", input_html: {value: 0}, required: false %></td>
-                  <td><%= first_aid.input :aed, label: "AEDs", input_html: {value: 0}, required: false %></td>
-                  <td><%= first_aid.input :provider,
-                                    collection: Provider.all,
-                                    label_method: :name,
-                                    value_method: :id,
-                                    include_blank: false,
-                                    prompt: "Select a provider",
-                                    label: "Provider", required: false %></td>
-                  <%= simple_fields_for :user do |u| %>
-                    <td><%= u.input :name %></td>
-                    <td><%= u.input :phone_number %></td>
-                  <% end %>
-                </tr>
-                <% end %>
-              </tbody>
-            </table> 
-            <%= link_to add_first_aid_station_path, remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
-              <i class="fi-plus"></i> ADD FIRST AID STATION
-            <% end %>
-        </fieldset>
-        <fieldset>
-          <legend>MOBILE TEAMS</legend>
-          <%= f.simple_fields_for :mobile_teams do |mobile| %>
-            <table>
-              <thead>
-                <th>Location</th>
-                <th>Lvl</th>
-                <th>AEDs</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <a id="new_mobile_team" href="#" data-reveal-id="new-mobile-team"><i class="fi-plus"></i></a>
-                    <%= render 'new_mobile_team', plan: @plan, operation_period: op %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>  
-          <% end %>
-        </fieldset>
-        <fieldset>
-          <legend>TRANSPORT</legend>
-          <%= f.simple_fields_for :transports do |t| %>
-            <table id="transport_table">
-              <thead>
-                <th>Location</th>
-                <th>Lvl</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <a id="new_transport" href="#" data-reveal-id="new-transport"><i class="fi-plus"></i></a>
-                    <%= render 'new_transport', plan: @plan, operation_period: op %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>  
-          <% end %>
-        </fieldset>
-        <fieldset>
-          <legend>DISPATCH</legend>
-          <%= f.simple_fields_for :dispatchs do |d| %>
-            <table id="dispatch_table">
-              <thead>
-                <th>Location</th>
-                <th>Lvl</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <a id="new_dispatch" href="#" data-reveal-id="new-dispatch"><i class="fi-plus"></i></a>
-                    <%= render 'new_dispatch', plan: @plan, operation_period: op %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>  
-          <% end %>
-        </fieldset>
-        <% end %>
+        <%= render 'operation_period', count: 1 %>
       </div>
-    </div>
 
     <%= render 'plan_sidebar' %>
 

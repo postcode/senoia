@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get "/add_first_aid_station" => 'plans#add_first_aid_station', as: 'add_first_aid_station'
+  get "/add_operation_period/:count" => 'plans#add_operation_period', as: 'add_operation_period'
 
 
  

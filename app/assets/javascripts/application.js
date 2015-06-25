@@ -18,5 +18,6 @@
 //= require turbolinks
 //= require smart_listing
 //= require asset_update
+//= require cocoon
 
 $(function(){ $(document).foundation(); });

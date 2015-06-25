@@ -5,9 +5,6 @@
 #  id             :integer          not null, primary key
 #  name           :string
 #  owner_id       :integer
-#  start_date     :datetime
-#  end_date       :datetime
-#  attendance     :integer
 #  alcohol        :boolean
 #  created_at     :datetime
 #  updated_at     :datetime

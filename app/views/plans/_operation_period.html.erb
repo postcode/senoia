@@ -1,0 +1,118 @@
+<%= simple_fields_for :operation_periods do |op| %>
+  <% if count == 1 %>
+    <div class="content active" id="panel<%= count %>">
+  <% else %>
+    <div class="content" id="panel<%= count %>">
+  <% end %>
+        <div class="row">
+          <div class="small-2 columns input_label">
+          <%= op.label :start_date, class: "inline", label: "START" %>
+          </div>
+          <div class="small-4 columns end">
+            <%= op.input_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-2 columns input_label">
+          <%= op.label :end_date, class: "inline", label: "END" %>
+          </div>
+          <div class="small-4 columns end">
+            <%= op.input_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
+          </div>
+        </div>        
+        <div class="row">
+          <div class="small-2 columns input_label">
+            <%= op.label :attendance, class: "inline" do %>
+             Crowd Size
+            <% end %>
+          </div>
+          <div class="small-4 columns end">
+            <%= op.input :attendance, label: false %>
+          </div>
+        </div>
+        <%= image_tag "senoia_map.png" %>
+        <fieldset>
+          <legend>FIRST AID STATIONS</legend>
+            <table id="first_aid_table" class="">
+              <thead>
+                <th>Name</th>
+                <th>Lvl</th>
+                <th>MDs</th>
+                <th>RNs</th>
+                <th>EMTs</th>
+                <th>AEDs</th>
+                <th>Provider</th>
+                <th>Contact Name</th>
+                <th>Contact Phone</th>
+              </thead>
+              <tbody>
+                <%= render 'new_first_aid_station' %>
+              </tbody>
+            </table> 
+            <%= link_to add_first_aid_station_path, remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
+              <i class="fi-plus"></i> ADD FIRST AID STATION
+            <% end %>
+        </fieldset>
+        <fieldset>
+          <legend>MOBILE TEAMS</legend>
+          <%= simple_fields_for :mobile_teams do |mobile| %>
+            <table>
+              <thead>
+                <th>Location</th>
+                <th>Lvl</th>
+                <th>AEDs</th>
+                <th>Provider</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a id="new_mobile_team" href="#" data-reveal-id="new-mobile-team"><i class="fi-plus"></i></a>
+                    <%= render 'new_mobile_team', plan: @plan, operation_period: op %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>  
+          <% end %>
+        </fieldset>
+        <fieldset>
+          <legend>TRANSPORT</legend>
+          <%= simple_fields_for :transports do |t| %>
+            <table id="transport_table">
+              <thead>
+                <th>Location</th>
+                <th>Lvl</th>
+                <th>Provider</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a id="new_transport" href="#" data-reveal-id="new-transport"><i class="fi-plus"></i></a>
+                    <%= render 'new_transport', plan: @plan, operation_period: op %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>  
+          <% end %>
+        </fieldset>
+        <fieldset>
+          <legend>DISPATCH</legend>
+          <%= simple_fields_for :dispatchs do |d| %>
+            <table id="dispatch_table">
+              <thead>
+                <th>Location</th>
+                <th>Lvl</th>
+                <th>Provider</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a id="new_dispatch" href="#" data-reveal-id="new-dispatch"><i class="fi-plus"></i></a>
+                    <%= render 'new_dispatch', plan: @plan, operation_period: op %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>  
+          <% end %>
+        </fieldset>
+      </div>
+      <% end %>
