@@ -3,8 +3,6 @@ class PlansController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-  require 'pry'
-
   def index
     if !current_user.nil? && current_user.is_admin?
       plans_scope = Plan.all
