@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     member do
       post :add_comment
       post :resolve_comment
+      post :request_revision
+      post :approve
     end
   end
   resources :event_types

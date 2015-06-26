@@ -24,34 +24,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="large-8 columns new-event-info">
-          <h6>Event Plan Creator</h6>
-          <p>CONTACT</p>            
-          <p><i class="fi-torso"></i> John Doe</p>
-          <p><i class="fi-mail"></i> john@example.gov</p>
-          <p><i class="fi-telephone"></i> (123) 456-7890</p>     
-        </div>
-        <div class="large-3 columns end">
-          <% if @plan.id.present? && !@plan.draft? %>
-          <div id="attendance_comment" class="comment-section">
-            <a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
-            <div class="new-comment-area">
-              <label>Add A Comment:</label>
-              <%= text_area(:attendance_comment, :text, cols: 10, rows: 5) %>
-              <%= link_to "Add Comment", "#", class: "new-comment button primary tiny", :"data-href" => add_comment_plan_path(@plan) %>
-            </div>
-            <div class="existing-comments">
-              <%= render partial: "existing_comments", locals: { plan: @plan, element_id: "attendance_comment_text" } %>
-            </div>
-          </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="row">
         <div class="large-8 columns">
           <fieldset>
             <legend>Collaborators</legend>
-             <%= simple_fields_for :users do |u| %>
+             <%= f.simple_fields_for :users do |u| %>
               <div class="row">
                 <div class="small-3 columns input_label">
                   <%= u.label "Email", class: "inline" %>
@@ -66,27 +42,12 @@
             <% end %>
           </fieldset>
         </div>
-        <div class="large-3 columns end">
-          <% if @plan.id.present? && !@plan.draft? %>
-          <a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
-          <div id="attendance-comment" class="comment-area">
-            <h6>Add A Comment</h6>
-            <div class="modal-body">
-              <label>Enter your comment:</label>
-              <%= text_area(:attendance_comment, :text, cols: 20, rows: 5) %>
-            </div>
-            <div class="modal-footer">
-              <%= link_to "Add Comment", add_comment_plan_path(@plan), id: "new-comment", class: "button primary", remote: true %> 
-            </div>
-          </div>
-          <% end %>
-        </div>
       </div>
       <div class="row">
         <div class="small-3 columns input_label">
           <%= f.label :event_type, class: "inline" %>
         </div>
-        <div class="small-5 columns">
+        <div class="small-5 columns end">
         <%= f.association :event_type,
                               collection: EventType.all,
                               label_method: :name,
@@ -94,25 +55,19 @@
                               include_blank: false,
                               label: false %>
         </div>
-        <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
-        </div>
       </div>
 
       <div class="row">
         <div class="small-3 columns input_label">
           <%= f.label :permitter, class: "inline", label: "Permitting Agency" %>
         </div>
-        <div class="small-5 columns">
+        <div class="small-5 columns end">
         <%= f.association :permitter,
                             collection: Permitter.all,
                             label_method: :name,
                             value_method: :id,
                             include_blank: false,
                             label: false %>
-        </div>
-        <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
         </div>
         <div class="large-3 columns end">
         </div>
@@ -121,11 +76,8 @@
         <div class="small-3 columns input_label">
           <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
         </div>
-        <div class="small-5 columns">
+        <div class="small-5 columns end">
           <%= f.input :alcohol, label: "Yes" %>
-        </div>
-        <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
         </div>
       </div>
       <hr/>
@@ -143,8 +95,46 @@
         <%= render 'operation_period', count: 1 %>
       </div>
 
-    <%= render 'plan_sidebar' %>
+    <div class="row">
+      <div class="large-12 columns new-event-info">
+        <h6>Responsibility</h6>
+        <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
+        <%= f.input :responsibility, required: true %>   
+      </div> 
+      <div class="large-12 columns new-event-info">
+        <h6>CPR &amp; 911</h6>
+        <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
+        <%= f.input :cpr %>     
+      </div> 
+      <div class="large-12 columns new-event-info">
+        <h6>Communications</h6>
+        <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
+        <label>
+          <%= f.input :event_contact %>     
+        </label> 
+        <%= f.input :communication %>     
 
+      </div> 
+      <div class="large-12 columns new-event-info">
+        <h6>Supplementary Documents</h6>
+        <a href="#" class="button tiny radius"><i class="fi-plus"></i> Upload</a>     
+      </div>                                            
+      <div class="large-12 columns new-event-info">
+        <h6>Post Event Treatment Report Creator</h6>
+        <p> 
+        <label><i class="fi-torso"></i> Name
+          <%= f.input :post_event_name %>    
+        </label></p>
+        <p> 
+        <label><i class="fi-mail"></i> Email
+          <%= f.input :post_event_email %>    
+        </label></p>
+        <p> 
+        <label><i class="fi-telephone"></i> Phone
+          <%= f.input :post_event_phone %>    
+        </label></p>    
+      </div> 
+    </div>  
     <div class="large-12 columns text-center actions plan-action">
       <a href="#" class="button large warning radius"><i class="fi-check"></i> SAVE DRAFT</a>
       <%= f.submit "SUBMIT PLAN", class: "button large radius" %>

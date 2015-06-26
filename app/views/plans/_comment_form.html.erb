@@ -1,0 +1,13 @@
+<% if plan.id.present? && !plan.draft? && !plan.accepted? %>
+  <div id="<%= title %>_comment" class="comment-section">
+    <a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
+    <div class="new-comment-area">
+      <label>Add A Comment:</label>
+      <%= text_area("#{title}_comment", :text, cols: 10, rows: 5) %>
+      <%= link_to "Add Comment", "#", class: "new-comment button primary tiny", :"data-href" => add_comment_plan_path(plan) %>
+    </div>
+    <div class="existing-comments">
+      <%= render partial: "existing_comments", locals: { plan: plan, element_id: "#{title}_comment_text" } %>
+    </div>
+  </div>
+<% end %>

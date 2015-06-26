@@ -21,8 +21,11 @@ class PlansController < ApplicationController
   def show
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
     @operation_periods = @plan.operation_periods.all.includes(:first_aid_stations)
-    respond_to do |format|
-      format.html
+    @count = 0
+    if @plan.accepted?
+      render 'plans/show_accepted'
+    else
+      render 'plans/show'
     end
   end
 
@@ -36,22 +39,58 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.create(plan_params)
-    @operation_period = OperationPeriod.create(operation_periods_params)
-    @operation_period.start_date = DateTime.strptime(operation_periods_params[:start_date], '%m/%d/%Y %H:%M %p')
-    @operation_period.end_date = DateTime.strptime(operation_periods_params[:end_date], '%m/%d/%Y %H:%M %p')
-    @operation_period.save
-    @plan.operation_periods << @operation_period
-    if first_aid_stations_params.present? 
-      first_aid_stations_params[:id].each do |station|
-      binding.pry
-        @first_aid_station = FirstAidStation.create(station[1])
-        @operation_period.first_aid_stations << @first_aid_station
-        @operation_period.save
+    @plan.creator = current_user
+    @plan.owner = current_user
+    operation_periods_params[:id].each do |op|
+      @operation_period = OperationPeriod.new(attendance: op[1][:attendance])
+      @operation_period.start_date = DateTime.strptime(op[1][:start_date], '%m/%d/%Y %H:%M %p')
+      @operation_period.end_date = DateTime.strptime(op[1][:end_date], '%m/%d/%Y %H:%M %p')
+      @operation_period.save
+      @plan.operation_periods << @operation_period
+      if op[1][:first_aid_stations].present? 
+        op[1][:first_aid_stations][:id].each do |station|
+          @first_aid_station = FirstAidStation.create(station[1])
+          @operation_period.first_aid_stations << @first_aid_station
+          @operation_period.save
+        end
       end
     end
     if @plan.save
       @plan.submit!
       redirect_to plans_path
+    else
+      redirect_to new_plan_path(@plan), alert: @plan.errors
+    end
+  end
+
+  def update
+    @plan = Plan.find(params[:id])
+    respond_to do |format|
+      if @plan.update_attributes(plan_params)
+        format.html { redirect_to @plan, notice: 'plan was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @plan.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def request_revision
+    @plan = Plan.find(params[:id])
+    if @plan.save
+      @plan.review!
+      redirect_to plans_path
+    else
+      redirect_to new_plan_path(@plan), alert: @plan.errors
+    end
+  end
+
+  def approve
+    @plan = Plan.find(params[:id])
+    if @plan.save
+      @plan.accept!
+      redirect_to plans_path, notice: 'plan was approved.' 
     else
       redirect_to new_plan_path(@plan), alert: @plan.errors
     end
@@ -112,10 +151,10 @@ class PlansController < ApplicationController
     end
 
     def operation_periods_params
-      params.require(:operation_periods).permit(:id, :start_date, :end_date, :attendance, :plan_id)
+      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone]]])
     end
 
     def first_aid_stations_params
-      params.require(:first_aid_stations).permit(id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone])
+      params.require(:first_aid_stations).permit()
     end
 end

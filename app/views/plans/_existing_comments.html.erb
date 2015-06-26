@@ -15,7 +15,7 @@
           </div>
         <% end %>
       <% end %>
-      <%= text_area(:attendance_comment_reply, :text, cols: 10, rows: 1) %>
+      <%= text_area "#{element_id}_comment_reply", :text, cols: 10, rows: 1 %>
       <%= link_to "Reply", "#", :"data-href" => add_comment_plan_path(plan, comment_id: c.id),  class: "button primary tiny reply-comment" %>
     </div>
   <% end %>

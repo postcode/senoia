@@ -2,15 +2,23 @@
 #
 # Table name: plans
 #
-#  id             :integer          not null, primary key
-#  name           :string
-#  owner_id       :integer
-#  alcohol        :boolean
-#  created_at     :datetime
-#  updated_at     :datetime
-#  event_type_id  :integer
-#  permitter_id   :integer
-#  workflow_state :string
+#  id               :integer          not null, primary key
+#  name             :string
+#  owner_id         :integer
+#  alcohol          :boolean
+#  created_at       :datetime
+#  updated_at       :datetime
+#  event_type_id    :integer
+#  permitter_id     :integer
+#  workflow_state   :string
+#  event_contact    :text
+#  responsibility   :boolean
+#  cpr              :boolean
+#  communication    :boolean
+#  post_event_name  :string
+#  post_event_email :string
+#  post_event_phone :string
+#  creator_id       :integer
 #
 
 class Plan < ActiveRecord::Base
@@ -21,6 +29,9 @@ class Plan < ActiveRecord::Base
   belongs_to :owner, class_name: User
   belongs_to :event_type
   belongs_to :permitter
+  has_many :plan_users
+  has_many :users, :through => :plan_users
+  belongs_to :creator, class_name: User
 
   has_many :operation_periods
 
@@ -35,6 +46,7 @@ class Plan < ActiveRecord::Base
     end
     state :awaiting_review do
       event :review, :transitions_to => :being_reviewed
+      event :accept, :transitions_to => :accepted
     end
     state :being_reviewed do
       event :accept, :transitions_to => :accepted
@@ -46,5 +58,17 @@ class Plan < ActiveRecord::Base
 
   def submit
     puts "I'm sending an email!"
+  end
+
+  def review
+    puts "under review"
+  end
+
+  def accept
+    puts "plan accepted"
+  end
+
+  def reject
+    puts "plan rejected"
   end
 end

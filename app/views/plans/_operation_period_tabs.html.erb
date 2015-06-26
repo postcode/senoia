@@ -1,0 +1,5 @@
+<% if count == 1 %>
+  <li class="tab-title active"><a href="#panel<%= count %>"><%= period.start_date.strftime("%D %r") %></a></li>
+<% else %>
+  <li class="tab-title"><a href="#panel<%= count %>"><%= period.start_date.strftime("%D %r") %></a></li>
+<% end %>
