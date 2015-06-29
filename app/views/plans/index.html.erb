@@ -45,8 +45,8 @@
           <div class="checkbox row collapse">
             <div class="checkbox inline">
               <div>
-              <%= hidden_field_tag :my_requests_check, "0", id: "mr" %>
-              <%= check_box_tag :my_requests_check %>
+              <%= hidden_field_tag :my_plans_check, "0", id: "mr" %>
+              <%= check_box_tag :my_plans_check %>
               <span class=""><i class="fi-torso"></i><%= "My Plans" %></span>
               </div>
             </div>
@@ -83,9 +83,9 @@
               <% if can? :manage, Plan %>
                 <h5>Alcohol</h5>
                 <div>
-                  <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
-                  <%= check_box_tag :reviewing_check %>
-                  <span class="overdue"><%= "Yes" %></span>
+                  <%= hidden_field_tag :alcohol_check, "0", id: "alcohol" %>
+                  <%= check_box_tag :alcohol_check %>
+                  <span class="alcohol"><%= "Yes" %></span>
                 </div>
                 <h5>Event Type</h5>
                 <div class="row collapse">
@@ -118,7 +118,7 @@
                 <h4>CREATOR:</h4>
                 <div class="row collapse">
                   <div class="small-10 columns">
-                    <%= text_field_tag :filter, '', placeholder: "I'd like to find...", autocomplete: :on %>
+                    <%= text_field_tag :creator, '', placeholder: "I'd like to find...", autocomplete: :on %>
                   </div>
                   <div class="small-2 columns">
                     <button class="button postfix primary"><i class="fi-magnifying-glass"></i></button>

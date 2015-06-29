@@ -9,8 +9,12 @@ class PlansController < ApplicationController
     else
       plans_scope = Plan.with_accepted_state
     end
+    plans_scope = User.find(current_user.id).plans if params[:my_plans_check] == "1"
+    plans_scope = plans_scope.like(params[:filter]) if params[:filter]
+    plans_scope = plans_scope.alcohol if params[:alcohol_check] == "1"
     @plans = smart_listing_create(:plans, plans_scope, partial: "plans/listing")
     respond_to do |format|
+      format.js
       format.html
       format.json { render json: @plans }
     end
@@ -145,7 +149,7 @@ class PlansController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def plan_params
-      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], mobile_teams_attributes: [:id, :name, :level, :provider_id], dispatchs_attributes: [:id, :name, :level], transports_attributes: [:id, :name, :level])
+      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], mobile_teams_attributes: [:id, :name, :level, :provider_id], dispatchs_attributes: [:id, :name, :level], transports_attributes: [:id, :name, :level], :user_ids => [])
     end
 
     def operation_periods_params

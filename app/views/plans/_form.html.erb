@@ -27,19 +27,19 @@
         <div class="large-8 columns">
           <fieldset>
             <legend>Collaborators</legend>
-             <%= f.simple_fields_for :users do |u| %>
               <div class="row">
-                <div class="small-3 columns input_label">
-                  <%= u.label "Email", class: "inline" %>
-                </div>
-                <div class="small-8 columns">
-                  <%= u.input :email, label: false %>
-                </div>
+                <div class="small-10 columns end">
+                  <%= f.association :users,
+                              collection: User.all,
+                              label_method: :email,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false %>
+                  </div>
               </div>
               <div class="row">
                 <a href="#" class="button small radius "><i class="fi-plus"></i> Add Editors</a>
               </div>
-            <% end %>
           </fieldset>
         </div>
       </div>

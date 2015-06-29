@@ -39,6 +39,9 @@ class Plan < ActiveRecord::Base
 
   validates_presence_of :name
 
+  scope :like, ->(search) { where("name ilike ?", '%' + search + '%').order(created_at: :desc) }
+  scope :alcohol, -> { where("alcohol = ?", true).order(created_at: :desc) }
+
   include Workflow
   workflow do
     state :draft do
