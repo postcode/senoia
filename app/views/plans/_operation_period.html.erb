@@ -46,7 +46,7 @@
             <th>Contact Phone</th>
           </thead>
           <tbody>
-            <%= render 'new_first_aid_station', op: op %>
+            <%= render 'new_first_aid_station', operation: op %>
           </tbody>
         </table> 
           <%= link_to add_first_aid_station_path, remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
@@ -55,62 +55,58 @@
     </fieldset>
     <fieldset>
       <legend>MOBILE TEAMS</legend>
-      <%= simple_fields_for :mobile_teams do |mobile| %>
         <table id="mobile_team_table">
           <thead>
             <th>Location</th>
             <th>Lvl</th>
             <th>AEDs</th>
             <th>Provider</th>
+            <th>Contact Name</th>
+            <th>Contact Phone</th>
           </thead>
           <tbody>
             <%= render 'new_mobile_team', op: op %>
           </tbody>
         </table>  
-        <%= link_to add_mobile_team_path, remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
+        <%= link_to add_mobile_team_path, remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
           <i class="fi-plus"></i> ADD MOBILE TEAM
         <% end %>
-      <% end %>
     </fieldset>
     <fieldset>
       <legend>TRANSPORT</legend>
-      <%= simple_fields_for :transports do |t| %>
         <table id="transport_table">
           <thead>
             <th>Location</th>
             <th>Lvl</th>
             <th>Provider</th>
+            <th>Contact Name</th>
+            <th>Contact Phone</th>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <a id="new_transport" href="#" data-reveal-id="new-transport"><i class="fi-plus"></i></a>
-                <%= render 'new_transport', plan: @plan, operation_period: op %>
-              </td>
-            </tr>
+            <%= render 'new_transport', op: op %>
           </tbody>
         </table>  
-      <% end %>
+        <%= link_to add_transport_path, remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
+          <i class="fi-plus"></i> ADD TRANSPORT
+        <% end %> 
     </fieldset>
     <fieldset>
       <legend>DISPATCH</legend>
-      <%= simple_fields_for :dispatchs do |d| %>
         <table id="dispatch_table">
           <thead>
             <th>Location</th>
             <th>Lvl</th>
             <th>Provider</th>
+            <th>Contact Name</th>
+            <th>Contact Phone</th>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <a id="new_dispatch" href="#" data-reveal-id="new-dispatch"><i class="fi-plus"></i></a>
-                <%= render 'new_dispatch', plan: @plan, operation_period: op %>
-              </td>
-            </tr>
+              <%= render 'new_dispatch', op: op %>
           </tbody>
-        </table>  
-      <% end %>
+        </table> 
+        <%= link_to add_dispatch_path, remote: true, class: "button primary tiny radius", id: "new_dispatch"  do %> 
+          <i class="fi-plus"></i> ADD DISPATCH
+        <% end %>  
     </fieldset>
   </div>
 <% end %>

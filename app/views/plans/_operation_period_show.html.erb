@@ -67,7 +67,6 @@
         </fieldset>
         <fieldset>
           <legend>MOBILE TEAMS</legend>
-          <%= simple_fields_for :mobile_teams do |mobile| %>
             <table>
               <thead>
                 <th>Location</th>
@@ -82,7 +81,6 @@
             <%= link_to add_mobile_team_path, remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
               <i class="fi-plus"></i> ADD MOBILE TEAM
             <% end %>
-          <% end %>
           <div class="large-3 columns right end">
             <%= render 'comment_form', plan: @plan, title: "#{period.id}_mobile_teams" %>
           </div>
@@ -97,14 +95,12 @@
                 <th>Provider</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <a id="new_transport" href="#" data-reveal-id="new-transport"><i class="fi-plus"></i></a>
-                    <%= render 'new_transport', plan: @plan, operation_period: op %>
-                  </td>
-                </tr>
+                <%= render 'transport_show', op: op %>
               </tbody>
-            </table>  
+            </table> 
+            <%= link_to add_transport_path, remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
+              <i class="fi-plus"></i> ADD TRANSPORT
+            <% end %> 
           <% end %>
           <div class="large-3 columns right end">
             <%= render 'comment_form', plan: @plan, title: "#{period.id}_transport" %>
@@ -122,7 +118,6 @@
               <tbody>
                 <tr>
                   <td>
-                    <a id="new_dispatch" href="#" data-reveal-id="new-dispatch"><i class="fi-plus"></i></a>
                     <%= render 'new_dispatch', plan: @plan, op: op %>
                   </td>
                 </tr>

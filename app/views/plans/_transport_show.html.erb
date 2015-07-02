@@ -1,4 +1,4 @@
-<%= op.simple_fields_for "dispatch[id][#{DateTime.now.to_i}]" do |f| %>
+<%= op.simple_fields_for :transport do |f| %>
 <tr class="more">
   <td><%= f.input :name, required: false %></td>
   <td><%= f.input :level, required: false %></td>

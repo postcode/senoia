@@ -63,6 +63,20 @@ class PlansController < ApplicationController
           @operation_period.save
         end
       end
+      if op[1][:transports].present? 
+        op[1][:transports][:id].each do |station|
+          @transport = Transport.create(station[1])
+          @operation_period.transports << @transport
+          @operation_period.save
+        end
+      end
+      if op[1][:dispatch].present? 
+        op[1][:dispatch][:id].each do |station|
+          @dispatch = Dispatch.create(station[1])
+          @operation_period.dispatchs << @dispatch
+          @operation_period.save
+        end
+      end
     end
     if @plan.save
       @plan.submit!
@@ -149,6 +163,22 @@ class PlansController < ApplicationController
     end
   end
 
+  def add_transport
+    @operation_period = OperationPeriod.new
+    @operation_period.transports.build
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_dispatch
+    @operation_period = OperationPeriod.new
+    @operation_period.dispatchs.build
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def add_operation_period
     @count = params[:count].to_i + 1
     @operation_period = OperationPeriod.new
@@ -168,10 +198,6 @@ class PlansController < ApplicationController
     end
 
     def operation_periods_params
-      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone]], mobile_teams: [id:[:name, :level, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone]]])
-    end
-
-    def first_aid_stations_params
-      params.require(:first_aid_stations).permit()
+      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone]], mobile_teams: [id:[:name, :level, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone]], transports: [id:[:name, :level, :provider_id, :operation_period_id, :contact_name, :contact_phone]], dispatchs: [id:[:name, :level, :provider_id, :operation_period_id, :contact_name, :contact_phone]]])
     end
 end

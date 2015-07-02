@@ -1,4 +1,4 @@
-<%= op.simple_fields_for "first_aid_stations[id][#{DateTime.now.to_i}]" do |f| %>
+<%= operation.simple_fields_for "first_aid_stations[id][#{DateTime.now.to_i}]" do |f| %>
 <tr class="more">
   <td><%= f.input :name, required: false %></td>
   <td><%= f.input :level, required: false %></td>

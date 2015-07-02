@@ -1,1 +1,3 @@
-$(".more", "#mobile_team_table").parent().append("<%= j render(partial: 'new_mobile_team' )%>")
+<%= simple_fields_for @operation_period do |op| %>
+  $(".more", "#mobile_team_table").parent().append("<%= j render(partial: 'new_mobile_team', locals: {op: op} )%>")
+<% end %>

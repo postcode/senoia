@@ -1,18 +1,15 @@
-<div id="new-transport" class="reveal-modal small" data-reveal>
-  <a class="close-reveal-modal">&#215;</a>
-  <h3>Add Transport</h3>
-  <div class="modal-body">
-    <%= simple_fields_for :transport do |t| %>
-      <%= t.input :name, required: false %>
-      <%= t.input :level, required: false %>
-      <%= t.input :provider,
-                        collection: Provider.all,
-                        label_method: :name,
-                        value_method: :id,
-                        include_blank: false,
-                        label: "Provider", required: false %>
-    <% end %>
-  </div>
-  <div class="modal-footer">
-  </div>
-</div>
+<%= op.simple_fields_for "transport[id][#{DateTime.now.to_i}]" do |f| %>
+<tr class="more">
+  <td><%= f.input :name, required: false %></td>
+  <td><%= f.input :level, required: false %></td>
+  <td><%= f.input :provider_id,
+                    collection: Provider.all,
+                    label_method: :name,
+                    value_method: :id,
+                    include_blank: false,
+                    prompt: "Select a provider",
+                    label: "Provider", required: false %></td>
+  <td><%= f.input :contact_name, required: false %></td>
+  <td><%= f.input :contact_phone, required: false %></td>
+</tr>
+<% end %>
