@@ -33,7 +33,7 @@
     <%= image_tag "senoia_map.png" %>
     <fieldset>
       <legend>FIRST AID STATIONS</legend>
-        <table id="first_aid_table" class="">
+        <table id="first_aid_table">
           <thead>
             <th>Name</th>
             <th>Lvl</th>
@@ -49,7 +49,7 @@
             <%= render 'new_first_aid_station', operation: op %>
           </tbody>
         </table> 
-          <%= link_to add_first_aid_station_path, remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
+          <%= link_to add_first_aid_station_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
           <i class="fi-plus"></i> ADD FIRST AID STATION
         <% end %>
     </fieldset>
@@ -68,7 +68,7 @@
             <%= render 'new_mobile_team', op: op %>
           </tbody>
         </table>  
-        <%= link_to add_mobile_team_path, remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
+        <%= link_to add_mobile_team_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
           <i class="fi-plus"></i> ADD MOBILE TEAM
         <% end %>
     </fieldset>
@@ -86,7 +86,7 @@
             <%= render 'new_transport', op: op %>
           </tbody>
         </table>  
-        <%= link_to add_transport_path, remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
+        <%= link_to add_transport_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
           <i class="fi-plus"></i> ADD TRANSPORT
         <% end %> 
     </fieldset>
@@ -104,7 +104,7 @@
               <%= render 'new_dispatch', op: op %>
           </tbody>
         </table> 
-        <%= link_to add_dispatch_path, remote: true, class: "button primary tiny radius", id: "new_dispatch"  do %> 
+        <%= link_to add_dispatch_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_dispatch"  do %> 
           <i class="fi-plus"></i> ADD DISPATCH
         <% end %>  
     </fieldset>

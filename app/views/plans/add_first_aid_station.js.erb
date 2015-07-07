@@ -1,3 +1,3 @@
 <%= simple_fields_for @operation_period do |op| %>
-  $(".more", "#first_aid_table").parent().append("<%= j render(partial: 'new_first_aid_station', locals: {operation: op} )%>")
+  $("#first_aid_table").append("<%= j render(partial: 'new_first_aid_station', locals: {operation: op} )%>")
 <% end %>

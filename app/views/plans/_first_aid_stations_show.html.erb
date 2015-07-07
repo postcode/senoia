@@ -1,11 +1,11 @@
 <%= op.simple_fields_for :first_aid_stations do |f| %>
-<tr class="more">
+<tr>
   <td><%= f.input :name, required: false %></td>
   <td><%= f.input :level, required: false %></td>
-  <td><%= f.input :md, label: "MDs", input_html: {value: 0, required: false}%></td>
-  <td><%= f.input :rn, label: "RNs", input_html: {value: 0}, required: false %></td>
-  <td><%= f.input :emt, label: "EMTs", input_html: {value: 0}, required: false %></td>
-  <td><%= f.input :aed, label: "AEDs", input_html: {value: 0}, required: false %></td>
+  <td><%= f.input :md, label: "MDs", required: false %></td>
+  <td><%= f.input :rn, label: "RNs", required: false %></td>
+  <td><%= f.input :emt, label: "EMTs", required: false %></td>
+  <td><%= f.input :aed, label: "AEDs", required: false %></td>
   <td><%= f.input :provider_id,
                     collection: Provider.all,
                     label_method: :name,

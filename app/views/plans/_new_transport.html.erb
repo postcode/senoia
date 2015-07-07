@@ -1,5 +1,5 @@
 <%= op.simple_fields_for "transport[id][#{DateTime.now.to_i}]" do |f| %>
-<tr class="more">
+<tr>
   <td><%= f.input :name, required: false %></td>
   <td><%= f.input :level, required: false %></td>
   <td><%= f.input :provider_id,

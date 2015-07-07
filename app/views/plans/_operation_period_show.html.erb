@@ -1,18 +1,19 @@
-<%= simple_fields_for period do |op| %>
+
   <% if count == 1 %>
     <div class="content active" id="panel<%= count %>">
   <% else %>
     <div class="content" id="panel<%= count %>">
   <% end %>
+      <%= op.input_field :id, as: :hidden %>
         <div class="row">
           <div class="small-2 columns input_label">
           <%= op.label :start_date, class: "inline", label: "START" %>
           </div>
           <div class="small-4 columns end">
-            <%= op.input_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
+            <%= op.object.start_date %>
           </div>
           <div class="large-3 columns end">
-            <%= render 'comment_form', plan: @plan, title: "#{period.id}_start_date" %>
+            <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_start_date" %>
           </div>
         </div>
         <div class="row">
@@ -20,10 +21,10 @@
           <%= op.label :end_date, class: "inline", label: "END" %>
           </div>
           <div class="small-4 columns end">
-            <%= op.input_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
+            <%= op.object.end_date %>
           </div>
           <div class="large-3 columns end">
-            <%= render 'comment_form', plan: @plan, title: "#{period.id}_end_date" %>
+            <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_end_date" %>
           </div>
         </div>        
         <div class="row">
@@ -33,16 +34,16 @@
             <% end %>
           </div>
           <div class="small-4 columns end">
-            <%= op.input :attendance, label: false %>
+            <%= op.input :attendance, label: false, input_html: { id: "#{op.object.id}_attendance"} %>
           </div>
           <div class="large-3 columns end">
-            <%= render 'comment_form', plan: @plan, title: "#{period.id}_attendance" %>
+            <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_attendance" %>
           </div>
         </div>
         <%= image_tag "senoia_map.png" %>
         <fieldset>
           <legend>FIRST AID STATIONS</legend>
-            <table id="first_aid_table" class="">
+            <table id="first_aid_table">
               <thead>
                 <th>Name</th>
                 <th>Lvl</th>
@@ -58,31 +59,33 @@
                 <%= render 'first_aid_stations_show', op: op %>
               </tbody>
             </table> 
-            <%= link_to add_first_aid_station_path, remote: true, class: "button primary tiny radius large-3 columns", id: "new_first_aid_station"  do %> 
+            <%= link_to add_first_aid_station_path(op.object.id), remote: true, class: "button primary tiny radius large-3 columns", id: "new_first_aid_station"  do %> 
               <i class="fi-plus"></i> ADD FIRST AID STATION
             <% end %>
             <div class="large-3 columns right end">
-              <%= render 'comment_form', plan: @plan, title: "#{period.id}_first_aid_stations" %>
+              <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_first_aid_stations" %>
             </div>
         </fieldset>
         <fieldset>
           <legend>MOBILE TEAMS</legend>
-            <table>
+            <table id="mobile_team_table">
               <thead>
                 <th>Location</th>
                 <th>Lvl</th>
                 <th>AEDs</th>
                 <th>Provider</th>
+                <th>Contact Name</th>
+                <th>Contact Phone</th>
               </thead>
               <tbody>
                 <%= render 'mobile_team_show', op: op %>
               </tbody>
             </table>  
-            <%= link_to add_mobile_team_path, remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
+            <%= link_to add_mobile_team_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
               <i class="fi-plus"></i> ADD MOBILE TEAM
             <% end %>
           <div class="large-3 columns right end">
-            <%= render 'comment_form', plan: @plan, title: "#{period.id}_mobile_teams" %>
+            <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_mobile_teams" %>
           </div>
         </fieldset>
         <fieldset>
@@ -93,17 +96,19 @@
                 <th>Location</th>
                 <th>Lvl</th>
                 <th>Provider</th>
+                <th>Contact Name</th>
+                <th>Contact Phone</th>
               </thead>
               <tbody>
                 <%= render 'transport_show', op: op %>
               </tbody>
             </table> 
-            <%= link_to add_transport_path, remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
+            <%= link_to add_transport_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
               <i class="fi-plus"></i> ADD TRANSPORT
             <% end %> 
           <% end %>
           <div class="large-3 columns right end">
-            <%= render 'comment_form', plan: @plan, title: "#{period.id}_transport" %>
+            <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_transport" %>
           </div>
         </fieldset>
         <fieldset>
@@ -114,19 +119,19 @@
                 <th>Location</th>
                 <th>Lvl</th>
                 <th>Provider</th>
+                <th>Contact Name</th>
+                <th>Contact Phone</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <%= render 'new_dispatch', plan: @plan, op: op %>
-                  </td>
-                </tr>
+                <%= render 'dispatch_show', op: op %>
               </tbody>
-            </table>  
+            </table> 
+            <%= link_to add_dispatch_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_dispatch"  do %> 
+            <i class="fi-plus"></i> ADD DISPATCH
+          <% end %> 
           <% end %>
           <div class="large-3 columns right end">
-            <%= render 'comment_form', plan: @plan, title: "#{period.id}_dispatch" %>
+            <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_dispatch" %>
           </div>
         </fieldset>
       </div>
-      <% end %>

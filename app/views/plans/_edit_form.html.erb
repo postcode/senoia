@@ -42,10 +42,10 @@
             <% @plan.users.each do |user| %>
               <div class="row">
                 <div class="small-3 columns input_label">
-                  <%= user.label "Email", class: "inline" %>
+                  <label>Email</label>
                 </div>
                 <div class="small-8 columns">
-                  <%= user.input :email, label: false %>
+                  <%= user.email %>
                 </div>
               </div>
             <% end %>
@@ -121,13 +121,15 @@
       </div>
 
       <ul class="tabs" data-tab>
-        <% @operation_periods.each_with_index do |operation_period, index| %>
-          <%= render 'operation_period_tabs', count: index+1, period: operation_period %>
+        <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+            <%= render 'operation_period_tabs', count: index+1, period: operation_period %>
         <% end %>
       </ul>
       <div class="tabs-content">
-        <% @operation_periods.each_with_index do |operation_period, index| %>
-            <%= render 'operation_period_show', count: index+1, period: operation_period, f: f %>
+        <% @plan.operation_periods.each.with_index do |operation_period,index| %>
+          <%= f.simple_fields_for :operation_periods, operation_period do |op| %>
+            <%= render 'operation_period_show', count: index+1, op: op, f: f %>
+          <% end %>
         <% end %>
       </div>
     </div>

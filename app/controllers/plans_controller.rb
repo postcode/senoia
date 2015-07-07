@@ -22,7 +22,6 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
-    @operation_periods = @plan.operation_periods.all.includes(:first_aid_stations)
     @count = 0
     if @plan.accepted?
       render 'plans/show_accepted'
@@ -63,8 +62,8 @@ class PlansController < ApplicationController
           @operation_period.save
         end
       end
-      if op[1][:transports].present? 
-        op[1][:transports][:id].each do |station|
+      if op[1][:transport].present? 
+        op[1][:transport][:id].each do |station|
           @transport = Transport.create(station[1])
           @operation_period.transports << @transport
           @operation_period.save
@@ -88,6 +87,61 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
+    plan_params[:operation_periods_attributes].each do |op|
+      @operation_period = @plan.operation_periods.find(op[1][:id])
+      if op[1][:first_aid_stations_attributes].present? 
+        op[1][:first_aid_stations_attributes].each do |first_aid|
+          @first_aid_update = FirstAidStation.find(first_aid[1][:id]).update_attributes(first_aid[1])
+        end
+      end
+
+      if op[1][:mobile_teams_attributes].present? 
+        op[1][:mobile_teams_attributes].each do |mobile|
+          @mobile_team_update = MobileTeam.find(mobile[1][:id]).update_attributes(mobile[1])
+        end
+      end
+
+      if op[1][:transports_attributes].present? 
+        op[1][:transports_attributes].each do |transport|
+          @transport_team_update = Transport.find(transport[1][:id]).update_attributes(transport[1])
+        end
+      end
+
+      if op[1][:dispatchs_attributes].present? 
+        op[1][:dispatchs_attributes].each do |dispatch|
+          @dispatch_team_update = Dispatch.find(dispatch[1][:id]).update_attributes(dispatch[1])
+        end
+      end
+
+      if params[op[1][:id]].present?
+        if params[op[1][:id]][:transport].present?
+          params[op[1][:id]][:transport].each do |t|
+            @operation_period.transports << Transport.create(t[1].flatten[1])
+          end
+        end
+
+        if params[op[1][:id]][:first_aid_stations].present?
+          params[op[1][:id]][:first_aid_stations].each do |t|
+            @operation_period.first_aid_stations << FirstAidStation.create(t[1].flatten[1])
+          end
+        end
+
+        if params[op[1][:id]][:mobile_teams].present?
+          params[op[1][:id]][:mobile_teams].each do |t|
+            @operation_period.mobile_teams << MobileTeam.create(t[1].flatten[1])
+          end
+        end
+
+        if params[op[1][:id]][:dispatch].present?
+          params[op[1][:id]][:dispatch].each do |t|
+            @operation_period.dispatchs << Dispatch.create(t[1].flatten[1])
+          end
+        end
+      end
+
+      @operation_period.save
+
+    end
     respond_to do |format|
       if @plan.update_attributes(plan_params)
         format.html { redirect_to @plan, notice: 'plan was successfully updated.' }
@@ -148,32 +202,28 @@ class PlansController < ApplicationController
   end
 
   def add_first_aid_station
-    @operation_period = OperationPeriod.new
-    @operation_period.first_aid_stations.build
+    @operation_period = params[:operation_period].to_s
     respond_to do |format|
       format.js
     end
   end
 
   def add_mobile_team
-    @operation_period = OperationPeriod.new
-    @operation_period.mobile_teams.build
+    @operation_period = params[:operation_period].to_s
     respond_to do |format|
       format.js
     end
   end
 
   def add_transport
-    @operation_period = OperationPeriod.new
-    @operation_period.transports.build
+    @operation_period = params[:operation_period].to_s
     respond_to do |format|
       format.js
     end
   end
 
   def add_dispatch
-    @operation_period = OperationPeriod.new
-    @operation_period.dispatchs.build
+    @operation_period = params[:operation_period].to_s
     respond_to do |format|
       format.js
     end
@@ -194,10 +244,10 @@ class PlansController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def plan_params
-      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], mobile_teams_attributes: [:id, :name, :level, :provider_id], dispatchs_attributes: [:id, :name, :level], transports_attributes: [:id, :name, :level], :user_ids => [])
+      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], :user_ids => [], operation_periods_attributes: [:id, :attendance, first_aid_stations_attributes: [:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id], transports_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone], mobile_teams_attributes: [:id, :name, :level, :aed, :provider_id, :contact_name, :contact_phone], dispatchs_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone]])
     end
 
     def operation_periods_params
-      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone]], mobile_teams: [id:[:name, :level, :aed, :provider_id, :operation_period_id, :contact_name, :contact_phone]], transports: [id:[:name, :level, :provider_id, :operation_period_id, :contact_name, :contact_phone]], dispatchs: [id:[:name, :level, :provider_id, :operation_period_id, :contact_name, :contact_phone]]])
+      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id]], transport: [id: [:name, :level, :provider_id, :contact_name, :contact_phone]], mobile_teams: [id: [:name, :level, :aed, :provider_id, :contact_name, :contact_phone]], dispatch: [id: [:name, :level, :provider_id, :contact_name, :contact_phone]]])
     end
 end
