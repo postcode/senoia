@@ -1,3 +1,3 @@
 <%= simple_fields_for @operation_period do |op| %>
-  $("#dispatch_table").append("<%= j render(partial: 'new_dispatch', locals: {op: op} )%>")
+  $("#dispatch_table", ".content.active").append("<%= j render(partial: 'new_dispatch', locals: {op: op} )%>")
 <% end %>
