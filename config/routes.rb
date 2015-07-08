@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get "/add_transport/:operation_period" => 'plans#add_transport', as: 'add_transport'
   get "/add_dispatch/:operation_period" => 'plans#add_dispatch', as: 'add_dispatch'
   get "/add_operation_period/:count" => 'plans#add_operation_period', as: 'add_operation_period'
+  post "/add_user_plan" => 'plans#add_user', as: 'add_user_plan'
+  post "/update_user_plan" => 'plans#update_plan_user', as: 'update_user_plan'
 
-
- 
 end

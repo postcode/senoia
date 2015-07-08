@@ -1,0 +1,18 @@
+<% if @edit_users.present? %>
+  <% @edit_users.each do |edit| %>
+    $("tbody", "#users_table").append("<%= j render(partial: 'plan_users', locals: {u: User.find(edit.to_i), role: :edit } )%>")
+  <% end %>
+<% end %>
+
+<% if @view_users.present? %>
+  <% @view_users.each do |view| %>
+    $("tbody", "#users_table").append("<%= j render(partial: 'plan_users', locals: {u: User.find(view.to_i), role: :view } )%>")
+  <% end %>
+<% end %>
+
+$('.remove-user').click(function(event) {
+  event.preventDefault()
+  $(this).closest('tr').empty()
+})
+
+$('.reveal-modal').foundation('reveal', 'close');

@@ -1,0 +1,17 @@
+var userEdit = []
+$.each($('.user_edit:checked'), function(i) {
+  userEdit.push($(this).val())
+})
+
+var userView = []
+$.each($('.user_view:checked'), function(i) {
+  userView.push($(this).val())
+})
+var newUser= $.ajax({
+  data: { 
+        'edit_plan[]': userEdit,
+        'view_plan[]': userView
+    },
+  type: 'post',
+  url: '<%= j add_user_plan_path %>'
+});

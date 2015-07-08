@@ -28,17 +28,18 @@
           <fieldset>
             <legend>Collaborators</legend>
               <div class="row">
-                <div class="small-10 columns end">
-                  <%= f.association :users,
-                              collection: User.all,
-                              label_method: :email,
-                              value_method: :id,
-                              include_blank: false,
-                              label: false %>
-                  </div>
+                <table id="users_table">
+                  <thead>
+                    <th>Email</th>
+                    <th>Role</th>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
               </div>
               <div class="row">
-                <a href="#" class="button small radius "><i class="fi-plus"></i> Add Editors</a>
+                <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user"><i class="fi-plus"></i>Add Users</a>
+                <%= render 'new_plan_user', :plan => @plan %>
               </div>
           </fieldset>
         </div>

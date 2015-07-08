@@ -1,0 +1,25 @@
+<div id="new-plan-user" class="reveal-modal small" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add New User</h3>
+  <div class="modal-body">
+    <table id="all_users" class="user_table large-12 columns">
+      <thead>
+        <th width="100">Email</th>
+        <th>Can View</th>
+        <th>Can Edit</th>
+      </thead>
+      <tbody>
+      <% for user in User.all %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= check_box "plan_view[id]", user.id, {:class => 'table-row-checkbox user_view'}, user.id %></td>
+          <td><%= check_box "plan_edit[id]", user.id, {:class => 'table-row-checkbox user_edit'}, user.id %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <%= link_to "Add User", update_user_plan_path, id: "new-plan-user-submit", class: "button primary save-modal", remote: true, method: :post %>
+  </div>
+</div>

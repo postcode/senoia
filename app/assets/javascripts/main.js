@@ -40,4 +40,8 @@ $(function() {
     event.preventDefault();
     $.post($(this).attr('data-href') + "&comment_text=" + $(this).siblings("textarea").val(), function(data){} );
   })
+  $('.remove-user').click(function(event) {
+    event.preventDefault()
+    $(this).closest('tr').empty()
+  })
 });

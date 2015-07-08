@@ -237,6 +237,20 @@ class PlansController < ApplicationController
     end
   end
 
+  def add_user
+    @edit_users = params[:edit_plan]
+    @view_users = params[:view_plan]
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_plan_user
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private 
 
    # Using a private method to encapsulate the permissible parameters is
