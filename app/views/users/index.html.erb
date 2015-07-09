@@ -4,7 +4,7 @@
       <h2>ALL USERS</h2>
     </div>
     <div class="large-6 medium-4 columns">
-      <%= link_to_if(can?(:create, User), "Create New User", new_user_registration_path, :class => 'button primary small') %>
+      <%= link_to_if(can?(:create, User), "Create New User", new_user_path, :class => 'button primary small') %>
     </div>
   </div>
   <div class="row">
@@ -22,7 +22,7 @@
           <tr id="user_<%= u.id %>">
             <td><%= link_to_if(can?(:read, User), "#{u.name}", user_path(u.id)) {} %></td>
             <td><%= u.email %></td>
-            <td><%= u.role %></td>
+            <td><%= u.roles.first %></td>
             <td><%= link_to_if(can?(:edit, User), "Edit", edit_user_path(u.id), :class => 'button secondary tiny') %></td>
             <td><%= link_to_if(can?(:delete, u), "Delete", user_path(u.id), method: :delete, :confirm => "Are you sure?", :class => 'button alert tiny') %></td>
           </tr>    

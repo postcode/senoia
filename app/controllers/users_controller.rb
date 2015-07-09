@@ -75,7 +75,7 @@ class UsersController < ApplicationController
         flash[:notice] = "Account has been disabled"
         format.html { redirect_to :action => :index }
       else
-        format.html { render action: "show" }
+        format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -109,7 +109,6 @@ class UsersController < ApplicationController
     else
       @user.errors[:base] << "The password you entered is incorrect" unless @user.valid_password?(params[:user][:current_password])
     end
-
     # required for settings form to submit when password is left blank
     account_update_params = params[:user]
     if account_update_params[:password].blank?
@@ -118,7 +117,8 @@ class UsersController < ApplicationController
     end
 
 
-    if @user.update(user_params)      
+    if @user.update_attributes(user_params)  
+    binding.pry    
       redirect_to( users_path, notice: "Your account has been updated")
     else      
       render action: :edit, alert: 'There were some problems updating this user.'
@@ -150,6 +150,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :name, :email, :password, :role)
+    params.require(:user).permit(:id, :name, :email, :password, :roles)
   end
 end

@@ -42,6 +42,7 @@ class PlansController < ApplicationController
     @plan = Plan.create(plan_params)
     @plan.creator = current_user
     @plan.owner = current_user
+    binding.pry
     operation_periods_params[:id].each do |op|
       @operation_period = OperationPeriod.new(attendance: op[1][:attendance])
       @operation_period.start_date = DateTime.strptime(op[1][:start_date], '%m/%d/%Y %H:%M %p')
@@ -142,6 +143,12 @@ class PlansController < ApplicationController
           params[op[1][:id]][:dispatch].each do |t|
             @operation_period.dispatchs << Dispatch.create(t[1].flatten[1])
           end
+        end
+      end
+
+      if params[:user].present?
+        params[:user].each do |user|
+          @plan.users << User.where(email: user[:email]).first
         end
       end
 
