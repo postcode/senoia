@@ -77,6 +77,12 @@ class PlansController < ApplicationController
         end
       end
     end
+
+    if params[:user].present?
+      params[:user].each do |user|
+        @plan.users << User.where(email: user).first
+      end
+    end
     if @plan.save
       @plan.submit!
       redirect_to plans_path

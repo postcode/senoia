@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :permitters
 
   devise_for :users
+  resources :users
 
   get "/add_first_aid_station/:operation_period" => 'plans#add_first_aid_station', as: 'add_first_aid_station'
   get "/add_mobile_team/:operation_period" => 'plans#add_mobile_team', as: 'add_mobile_team'

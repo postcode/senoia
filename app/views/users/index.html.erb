@@ -1,0 +1,36 @@
+<div class="spacing">
+  <div class="row pageTitle">
+    <div class="large-6 medium-4 columns">
+      <h2>ALL USERS</h2>
+    </div>
+    <div class="large-6 medium-4 columns">
+      <%= link_to_if(can?(:create, User), "Create New User", new_user_registration_path, :class => 'button primary small') %>
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th width="300">Name</th>
+            <th width="300">Email</th>
+            <th width="100">Roles</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |u| %>
+          <tr id="user_<%= u.id %>">
+            <td><%= link_to_if(can?(:read, User), "#{u.name}", user_path(u.id)) {} %></td>
+            <td><%= u.email %></td>
+            <td><%= u.role %></td>
+            <td><%= link_to_if(can?(:edit, User), "Edit", edit_user_path(u.id), :class => 'button secondary tiny') %></td>
+            <td><%= link_to_if(can?(:delete, u), "Delete", user_path(u.id), method: :delete, :confirm => "Are you sure?", :class => 'button alert tiny') %></td>
+          </tr>    
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

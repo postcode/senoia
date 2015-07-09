@@ -1,0 +1,30 @@
+<%= simple_form_for @user do |f| %>
+<% if @user.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<ul class="no-bullet">
+  <li><%= f.input :name %></li>
+
+  <li><%= f.input :email, required: true, input_html: { required: 'required' } %></li>
+  <% if (can?(:edit, User)) && (current_user != @user) %>
+  <li><%= f.input :roles, collection: User.valid_roles, include_blank: false %></li>
+  <% end %>
+  <% if params[:action] == 'create' || params[:action] == 'new' %>
+  <li><%= f.input :password, required: true, input_html: { required: 'required'} %></li>
+  <li><%= f.input :password_confirmation, required: true, input_html: { required: 'required'} %></li>
+  <% else %>
+  <li><%= f.input :password %></li>
+  <li><%= f.input :password_confirmation %></li>
+  <% end %>
+</ul>
+<br>
+<p><%= f.submit class: 'button primary' %></p>
+<% end %>
