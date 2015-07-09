@@ -25,6 +25,7 @@
 #  organization_id        :integer
 #  phone_number           :string
 #  roles_mask             :integer
+#  name                   :string
 #
 
 class User < ActiveRecord::Base
@@ -41,6 +42,7 @@ class User < ActiveRecord::Base
          :confirmable
 
   has_many :plans
+  has_many :plan_users
 
   roles_attribute :roles_mask
 

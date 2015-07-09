@@ -42,7 +42,6 @@ class PlansController < ApplicationController
     @plan = Plan.create(plan_params)
     @plan.creator = current_user
     @plan.owner = current_user
-    binding.pry
     operation_periods_params[:id].each do |op|
       @operation_period = OperationPeriod.new(attendance: op[1][:attendance])
       @operation_period.start_date = DateTime.strptime(op[1][:start_date], '%m/%d/%Y %H:%M %p')
@@ -81,9 +80,13 @@ class PlansController < ApplicationController
 
     if params[:user].present?
       params[:user].each do |user|
-        @plan.users << User.where(email: user).first
+        @plan.users << User.where(email: user[1][:email]).first
+        p = PlanUser.where(plan_id: @plan.id, user_id: user).first
+        p.role = user[1][:role]
+        p.save
       end
     end
+
     if @plan.save
       @plan.submit!
       redirect_to plans_path
@@ -148,12 +151,14 @@ class PlansController < ApplicationController
 
       if params[:user].present?
         params[:user].each do |user|
-          @plan.users << User.where(email: user[:email]).first
+          @plan.users << User.where(email: user[1][:email]).first
+          p = PlanUser.where(plan_id: @plan.id, user_id: user).first
+          p.role = user[1][:role]
+          p.save
         end
       end
 
       @operation_period.save
-
     end
     respond_to do |format|
       if @plan.update_attributes(plan_params)
@@ -262,6 +267,13 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def remove_user
+    @plan = Plan.find(params[:plan_id])
+    @plan_user = PlanUser.where(user_id: params[:user_id], plan_id: params[:plan_id])
+    @plan_user.first.destroy
+    redirect_to plan_path(@plan)
   end
 
   private 

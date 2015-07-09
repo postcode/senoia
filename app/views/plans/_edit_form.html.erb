@@ -35,24 +35,33 @@
           <%= render 'comment_form', plan: @plan, title: "contact" %>
         </div>
       </div>
-      <div class="row">
-        <div class="large-8 columns">
-          <fieldset>
-            <legend>Collaborators</legend>
-            <% @plan.users.each do |user| %>
-              <div class="row">
-                <div class="small-3 columns input_label">
-                  <label>Email</label>
+        <div class="row">
+          <div class="large-8 columns">
+            <fieldset>
+              <legend>Collaborators</legend>
+                <div class="row">
+                  <table id="users_table">
+                    <thead>
+                      <th>Email</th>
+                      <th>Role</th>
+                    </thead>
+                    <tbody>
+                      <% @plan.users.each do |user| %>
+                        <tr>
+                          <td><%= user.email %></td>
+                          <td><%= PlanUser.where(user_id: user.id, plan_id: @plan.id).first.present? ? PlanUser.where(user_id: user.id, plan_id: @plan.id).first.role : nil %></td>
+                          <td><%= link_to "Remove", remove_user_plan_path(plan_id: @plan.id, user_id: user.id), class: "button tiny alert", method: :delete %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="small-8 columns">
-                  <%= user.email %>
+                <div class="row">
+                  <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user"><i class="fi-plus"></i>Add Users</a>
+                  <%= render 'new_plan_user', :plan => @plan %>
                 </div>
-              </div>
-            <% end %>
-            <div class="row">
-              <a href="#" class="button small radius "><i class="fi-plus"></i> Add Editors</a>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
         </div>
         <div class="large-3 columns end">
           <% if @plan.id.present? && !@plan.draft? %>

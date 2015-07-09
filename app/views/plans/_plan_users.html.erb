@@ -1,7 +1,7 @@
 <%= simple_fields_for u do |f| %>
 <tr>
-  <td><%= f.input :email, label: false %></td>
-  <td><%= role %></td>
+  <td><%= f.input :email, label: false, input_html: {name: "user[#{u.id}][email]"} %></td>
+  <td><%= f.input :role, collection: ["edit", "view"], selected: role, label: false, input_html: {name: "user[#{u.id}][role]"} %></td>
   <td><a href="#" class="remove-user button tiny alert">Remove</a></td>
 </tr>
 <% end %>

@@ -10,7 +10,7 @@
           <%= op.label :start_date, class: "inline", label: "START" %>
           </div>
           <div class="small-4 columns end">
-            <%= op.object.start_date %>
+            <%= op.object.start_date.strftime("%D %r") %>
           </div>
           <div class="large-3 columns end">
             <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_start_date" %>
@@ -21,7 +21,7 @@
           <%= op.label :end_date, class: "inline", label: "END" %>
           </div>
           <div class="small-4 columns end">
-            <%= op.object.end_date %>
+            <%= op.object.end_date.strftime("%D %r") %>
           </div>
           <div class="large-3 columns end">
             <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_end_date" %>

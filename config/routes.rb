@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post :resolve_comment
       post :request_revision
       post :approve
+      delete 'remove_user(/:plan_id/:user_id)', :to => 'plans#remove_user', :as => :remove_user
     end
   end
   resources :event_types

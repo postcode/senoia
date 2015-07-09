@@ -11,6 +11,8 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  operation_period_id :integer
+#  contact_name        :string
+#  contact_phone       :string
 #
 
 FactoryGirl.define do

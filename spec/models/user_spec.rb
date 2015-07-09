@@ -25,6 +25,7 @@
 #  organization_id        :integer
 #  phone_number           :string
 #  roles_mask             :integer
+#  name                   :string
 #
 
 require 'rails_helper'

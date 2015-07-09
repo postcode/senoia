@@ -5,6 +5,7 @@
 #  id      :integer          not null, primary key
 #  user_id :integer
 #  plan_id :integer
+#  role    :string
 #
 
 class PlanUser < ActiveRecord::Base
