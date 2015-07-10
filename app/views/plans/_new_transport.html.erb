@@ -1,15 +1,16 @@
 <%= op.simple_fields_for "transport[id][#{DateTime.now.to_i}]" do |f| %>
 <tr>
-  <td><%= f.input :name, required: false %></td>
-  <td><%= f.input :level, required: false %></td>
+  <td><%= f.input :name, required: false, label: false %></td>
+  <td><%= f.input :location, required: false, label: false %></td>
+  <td><%= f.input :level, required: false, label: false %></td>
   <td><%= f.input :provider_id,
                     collection: Provider.all,
                     label_method: :name,
                     value_method: :id,
                     include_blank: false,
                     prompt: "Select a provider",
-                    label: "Provider", required: false %></td>
-  <td><%= f.input :contact_name, required: false %></td>
-  <td><%= f.input :contact_phone, required: false %></td>
+                    label: "Provider", required: false, label: false %></td>
+  <td><%= f.input :contact_name, required: false, label: false %></td>
+  <td><%= f.input :contact_phone, required: false, label: false %></td>
 </tr>
 <% end %>

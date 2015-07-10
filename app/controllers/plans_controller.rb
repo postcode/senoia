@@ -42,6 +42,7 @@ class PlansController < ApplicationController
     @plan = Plan.create(plan_params)
     @plan.creator = current_user
     @plan.owner = current_user
+    binding.pry
     operation_periods_params[:id].each do |op|
       @operation_period = OperationPeriod.new(attendance: op[1][:attendance])
       @operation_period.start_date = DateTime.strptime(op[1][:start_date], '%m/%d/%Y %H:%M %p')
@@ -283,10 +284,10 @@ class PlansController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def plan_params
-      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], :user_ids => [], operation_periods_attributes: [:id, :attendance, first_aid_stations_attributes: [:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id], transports_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone], mobile_teams_attributes: [:id, :name, :level, :aed, :provider_id, :contact_name, :contact_phone], dispatchs_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone]])
+      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], :user_ids => [], operation_periods_attributes: [:id, :attendance, first_aid_stations_attributes: [:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id, :location], transports_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location], mobile_teams_attributes: [:id, :name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location], dispatchs_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location]])
     end
 
     def operation_periods_params
-      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id]], transport: [id: [:name, :level, :provider_id, :contact_name, :contact_phone]], mobile_teams: [id: [:name, :level, :aed, :provider_id, :contact_name, :contact_phone]], dispatch: [id: [:name, :level, :provider_id, :contact_name, :contact_phone]]])
+      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :location, :id]], transport: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location]], mobile_teams: [id: [:name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location]], dispatch: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location]]])
     end
 end

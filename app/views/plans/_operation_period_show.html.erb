@@ -40,12 +40,12 @@
             <%= render 'comment_form', plan: @plan, title: "#{op.object.id}_attendance" %>
           </div>
         </div>
-        <%= image_tag "senoia_map.png" %>
         <fieldset>
           <legend>FIRST AID STATIONS</legend>
             <table id="first_aid_table">
               <thead>
                 <th>Name</th>
+                <th>Location</th>
                 <th>Lvl</th>
                 <th>MDs</th>
                 <th>RNs</th>
@@ -70,6 +70,7 @@
           <legend>MOBILE TEAMS</legend>
             <table id="mobile_team_table">
               <thead>
+                <th>Name</th>
                 <th>Location</th>
                 <th>Lvl</th>
                 <th>AEDs</th>
@@ -93,6 +94,7 @@
           <%= simple_fields_for :transports do |t| %>
             <table id="transport_table">
               <thead>
+                <th>Name</th>
                 <th>Location</th>
                 <th>Lvl</th>
                 <th>Provider</th>
@@ -116,6 +118,7 @@
           <%= simple_fields_for :dispatchs do |d| %>
             <table id="dispatch_table">
               <thead>
+                <th>Name</th>
                 <th>Location</th>
                 <th>Lvl</th>
                 <th>Provider</th>
