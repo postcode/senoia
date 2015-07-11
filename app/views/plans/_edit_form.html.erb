@@ -39,27 +39,29 @@
         <div class="row">
           <div class="large-8 columns">
             <fieldset>
-              <legend>Collaborators</legend>
+              <legend>COLLABORATORS</legend>
                 <div class="row">
-                  <table id="users_table">
-                    <thead>
-                      <th>Email</th>
-                      <th>Role</th>
-                    </thead>
-                    <tbody>
-                      <% @plan.users.each do |user| %>
-                        <tr>
-                          <td><%= user.email %></td>
-                          <td><%= PlanUser.where(user_id: user.id, plan_id: @plan.id).first.present? ? PlanUser.where(user_id: user.id, plan_id: @plan.id).first.role : nil %></td>
-                          <td><%= link_to "Remove", remove_user_plan_path(plan_id: @plan.id, user_id: user.id), class: "button tiny alert", method: :delete %></td>
-                        </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="row">
-                  <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user"><i class="fi-plus"></i>Add Users</a>
-                  <%= render 'new_plan_user', :plan => @plan %>
+                  <div class="large-9 columns">
+                    <table id="users_table">
+                      <thead>
+                        <th>Email</th>
+                        <th>Role</th>
+                      </thead>
+                      <tbody>
+                        <% @plan.users.each do |user| %>
+                          <tr>
+                            <td><%= user.email %></td>
+                            <td><%= PlanUser.where(user_id: user.id, plan_id: @plan.id).first.present? ? PlanUser.where(user_id: user.id, plan_id: @plan.id).first.role : nil %></td>
+                            <td><%= link_to "Remove", remove_user_plan_path(plan_id: @plan.id, user_id: user.id), method: :delete %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>  
+                  <div class="large-3 columns">
+                    <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user" class="button tiny radius"><i class="fi-plus"></i>Add Users</a>
+                    <%= render 'new_plan_user', :plan => @plan %>
+                  </div>
                 </div>
             </fieldset>
           </div>
