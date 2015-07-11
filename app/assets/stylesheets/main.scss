@@ -262,6 +262,16 @@ legend{
 }
 #users_table, #first_aid_table, #mobile_team_table, #transport_table, #dispatch_table{
   border: none;
+  thead tr th{
+    color: $mediumgray;
+    font-weight: normal;
+    padding: 0rem 0.625rem 0rem;
+  }
+  thead{
+    background: none;
+    color: $mediumgray;
+    font-weight: normal;
+  }  
 }
 
 

@@ -97,10 +97,12 @@
       </div>
 
     <div class="row">
-      <div class="large-12 columns new-event-info">
-        <h6>Responsibility</h6>
-        <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
-        <%= f.input :responsibility, required: true %>   
+      <div class="large-12 columns">
+        <fieldset>
+          <legend>Responsibility</legend>
+          <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
+          <%= f.input :responsibility, required: true %>
+        </fieldset>     
       </div> 
       <div class="large-12 columns new-event-info">
         <h6>CPR &amp; 911</h6>
