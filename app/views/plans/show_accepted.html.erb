@@ -5,16 +5,17 @@
   </div>
   <div class="large-12 columns plan_form">
       <div class="row">
-        <div class="large-8 columns new-event-info">
-          <h6>Event Plan Creator</h6>
-          <p>CONTACT</p> 
-          <% if @plan.creator.present? %>
-            <p><i class="fi-torso"></i> <%= @plan.creator.name %></p>
-            <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
-            <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
-          <% else %>
-            <p>Contact information is missing!</p>  
-          <% end %>           
+        <div class="large-8 columns">
+          <fieldset>
+            <legend>Event Plan Creator</legend>
+            <% if @plan.creator.present? %>
+              <p><i class="fi-torso"></i> <%= @plan.creator.name %></p>
+              <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
+              <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
+            <% else %>
+              <p>Contact information is missing!</p>  
+            <% end %> 
+          </fieldset>          
         </div>
       </div>
       <div class="row">

@@ -16,20 +16,21 @@
   <%= render 'plan_state' %>
   <div class="large-12 columns plan_form">
       <div class="row">
-        <div class="large-8 columns new-event-info">
-          <h6>Event Plan Creator</h6>
-          <p>CONTACT</p>            
-          <% if @plan.creator.present? %>
-            <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
-            <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
-          <% else %>
-             <%= f.association :creator,
-                              collection: User.all,
-                              label_method: :email,
-                              value_method: :id,
-                              include_blank: false,
-                              label: false %>
-          <% end %>    
+        <div class="large-8 columns">
+          <fieldset>
+            <legend>EVENT PLAN CREATOR</legend>   
+              <% if @plan.creator.present? %>
+              <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
+              <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
+            <% else %>
+               <%= f.association :creator,
+                                collection: User.all,
+                                label_method: :email,
+                                value_method: :id,
+                                include_blank: false,
+                                label: false %>
+            <% end %> 
+          </fieldset>   
         </div>
         <div class="large-3 columns end">
           <%= render 'comment_form', plan: @plan, title: "contact" %>
