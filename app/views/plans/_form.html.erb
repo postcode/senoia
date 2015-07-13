@@ -26,21 +26,23 @@
       <div class="row">
         <div class="large-8 columns">
           <fieldset>
-            <legend>Collaborators</legend>
+            <legend>COLLABORATORS</legend>
               <div class="row">
-                <table id="users_table">
-                  <thead>
-                    <th>Email</th>
-                    <th>Role</th>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-              </div>
-              <div class="row">
-                <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user"><i class="fi-plus"></i>Add Users</a>
-                <%= render 'new_plan_user', :plan => @plan %>
-              </div>
+                <div class="large-9 columns">
+                  <table id="users_table">
+                    <thead>
+                      <th>Email</th>
+                      <th>Role</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="large-3 columns">
+                  <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user" class="button tiny radius"><i class="fi-plus"></i>ADD USERS</a>
+                  <%= render 'new_plan_user', :plan => @plan %>
+                </div>
+            </div>              
           </fieldset>
         </div>
       </div>
@@ -78,7 +80,7 @@
           <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
         </div>
         <div class="small-5 columns end">
-          <%= f.input :alcohol, label: "Yes" %>
+          <%= f.input :alcohol, label: " Yes" %>
         </div>
       </div>
       <hr/>
@@ -99,31 +101,29 @@
     <div class="row">
       <div class="large-12 columns">
         <fieldset>
-          <legend>Responsibility</legend>
+          <legend>RESPONSIBILITY</legend>
           <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
           <%= f.input :responsibility, required: true %>
         </fieldset>     
-      </div> 
-      <div class="large-12 columns new-event-info">
-        <h6>CPR &amp; 911</h6>
-        <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
-        <%= f.input :cpr %>     
-      </div> 
-      <div class="large-12 columns new-event-info">
-        <h6>Communications</h6>
-        <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
-        <label>
-          <%= f.input :event_contact %>     
-        </label> 
-        <%= f.input :communication %>     
-
-      </div> 
-      <div class="large-12 columns new-event-info">
-        <h6>Supplementary Documents</h6>
-        <a href="#" class="button tiny radius"><i class="fi-plus"></i> Upload</a>     
-      </div>                                            
-      <div class="large-12 columns new-event-info">
-        <h6>Post Event Treatment Report Creator</h6>
+        <fieldset>
+          <legend>CPR &amp; 911</legend>
+          <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
+          <%= f.input :cpr %>     
+        </fieldset> 
+        <fieldset>
+          <legend>COMMUNICATIONS</legend>
+          <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
+          <label>
+            <%= f.input :event_contact %>     
+          </label> 
+          <%= f.input :communication %>     
+      </fieldset> 
+      <fieldset>
+        <legend>SUPPLEMENTARY DOCUMENTS</legend>
+        <a href="#" class="button tiny radius"><i class="fi-plus"></i> UPLOAD FILE</a>     
+      </fieldset>                                            
+      <fieldset>
+        <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
         <p> 
         <label><i class="fi-torso"></i> Name
           <%= f.input :post_event_name %>    
@@ -136,7 +136,7 @@
         <label><i class="fi-telephone"></i> Phone
           <%= f.input :post_event_phone %>    
         </label></p>    
-      </div> 
+      </fieldset> 
     </div>  
     <div class="large-12 columns text-center actions plan-action">
       <a href="#" class="button large warning radius"><i class="fi-check"></i> SAVE DRAFT</a>
