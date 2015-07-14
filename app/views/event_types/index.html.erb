@@ -18,6 +18,7 @@
         <tr>
           <td><%= e.name %></td>
           <td><%= e.description %></td>
+          <td><%= link_to "Edit", edit_event_type_path(e.id), class: 'button tiny default' %></td>
         </tr>
       </tbody>
       <% end %>

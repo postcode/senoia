@@ -15,6 +15,14 @@ class EventTypesController < ApplicationController
     end
   end
 
+  def edit
+    @event = EventType.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
+    
+  end
+
   def new
     @event = EventType.new
     respond_to do |format|
@@ -32,6 +40,15 @@ class EventTypesController < ApplicationController
     end
   end
 
+  def update
+    @event = EventType.find(params[:id])
+    if @event.update_attributes(event_type_params)
+      redirect_to event_types_path
+    else
+      redirect_to event_type_new(@event), alert: @event.errors
+    end
+  end
+
   private 
 
    # Using a private method to encapsulate the permissible parameters is
@@ -39,6 +56,6 @@ class EventTypesController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def event_type_params
-      params.require(:event_type).permit(:name, :start_date, :end_date, :description)
+      params.require(:event_type).permit(:id, :name, :start_date, :end_date, :description)
     end
 end

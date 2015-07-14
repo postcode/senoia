@@ -89,7 +89,14 @@ class UsersController < ApplicationController
   # POST /users.json                                      HTML AND AJAX
   #-----------------------------------------------------------------
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
+
+    account_params = user_params
+    if account_params[:password].blank?
+      account_params.delete("password")
+      account_params.delete("password_confirmation")
+    end
+
     if @user.save
       respond_to do |format|
         format.html { redirect_to admin_user_path(@user), notice: 'user was successfully created.' }
@@ -118,7 +125,6 @@ class UsersController < ApplicationController
 
 
     if @user.update_attributes(user_params)  
-    binding.pry    
       redirect_to( users_path, notice: "Your account has been updated")
     else      
       render action: :edit, alert: 'There were some problems updating this user.'
@@ -150,6 +156,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :name, :email, :password, :roles)
+    params.require(:user).permit(:id, :name, :email, :password, :password_confirmation, :roles)
   end
 end

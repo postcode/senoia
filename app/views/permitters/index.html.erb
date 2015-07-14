@@ -20,6 +20,7 @@
           <td><%= p.name %></td>
           <td><%= p.address %></td>
           <td><%= p.phone_number %></td>
+          <td><%= link_to "Edit", edit_permitter_path(p.id), class: 'button tiny default' %></td>
         </tr>
       </tbody>
       <% end %>

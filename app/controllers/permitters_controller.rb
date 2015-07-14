@@ -15,6 +15,14 @@ class PermittersController < ApplicationController
     end
   end
 
+  def edit
+    @permitter = Permitter.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
+    
+  end
+
   def new
     @permitter = Permitter.new
     respond_to do |format|
@@ -26,6 +34,15 @@ class PermittersController < ApplicationController
   def create
     @permitter = Permitter.new(permitter_params)
     if @permitter.save
+      redirect_to permitters_path
+    else
+      redirect_to permitter_new(@permitter), alert: @permitter.errors
+    end
+  end
+
+  def update
+    @permitter = Permitter.find(params[:id])
+    if @permitter.update_attributes(permitter_params)
       redirect_to permitters_path
     else
       redirect_to permitter_new(@permitter), alert: @permitter.errors
