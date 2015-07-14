@@ -88,17 +88,35 @@ ol{
 
 /* NAV BAR */
 .top-bar {
-  background: #789fd3;
+  background: #fff;
+  border-bottom: 1px solid #f5f5f5;
   .name {
-    // background: asset-url("DEM_logo.jpg");
+    margin: .25em 0em 0em 1em;
+    font-family: $primary-font;
+    font-size: 1.5em;
+    color: $promptlyblue;
+    text-transform: uppercase;
   }
 }
 
 .top-bar-section {
   font-weight: bold;
   li:not(.has-form) a:not(.button) {
-    background: #789fd3;
+    background: #fff;
+    color: $promptlyblue;
+    &:hover{
+      background: $promptlyblue;
+      color: #fff;
+    }
   }
+}
+
+/* FOOTER */
+.footer{
+  border-top: 1px solid $lightgray;
+  margin-top: 1em;
+  margin-bottom: 5em;
+  padding-top: 3em;
 }
 
 /* GENERAL */
@@ -129,20 +147,41 @@ legend{
 
 /* LANDING PAGE */
 .landing{
-  margin-top: 1em;
+  h1{
+    color: #fff;
+  }
 }
 .landing a:hover{
   border: none;
   background: $darkgray;
 }
+#homepage-hero{
+  background: asset-url('crowd_background_web.png') no-repeat center center fixed;
+}
 .main-section{
-  background: $mediumgray;
+  background: #fff;
+  color: $promptlyblue;
+  padding: 0em 1em 1em 1em;
+  margin-bottom: 9em;
+  margin-top: 4em;
   text-align: center;
-  margin: 0em 0em 1em 0em;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px; /* future proofing */
   h2{
+    color: $promptlyblue;    
+  }
+  i{ 
+    font-size: 10em;
+  }  
+  &:hover{
+    background: $promptlyblue;
     color: #fff;
-    padding: .5em 0em;
-  } 
+    h2{
+      color: #fff;    
+    }
+  }
+
 }
 .learn-more-landing{
   height: 300px;
@@ -150,8 +189,8 @@ legend{
 }
 /* https://www.flickr.com/photos/audiolucistore/14163042905/in/photolist-nzxidV-LaARx-cxUcBu-9uZpk3-5erWNG-6Jpuud-xsZh8-ovRNyN-ovMGNz-cu64t-bncE6P-hnZzLf-kXy2-bPMHr6-ao63dG-5AmR7f-5nRsb3-dQjSHb-6W49Xi-4YPqqU-72j5yj-7m7B7h-a42jmC-qCzR6b-sSF1Mq-7QpV8y-rrtnoF-4Mt8dp-isjzoi-fGXeu1-58jBvL-7vEVHQ-qcQE2T-e1wDLh-8RViG5-55yjt2-55R1Tu-ihgH2m-4wttVC-6225bv-q62zMt-68jpVn-qMU7aT-oHcbMi-2RF5eT-do8JT3-56eXRT-dV8sXM-6UT19W-7UNsX4*/
 .browse-landing{
-  height: 300px;  
-  background-image: asset-url('search_image.png');
+  height: 300px;
+  background: #fff;  
 }
 /*https://www.flickr.com/search/?license=4%2C5%2C6%2C9%2C10&advanced=1&text=book%20shelf*/
 .new-plan-landing{
