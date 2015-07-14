@@ -30,7 +30,7 @@ class Plan < ActiveRecord::Base
   belongs_to :event_type
   belongs_to :permitter
   has_many :plan_users
-  has_many :users, :through => :plan_users
+  has_many :users, through: :plan_users
   belongs_to :creator, class_name: User
 
   has_many :operation_periods

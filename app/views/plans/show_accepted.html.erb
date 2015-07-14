@@ -42,17 +42,12 @@
             <% end %>
           </fieldset>
         </div>
-        <div class="large-3 columns end">
-          <% if @plan.id.present? && !@plan.draft? %>
-          <a href="#" class="comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
-          <% end %>
-        </div>
       </div>
       <div class="row">
         <div class="small-3 columns input_label">
           <%= f.label :event_type, class: "inline" %>
         </div>
-        <div class="small-5 columns">
+        <div class="small-5 columns end">
         <%= f.association :event_type,
                               collection: EventType.all,
                               label_method: :name,
@@ -60,16 +55,13 @@
                               include_blank: false,
                               label: false %>
         </div>
-        <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
-        </div>
       </div>
 
       <div class="row">
         <div class="small-3 columns input_label">
           <%= f.label :permitter, class: "inline", label: "Permitting Agency" %>
         </div>
-        <div class="small-5 columns">
+        <div class="small-5 columns end">
         <%= f.association :permitter,
                           collection: Permitter.all,
                           label_method: :name,
@@ -77,21 +69,13 @@
                           include_blank: false,
                           label: false %>
         </div>
-        <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
-        </div>
-        <div class="large-3 columns end">
-        </div>
       </div>
        <div class="row">
-        <div class="small-3 columns input_label">
+        <div class="small-3 columns input_label end">
           <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
         </div>
         <div class="small-5 columns">
           <%= f.input :alcohol, label: "Yes" %>
-        </div>
-        <div class="large-1 columns end">
-          <a href="#" class="comment" data-reveal-id="attendance-comment">&nbsp;&nbsp;<i class="fi-comment"></i></a>
         </div>
       </div>
       <hr/>
@@ -101,36 +85,20 @@
       </div>
 
       <ul class="tabs" data-tab>
-        <% @operation_periods.each_with_index do |operation_period, index| %>
+        <% @plan.operation_periods.each_with_index do |operation_period, index| %>
           <%= render 'operation_period_tabs', count: index+1, period: operation_period %>
         <% end %>
       </ul>
       <div class="tabs-content">
-        <% @operation_periods.each_with_index do |operation_period, index| %>
-            <%= render 'operation_period_show', count: index+1, period: operation_period, f: f %>
+        <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+        <%= f.simple_fields_for :operation_periods, operation_period do |op| %>
+            <%= render 'operation_period_show', count: index+1, op: op, f: f %>
+          <% end %>
         <% end %>
       </div>
     </div>
 
     <%= render 'plan_agreement' %>
-
-    <div class="large-12 columns text-center actions plan-action">
-      <%= f.button :button, class: "button large radius warning", label: false do %>
-        <i class="fi-check"></i> SAVE DRAFT
-      <% end %>
-      <% if current_user.admin? && !@plan.being_reviewed? %>
-        <%= link_to request_revision_plan_path(@plan), class: "button large radius", label: false, method: :post do %>
-          <i class="fi-refresh"></i> REQUEST REVISION
-        <% end %>
-        <%= link_to approve_plan_path(@plan), class: "button large radius success", label: false, data: { confirm: "I know I know, just want to confirm that you are ready to approve this plan." }, method: :post do %>
-          <i class="fi-check"></i> APPROVE PLAN
-        <% end %>
-      <% elsif current_user.admin? && @plan.being_reviewed? %>
-        <%= link_to approve_plan_path(@plan), class: "button large radius success", label: false, data: { confirm: "I know I know, just want to confirm that you are ready to approve this plan." }, method: :post do %>
-          <i class="fi-check"></i> APPROVE PLAN
-        <% end %>
-      <% end %>
-    </div>
 
     <% end %> 
   </div>
