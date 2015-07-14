@@ -10,10 +10,12 @@
     <tbody>
       <% smart_listing.collection.each do |o| %>
         <% attendance = 0 %>
-        <% start_date = o.operation_periods.sort_by(&:start_date).first.start_date %>
-        <% end_date = o.operation_periods.sort_by(&:end_date).first.end_date %>
-        <% o.operation_periods.sort_by(&:start_date).each do |op| %>
-          <% op.attendance.present? ? attendance += op.attendance : nil %>
+        <% if o.operation_periods.present? %>
+          <% start_date = o.operation_periods.sort_by(&:start_date).first.start_date %>
+          <% end_date = o.operation_periods.sort_by(&:end_date).first.end_date %>
+          <% o.operation_periods.sort_by(&:start_date).each do |op| %>
+            <% op.attendance.present? ? attendance += op.attendance : nil %>
+          <% end %>
         <% end %>
       <tr>
         <td><%= link_to o.name, plan_path(o) %></td>
