@@ -41,6 +41,8 @@ class Plan < ActiveRecord::Base
 
   scope :like, ->(search) { where("name ilike ?", '%' + search + '%').order(created_at: :desc) }
   scope :alcohol, -> { where("alcohol = ?", true).order(created_at: :desc) }
+  scope :owner, -> (search) { where("creator_id = ?", search).order(created_at: :desc) }
+
 
   include Workflow
   workflow do
@@ -73,5 +75,9 @@ class Plan < ActiveRecord::Base
 
   def reject
     puts "plan rejected"
+  end
+
+  def attendance(number)
+    Plan.all.each    
   end
 end

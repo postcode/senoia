@@ -2,7 +2,6 @@
   <div class="large-12 columns pageTitle">
     <h1>Enter Plan Information</h1>
   </div>
-  <%= render 'plan_state' %>
   <div class="large-12 columns plan_form">
     <%= simple_form_for [@plan] do |f| %>
       <% if @plan.errors.any? %>

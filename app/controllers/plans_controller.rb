@@ -5,14 +5,22 @@ class PlansController < ApplicationController
 
   def index
     if !current_user.nil? && current_user.is_admin?
-      plans_scope = Plan.all
+      plans_scope = Plan.all.includes(:operation_periods, :event_type)
     else
-      plans_scope = Plan.with_accepted_state
+      plans_scope = Plan.with_accepted_state.includes(:operation_periods, :event_type)
     end
-    plans_scope = User.find(current_user.id).plans if params[:my_plans_check] == "1"
+    plans_scope = Plan.owner(current_user.id) if params[:my_plans_check] == '1'
     plans_scope = plans_scope.like(params[:filter]) if params[:filter]
-    plans_scope = plans_scope.alcohol if params[:alcohol_check] == "1"
-    @plans = smart_listing_create(:plans, plans_scope, partial: "plans/listing")
+    plans_scope = plans_scope.alcohol if params[:alcohol_check] == '1'
+    plans_scope = Plan.with_accepted_state if params[:accepted_check] == '1'
+    plans_scope = Plan.with_draft_state if params[:submitted_check] == '1'
+    plans_scope = Plan.with_awaiting_review_state if params[:awaiting_review_check] == '1'
+    plans_scope = Plan.with_being_reviewed_state if params[:reviewing_check] == '1'
+    plans_scope = Plan.attendance(2500) if params[:filter_2500] == '1'
+    @plans = smart_listing_create(:plans, plans_scope, partial: 'plans/listing', sort_attributes: [
+                          [:name, 'name'],
+                          [:event_type, 'plans.event_type'],
+                          [:attendance, 'plans.operation_periods.attendance']])
     respond_to do |format|
       format.js
       format.html
@@ -42,7 +50,6 @@ class PlansController < ApplicationController
     @plan = Plan.create(plan_params)
     @plan.creator = current_user
     @plan.owner = current_user
-    binding.pry
     operation_periods_params[:id].each do |op|
       @operation_period = OperationPeriod.new(attendance: op[1][:attendance])
       @operation_period.start_date = DateTime.strptime(op[1][:start_date], '%m/%d/%Y %H:%M %p')
