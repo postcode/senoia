@@ -21,8 +21,8 @@
         <td><%= link_to o.name, plan_path(o) %></td>
         <td><%= o.event_type.nil? ? "N/A" : o.event_type.name %></td>
         <td><%= attendance %></td>
-        <td><%= start_date.strftime("%D %l:%M %P") %></td>
-        <td><%= end_date.strftime("%D %l:%M %P") %></td>
+        <td><%= start_date.present? ? start_date.strftime("%D %l:%M %P") : "No Date" %></td>
+        <td><%= end_date.present? ? end_date.strftime("%D %l:%M %P") : "No Date" %></td>
       </tr>
     <% end %>
     </tbody>
