@@ -123,11 +123,14 @@ legend{
 
 /* LANDING PAGE */
 .landing{
-  margin-top: 1em;
 }
 .landing a:hover{
   border: none;
   background: $darkgray;
+}
+#homepage-hero{
+  background: asset-url('crowd_background_web.png') no-repeat center center fixed;
+  min-height: 650px;
 }
 .main-section{
   background: $mediumgray;
