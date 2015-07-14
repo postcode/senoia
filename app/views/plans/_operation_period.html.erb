@@ -46,7 +46,6 @@
             <th>Contact Phone</th>
           </thead>
           <tbody>
-            <%= render 'new_first_aid_station', operation: op %>
           </tbody>
         </table> 
           <%= link_to add_first_aid_station_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
@@ -66,7 +65,6 @@
             <th>Contact Phone</th>
           </thead>
           <tbody>
-            <%= render 'new_mobile_team', op: op %>
           </tbody>
         </table>  
         <%= link_to add_mobile_team_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
@@ -85,7 +83,6 @@
             <th>Contact Phone</th>
           </thead>
           <tbody>
-            <%= render 'new_transport', op: op %>
           </tbody>
         </table>  
         <%= link_to add_transport_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
@@ -104,7 +101,6 @@
             <th>Contact Phone</th>
           </thead>
           <tbody>
-              <%= render 'new_dispatch', op: op %>
           </tbody>
         </table> 
         <%= link_to add_dispatch_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_dispatch"  do %> 
