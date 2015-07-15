@@ -2,7 +2,7 @@
 <tr>
   <td><%= f.input :name, required: false, label: false %></td>
   <td><%= f.input :location, required: false, label: false %></td>
-  <td><%= f.input :level, required: false, label: false %></td>
+  <td><%= f.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
   <td><%= f.input :md, input_html: {value: 0}, required: false, label: false %></td>
   <td><%= f.input :rn, input_html: {value: 0}, required: false, label: false %></td>
   <td><%= f.input :emt, input_html: {value: 0}, required: false, label: false %></td>
