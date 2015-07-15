@@ -1,6 +1,6 @@
 <% if plan.id.present? && !plan.draft? && !plan.accepted? %>
   <div id="<%= title %>_comment" class="comment-section">
-    <a href="#" class="comment button warning tiny radius"><i class="fi-plus"></i> COMMENT</a>
+    <a href="#" class="comment"><i class="fi-plus"></i> COMMENT</a>
     <div class="new-comment-area">
       <%= text_area("#{title}_comment", :text, cols: 10, rows: 5) %>
       <%= link_to "SUBMIT", "#", class: "new-comment button warning tiny radius", :"data-href" => add_comment_plan_path(plan) %>

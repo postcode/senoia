@@ -3,17 +3,22 @@ $lightgray: #E6E7E8;
 $mediumgray: #bcbcbc;
 
 .comment-section{
+  margin: .3em 0em 1em 0em;
+  padding-top: .4em;
+  border-top: 2px solid $orange;  
   a{
+    margin: 1em 0em;    
     color: $orange;
       &:hover{
-        color:darken( $orange, 15% );
-      }    
+        color:darken( $orange, 20% );
+      }        
   }
 }
 .comment-area{
-  border-top: 3px solid $orange;
-  margin: 0.25em 0em;
-  padding: 0.5em;
+  border-top: 1px solid $lightgray;
+  margin-bottom: .5em;
+  margin-top: .5em;
+  padding: 0.5em 0em 0em 0em;
   h5{
     color: $orange;
     font-size: .9em;
@@ -31,4 +36,7 @@ $mediumgray: #bcbcbc;
   #contact_comment_text_comment_reply_text{
     margin-top: 1em;
   } 
+}
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
+  margin: 0 0 0rem 0; 
 }
