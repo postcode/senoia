@@ -12,7 +12,7 @@
         <% attendance = 0 %>
         <% if o.operation_periods.present? %>
           <% start_date = o.operation_periods.sort_by(&:start_date).first.start_date %>
-          <% end_date = o.operation_periods.sort_by(&:end_date).first.end_date %>
+          <% end_date = o.operation_periods.sort_by(&:end_date).last.end_date %>
           <% o.operation_periods.sort_by(&:start_date).each do |op| %>
             <% op.attendance.present? ? attendance += op.attendance : nil %>
           <% end %>
