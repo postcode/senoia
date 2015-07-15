@@ -72,11 +72,11 @@
                 </div>
             </fieldset>
           </div>
-        </div>
-        <div class="large-3 columns end">
-          <% if @plan.id.present? && !@plan.draft? %>
-            <%= render 'comment_form', plan: @plan, title: "collaborators" %>
-          <% end %>
+          <div class="large-3 columns end">
+            <% if @plan.id.present? && !@plan.draft? %>
+              <%= render 'comment_form', plan: @plan, title: "collaborators" %>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="row">
