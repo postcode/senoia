@@ -16,7 +16,10 @@ class PlansController < ApplicationController
     plans_scope = Plan.with_draft_state if params[:submitted_check] == '1'
     plans_scope = Plan.with_awaiting_review_state if params[:awaiting_review_check] == '1'
     plans_scope = Plan.with_being_reviewed_state if params[:reviewing_check] == '1'
-    plans_scope = Plan.attendance(2500) if params[:filter_2500] == '1'
+    plans_scope = Plan.attendance(0, 2500) if params[:filter_2500] == '1'
+    plans_scope = Plan.attendance(2500, 15500) if params[:filter_2500_15500] == '1'
+    plans_scope = Plan.attendance(15500, 50000) if params[:filter_15500_50000] == '1'
+    plans_scope = Plan.attendance(50000, 1000000000) if params[:filter_500000] == '1'
     @plans = smart_listing_create(:plans, plans_scope, partial: 'plans/listing', sort_attributes: [
                           [:name, 'name'],
                           [:event_type, 'plans.event_type'],
@@ -97,7 +100,7 @@ class PlansController < ApplicationController
 
     if @plan.save
       @plan.submit!
-      redirect_to plans_path
+      redirect_to plan_path(@plan)
     else
       redirect_to new_plan_path(@plan), alert: @plan.errors
     end

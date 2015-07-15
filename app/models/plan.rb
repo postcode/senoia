@@ -43,6 +43,8 @@ class Plan < ActiveRecord::Base
   scope :alcohol, -> { where("alcohol = ?", true).order(created_at: :desc) }
   scope :owner, -> (search) { where("creator_id = ?", search).order(created_at: :desc) }
 
+  scope :attendance, -> (low_number, high_number)  {joins(:operation_periods).where('operation_periods.attendance >= ? AND operation_periods.attendance < ?', low_number, high_number)
+  }
 
   include Workflow
   workflow do
@@ -77,7 +79,7 @@ class Plan < ActiveRecord::Base
     puts "plan rejected"
   end
 
-  def attendance(number)
-    Plan.all.each    
+  def self.a(number)
+    Plan.all.collect { |a| a.operation_periods.where("attendance >= ?", number) }.flatten 
   end
 end
