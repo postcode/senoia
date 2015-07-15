@@ -1,22 +1,20 @@
 <% Comment.plan(plan.id).element(element_id).open.each do |c| %>
   <% if c.parent_id.blank? %>
     <div class="comment-area">
+      <h5>"<%= c.body %>"</h5>
       <div class="comment-header">
-        <p><%= User.find(c.user_id).last_name.present? ? User.find(c.user_id).first_name : User.find(c.user_id).email %></p>
-        <p><%= distance_of_time_in_words_to_now(c.created_at) %>&nbsp;ago <%= link_to "Resolve", resolve_comment_plan_path(plan, comment_id: c.id), class: "button secondary tiny", method: :post, remote: true %></p>
-      </div>
-      <blockquote><%= c.body %></blockquote>
+        <p>- <em><%= User.find(c.user_id).last_name.present? ? User.find(c.user_id).first_name : User.find(c.user_id).email %>, <%= distance_of_time_in_words_to_now(c.created_at) %>&nbsp;ago</em></p>
+      </div>      
       <% if c.has_children? %>
         <% c.children.each do |child| %>
           <div class="comment-reply">
-            <p><%= User.find(child.user_id).last_name.present? ? User.find(child.user_id).first_name : User.find(child.user_id).email %></p>
-            <p><%= distance_of_time_in_words_to_now(child.created_at) %>&nbsp;ago</p>
-            <blockquote><%= child.body %></blockquote>
+            <h5><%= child.body %></h5>
+            <p><em>- <%= User.find(child.user_id).last_name.present? ? User.find(child.user_id).first_name : User.find(child.user_id).email %>, <%= distance_of_time_in_words_to_now(child.created_at) %>&nbsp;ago</em></p>         
           </div>
         <% end %>
       <% end %>
       <%= text_area "#{element_id}_comment_reply", :text, cols: 10, rows: 1 %>
-      <%= link_to "Reply", "#", :"data-href" => add_comment_plan_path(plan, comment_id: c.id),  class: "button primary tiny reply-comment" %>
+      <%= link_to "REPLY", "#", :"data-href" => add_comment_plan_path(plan, comment_id: c.id),  class: "button warning tiny radius reply-comment" %>&nbsp;<%= link_to "RESOLVE", resolve_comment_plan_path(plan, comment_id: c.id), class: "button secondary radius tiny", method: :post, remote: true %>
     </div>
   <% end %>
 <% end %>
