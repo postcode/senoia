@@ -128,7 +128,11 @@ ol{
     font-size: 1em;
     height: 4rem;
     box-shadow: none;
-    border-color: $lightgray;
+    border-color: #fafafa;
+  }
+  p{
+    color: $orange;
+    font-size: .75em;
   }
 }
 fieldset{
