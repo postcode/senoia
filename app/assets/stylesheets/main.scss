@@ -206,6 +206,48 @@ legend{
 .secondary-section{
   margin-top: 4em;
   padding-bottom: 5em;
+  table tr th, table tr td {
+    padding: 0.5625rem 0.625rem;
+    font-size: .75rem;
+    color: $darkgray;
+    text-align: left;
+  }  
+  .asset_table {
+    display: none;
+  }
+
+  .day-plans {
+    background: $promptlyblue;
+    padding: .25em;
+  }
+
+  .day-alert {
+    background: $orange;
+  }
+
+  .day-normal {
+    background: $promptlyblue;
+  }
+
+  .new-comment-area {
+    display: none;
+  }
+  table{
+    border: none;
+  }
+  table tr.even, table tr.alt, table tr:nth-of-type(even) {
+    background: #fff;
+  } 
+  table thead{
+    background: #fff;
+  }  
+  .has-tip{
+    font-size: 1.75em;
+    border: none;
+    color: #fff;
+  }
+
+
 }
 .calendar-header{
   font-family: $primary-font;
@@ -415,26 +457,7 @@ input[type="checkbox"]{
   }
 }
 
-.asset_table {
-  display: none;
-}
 
-.day-plans {
-  background: $postcodeblue;
-  padding: .25em;
-}
-
-.day-alert {
-  background: $orange;
-}
-
-.day-normal {
-  background: $postcodeblue;
-}
-
-.new-comment-area {
-  display: none;
-}
 
 
 
