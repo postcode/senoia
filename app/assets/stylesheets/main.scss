@@ -91,11 +91,13 @@ ol{
   background: #fff;
   border-bottom: 1px solid #f5f5f5;
   .name {
-    margin: .25em 0em 0em 1em;
-    font-family: $primary-font;
-    font-size: 1.5em;
-    color: $promptlyblue;
-    text-transform: uppercase;
+      margin: .25em 0em 0em .75em;    
+    a{
+      font-family: $primary-font;
+      font-size: 1.5em;
+      color: $promptlyblue;
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -128,7 +130,11 @@ ol{
     font-size: 1em;
     height: 4rem;
     box-shadow: none;
-    border-color: $lightgray;
+    border-color: #fafafa;
+  }
+  p{
+    color: $orange;
+    font-size: .75em;
   }
 }
 fieldset{
@@ -202,6 +208,48 @@ legend{
 .secondary-section{
   margin-top: 4em;
   padding-bottom: 5em;
+  table tr th, table tr td {
+    padding: 0.5625rem 0.625rem;
+    font-size: .75rem;
+    color: $darkgray;
+    text-align: left;
+  }  
+  .asset_table {
+    display: none;
+  }
+
+  .day-plans {
+    background: $promptlyblue;
+    padding: .25em;
+  }
+
+  .day-alert {
+    background: $orange;
+  }
+
+  .day-normal {
+    background: $promptlyblue;
+  }
+
+  .new-comment-area {
+    display: none;
+  }
+  table{
+    border: none;
+  }
+  table tr.even, table tr.alt, table tr:nth-of-type(even) {
+    background: #fff;
+  } 
+  table thead{
+    background: #fff;
+  }  
+  .has-tip{
+    font-size: 1.75em;
+    border: none;
+    color: #fff;
+  }
+
+
 }
 .calendar-header{
   font-family: $primary-font;
@@ -241,11 +289,10 @@ legend{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-.plan-staff{
-  fieldset{
-    padding-top: .5rem;
-    padding-bottom: .75rem;
-  }
+fieldset{
+  margin: 0em 0em 1.5em 0em;
+  padding-top: .5rem;
+  padding-bottom: .75rem;
 }
 .plan-action{
   margin-top: 2em;
@@ -412,26 +459,7 @@ input[type="checkbox"]{
   }
 }
 
-.asset_table {
-  display: none;
-}
 
-.day-plans {
-  background: $postcodeblue;
-  padding: .25em;
-}
-
-.day-alert {
-  background: $orange;
-}
-
-.day-normal {
-  background: $postcodeblue;
-}
-
-.new-comment-area {
-  display: none;
-}
 
 
 
