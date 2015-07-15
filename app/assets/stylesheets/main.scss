@@ -338,6 +338,10 @@ fieldset{
   &.active {
     border-left: 30px solid #f19b3b;
   } 
+  &.accepted {
+    content: none;
+    color: pink;
+  }
 }
 .breadcrumb li a:before { 
   content: " "; 
@@ -457,6 +461,12 @@ input[type="checkbox"]{
       border-left: 30px solid #f19b3b;
     }
   }
+  // &.accepted {
+  //   border-right: 30px solid $mediumgray;
+  //   &:after {
+  //     content: none;
+  //   }
+  // }
 }
 
 

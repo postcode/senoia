@@ -4,7 +4,7 @@
       <li><a href="#" class="review">Draft</a></li>
       <li><a href="#" class="review <%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
       <li><a href="#" class="review <%= @plan.being_reviewed? ? 'active' : 'none' %>">Revision Requested</a></li>
-      <li><a href="#" class="review <%= @plan.accepted? ? 'active' : 'none' %>">Approved</a></li>
+      <li><a href="#" class="review <%= @plan.accepted? ? 'active' : 'none' %> accepted">Approved</a></li>
     </ul>    
   </div> 
 

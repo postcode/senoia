@@ -1,8 +1,6 @@
 <%= op.simple_fields_for :dispatchs do |f| %>
 <tr>
   <td><%= f.input :name, required: false, label: false %></td>
-  <td><%= f.input :location, required: false, label: false %></td>
-  <td><%= f.input :level, required: false, label: false %></td>
   <td><%= f.input :provider_id,
                     collection: Provider.all,
                     label_method: :name,
