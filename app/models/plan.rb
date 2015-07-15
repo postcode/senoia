@@ -46,6 +46,15 @@ class Plan < ActiveRecord::Base
   scope :attendance, -> (low_number, high_number)  {joins(:operation_periods).where('operation_periods.attendance >= ? AND operation_periods.attendance < ?', low_number, high_number)
   }
 
+  scope :event_type, lambda { |*args| 
+    event_type = args[0][:event_type]
+    if event_type.empty?
+      Plan.all
+    else
+      Plan.where("event_type_id = ?", event_type).order(created_at: :desc)
+    end
+  }
+
   include Workflow
   workflow do
     state :draft do
