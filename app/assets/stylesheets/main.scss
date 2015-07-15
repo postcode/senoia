@@ -91,11 +91,13 @@ ol{
   background: #fff;
   border-bottom: 1px solid #f5f5f5;
   .name {
-    margin: .25em 0em 0em 1em;
-    font-family: $primary-font;
-    font-size: 1.5em;
-    color: $promptlyblue;
-    text-transform: uppercase;
+      margin: .25em 0em 0em .75em;    
+    a{
+      font-family: $primary-font;
+      font-size: 1.5em;
+      color: $promptlyblue;
+      text-transform: uppercase;
+    }
   }
 }
 
