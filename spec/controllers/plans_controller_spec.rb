@@ -48,7 +48,7 @@ RSpec.describe PlansController do
   end
 
   describe "#create" do
-    it "creates a successful mesaage post" do
+    it "creates a plan" do
       @plane = Plan.create(name: Faker::App.name)
       expect(@plane).to be_an_instance_of Plan
     end

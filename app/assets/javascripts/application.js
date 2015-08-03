@@ -19,5 +19,8 @@
 //= require smart_listing
 //= require asset_update
 //= require cocoon
+//= require underscore-min
+//= require gmaps/google
+//= require maps
 
 $(function(){ $(document).foundation(); });

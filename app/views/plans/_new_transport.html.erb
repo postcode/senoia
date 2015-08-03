@@ -12,4 +12,21 @@
   <td><%= f.input :contact_name, required: false, label: false %></td>
   <td><%= f.input :contact_phone, required: false, label: false %></td>
 </tr>
+<tr>
+  <td>
+    <div id='map_transport_<%= DateTime.now.to_i %>' class="asset_map" style="width: 550px; height: 350px;"></div>
+      <div id='lat_map_transport_<%= DateTime.now.to_i %>'>
+        <%= f.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
+      </div>
+      <div id='lng_map_transport_<%= DateTime.now.to_i %>'>
+        <%= f.input :lng, input_html: { id: 'lng' }, as: :hidden %>
+      </div>
+  </td>
+</tr> 
+
+<script>
+  $(document).ready(function(){
+    gmap_form(null, 'map_transport_<%= DateTime.now.to_i %>');    // form map for new view (print nothing with possibility of put marker)
+  })
+</script>
 <% end %>

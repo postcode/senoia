@@ -61,11 +61,12 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation
-    # Use transactions for tests
+  config.before(:each) do
     DatabaseCleaner.strategy = :transaction
-    # Create the default tenant for our tests
+  end
+
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation, { cache_tables: false }
   end
 
   config.before(:each) do
@@ -75,4 +76,9 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.after(:all) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
 end
+

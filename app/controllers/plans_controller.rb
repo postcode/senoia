@@ -232,7 +232,16 @@ class PlansController < ApplicationController
   end
 
   def add_first_aid_station
-    @operation_period = params[:operation_period].to_s
+    @first_aid_station = params[:first_aid_station]
+    @operation_period = params[:operation_period]
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_first_aid_station
+    @operation_period = params[:operation_period]
+    # binding.pry
     respond_to do |format|
       format.js
     end
@@ -299,6 +308,6 @@ class PlansController < ApplicationController
     end
 
     def operation_periods_params
-      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :location, :id]], transport: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location]], mobile_teams: [id: [:name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location]], dispatch: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location]]])
+      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :location, :id, :lat, :lng]], transport: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location, :lat, :lng]], mobile_teams: [id: [:name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location, :lat, :lng]], dispatch: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location]]])
     end
 end

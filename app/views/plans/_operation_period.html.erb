@@ -35,7 +35,6 @@
         <table id="first_aid_table">
           <thead>
             <th>Name</th>
-            <th>Location</th>
             <th width="75">Level</th>
             <th>MDs</th>
             <th>RNs</th>
@@ -48,9 +47,8 @@
           <tbody>
           </tbody>
         </table> 
-          <%= link_to add_first_aid_station_path("operation_periods[id][#{count}]"), remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
-          <i class="fi-plus"></i> ADD FIRST AID STATION
-        <% end %>
+            <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
+            <%= render 'new_first_aid_station', :operation => "operation_periods[id][#{count}]" %>
     </fieldset>
     <fieldset>
       <legend>MOBILE TEAMS</legend>

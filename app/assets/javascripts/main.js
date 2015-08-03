@@ -19,6 +19,7 @@ $(function() {
     $('form .cancel').on('click', cancelClicked );
   });
 
+
   function cancelClicked(event) {
     $(this).hide();
     $(this).prev('fieldset').remove();
@@ -44,4 +45,8 @@ $(function() {
     event.preventDefault()
     $(this).closest('tr').empty()
   })
+  
+  $(document).on('opened.fndtn.reveal', '#new-first-aid-station[data-reveal]', function () {
+    console.log("open!!")
+  });
 });

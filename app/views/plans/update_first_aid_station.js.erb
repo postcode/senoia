@@ -1,0 +1,33 @@
+var firstAidStation = []
+firstAidStation = {
+  "name": $('input', '.first_aid_stations_id_name').val(),
+  "md": $('input', '.first_aid_stations_id_md').val(),
+  "rn": $('input', '.first_aid_stations_id_rn').val(),
+  "emt": $('input', '.first_aid_stations_id_emt').val(),
+  "aed": $('input', '.first_aid_stations_id_aed').val(),
+  "level": $('option:selected', '.first_aid_stations_id_level').val(),
+  "provider": $('option:selected', '.first_aid_stations_id_provider').val(),
+  "contact_name": $('input', '.first_aid_stations_id_contact_name').val(),
+  "contact_phone": $('input', '.first_aid_stations_id_contact_phone').val(),
+  "lat": $('input', '.first_aid_stations_id_lat').val(),
+  "lng": $('input', '.first_aid_stations_id_lng').val()
+
+}
+console.log(firstAidStation)
+
+if (firstAidStation) {
+  // var target = $('.control-request')
+  // var spinner = new Spinner().spin();
+  // $(target).append(spinner.el);
+  // $('.spinner').lightbox_me({
+  //   centered: true
+  // })
+
+  var newFirstAidStation = $.ajax({
+    data: { 
+      'first_aid_station': firstAidStation
+    },
+    type: 'post',
+    url: '<%= j add_first_aid_station_path(@operation_period) %>'
+  });
+}

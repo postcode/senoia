@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
 
-  get "/add_first_aid_station/:operation_period" => 'plans#add_first_aid_station', as: 'add_first_aid_station'
+  post "/add_first_aid_station/:operation_period" => 'plans#add_first_aid_station', as: 'add_first_aid_station'
+  post "/update_first_aid_station/:operation_period" => 'plans#update_first_aid_station', as: 'update_first_aid_station'
   get "/add_mobile_team/:operation_period" => 'plans#add_mobile_team', as: 'add_mobile_team'
   get "/add_transport/:operation_period" => 'plans#add_transport', as: 'add_transport'
   get "/add_dispatch/:operation_period" => 'plans#add_dispatch', as: 'add_dispatch'
