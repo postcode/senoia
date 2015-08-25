@@ -94,7 +94,7 @@
         <li class="tab-title active"><a href="#panel1">Operational Period 1</a></li>
       </ul>
       <div class="tabs-content">
-        <%= render 'operation_period', count: 1 %>
+        <%= render partial: 'operation_period', locals: { plan_form: f, count: 1 } %>
       </div>
 
     <div class="row">
