@@ -1,4 +1,4 @@
-<%= simple_fields_for "operation_periods[id][#{count}]" do |op| %>
+<%= plan_form.simple_fields_for :operation_periods do |op| %>
   <% if count == 1 %>
     <div class="content active" id="panel<%= count %>">
   <% else %>
@@ -9,7 +9,7 @@
       <%= op.label :start_date, class: "inline", label: "START" %>
       </div>
       <div class="small-4 columns end">
-        <%= op.input_field :start_date, label: false, placeholder: "Date", class: "dateSelect" %>
+        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
       </div>
     </div>
     <div class="row">
@@ -17,7 +17,7 @@
       <%= op.label :end_date, class: "inline", label: "END" %>
       </div>
       <div class="small-4 columns end">
-        <%= op.input_field :end_date, label: false, placeholder: "Date", class: "dateSelect" %>
+        <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
       </div>
     </div>        
     <div class="row">
@@ -48,7 +48,7 @@
           </tbody>
         </table> 
             <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
-            <%= render 'new_first_aid_station', :operation => "operation_periods[id][#{count}]" %>
+            <%= render partial: 'new_first_aid_station', :locals => { :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
     </fieldset>
     <fieldset>
       <legend>MOBILE TEAMS</legend>

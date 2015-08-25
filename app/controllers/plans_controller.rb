@@ -272,7 +272,8 @@ class PlansController < ApplicationController
 
   def add_operation_period
     @count = params[:count].to_i + 1
-    @operation_period = OperationPeriod.new
+    @plan = Plan.new
+    @operation_period = @plan.operation_periods.build
     respond_to do |format|
       format.js
     end
