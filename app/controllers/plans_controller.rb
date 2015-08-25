@@ -234,6 +234,7 @@ class PlansController < ApplicationController
   def add_first_aid_station
     @first_aid_station = params[:first_aid_station]
     @operation_period = params[:operation_period]
+    @operation_period_index = params[:operation_period_index]
     respond_to do |format|
       format.js
     end
@@ -241,6 +242,7 @@ class PlansController < ApplicationController
 
   def update_first_aid_station
     @operation_period = params[:operation_period]
+    @operation_period_index = params[:operation_period_index]
     # binding.pry
     respond_to do |format|
       format.js

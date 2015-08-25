@@ -29,7 +29,7 @@
     <% end %>
   </div>
   <div class="modal-footer">
-    <%= link_to "Add First Aid Station", update_first_aid_station_path(operation), id: "new-first-aid-station-submit", class: "button primary save-modal disabled", method: :post, remote: true %>
+    <%= link_to "Add First Aid Station", update_first_aid_station_path(operation, operation_period_index: operation_period_index), id: "new-first-aid-station-submit", class: "button primary save-modal disabled", method: :post, remote: true %>
   </div>
   <script>
     $(document).ready(function(){

@@ -28,6 +28,6 @@ if (firstAidStation) {
       'first_aid_station': firstAidStation
     },
     type: 'post',
-    url: '<%= j add_first_aid_station_path(@operation_period) %>'
+    url: '<%= j add_first_aid_station_path(@operation_period, operation_period_index: @operation_period_index) %>'
   });
 }
