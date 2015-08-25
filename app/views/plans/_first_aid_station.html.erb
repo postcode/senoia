@@ -1,39 +1,12 @@
-<%= op.simple_fields_for "first_aid_stations[id][#{DateTime.now.to_i}]" do |f| %>
 <tr>
+
+  <% %w(name level md rn emt aed provider contact_name contact_phone).each do |attribute| %>
+  
   <td>
-    <span><%= first_aid_station[:name] %></span>
-    <%= f.input :name, required: false, as: :hidden, value: first_aid_station[:name] %>
+    <span><%= first_aid_station[attribute] %></span>
+    <%= hidden_field_tag "plan[operation_periods_attributes][#{operation_period_index}][first_aid_stations_attributes][#{first_aid_station_id}][#{attribute}]", first_aid_station[attribute] %>
   </td>
-  <td>
-    <span><%= first_aid_station[:level] %></span>
-    <%= f.input :level, required: false, as: :hidden, value: first_aid_station[:level] %>
-  </td>
-  <td>
-    <span><%= first_aid_station[:md] %></span>
-    <%= f.input :md, required: false, as: :hidden, value: first_aid_station[:md] %>
-  </td>
-  <td>
-    <span><%= first_aid_station[:rn] %></span>
-    <%= f.input :rn, required: false, as: :hidden, value: first_aid_station[:rn] %>
-  </td>
-  <td>
-    <span><%= first_aid_station[:emt] %></span>
-    <%= f.input :emt, required: false, as: :hidden, value: first_aid_station[:emt] %>
-  </td>
-  <td>
-    <span><%= first_aid_station[:aed] %></span>
-    <%= f.input :aed, required: false, as: :hidden, value: first_aid_station[:aed] %>
-  </td>
-  <td>
-    <span><%= first_aid_station[:provider] %></span>
-    <%= f.input :provider, required: false, as: :hidden, value: first_aid_station[:provider] %>
-  </td>
-  <td>
-    <span><%= first_aid_station[:contact_name] %></span>
-    <%= f.input :contact_name, required: false, as: :hidden, value: first_aid_station[:contact_name] %>
-  </td>
-  <td>
-    <span><%= first_aid_station[:contact_phone] %></span>
-    <%= f.input :contact_phone, required: false, as: :hidden, value: first_aid_station[:contact_phone] %>
-  </td>
-<% end %>
+
+  <% end %>
+
+</tr>
