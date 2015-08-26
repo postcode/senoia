@@ -94,6 +94,18 @@ class Plan < ActiveRecord::Base
     Plan.all.collect { |a| a.operation_periods.where("attendance >= ?", number) }.flatten 
   end
 
+  def start_date
+    operation_periods.map(&:start_date).compact.min
+  end
+
+  def end_date
+    operation_periods.map(&:end_date).compact.max
+  end
+
+  def attendance
+    operation_periods.map(&:attendance).compact.sum
+  end
+
   def to_s
     name
   end
