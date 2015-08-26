@@ -118,6 +118,9 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
@@ -402,6 +405,7 @@ DEPENDENCIES
   compass-rails!
   database_cleaner
   devise
+  email_spec
   factory_girl_rails
   faker
   figaro
