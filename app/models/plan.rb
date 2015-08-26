@@ -87,6 +87,7 @@ class Plan < ActiveRecord::Base
 
   def reject
     puts "plan rejected"
+    send_notifications_on_reject
   end
 
   def self.a(number)
@@ -111,6 +112,12 @@ class Plan < ActiveRecord::Base
     users_to_notify.each do |stakeholder|
       NotificationMailer.plan_accepted_notification(recipient: stakeholder, plan: self).deliver_later
     end    
+  end
+
+  def send_notifications_on_reject
+    users_to_notify.each do |stakeholder|
+      NotificationMailer.plan_rejected_notification(recipient: stakeholder, plan: self).deliver_later
+    end
   end
 
 end

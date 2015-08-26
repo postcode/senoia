@@ -27,5 +27,13 @@ class NotificationMailer < ActionMailer::Base
     mail(to: options[:recipient].email,
          subject: "Your medical plan has been approved")
   end
+
+  def plan_rejected_notification(options = { recipient: nil, plan: nil })
+
+    @plan = options[:plan]
+
+    mail(to: options[:recipient].email,
+         subject: "Your medical plan has been rejected")
+  end
   
 end
