@@ -1,6 +1,7 @@
 require_relative "./acceptance_helper"
 
 feature "Plan" do
+  
   let(:plan) { FactoryGirl.create(:plan) }
   let(:accepted) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
@@ -46,7 +47,9 @@ feature "Plan" do
       fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
       fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
       click_button 'SUBMIT PLAN'
+      
       expect(Plan.all.count).to eq count +1 
+      expect(find_email(admin.email, with_text: "plan has been submitted")).to_not be_nil
     end
 
     scenario "admin can create a plan with medical assets", js: true  do
