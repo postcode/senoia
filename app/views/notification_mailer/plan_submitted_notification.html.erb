@@ -1,6 +1,6 @@
 <p>A new medical plan has been submitted:</p>
 
-<table>
+<table class="table">
   <tr>
     <th>Name</th>
     <td><%= @plan.name %></td>
@@ -23,4 +23,4 @@
   </tr>
 </table>
 
-<p><%= link_to "View plan", @plan, target: "_blank" %></p>
+<p><%= link_to "View plan", @plan, target: "_blank", class: "btn-primary" %></p>
