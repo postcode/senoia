@@ -79,6 +79,7 @@ class Plan < ActiveRecord::Base
 
   def review
     puts "under review"
+    send_notifications_on_review
   end
 
   def accept
@@ -136,6 +137,12 @@ class Plan < ActiveRecord::Base
   def send_notifications_on_submit
     User.select{ |x| x.has_role? :admin }.each do |admin|
       NotificationMailer.plan_submitted_notification(recipient: admin, plan: self).deliver_later
+    end
+  end
+
+  def send_notifications_on_review
+    users_to_notify.each do |stakeholder|
+      NotificationMailer.plan_revision_requested_notification(recipient: stakeholder, plan: self).deliver_later
     end
   end
   
