@@ -137,7 +137,7 @@ class Plan < ActiveRecord::Base
     end
 
     def send_notifications_on_submit
-      User.select{ |x| x.has_role? :admin }.each do |admin|
+      User.select(&:is_admin?).each do |admin|
         NotificationMailer.plan_submitted_notification(recipient: admin, plan: self).deliver_later
       end
     end
