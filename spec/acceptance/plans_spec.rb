@@ -83,8 +83,13 @@ feature "Plan" do
       sign_in(admin)
       visit "/plans/#{plan.id}"
 
-      click_link "REQUEST REVISION"
-      expect(find_email(creator.email, with_text: "needs revision")).to_not be_nil
+      expect { 
+        click_link "REQUEST REVISION"
+      }.to change{ Plan.with_being_reviewed_state.count }.by(1)
+
+      email = find_email(creator.email)
+      expect(email).to_not be_nil
+      expect(email).to have_body_text("needs revision")
     end
     
   end
