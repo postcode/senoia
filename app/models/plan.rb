@@ -82,6 +82,7 @@ class Plan < ActiveRecord::Base
 
   def accept
     puts "plan accepted"
+    send_notifications_on_accept
   end
 
   def reject
@@ -104,6 +105,12 @@ class Plan < ActiveRecord::Base
     users_to_notify.reject{ |x| x == comment.user }.each do |stakeholder|
       NotificationMailer.new_comment_notification(recipient: stakeholder, comment: comment).deliver_later
     end
+  end
+
+  def send_notifications_on_accept
+    users_to_notify.each do |stakeholder|
+      NotificationMailer.plan_accepted_notification(recipient: stakeholder, plan: self).deliver_later
+    end    
   end
 
 end
