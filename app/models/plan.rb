@@ -91,4 +91,9 @@ class Plan < ActiveRecord::Base
   def self.a(number)
     Plan.all.collect { |a| a.operation_periods.where("attendance >= ?", number) }.flatten 
   end
+
+  def to_s
+    name
+  end
+
 end
