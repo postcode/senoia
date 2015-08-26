@@ -68,4 +68,25 @@ feature "Plan" do
       expect(Plan.all.count).to eq count +1 
     end
   end
+
+  context "request revision" do
+
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+    let(:creator) { FactoryGirl.create(:user) }
+    
+    before do
+      plan.update(creator: creator)
+    end
+    
+    scenario "admin can request a revision" do
+      
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+
+      click_link "REQUEST REVISION"
+      expect(find_email(creator.email, with_text: "needs revision")).to_not be_nil
+    end
+    
+  end
+  
 end
