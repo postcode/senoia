@@ -111,39 +111,43 @@ class Plan < ActiveRecord::Base
   def to_s
     name
   end
-
-  def users_to_notify
-    [ users, owner, creator ].flatten.compact.uniq
-  end
   
-  def send_notifications_on_new_comment(comment)
-    users_to_notify.reject{ |x| x == comment.user }.each do |stakeholder|
-      NotificationMailer.new_comment_notification(recipient: stakeholder, comment: comment).deliver_later
-    end
-  end
+  concerning :Notifications do
 
-  def send_notifications_on_accept
-    users_to_notify.each do |stakeholder|
-      NotificationMailer.plan_accepted_notification(recipient: stakeholder, plan: self).deliver_later
-    end    
-  end
-
-  def send_notifications_on_reject
-    users_to_notify.each do |stakeholder|
-      NotificationMailer.plan_rejected_notification(recipient: stakeholder, plan: self).deliver_later
+    def users_to_notify
+      [ users, owner, creator ].flatten.compact.uniq
     end
-  end
-
-  def send_notifications_on_submit
-    User.select{ |x| x.has_role? :admin }.each do |admin|
-      NotificationMailer.plan_submitted_notification(recipient: admin, plan: self).deliver_later
+    
+    def send_notifications_on_new_comment(comment)
+      users_to_notify.reject{ |x| x == comment.user }.each do |stakeholder|
+        NotificationMailer.new_comment_notification(recipient: stakeholder, comment: comment).deliver_later
+      end
     end
-  end
 
-  def send_notifications_on_review
-    users_to_notify.each do |stakeholder|
-      NotificationMailer.plan_revision_requested_notification(recipient: stakeholder, plan: self).deliver_later
+    def send_notifications_on_accept
+      users_to_notify.each do |stakeholder|
+        NotificationMailer.plan_accepted_notification(recipient: stakeholder, plan: self).deliver_later
+      end    
     end
+
+    def send_notifications_on_reject
+      users_to_notify.each do |stakeholder|
+        NotificationMailer.plan_rejected_notification(recipient: stakeholder, plan: self).deliver_later
+      end
+    end
+
+    def send_notifications_on_submit
+      User.select{ |x| x.has_role? :admin }.each do |admin|
+        NotificationMailer.plan_submitted_notification(recipient: admin, plan: self).deliver_later
+      end
+    end
+
+    def send_notifications_on_review
+      users_to_notify.each do |stakeholder|
+        NotificationMailer.plan_revision_requested_notification(recipient: stakeholder, plan: self).deliver_later
+      end
+    end
+
   end
   
 end
