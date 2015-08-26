@@ -98,7 +98,7 @@ class Plan < ActiveRecord::Base
   end
 
   def users_to_notify
-    [ users, owner, creator ].flatten.uniq
+    [ users, owner, creator ].flatten.compact.uniq
   end
   
   def send_notifications_on_new_comment(comment)
