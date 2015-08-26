@@ -96,4 +96,14 @@ class Plan < ActiveRecord::Base
     name
   end
 
+  def users_to_notify
+    [ users, owner, creator ].flatten.uniq
+  end
+  
+  def send_notifications_on_new_comment(comment)
+    users_to_notify.reject{ |x| x == comment.user }.each do |stakeholder|
+      NotificationMailer.new_comment_notification(recipient: stakeholder, comment: comment).deliver_later
+    end
+  end
+
 end
