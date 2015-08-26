@@ -49,4 +49,9 @@ $(function() {
   $(document).on('opened.fndtn.reveal', '#new-first-aid-station[data-reveal]', function () {
     console.log("open!!")
   });
+
+  if (window.location.hash.indexOf("comment-") != -1) {
+    $(window.location.hash).effect("highlight", {}, 5000);       
+  }
+
 });
