@@ -1,5 +1,5 @@
 
-<h1><%= @commenter.name %> commented on <%= @commentable %>:</h1>
+<p><%= @commenter %> commented on <%= @commentable %>:</p>
 
 <blockquote>
   <em>
@@ -7,4 +7,4 @@
   </em>
 </blockquote>
 
-<p><%= link_to "View the comment and reply", plan_url(@plan, anchor: "comment-#{@comment.id}"), target: "_blank" %></p>
+<p><%= link_to "View comment and reply", plan_url(@plan, anchor: "comment-#{@comment.id}"), target: "_blank" %></p>

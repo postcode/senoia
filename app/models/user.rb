@@ -49,4 +49,12 @@ class User < ActiveRecord::Base
   # roles later, always append them at the end!
   roles :admin, :user, :guest, :provider, :promoter, :staff
 
+  def to_s
+    if name.present?
+      name
+    else
+      email
+    end
+  end
+      
 end
