@@ -1,0 +1,10 @@
+
+<h1><%= @commenter.name %> commented on <%= @commentable %>:</h1>
+
+<blockquote>
+  <em>
+    <%= @comment.body %>
+  </em>
+</blockquote>
+
+<p><%= link_to "View the comment and reply", plan_url(@plan, anchor: "comment-#{@comment.id}") %></p>
