@@ -36,4 +36,12 @@
     <span><%= first_aid_station[:contact_phone] %></span>
     <%= f.input :contact_phone, required: false, as: :hidden, value: first_aid_station[:contact_phone] %>
   </td>
+  <td>
+    <span><%= first_aid_station[:lat] %></span>
+    <%= f.input :lat, required: false, as: :hidden, value: first_aid_station[:lat] %>
+  </td>
+  <td>
+    <span><%= first_aid_station[:lng] %></span>
+    <%= f.input :lng, required: false, as: :hidden, value: first_aid_station[:lng] %>
+  </td>
 <% end %>

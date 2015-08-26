@@ -54,7 +54,7 @@ function gmap_form(asset, map_id) {
 
   var markerOnMap;
 
-  function placeMarker(location) {    // simply method for put new marker on map
+  function placeMarker(location) {    //method for put new marker on map
     if (markerOnMap) {
       markerOnMap.setPosition(location);
     }
