@@ -44,6 +44,8 @@ class PlansController < ApplicationController
 
   def new
     @plan = Plan.new
+    @plan.operation_periods.build
+    
     respond_to do |format|
       format.html
       format.json { render json: @plan }
@@ -51,44 +53,7 @@ class PlansController < ApplicationController
   end  
 
   def create
-    @plan = Plan.create(plan_params)
-    @plan.creator = current_user
-    @plan.owner = current_user
-    operation_periods_params[:id].each do |op|
-      @operation_period = OperationPeriod.new(attendance: op[1][:attendance])
-      @operation_period.start_date = DateTime.strptime(op[1][:start_date], '%m/%d/%Y %H:%M %p')
-      @operation_period.end_date = DateTime.strptime(op[1][:end_date], '%m/%d/%Y %H:%M %p')
-      @operation_period.save
-      @plan.operation_periods << @operation_period
-      if op[1][:first_aid_stations].present? 
-        op[1][:first_aid_stations][:id].each do |station|
-          @first_aid_station = FirstAidStation.create(station[1])
-          @operation_period.first_aid_stations << @first_aid_station
-          @operation_period.save
-        end
-      end
-      if op[1][:mobile_teams].present? 
-        op[1][:mobile_teams][:id].each do |station|
-          @mobile_team = MobileTeam.create(station[1])
-          @operation_period.mobile_teams << @mobile_team
-          @operation_period.save
-        end
-      end
-      if op[1][:transport].present? 
-        op[1][:transport][:id].each do |station|
-          @transport = Transport.create(station[1])
-          @operation_period.transports << @transport
-          @operation_period.save
-        end
-      end
-      if op[1][:dispatch].present? 
-        op[1][:dispatch][:id].each do |station|
-          @dispatch = Dispatch.create(station[1])
-          @operation_period.dispatchs << @dispatch
-          @operation_period.save
-        end
-      end
-    end
+    @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
 
     if params[:user].present?
       params[:user].each do |user|
@@ -234,6 +199,7 @@ class PlansController < ApplicationController
   def add_first_aid_station
     @first_aid_station = params[:first_aid_station]
     @operation_period = params[:operation_period]
+    @operation_period_index = params[:operation_period_index]
     respond_to do |format|
       format.js
     end
@@ -241,6 +207,7 @@ class PlansController < ApplicationController
 
   def update_first_aid_station
     @operation_period = params[:operation_period]
+    @operation_period_index = params[:operation_period_index]
     # binding.pry
     respond_to do |format|
       format.js
@@ -270,7 +237,8 @@ class PlansController < ApplicationController
 
   def add_operation_period
     @count = params[:count].to_i + 1
-    @operation_period = OperationPeriod.new
+    @plan = Plan.new
+    @operation_period = @plan.operation_periods.build
     respond_to do |format|
       format.js
     end
@@ -304,7 +272,7 @@ class PlansController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def plan_params
-      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], :user_ids => [], operation_periods_attributes: [:id, :attendance, first_aid_stations_attributes: [:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id, :location], transports_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location], mobile_teams_attributes: [:id, :name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location], dispatchs_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location]])
+      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], :user_ids => [], operation_periods_attributes: [:id, :attendance, :start_date, :end_date, first_aid_stations_attributes: [:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id, :location], transports_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location], mobile_teams_attributes: [:id, :name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location], dispatchs_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location]])
     end
 
     def operation_periods_params

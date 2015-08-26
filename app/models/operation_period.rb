@@ -23,4 +23,27 @@ class OperationPeriod < ActiveRecord::Base
 
   accepts_nested_attributes_for :first_aid_stations, :mobile_teams, :transports, :dispatchs
 
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+  
+  DEFAULT_DATETIME_FORMAT = "%m/%d/%Y %H:%M %p"
+
+  def start_date=(new_end_date)
+    super parse_date_time_if_in_preferred_format(new_end_date)
+  end
+
+  def end_date=(new_end_date)
+    super parse_date_time_if_in_preferred_format(new_end_date)
+  end
+
+  private
+
+  def parse_date_time_if_in_preferred_format(date_time)
+    if date_time =~ /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/
+      DateTime.strptime(date_time, DEFAULT_DATETIME_FORMAT)
+    else
+      date_time
+    end
+  end
+  
 end
