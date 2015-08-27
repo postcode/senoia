@@ -21,7 +21,7 @@ class OperationPeriod < ActiveRecord::Base
   has_many :dispatchs
   belongs_to :plan
 
-  accepts_nested_attributes_for :first_aid_stations, :mobile_teams, :transports, :dispatchs
+  accepts_nested_attributes_for :first_aid_stations, :mobile_teams, :transports, :dispatchs, allow_destroy: true
 
   validates :start_date, presence: true
   validates :end_date, presence: true

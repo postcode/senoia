@@ -78,25 +78,25 @@ class PlansController < ApplicationController
       @operation_period = @plan.operation_periods.find(op[1][:id])
       if op[1][:first_aid_stations_attributes].present? 
         op[1][:first_aid_stations_attributes].each do |first_aid|
-          @first_aid_update = FirstAidStation.find(first_aid[1][:id]).update_attributes(first_aid[1])
+          @first_aid_update = FirstAidStation.find(first_aid[1][:id]).update_attributes(first_aid[1].except("_destroy"))
         end
       end
 
       if op[1][:mobile_teams_attributes].present? 
         op[1][:mobile_teams_attributes].each do |mobile|
-          @mobile_team_update = MobileTeam.find(mobile[1][:id]).update_attributes(mobile[1])
+          @mobile_team_update = MobileTeam.find(mobile[1][:id]).update_attributes(mobile[1].except("_destroy"))
         end
       end
 
       if op[1][:transports_attributes].present? 
         op[1][:transports_attributes].each do |transport|
-          @transport_team_update = Transport.find(transport[1][:id]).update_attributes(transport[1])
+          @transport_team_update = Transport.find(transport[1][:id]).update_attributes(transport[1].except("_destroy"))
         end
       end
 
       if op[1][:dispatchs_attributes].present? 
         op[1][:dispatchs_attributes].each do |dispatch|
-          @dispatch_team_update = Dispatch.find(dispatch[1][:id]).update_attributes(dispatch[1])
+          @dispatch_team_update = Dispatch.find(dispatch[1][:id]).update_attributes(dispatch[1].except("_destroy"))
         end
       end
 
@@ -335,7 +335,8 @@ class PlansController < ApplicationController
                                                                              :contact_name,
                                                                              :contact_phone,
                                                                              :id,
-                                                                             :location
+                                                                             :location,
+                                                                             :_destroy
                                                                             ],
                                              transports_attributes: [
                                                                      :id,
@@ -344,7 +345,8 @@ class PlansController < ApplicationController
                                                                      :provider_id,
                                                                      :contact_name,
                                                                      :contact_phone,
-                                                                     :location
+                                                                     :location,
+                                                                     :_destroy
                                                                     ],
                                              mobile_teams_attributes: [
                                                                        :id,
@@ -354,7 +356,8 @@ class PlansController < ApplicationController
                                                                        :provider_id,
                                                                        :contact_name,
                                                                        :contact_phone,
-                                                                       :location
+                                                                       :location,
+                                                                       :_destroy
                                                                       ],
                                              dispatchs_attributes: [
                                                                     :id,
@@ -363,7 +366,8 @@ class PlansController < ApplicationController
                                                                     :provider_id,
                                                                     :contact_name,
                                                                     :contact_phone,
-                                                                    :location
+                                                                    :location,
+                                                                    :_destroy
                                                                    ]
                                             ]
               )
