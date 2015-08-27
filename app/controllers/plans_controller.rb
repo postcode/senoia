@@ -35,6 +35,8 @@ class PlansController < ApplicationController
   def show
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
     @count = 0
+    @permitters = Permitter.order("name ASC")
+    
     if @plan.accepted?
       render 'plans/show_accepted'
     else
@@ -45,6 +47,7 @@ class PlansController < ApplicationController
   def new
     @plan = Plan.new
     @plan.operation_periods.build
+    @permitters = Permitter.order("name ASC")
     
     respond_to do |format|
       format.html
