@@ -4,6 +4,7 @@ feature "Plan" do
   let(:plan) { FactoryGirl.create(:plan) }
   let(:accepted) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
+  let(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter) }.sort_by(&:name) }
 
   context "not logged in" do
     scenario "show all of the accepted plans" do
@@ -64,5 +65,44 @@ feature "Plan" do
       click_button 'SUBMIT PLAN'
       expect(Plan.all.count).to eq count +1 
     end
+
+    scenario "changing permitting agencies shows their contact info", js: true do
+
+      expect(permitters.count).to be > 1
+      
+      sign_in(admin)
+      visit "/plans/new"
+            
+      expect(page).to have_content permitters.first.phone_number
+      
+      select(permitters.last.name, from: "plan_permitter_id")
+      
+      expect(page).to have_content permitters.last.phone_number
+      
+    end
+    
+  end
+
+  context "viewing an existing plan" do
+
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+
+    before do
+      plan.update(permitter: permitters[1])
+    end
+
+    scenario "changing permitting agencies shows their contact info", js: true do
+      
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+            
+      expect(page).to have_content permitters[1].address
+      
+      select(permitters.first.name, from: "plan_permitter_id")
+      
+      expect(page).to have_content permitters.first.address
+      
+    end
+    
   end
 end
