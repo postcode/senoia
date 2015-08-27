@@ -34,8 +34,6 @@ feature "Plan" do
       visit "/plans"
       expect(page).to have_content "#{plan.name}"
     end
-
-    
   end
 
   context "create a new plan" do
@@ -73,25 +71,41 @@ feature "Plan" do
     let(:plan) { FactoryGirl.create(:plan) }
     let(:operation_period) { FactoryGirl.create(:operation_period) }
     let(:first_aid_station) { FactoryGirl.create(:first_aid_station) }
+    let(:mobile_team) { FactoryGirl.create(:mobile_team) }
+    let(:transport) { FactoryGirl.create(:transport) }
+    let(:dispatch) { FactoryGirl.create(:dispatch) }
 
     before do
       plan.operation_periods << operation_period
       operation_period.first_aid_stations << first_aid_station
+      operation_period.mobile_teams << mobile_team
+      operation_period.transports << transport
+      operation_period.dispatchs << dispatch
     end
 
-    scenario "admin can delete a first aid station", js: true do
-
-      sign_in(admin)
-      visit "/plans/#{plan.id}"
-
-      expect(page).to have_selector("input[value='#{first_aid_station.name}']")
-
-      check "Destroy"
-      click_on "SAVE DRAFT"
+    %w(first_aid_station mobile_team transport dispatch).each do |asset_type|
       
-      expect(page).to_not have_selector("input[value='#{first_aid_station.name}']")
+      scenario "admin can delete a #{asset_type.humanize.downcase}", js: true do
+
+        sign_in(admin)
+        visit "/plans/#{plan.id}"
+
+        asset = send(asset_type)
+        asset_selector = "input[value='#{asset.name}']"
+        
+        expect(page).to have_selector(asset_selector)
+
+        asset_row = find(asset_selector).find(:xpath, "../../..")
+
+        within(asset_row) {
+          check "Remove"
+        }
+        
+        click_on "SAVE DRAFT"
+
+        expect(page).to_not have_selector(asset_selector)
+      end
     end
-    
   end
 
 end
