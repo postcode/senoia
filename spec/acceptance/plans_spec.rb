@@ -34,6 +34,8 @@ feature "Plan" do
       visit "/plans"
       expect(page).to have_content "#{plan.name}"
     end
+
+    
   end
 
   context "create a new plan" do
@@ -65,4 +67,31 @@ feature "Plan" do
       expect(Plan.all.count).to eq count +1 
     end
   end
+
+  context "deleting medical assets" do
+
+    let(:plan) { FactoryGirl.create(:plan) }
+    let(:operation_period) { FactoryGirl.create(:operation_period) }
+    let(:first_aid_station) { FactoryGirl.create(:first_aid_station) }
+
+    before do
+      plan.operation_periods << operation_period
+      operation_period.first_aid_stations << first_aid_station
+    end
+
+    scenario "admin can delete a first aid station", js: true do
+
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+
+      expect(page).to have_selector("input[value='#{first_aid_station.name}']")
+
+      check "Destroy"
+      click_on "SAVE DRAFT"
+      
+      expect(page).to_not have_selector("input[value='#{first_aid_station.name}']")
+    end
+    
+  end
+
 end
