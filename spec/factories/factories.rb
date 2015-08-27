@@ -14,7 +14,7 @@ FactoryGirl.define do
   end
 
   factory :plan do
-    name Faker::Lorem.word
+    name { Faker::Lorem.words(3).join }
     operation_periods = FactoryGirl.create(:operation_period)
   end
 
