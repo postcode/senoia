@@ -38,31 +38,35 @@ feature "Plan" do
 
   context "create a new plan" do
 
-    scenario "admin can create a basic plan" do
+    before do
       sign_in(admin)
       count = Plan.all.count
       visit "/plans/new"
       fill_in 'plan_name', with: "test plan"
       fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
       fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
-      click_button 'SUBMIT PLAN'
-      expect(Plan.all.count).to eq count +1 
+    end
+    
+    scenario "admin can create a basic plan" do
+      expect{ 
+        click_button 'SUBMIT PLAN'
+      }.to change { Plan.count }.by(1)
     end
 
-    scenario "admin can create a plan with medical assets", js: true  do
-      pending
-      sign_in(admin)
-      count = Plan.all.count
-      visit "/plans/new"
-      fill_in 'plan_name', with: "test plan"
-      fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
-      fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
+    scenario "admin can create a plan with a first aid station", js: true  do
       click_link 'new_first_aid_station'
-      within '.plan_operation_periods_id_first_aid_stations_id_name' do
-        fill_in 'input', with: "test"
+
+      first_aid_station_name = "2nd Aid Station"
+      within '.first_aid_stations_id_name' do
+        fill_in 'Name', with: first_aid_station_name
       end
-      click_button 'SUBMIT PLAN'
-      expect(Plan.all.count).to eq count +1 
+
+      click_on "new-first-aid-station-submit"
+      expect(page).to have_content first_aid_station_name
+
+      expect { 
+        click_button 'SUBMIT PLAN'
+      }.to change{ FirstAidStation.count }.by(1)
     end
   end
 
