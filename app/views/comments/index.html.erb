@@ -4,7 +4,7 @@
 
   <h2><%= plan.name %></h2>
 
-  <% plan.comments.top_level.open.each do |comment| %>
+  <% plan.root_comments.open.each do |comment| %>
     <p>
      <%= comment.body %>
     </p> 

@@ -36,7 +36,6 @@ class Comment < ActiveRecord::Base
   scope :element, ->(element_id) { where("element_id = ?", element_id).order(created_at: :desc) }
   scope :open, -> { where("open = ?", true).order(created_at: :desc) }
   scope :plan, ->(plan_id) { where("commentable_id = ?", plan_id).order(created_at: :desc) }
-  scope :top_level, -> { where(parent_id: nil) }
 
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
