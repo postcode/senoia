@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       delete 'remove_user(/:plan_id/:user_id)', :to => 'plans#remove_user', :as => :remove_user
     end
   end
+  resources :comments do
+    resources :replies, only: :create
+  end
   resources :event_types
   resources :providers
   resources :permitters
