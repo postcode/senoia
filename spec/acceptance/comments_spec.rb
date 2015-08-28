@@ -3,6 +3,7 @@ require_relative "acceptance_helper"
 feature "Comments" do
 
   let(:admin) { create(:admin) }
+  let(:guest) { create(:user) }
   let(:plan) { create(:plan_awaiting_review) }
 
   context "Admin", js: true do
@@ -72,6 +73,19 @@ feature "Comments" do
         expect(page).to_not have_content @comment_on_event_type.body
       end
 
+    end
+    
+  end
+
+  context "Guest" do
+
+    background do
+      sign_in(guest)
+    end
+
+    scenario "cannot view the comment dashboard" do
+      visit "/comments"
+      expect(page).to have_content "not authorized"
     end
     
   end
