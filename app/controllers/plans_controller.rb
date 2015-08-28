@@ -55,6 +55,21 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
 
+    if !@plan.valid?
+      redirect_to new_plan_path(@plan), alert: @plan.errors and return
+    end
+    
+    if params[:operation_periods]
+      operation_periods_params[:id].each do |index, op|
+        operation_period = @plan.operation_periods[index.to_i - 1] # The indexing in params starts at 1
+
+        # First aid stations are handled by Plan.create
+        op[:mobile_teams][:id].each { |_, attributes| operation_period.mobile_teams.create(attributes) } if op[:mobile_teams]
+        op[:transport][:id].each { |_, attributes| operation_period.transports.create(attributes) } if op[:transport]
+        op[:dispatch][:id].each { |_, attributes| operation_period.dispatchs.create(attributes) } if op[:dispatch]
+      end
+    end
+    
     if params[:user].present?
       params[:user].each do |user|
         @plan.users << User.where(email: user[1][:email]).first
@@ -64,12 +79,8 @@ class PlansController < ApplicationController
       end
     end
 
-    if @plan.save
-      @plan.submit!
-      redirect_to plan_path(@plan)
-    else
-      redirect_to new_plan_path(@plan), alert: @plan.errors
-    end
+    @plan.submit!
+    redirect_to plan_path(@plan)
   end
 
   def update
