@@ -54,6 +54,16 @@ class Comment < ActiveRecord::Base
     self.children.any?
   end
 
+  def create_reply(attributes)
+    transaction do
+      reply = self.class.create(attributes.merge(commentable: self.commentable, element_id: self.element_id))
+      if reply.valid?
+        reply.move_to_child_of(self)
+      end
+      reply
+    end
+  end
+
   # Helper class method to lookup all comments assigned
   # to all commentable types for a given user.
   scope :find_comments_by_user, lambda { |user|
