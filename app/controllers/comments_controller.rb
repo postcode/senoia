@@ -1,10 +1,12 @@
 class CommentsController < ApplicationController
 
   def index
-    @plans = Plan.joins(:comments).where(comments: { open: true, parent_id: nil }).uniq
+    authorize! :manage, Comment
+    @plans_with_outstanding_comments = Plan.with_outstanding_comments
   end
 
   def update
+    authorize! :manage, Comment
     @comment = Comment.find(params[:id])
     @comment.update(comment_params)
     redirect_to action: :index
