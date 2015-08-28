@@ -16,8 +16,20 @@ FactoryGirl.define do
   factory :plan do
     name Faker::Lorem.word
     operation_periods = FactoryGirl.create(:operation_period)
+
+    factory :plan_awaiting_review do
+      workflow_state :awaiting_review
+    end
   end
 
+  factory :comment do
+    body { Faker::Lorem.paragraph }
+    user
+
+    factory :comment_on_event_type do
+      element_id "event_type_comment_text"
+    end
+  end
 
   factory :admin, :class => User do |u|
     u.email { Faker::Internet.email }
