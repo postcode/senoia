@@ -1,28 +1,30 @@
 <h1>Outstanding Comments</h1>
 
-<% @plans.each do |plan| %>
+<% @plans_with_outstanding_comments.each do |plan| %>
 
-<h2><%= plan.name %></h2>
+  <h2><%= plan.name %></h2>
 
-<% plan.comments.top_level.open.each do |comment| %>
-<p>
-  <%= comment.body %>
-</p>
+  <% plan.comments.top_level.open.each do |comment| %>
+    <p>
+     <%= comment.body %>
+    </p> 
 
-<% comment.children.each do |reply| %>
-<p>
-  <%= reply.body %>
-</p>
+    <% comment.children.each do |reply| %>
+      <p>
+        <%= reply.body %>
+      </p>
+    <% end %>
+
+    <%= simple_form_for comment.children.build, url: [ comment, :replies ] do |f| %>
+      <%= f.input :body, label: false %>
+      <%= f.submit "REPLY" %>
+    <% end %>
+      
+    <%= link_to "RESOLVE", [ comment, comment: { open: false } ], method: "PUT" %>
+  <% end %>
 <% end %>
 
-<%= simple_form_for comment.children.build, url: [ comment, :replies ] do |f| %>
-
-<%= f.input :body, label: false %>
-<%= f.submit "REPLY" %>
-
-<% end %>
-<%= link_to "RESOLVE", [ comment, comment: { open: false } ], method: "PUT" %>
-
+<% if !@plans_with_outstanding_comments.exists? %>
+  <p>There are no outstanding comments at this time.</p>
 <% end %>
 
-<% end %>
