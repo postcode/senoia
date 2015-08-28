@@ -16,6 +16,10 @@ RSpec.describe RepliesController do
         }.to change{ comment.children.count }.by(1)
       end
 
+      it "assigns a reply" do
+        post :create, comment_id: comment.id, reply: { body: Faker::Lorem.paragraph }
+        expect(comment.children).to include(assigns(:reply))
+      end
     end
   end  
 end
