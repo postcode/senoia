@@ -9,7 +9,10 @@ class CommentsController < ApplicationController
     authorize! :manage, Comment
     @comment = Comment.find(params[:id])
     @comment.update(comment_params)
-    redirect_to action: :index
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
