@@ -24,15 +24,18 @@ feature "Comments" do
       
       scenario "views comments" do
         expect(page).to have_content(@plan_with_outstanding_comment.name)
+        click_on "1 comment"
         expect(page).to have_content(@comment.body)
       end
 
       scenario "resolves a comment" do
+        click_on "1 comment"
         click_on "RESOLVE"
         expect(page).to_not have_content @comment.body
       end
       
       scenario "replies to a comment" do
+        click_on "1 comment"
         find("textarea").set @reply_body
         click_on "REPLY"
         expect(page).to have_content @reply_body

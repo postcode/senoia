@@ -8,11 +8,25 @@
     
     <% @plans_with_outstanding_comments.each do |plan| %>
 
-      <h2><%= plan.name %> <small><%= link_to "View plan", plan, target: "_blank" %></small></h2>
+      <div class="plan" style="margin-bottom: 2em">
+        <h2><%= plan.name %> <small><%= link_to "View plan", plan, target: "_blank" %></small></h2>
 
-      <% plan.root_comments.open.each do |comment| %>
-        <%= render comment %>
-      <% end %>
+        <ul class="accordion" data-accordion>
+          <li class="accordion-navigation">
+
+            <%= link_to "#plan-panel-#{plan.id}" do %>
+              <%= pluralize(plan.root_comments.open.count, "comment") %>
+            <% end %>
+
+            <div id="plan-panel-<%= plan.id %>" class="content">
+              <% plan.root_comments.open.each do |comment| %>
+                <%= render comment %>
+              <% end %>
+            </div>
+
+          </li>
+        </ul>
+      </div>
     <% end %>
   </div>
 </div>
