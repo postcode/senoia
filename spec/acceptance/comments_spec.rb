@@ -65,6 +65,20 @@ feature "Comments" do
         expect(page).to have_content @new_comment_body
       end
 
+      scenario "posts a comment twice" do
+        2.times do
+          new_comment_body = Faker::Lorem.paragraph
+          first("a.comment").click
+
+          within ".new-comment-area" do
+            find("textarea").set new_comment_body
+            click_on "SUBMIT"
+          end
+          
+          expect(page).to have_content new_comment_body
+        end
+      end
+
       scenario "replies to a comment" do
         find(".comment-area textarea").set @new_comment_body
         click_on "REPLY"
