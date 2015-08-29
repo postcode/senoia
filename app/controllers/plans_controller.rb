@@ -186,16 +186,6 @@ class PlansController < ApplicationController
     
   end
 
-  def resolve_comment
-    @plan = Plan.find(params[:id])
-    @comment = Comment.find(params[:comment_id])
-    @comment.open = false
-    @comment.save
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def add_first_aid_station
     @first_aid_station = params[:first_aid_station]
     @operation_period = params[:operation_period]

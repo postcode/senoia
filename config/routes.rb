@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :plans do
     member do
       post :add_comment
-      post :resolve_comment
       post :request_revision
       post :approve
       delete 'remove_user(/:plan_id/:user_id)', :to => 'plans#remove_user', :as => :remove_user
