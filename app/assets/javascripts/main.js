@@ -34,7 +34,7 @@ $(function() {
     $(this).siblings('.new-comment-area').toggle();
   })
 
-  $('.new-comment').on("click", function(event) {
+  $("body").on("click", ".new-comment", function(event) {
     var form = $(this).closest(".new-comment-area");
     var data = form.find(":input").serialize();
     var url = form.data().url
