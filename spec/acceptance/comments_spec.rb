@@ -68,6 +68,15 @@ feature "Comments" do
         expect(page).to have_content @new_comment_body
       end
 
+      scenario "replies to a comment twice" do
+        2.times do
+          new_comment_body = Faker::Lorem.paragraph
+          find(".comment-area textarea").set new_comment_body
+          click_on "REPLY"
+          expect(page).to have_content new_comment_body
+        end
+      end
+
       scenario "resolves a comment" do
         click_on "RESOLVE"
         expect(page).to_not have_content @comment_on_event_type.body

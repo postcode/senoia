@@ -37,10 +37,10 @@ $(function() {
     event.preventDefault();
     $.post($(this).attr('data-href') + "?comment_text=" + $(this).siblings("textarea").val() + "&element_id=" + $(this).siblings("textarea").attr("id"), function(data){} );
   })
-  $('.reply-comment').click(function(event) {
+  $('body').on("click", ".reply-comment", function(event) {
     event.preventDefault();
     $.post($(this).attr('data-href') + "&comment_text=" + $(this).siblings("textarea").val(), function(data){} );
-  })
+  });
   $('.remove-user').click(function(event) {
     event.preventDefault()
     $(this).closest('tr').empty()
