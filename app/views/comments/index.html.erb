@@ -2,10 +2,12 @@
   <div class="small-8 small-centered columns">
     <h1>Outstanding Comments</h1>
     <p>
-      <%= pluralize(@plans_with_outstanding_comments.count, "plan" ) %>
+      <%= pluralize(@plans_with_outstanding_comments.total_count, "plan" ) %>
       with outstanding comments.
     </p>
-    
+
+    <%= paginate @plans_with_outstanding_comments %>
+
     <% @plans_with_outstanding_comments.each do |plan| %>
 
       <div class="plan" style="margin-bottom: 2em">
@@ -15,11 +17,11 @@
           <li class="accordion-navigation">
 
             <%= link_to "#plan-panel-#{plan.id}" do %>
-              <%= pluralize(plan.root_comments.open.count, "comment") %>
+              <%= pluralize(plan.comment_threads.select(&:open?).count, "comment") %>
             <% end %>
 
             <div id="plan-panel-<%= plan.id %>" class="content">
-              <% plan.root_comments.open.each do |comment| %>
+              <% plan.comment_threads.select(&:open?).each do |comment| %>
                 <%= render comment %>
               <% end %>
             </div>
@@ -28,5 +30,8 @@
         </ul>
       </div>
     <% end %>
+
+    <%= paginate @plans_with_outstanding_comments %>
+    
   </div>
 </div>
