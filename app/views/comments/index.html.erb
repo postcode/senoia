@@ -1,19 +1,18 @@
 <div class="row">
   <div class="small-8 small-centered columns">
     <h1>Outstanding Comments</h1>
-    <p>There are <%= pluralize(@plans_with_outstanding_comments.count, "plan" ) %> with outstanding comments.</p>
-      
+    <p>
+      <%= pluralize(@plans_with_outstanding_comments.count, "plan" ) %>
+      with outstanding comments.
+    </p>
+    
     <% @plans_with_outstanding_comments.each do |plan| %>
 
-    <h2><%= plan.name %> <small><%= link_to "View plan", plan, target: "_blank" %></small></h2>
+      <h2><%= plan.name %> <small><%= link_to "View plan", plan, target: "_blank" %></small></h2>
 
-    <% plan.root_comments.open.each do |comment| %>
-    <%= render comment %>
-    <% end %>
-    <% end %>
-
-    <% if !@plans_with_outstanding_comments.exists? %>
-    <p>There are no outstanding comments at this time.</p>
+      <% plan.root_comments.open.each do |comment| %>
+        <%= render comment %>
+      <% end %>
     <% end %>
   </div>
 </div>
