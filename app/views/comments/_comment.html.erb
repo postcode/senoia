@@ -1,0 +1,25 @@
+<div class="comment-area">
+  
+  <h5>"<%= comment.body %>"</h5>
+
+  <div class="comment-header">
+    <p>- <em><%= comment.user %>, <%= time_ago_in_words(comment.created_at) %>&nbsp;ago</em></p>
+  </div>
+  
+  <% comment.children.each do |child| %>
+    <div class="comment-reply">
+      <h5><%= child.body %></h5>
+      <p><em>- <%= child.user %>, <%= time_ago_in_words(child.created_at) %>&nbsp;ago</em></p>         
+    </div>
+  <% end %>
+
+  <div class="row" style="margin-top: 1em">
+    <div class="small-8 columns" style="margin-left: 0.5em">
+      <%= simple_form_for comment.children.build, url: [ comment, :replies ] do |f| %>
+        <%= f.input :body, label: false, cols: 10, rows: 1, input_html: { style: "margin-bottom: 0.5em" } %>
+        <%= f.submit "REPLY", class: "button warning tiny radius" %>
+        <%= link_to "RESOLVE", [ comment, comment: { open: false } ], method: "PUT", class: "button secondary radius tiny" %>
+      <% end %>
+    </div>
+  </div>
+</div>
