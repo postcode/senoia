@@ -5,7 +5,10 @@ class RepliesController < ApplicationController
     authorize! :manage, @comment.commentable
 
     @reply = @comment.create_reply(reply_params.merge(user: current_user))
-    redirect_to comments_url
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
