@@ -24,6 +24,7 @@ describe Comment do
   let(:user) { FactoryGirl.create(:user) }
   let(:plan) { FactoryGirl.create(:plan) }
   let(:operation_period) { FactoryGirl.create(:operation_period) }
+  let(:comment) { FactoryGirl.create(:comment) }
   
   context 'create a comment' do
     describe '#build_from' do 
@@ -42,4 +43,15 @@ describe Comment do
       end
     end
   end
+
+  describe "#create_reply" do
+
+    it "creates a reply" do
+      expect {
+        comment.create_reply(body: Faker::Lorem.paragraph, user: comment.user)
+      }.to change{ comment.children.count }.by(1)
+    end
+    
+  end
+  
 end
