@@ -37,10 +37,14 @@ $(function() {
     event.preventDefault();
     $.post($(this).attr('data-href') + "?comment_text=" + $(this).siblings("textarea").val() + "&element_id=" + $(this).siblings("textarea").attr("id"), function(data){} );
   })
-  $('body').on("click", ".reply-comment", function(event) {
-    event.preventDefault();
-    $.post($(this).attr('data-href') + "&comment_text=" + $(this).siblings("textarea").val(), function(data){} );
+
+  $('body').on("click", "a.reply", function(event) {
+      var form = $(this).closest(".reply-form");
+      var data = form.find(":input").serialize();
+      var url = form.data().url;
+      $.post(url, data);
   });
+
   $('.remove-user').click(function(event) {
     event.preventDefault()
     $(this).closest('tr').empty()
