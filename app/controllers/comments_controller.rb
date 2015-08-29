@@ -14,11 +14,26 @@ class CommentsController < ApplicationController
       format.js
     end
   end
+  
+  def create
+    @plan = Plan.find(params[:plan_id])
+    authorize! :manage, @plan
+    @comment = @plan.comments.create(comment_params.merge(user: current_user, element_id: params[:element_id]))
+    @plan.reload
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:open)
+    case params[:action]
+    when "update"
+      params.require(:comment).permit(:open)
+    when "create"
+      params.require(:comment).permit(:body)
+    end
   end
   
 end
