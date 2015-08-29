@@ -55,7 +55,8 @@ class Plan < ActiveRecord::Base
       Plan.where("event_type_id = ?", event_type).order(created_at: :desc)
     end
   }
-  scope :with_outstanding_comments, -> { joins(:comments).where(comments: { open: true, parent_id: nil }).uniq }
+  
+  scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
 
   include Workflow
   workflow do

@@ -2,7 +2,11 @@ class CommentsController < ApplicationController
 
   def index
     authorize! :manage, Comment
-    @plans_with_outstanding_comments = Plan.with_outstanding_comments.includes(:comment_threads => { :user => [], :children => :user }).page(params[:page]).per(10)
+    @plans_with_outstanding_comments = Plan
+      .with_outstanding_comments
+      .order("updated_at DESC")
+      .includes(:comment_threads => { :user => [], :children => :user })
+      .page(params[:page]).per(10)
   end
 
   def update

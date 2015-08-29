@@ -28,7 +28,7 @@ class Comment < ActiveRecord::Base
   # want user to vote on the quality of comments.
   #acts_as_votable
 
-  belongs_to :commentable, :polymorphic => true
+  belongs_to :commentable, :polymorphic => true, :touch => true
 
   # NOTE: Comments belong to a user
   belongs_to :user
@@ -48,6 +48,7 @@ class Comment < ActiveRecord::Base
       if reply.valid?
         reply.move_to_child_of(self)
       end
+      self.touch
       reply
     end
   end
