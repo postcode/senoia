@@ -74,6 +74,21 @@ feature "Plan" do
     end
   end
 
+  scenario "changing permitting agencies shows their contact info", js: true do
+
+    expect(permitters.count).to be > 1
+    
+    sign_in(admin)
+    visit "/plans/new"
+    
+    expect(page).to have_content permitters.first.phone_number
+    
+    select(permitters.last.name, from: "plan_permitter_id")
+    
+    expect(page).to have_content permitters.last.phone_number
+    
+  end
+
   context "deleting medical assets" do
 
     let(:plan) { FactoryGirl.create(:plan) }
@@ -114,22 +129,6 @@ feature "Plan" do
         expect(page).to_not have_selector(asset_selector)
       end
     end
-
-    scenario "changing permitting agencies shows their contact info", js: true do
-
-      expect(permitters.count).to be > 1
-      
-      sign_in(admin)
-      visit "/plans/new"
-            
-      expect(page).to have_content permitters.first.phone_number
-      
-      select(permitters.last.name, from: "plan_permitter_id")
-      
-      expect(page).to have_content permitters.last.phone_number
-      
-    end
-    
   end
 
   context "viewing an existing plan" do
@@ -144,7 +143,7 @@ feature "Plan" do
       
       sign_in(admin)
       visit "/plans/#{plan.id}"
-            
+      
       expect(page).to have_content permitters[1].address
       
       select(permitters.first.name, from: "plan_permitter_id")
