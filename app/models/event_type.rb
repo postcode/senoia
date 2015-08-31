@@ -11,4 +11,8 @@
 
 class EventType < ActiveRecord::Base
   has_many :plans
+
+  def to_s
+    name
+  end
 end

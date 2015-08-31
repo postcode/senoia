@@ -1,6 +1,7 @@
 require_relative "./acceptance_helper"
 
 feature "Plan" do
+  
   let(:plan) { FactoryGirl.create(:plan) }
   let(:accepted) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
@@ -46,7 +47,9 @@ feature "Plan" do
       fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
       fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
       click_button 'SUBMIT PLAN'
+      
       expect(Plan.all.count).to eq count +1 
+      expect(find_email(admin.email, with_text: "plan has been submitted")).to_not be_nil
     end
 
     scenario "admin can create a plan with medical assets", js: true  do
@@ -65,4 +68,56 @@ feature "Plan" do
       expect(Plan.all.count).to eq count +1 
     end
   end
+
+  context "request revision" do
+
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+    let(:creator) { FactoryGirl.create(:user) }
+    
+    before do
+      plan.update(creator: creator)
+    end
+    
+    scenario "admin can request a revision" do
+      
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+
+      expect { 
+        click_link "REQUEST REVISION"
+      }.to change{ Plan.with_being_reviewed_state.count }.by(1)
+
+      email = find_email(creator.email)
+      expect(email).to_not be_nil
+      expect(email).to have_body_text("needs revision")
+    end
+    
+  end
+
+  context "approve plan" do
+    
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "being_reviewed") }
+    let(:creator) { FactoryGirl.create(:user) }
+    
+    before do
+      plan.update(creator: creator)
+    end
+    
+    scenario "admin can approve a plan", js: true do
+
+      count = Plan.where(workflow_state: "accepted").count
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+
+      expect { 
+        click_link "APPROVE PLAN"
+      }.to change{ Plan.with_accepted_state.count }.by(1)
+
+      email = find_email(creator.email)
+      expect(email).to_not be_nil
+      expect(email).to have_body_text("has been approved")
+    end
+
+  end
+  
 end

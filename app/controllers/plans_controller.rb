@@ -180,6 +180,9 @@ class PlansController < ApplicationController
       @comment.move_to_child_of(Comment.find(params[:comment_id]))
       @comment.save
     end
+
+    @comment.send_notifications!
+    
     respond_to do |format|
       format.js
     end
