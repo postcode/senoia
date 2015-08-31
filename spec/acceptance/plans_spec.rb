@@ -72,6 +72,46 @@ feature "Plan" do
         click_button 'SUBMIT PLAN'
       }.to change{ FirstAidStation.count }.by(1)
     end
+
+    scenario "admin can create a plan with a mobile team", js: true  do
+      click_on "ADD MOBILE TEAM"
+      
+      mobile_team_name = "Mobility One"
+      within '.operation_periods_id_mobile_teams_id_name' do
+        find("input").set(mobile_team_name)
+      end
+
+      expect { 
+        click_button 'SUBMIT PLAN'
+      }.to change{ MobileTeam.count }.by(1)
+    end
+
+    scenario "admin can create a plan with a transport", js: true  do
+      click_on "ADD TRANSPORT"
+      
+      transport_name = "Transport One"
+      within '.operation_periods_id_transport_id_name' do
+        find("input").set(transport_name)
+      end
+
+      expect { 
+        click_button 'SUBMIT PLAN'
+      }.to change{ Transport.count }.by(1)
+    end
+
+    scenario "admin can create a plan with a dispatch", js: true  do
+      click_on "ADD DISPATCH"
+      
+      dispatch_name = "Dispatch One"
+      within '.operation_periods_id_dispatch_id_name' do
+        find("input").set(dispatch_name)
+      end
+
+      expect { 
+        click_button 'SUBMIT PLAN'
+      }.to change{ Dispatch.count }.by(1)
+    end
+    
   end
 
   scenario "changing permitting agencies shows their contact info", js: true do
