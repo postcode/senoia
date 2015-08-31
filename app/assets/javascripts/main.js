@@ -59,4 +59,9 @@ $(function() {
   $("body").on("change", "#plan_permitter_id", updatePermitterContactInfo);
 
   updatePermitterContactInfo();
+
+  // Highlight anchored comment
+  if (window.location.hash.indexOf("comment-") != -1) {
+    $(window.location.hash).effect("highlight", {}, 5000);       
+  }
 });

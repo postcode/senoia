@@ -81,25 +81,25 @@ class PlansController < ApplicationController
       @operation_period = @plan.operation_periods.find(op[1][:id])
       if op[1][:first_aid_stations_attributes].present? 
         op[1][:first_aid_stations_attributes].each do |first_aid|
-          @first_aid_update = FirstAidStation.find(first_aid[1][:id]).update_attributes(first_aid[1])
+          @first_aid_update = FirstAidStation.find(first_aid[1][:id]).update_attributes(first_aid[1].except("_destroy"))
         end
       end
 
       if op[1][:mobile_teams_attributes].present? 
         op[1][:mobile_teams_attributes].each do |mobile|
-          @mobile_team_update = MobileTeam.find(mobile[1][:id]).update_attributes(mobile[1])
+          @mobile_team_update = MobileTeam.find(mobile[1][:id]).update_attributes(mobile[1].except("_destroy"))
         end
       end
 
       if op[1][:transports_attributes].present? 
         op[1][:transports_attributes].each do |transport|
-          @transport_team_update = Transport.find(transport[1][:id]).update_attributes(transport[1])
+          @transport_team_update = Transport.find(transport[1][:id]).update_attributes(transport[1].except("_destroy"))
         end
       end
 
       if op[1][:dispatchs_attributes].present? 
         op[1][:dispatchs_attributes].each do |dispatch|
-          @dispatch_team_update = Dispatch.find(dispatch[1][:id]).update_attributes(dispatch[1])
+          @dispatch_team_update = Dispatch.find(dispatch[1][:id]).update_attributes(dispatch[1].except("_destroy"))
         end
       end
 
@@ -183,6 +183,9 @@ class PlansController < ApplicationController
       @comment.move_to_child_of(Comment.find(params[:comment_id]))
       @comment.save
     end
+
+    @comment.send_notifications!
+    
     respond_to do |format|
       format.js
     end
@@ -270,15 +273,171 @@ class PlansController < ApplicationController
 
   private 
 
-   # Using a private method to encapsulate the permissible parameters is
-    # just a good pattern since you'll be able to reuse the same permit
-    # list between create and update. Also, you can specialize this method
-    # with per-user checking of permissible attributes.
-    def plan_params
-      params.require(:plan).permit(:name, :event_type, :owner, :alcohol, :event_type_id, :permitter_id, :workflow_state, :owner_id, :post_event_name, :post_event_email, :post_event_phone, :responsibility, :cpr, :communication, :event_contact, users_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], event_types_attributes: [:id, :name, :description], permitters_attributes: [:id, :name, :address, :phone_number], user_attributes: [:id, :email, :password, :address, :roles, :roles_mask, :phone_number], :user_ids => [], operation_periods_attributes: [:id, :attendance, :start_date, :end_date, first_aid_stations_attributes: [:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :id, :location], transports_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location], mobile_teams_attributes: [:id, :name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location], dispatchs_attributes: [:id, :name, :level, :provider_id, :contact_name, :contact_phone, :location]])
-    end
-
-    def operation_periods_params
-      params.require(:operation_periods).permit(id:[:start_date, :end_date, :attendance, :plan_id, first_aid_stations: [id:[:name, :level, :md, :rn, :emt, :aed, :provider_id, :contact_name, :contact_phone, :location, :id, :lat, :lng]], transport: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location, :lat, :lng]], mobile_teams: [id: [:name, :level, :aed, :provider_id, :contact_name, :contact_phone, :location, :lat, :lng]], dispatch: [id: [:name, :level, :provider_id, :contact_name, :contact_phone, :location]]])
+  # Using a private method to encapsulate the permissible parameters is
+  # just a good pattern since you'll be able to reuse the same permit
+  # list between create and update. Also, you can specialize this method
+  # with per-user checking of permissible attributes.
+  def plan_params
+    params
+      .require(:plan)
+      .permit(:name,
+              :event_type,
+              :owner,
+              :alcohol,
+              :event_type_id,
+              :permitter_id,
+              :workflow_state,
+              :owner_id,
+              :post_event_name,
+              :post_event_email,
+              :post_event_phone,
+              :responsibility,
+              :cpr,
+              :communication,
+              :event_contact,
+              users_attributes: [
+                                 :id,
+                                 :email,
+                                 :password,
+                                 :address,
+                                 :roles,
+                                 :roles_mask,
+                                 :phone_number
+                                ],
+              event_types_attributes: [
+                                       :id,
+                                       :name,
+                                       :description
+                                      ],
+              permitters_attributes: [
+                                      :id,
+                                      :name,
+                                      :address,
+                                      :phone_number
+                                     ],
+              user_attributes: [
+                                :id,
+                                :email,
+                                :password,
+                                :address,
+                                :roles,
+                                :roles_mask,
+                                :phone_number
+                               ],
+              :user_ids => [ ],
+              operation_periods_attributes: [
+                                             :id,
+                                             :attendance,
+                                             :start_date,
+                                             :end_date,
+                                             first_aid_stations_attributes: [
+                                                                             :name,
+                                                                             :level,
+                                                                             :md,
+                                                                             :rn,
+                                                                             :emt,
+                                                                             :aed,
+                                                                             :provider_id,
+                                                                             :contact_name,
+                                                                             :contact_phone,
+                                                                             :id,
+                                                                             :location,
+                                                                             :_destroy
+                                                                            ],
+                                             transports_attributes: [
+                                                                     :id,
+                                                                     :name,
+                                                                     :level,
+                                                                     :provider_id,
+                                                                     :contact_name,
+                                                                     :contact_phone,
+                                                                     :location,
+                                                                     :_destroy
+                                                                    ],
+                                             mobile_teams_attributes: [
+                                                                       :id,
+                                                                       :name,
+                                                                       :level,
+                                                                       :aed,
+                                                                       :provider_id,
+                                                                       :contact_name,
+                                                                       :contact_phone,
+                                                                       :location,
+                                                                       :_destroy
+                                                                      ],
+                                             dispatchs_attributes: [
+                                                                    :id,
+                                                                    :name,
+                                                                    :level,
+                                                                    :provider_id,
+                                                                    :contact_name,
+                                                                    :contact_phone,
+                                                                    :location,
+                                                                    :_destroy
+                                                                   ]
+                                            ]
+              )
+  end
+  
+  def operation_periods_params
+    params.require(:operation_periods).permit(id:
+                                              [
+                                               :start_date,
+                                               :end_date,
+                                               :attendance,
+                                               :plan_id,
+                                               first_aid_stations: [
+                                                                    id:[
+                                                                        :name,
+                                                                        :level,
+                                                                        :md,
+                                                                        :rn,
+                                                                        :emt,
+                                                                        :aed,
+                                                                        :provider_id,
+                                                                        :contact_name,
+                                                                        :contact_phone,
+                                                                        :location,
+                                                                        :id,
+                                                                        :lat,
+                                                                        :lng
+                                                                       ]
+                                                                   ],
+                                               transport: [
+                                                           id: [
+                                                                :name,
+                                                                :level,
+                                                                :provider_id,
+                                                                :contact_name,
+                                                                :contact_phone,
+                                                                :location,
+                                                                :lat,
+                                                                :lng
+                                                               ]
+                                                          ],
+                                               mobile_teams: [
+                                                              id: [
+                                                                   :name,
+                                                                   :level,
+                                                                   :aed,
+                                                                   :provider_id,
+                                                                   :contact_name,
+                                                                   :contact_phone,
+                                                                   :location,
+                                                                   :lat,
+                                                                   :lng
+                                                                  ]
+                                                             ],
+                                               dispatch: [
+                                                          id: [
+                                                               :name,
+                                                               :level,
+                                                               :provider_id,
+                                                               :contact_name,
+                                                               :contact_phone,
+                                                               :location
+                                                              ]
+                                                         ]
+                                              ])
     end
 end

@@ -30,6 +30,7 @@ gem 'kaminari'
 gem 'negative_captcha'
 gem 'newrelic_rpm'
 gem 'paper_trail', '~> 4.0.0.rc'
+gem 'premailer-rails'
 gem 'pg'
 gem 'rack-attack'
 gem 'rakismet'
@@ -65,6 +66,7 @@ end
   
 group :test do
   gem 'capybara'
+  gem 'email_spec'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'poltergeist'
