@@ -1,0 +1,5 @@
+<div class="invitation-form" data-url="<%= url_for([ @plan, :invitations]) %>">
+  <input type="email" id="invitation-email" name="invitation[email]">
+  <%= select_tag "invitation[role]", options_for_select([ "view", "edit" ]) %>
+  <%= link_to "Invite", "javascript:void(0);", id: "invite", class: "button primary" %>
+</div>
