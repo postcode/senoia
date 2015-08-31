@@ -24,6 +24,7 @@ FactoryGirl.define do
 
   factory :comment do
     body { Faker::Lorem.paragraph }
+    commentable { FactoryGirl.create(:plan) }
     user
 
     factory :comment_on_event_type do
