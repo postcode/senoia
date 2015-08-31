@@ -88,7 +88,7 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
-    plan_params[:operation_periods_attributes].each do |op|
+    plan_params[:operation_periods_attributes].try(:each) do |op|
       @operation_period = @plan.operation_periods.find(op[1][:id])
       if op[1][:first_aid_stations_attributes].present? 
         op[1][:first_aid_stations_attributes].each do |first_aid|
