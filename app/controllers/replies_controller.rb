@@ -5,6 +5,7 @@ class RepliesController < ApplicationController
     authorize! :manage, @comment.commentable
 
     @reply = @comment.create_reply(reply_params.merge(user: current_user))
+    @reply.send_notifications!
 
     respond_to do |format|
       format.js
