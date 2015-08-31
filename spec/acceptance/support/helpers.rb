@@ -6,8 +6,8 @@ module HelperMethods
     click_button "Login"
   end
 
-  def sign_out(user)
-    visit "/admin/users"
+  def sign_out
+    visit "/"
     click_link "Logout"
   end
 
