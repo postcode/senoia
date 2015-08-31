@@ -129,6 +129,21 @@ feature "Plan" do
     
   end
 
+  scenario "changing permitting agencies shows their contact info", js: true do
+
+    expect(permitters.count).to be > 1
+    
+    sign_in(admin)
+    visit "/plans/new"
+    
+    expect(page).to have_content permitters.first.phone_number
+    
+    select(permitters.last.name, from: "plan_permitter_id")
+    
+    expect(page).to have_content permitters.last.phone_number
+    
+  end
+
   context "deleting medical assets" do
 
     let(:plan) { FactoryGirl.create(:plan) }
