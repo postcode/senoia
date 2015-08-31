@@ -1,1 +1,2 @@
-$(".invitation-form").html("Invite sent")
+$(".invitation-form").closest("tr").before("<%= j render @invitation %>")
+$("#invitation-email").val("")
