@@ -30,10 +30,13 @@
       </tbody>
     </table>
   </div>
-  <div class="invitation-form" data-url="<%= url_for([ @plan, :invitations]) %>">
-    <input type="email" id="invitation-email" name="collaborator[email]">
-    <%= link_to "Invite", "javascript:void(0);", id: "invite" %>
-  </div>
+
+  <% if @plan.persisted? %>
+    <div class="invitation-form" data-url="<%= url_for([ @plan, :invitations]) %>">
+      <input type="email" id="invitation-email" name="collaborator[email]">
+      <%= link_to "Invite", "javascript:void(0);", id: "invite" %>
+    </div>
+  <% end %>
   <div class="modal-footer">
     <%= link_to "Add Collaborator", update_user_plan_path, id: "new-plan-user-submit", class: "button primary save-modal", remote: true, method: :post %>
   </div>
