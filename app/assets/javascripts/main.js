@@ -56,4 +56,19 @@ $(function() {
   $(document).on('opened.fndtn.reveal', '#new-first-aid-station[data-reveal]', function () {
     console.log("open!!")
   });
+
+  var updatePermitterContactInfo = function() {
+    var activePermitterId = $("#plan_permitter_id").val();
+    $(".permitter").hide();
+    $("[data-permitter-id=" + activePermitterId + "]").show();
+  };
+
+  $("body").on("change", "#plan_permitter_id", updatePermitterContactInfo);
+
+  updatePermitterContactInfo();
+
+  // Highlight anchored comment
+  if (window.location.hash.indexOf("comment-") != -1) {
+    $(window.location.hash).effect("highlight", {}, 5000);       
+  }
 });

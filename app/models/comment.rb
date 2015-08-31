@@ -70,4 +70,9 @@ class Comment < ActiveRecord::Base
   def self.find_commentable(commentable_str, commentable_id)
     commentable_str.constantize.find(commentable_id)
   end
+
+  def send_notifications!
+    commentable.send_notifications_on_new_comment(self)
+  end
+  
 end

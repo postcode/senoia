@@ -14,7 +14,7 @@ FactoryGirl.define do
   end
 
   factory :plan do
-    name Faker::Lorem.word
+    name { Faker::Lorem.words(3).join }
     operation_periods = FactoryGirl.create(:operation_period)
 
     factory :plan_awaiting_review do
@@ -29,6 +29,11 @@ FactoryGirl.define do
     factory :comment_on_event_type do
       element_id "event_type_comment_text"
     end
+
+  factory :permitter do
+    name { Faker::Lorem.words(3).join(" ") }
+    phone_number { Faker::PhoneNumber.phone_number }
+    address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
   end
 
   factory :admin, :class => User do |u|

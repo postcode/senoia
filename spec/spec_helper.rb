@@ -18,6 +18,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require "factory_girl"
+require 'email_spec'
 
 RSpec.configure do |config|
 
@@ -45,6 +46,9 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+  include EmailSpec::Helpers
+  include EmailSpec::Matchers
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

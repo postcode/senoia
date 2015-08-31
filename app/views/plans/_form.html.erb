@@ -65,11 +65,12 @@
         </div>
         <div class="small-5 columns end">
         <%= f.association :permitter,
-                            collection: Permitter.all,
+                            collection: @permitters,
                             label_method: :name,
                             value_method: :id,
                             include_blank: false,
                             label: false %>
+        <%= render partial: "permitters/permitter", collection: @permitters %>
         </div>
         <div class="large-3 columns end">
         </div>
