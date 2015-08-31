@@ -14,8 +14,14 @@ FactoryGirl.define do
   end
 
   factory :plan do
-    name Faker::Lorem.word
+    name { Faker::Lorem.words(3).join }
     operation_periods = FactoryGirl.create(:operation_period)
+  end
+
+  factory :permitter do
+    name { Faker::Lorem.words(3).join(" ") }
+    phone_number { Faker::PhoneNumber.phone_number }
+    address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
   end
 
   factory :first_aid_station do
