@@ -182,36 +182,6 @@ class PlansController < ApplicationController
     end
   end
 
-  def add_comment
-    @plan = Plan.find(params[:id])
-    if params[:element_id].blank?
-      @comment = Comment.build_from(@plan, current_user.id, params[:comment_text], Comment.find(params[:comment_id]).element_id)
-    else
-      @comment = Comment.build_from(@plan, current_user.id, params[:comment_text], params[:element_id])
-    end
-    @comment.save
-    if params[:comment_id].present?
-      @comment.move_to_child_of(Comment.find(params[:comment_id]))
-      @comment.save
-    end
-
-    @comment.send_notifications!
-    
-    respond_to do |format|
-      format.js
-    end
-    
-  end
-
-  def resolve_comment
-    @plan = Plan.find(params[:id])
-    @comment = Comment.find(params[:comment_id])
-    @comment.open = false
-    @comment.save
-    respond_to do |format|
-      format.js
-    end
-  end
 
   def add_first_aid_station
     @first_aid_station = params[:first_aid_station]

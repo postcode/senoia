@@ -28,29 +28,29 @@ class Comment < ActiveRecord::Base
   # want user to vote on the quality of comments.
   #acts_as_votable
 
-  belongs_to :commentable, :polymorphic => true
+  belongs_to :commentable, :polymorphic => true, :touch => true
 
   # NOTE: Comments belong to a user
   belongs_to :user
 
-  scope :plan, ->(plan_id) { where("commentable_id = ?", plan_id).order(created_at: :desc) }
   scope :element, ->(element_id) { where("element_id = ?", element_id).order(created_at: :desc) }
   scope :open, -> { where("open = ?", true).order(created_at: :desc) }
-
-  # Helper class method that allows you to build a comment
-  # by passing a commentable object, a user_id, and comment text
-  # example in readme
-  def self.build_from(obj, user_id, comment, element)
-    new \
-      :commentable => obj,
-      :body        => comment,
-      :user_id     => user_id,
-      :element_id  => element
-  end
+  scope :plan, ->(plan_id) { where("commentable_id = ?", plan_id).order(created_at: :desc) }
 
   #helper method to check if a comment has children
   def has_children?
     self.children.any?
+  end
+
+  def create_reply(attributes)
+    transaction do
+      reply = self.class.create(attributes.merge(commentable: self.commentable, element_id: self.element_id))
+      if reply.valid?
+        reply.move_to_child_of(self)
+      end
+      self.touch
+      reply
+    end
   end
 
   # Helper class method to lookup all comments assigned

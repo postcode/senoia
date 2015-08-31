@@ -33,14 +33,21 @@ $(function() {
     e.preventDefault();
     $(this).siblings('.new-comment-area').toggle();
   })
-  $('.new-comment').click(function(event) {
-    event.preventDefault();
-    $.post($(this).attr('data-href') + "?comment_text=" + $(this).siblings("textarea").val() + "&element_id=" + $(this).siblings("textarea").attr("id"), function(data){} );
-  })
-  $('.reply-comment').click(function(event) {
-    event.preventDefault();
-    $.post($(this).attr('data-href') + "&comment_text=" + $(this).siblings("textarea").val(), function(data){} );
-  })
+
+  $("body").on("click", ".new-comment", function(event) {
+    var form = $(this).closest(".new-comment-area");
+    var data = form.find(":input").serialize();
+    var url = form.data().url
+    $.post(url, data);
+  });
+
+  $('body').on("click", "a.reply", function(event) {
+    var form = $(this).closest(".reply-form");
+    var data = form.find(":input").serialize();
+    var url = form.data().url;
+    $.post(url, data);
+  });
+
   $('.remove-user').click(function(event) {
     event.preventDefault()
     $(this).closest('tr').empty()

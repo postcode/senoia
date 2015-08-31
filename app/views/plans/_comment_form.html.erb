@@ -1,9 +1,9 @@
 <% if plan.id.present? && !plan.draft? && !plan.accepted? %>
   <div id="<%= title %>_comment" class="comment-section">
     <a href="#" class="comment"><i class="fi-plus"></i> COMMENT</a>
-    <div class="new-comment-area">
-      <%= text_area("#{title}_comment", :text, cols: 10, rows: 5) %>
-      <%= link_to "SUBMIT", "#", class: "new-comment button warning tiny radius", :"data-href" => add_comment_plan_path(plan) %>
+    <div class="new-comment-area" data-url="<%= url_for([ plan, :comments, element_id: "#{title}_comment_text" ]) %>">
+      <%= text_area_tag "comment[body]", "", id: "#{title}_comment_text", cols: 10, rows: 5 %>
+      <%= link_to "SUBMIT", "javascript:void(0);", class: "new-comment button warning tiny radius" %>
     </div>
     <div class="existing-comments">
       <%= render partial: "existing_comments", locals: { plan: plan, element_id: "#{title}_comment_text" } %>
