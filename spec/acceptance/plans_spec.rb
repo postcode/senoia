@@ -1,6 +1,7 @@
 require_relative "./acceptance_helper"
 
 feature "Plan" do
+  
   let(:plan) { FactoryGirl.create(:plan) }
   let(:accepted) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
@@ -112,4 +113,54 @@ feature "Plan" do
     end
   end
 
+  context "request revision" do
+
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+    let(:creator) { FactoryGirl.create(:user) }
+    
+    before do
+      plan.update(creator: creator)
+    end
+    
+    scenario "admin can request a revision" do
+      
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+
+      expect { 
+        click_link "REQUEST REVISION"
+      }.to change{ Plan.with_being_reviewed_state.count }.by(1)
+
+      email = find_email(creator.email)
+      expect(email).to_not be_nil
+      expect(email).to have_body_text("needs revision")
+    end
+    
+  end
+
+  context "approve plan" do
+    
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "being_reviewed") }
+    let(:creator) { FactoryGirl.create(:user) }
+    
+    before do
+      plan.update(creator: creator)
+    end
+    
+    scenario "admin can approve a plan", js: true do
+
+      count = Plan.where(workflow_state: "accepted").count
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+
+      expect { 
+        click_link "APPROVE PLAN"
+      }.to change{ Plan.with_accepted_state.count }.by(1)
+
+      email = find_email(creator.email)
+      expect(email).to_not be_nil
+      expect(email).to have_body_text("has been approved")
+    end
+
+  end
 end
