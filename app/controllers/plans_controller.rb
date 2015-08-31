@@ -140,17 +140,18 @@ class PlansController < ApplicationController
         end
       end
 
-      if params[:user].present?
-        params[:user].each do |user|
-          @plan.users << User.where(email: user[1][:email]).first
-          p = PlanUser.where(plan_id: @plan.id, user_id: user).first
-          p.role = user[1][:role]
-          p.save
-        end
-      end
-
       @operation_period.save
     end
+
+    if params[:user].present?
+      params[:user].each do |user|
+        @plan.users << User.where(email: user[1][:email]).first
+        p = PlanUser.where(plan_id: @plan.id, user_id: user).first
+        p.role = user[1][:role]
+        p.save
+      end
+    end
+
     respond_to do |format|
       if @plan.update_attributes(plan_params)
         format.html { redirect_to @plan, notice: 'plan was successfully updated.' }
