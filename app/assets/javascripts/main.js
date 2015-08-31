@@ -71,4 +71,10 @@ $(function() {
   if (window.location.hash.indexOf("comment-") != -1) {
     $(window.location.hash).effect("highlight", {}, 5000);       
   }
+
+  $("body").on("click", "#invite", function() {
+     var url = $(this).closest(".invitation-form").data().url;
+     $.post(url, { email: $("#invitation-email").val() });
+  });
+
 });
