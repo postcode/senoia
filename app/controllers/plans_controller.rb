@@ -145,10 +145,8 @@ class PlansController < ApplicationController
 
     if params[:user].present?
       params[:user].each do |user|
-        @plan.users << User.where(email: user[1][:email]).first
-        p = PlanUser.where(plan_id: @plan.id, user_id: user).first
-        p.role = user[1][:role]
-        p.save
+        user_obj = User.find_by_email(user[1][:email])
+        @plan.plan_users.create(user: user_obj, role: user[1][:role])
       end
     end
 
