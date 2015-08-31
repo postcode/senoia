@@ -20,7 +20,8 @@ feature "Collaborators" do
       find("#plan_view_id_#{@user.id}").set(true)
       find("#new-plan-user-submit").click
 
-      expect(page).to have_css("input[value='#{@user.email}']")
+      #FIXME This fails sometimes due to a race condition
+      expect(page).to have_css("input[value='#{@user.email}']") 
       
       click_on "SAVE DRAFT"
 
