@@ -24,6 +24,22 @@ FactoryGirl.define do
     address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
   end
 
+  factory :first_aid_station do
+    name Faker::Lorem.words(3).join(" ")
+  end
+
+  factory :mobile_team do
+    name Faker::Lorem.words(3).join(" ")
+  end
+
+  factory :transport do
+    name Faker::Lorem.words(3).join(" ")
+  end
+
+  factory :dispatch do
+    name Faker::Lorem.words(3).join(" ")
+  end
+
   factory :admin, :class => User do |u|
     u.email { Faker::Internet.email }
     u.password "password"

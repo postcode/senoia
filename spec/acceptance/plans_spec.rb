@@ -112,6 +112,63 @@ feature "Plan" do
         expect(page).to_not have_selector(asset_selector)
       end
     end
+    
+    scenario "admin can create a plan with a mobile team", js: true  do
+      sign_in(admin)
+      visit "/plans/new"
+      fill_in 'plan_name', with: "test plan"
+      fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
+      fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
+
+      click_on "ADD MOBILE TEAM"
+      
+      mobile_team_name = "Mobility One"
+      within '.operation_periods_id_mobile_teams_id_name' do
+        find("input").set(mobile_team_name)
+      end
+
+      expect { 
+        click_button 'SUBMIT PLAN'
+      }.to change{ MobileTeam.count }.by(1)
+    end
+
+    scenario "admin can create a plan with a transport", js: true  do
+      sign_in(admin)
+      visit "/plans/new"
+      fill_in 'plan_name', with: "test plan"
+      fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
+      fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
+
+      click_on "ADD TRANSPORT"
+      
+      transport_name = "Transport One"
+      within '.operation_periods_id_transport_id_name' do
+        find("input").set(transport_name)
+      end
+
+      expect { 
+        click_button 'SUBMIT PLAN'
+      }.to change{ Transport.count }.by(1)
+    end
+
+    scenario "admin can create a plan with a dispatch", js: true  do
+      sign_in(admin)
+      visit "/plans/new"
+      fill_in 'plan_name', with: "test plan"
+      fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
+      fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
+
+      click_on "ADD DISPATCH"
+      
+      dispatch_name = "Dispatch One"
+      within '.operation_periods_id_dispatch_id_name' do
+        find("input").set(dispatch_name)
+      end
+
+      expect { 
+        click_button 'SUBMIT PLAN'
+      }.to change{ Dispatch.count }.by(1)
+    end
 
     scenario "changing permitting agencies shows their contact info", js: true do
 
@@ -150,7 +207,6 @@ feature "Plan" do
       expect(page).to have_content permitters.first.address
       
     end
-    
   end
 
   context "request revision" do
