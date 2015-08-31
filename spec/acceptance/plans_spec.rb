@@ -57,13 +57,15 @@ feature "Plan" do
 
     scenario "admin can create a plan with a first aid station", js: true  do
       click_link 'new_first_aid_station'
-
+      sleep 0.5 #FIXME Waiting for modal
+      
       first_aid_station_name = "2nd Aid Station"
       within '.first_aid_stations_id_name' do
         fill_in 'Name', with: first_aid_station_name
       end
 
       click_on "new-first-aid-station-submit"
+
       expect(page).to have_content first_aid_station_name
 
       expect { 
