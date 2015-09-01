@@ -4,7 +4,9 @@ class InvitationsController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     authorize! :manage, @plan
     @invitation = @plan.invitations.create(invitation_params)
-    @invitation.send_invitation_email!
+    if @invitation.valid?
+      @invitation.send_invitation_email!
+    end
   end
 
   private

@@ -40,6 +40,14 @@ feature "Collaborators" do
       expect(find("fieldset", text: "COLLABORATORS")).to_not have_content(@collaborator.email)
     end
 
+    scenario "cannot invite a collaborator without an email" do
+      click_on "ADD USERS"
+      sleep 1
+      find("#invitation-email").set("not an email")
+      click_on "Invite"
+      expect(page).to have_content("Email is invalid")
+    end
+
     scenario "invites a collaborator" do
 
       click_on "ADD USERS"

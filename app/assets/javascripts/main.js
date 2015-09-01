@@ -73,10 +73,10 @@ $(function() {
   }
 
   $("body").on("click", "#invite", function() {
-     var form = $(this).closest(".invitation-form");
-     var url = form.data().url;
-     var data = form.find(":input").serialize();
-     $.post(url, data);
+    var form = $(this).closest(".invitation-form");
+    var url = form.data().url;
+    var data = form.find(":input").serialize();
+    $.post(url, data);
   });
 
 });

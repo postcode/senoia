@@ -13,6 +13,7 @@ gem "cocoon"
 gem 'compass'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem 'devise'
+gem 'email_validator'
 gem 'figaro'
 gem 'font-awesome-sass-rails'
 gem 'foundation-datetimepicker-rails'

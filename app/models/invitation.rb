@@ -2,7 +2,7 @@ class Invitation < ActiveRecord::Base
   belongs_to :plan
   
   validates :plan, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, email: true
   validates :role, presence: true, inclusion: PlanUser::ROLES
 
   def self.claim_invitations(user)
