@@ -88,8 +88,9 @@ ActiveRecord::Schema.define(version: 20150831142604) do
     t.integer  "plan_id"
     t.text     "email"
     t.string   "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "invited_user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "medical_assets", force: :cascade do |t|

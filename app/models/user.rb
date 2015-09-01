@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
          :validatable, 
          :confirmable
 
+  has_many :invitations, foreign_key: :invited_user_id, inverse_of: :invited_user
   has_many :plans
   has_many :plan_users
 
