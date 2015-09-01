@@ -16,7 +16,7 @@
           <td><%= check_box "plan_edit[id]", user.id, {:class => 'table-row-checkbox user_edit'}, user.id %></td>
         </tr>
       <% end %>
-      <%= render @plan.invitations %>
+      <%= render @plan.invitations.pending %>
       <% if @plan.persisted? && can?(:manage, @plan) %>
         <%= render partial: "invitations/form" %>
       <% end %>      
