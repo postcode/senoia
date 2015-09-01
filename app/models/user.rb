@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
          :rememberable, 
          :trackable, 
          :validatable, 
-         :confirmable
+         :confirmable,
+         :registerable
 
   has_many :plans
   has_many :plan_users
