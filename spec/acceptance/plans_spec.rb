@@ -53,67 +53,6 @@ feature "Plan" do
         click_button "Continue"
       }.to change { Plan.count }.by(1)
     end
-
-    scenario "admin can create a plan with a first aid station", js: true  do
-      pending
-      click_link 'new_first_aid_station'
-      sleep 0.5 #FIXME Waiting for modal
-      
-      first_aid_station_name = "2nd Aid Station"
-      within '.first_aid_stations_id_name' do
-        fill_in 'Name', with: first_aid_station_name
-      end
-
-      click_on "new-first-aid-station-submit"
-
-      expect(page).to have_content first_aid_station_name
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ FirstAidStation.count }.by(1)
-    end
-
-    scenario "admin can create a plan with a mobile team", js: true  do
-      pending
-      click_on "ADD MOBILE TEAM"
-      
-      mobile_team_name = "Mobility One"
-      within '.operation_periods_id_mobile_teams_id_name' do
-        find("input").set(mobile_team_name)
-      end
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ MobileTeam.count }.by(1)
-    end
-
-    scenario "admin can create a plan with a transport", js: true  do
-      pending
-      click_on "ADD TRANSPORT"
-      
-      transport_name = "Transport One"
-      within '.operation_periods_id_transport_id_name' do
-        find("input").set(transport_name)
-      end
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ Transport.count }.by(1)
-    end
-
-    scenario "admin can create a plan with a dispatch", js: true  do
-      pending
-      click_on "ADD DISPATCH"
-      
-      dispatch_name = "Dispatch One"
-      within '.operation_periods_id_dispatch_id_name' do
-        find("input").set(dispatch_name)
-      end
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ Dispatch.count }.by(1)
-    end
     
   end
 
@@ -161,24 +100,83 @@ feature "Plan" do
 
   context "viewing an existing plan" do
 
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review", permitter: permitters[1]) }
 
     before do
-      plan.update(permitter: permitters[1])
-    end
+      plan.operation_periods << create(:operation_period)
 
-    scenario "changing permitting agencies shows their contact info", js: true do
-      
       sign_in(admin)
       visit "/plans/#{plan.id}"
+    end
+    
+    scenario "changing permitting agencies shows their contact info", js: true do
       
-      expect(page).to have_content permitters[1].address
+      expect(page).to have_content plan.permitter.address
       
       select(permitters.first.name, from: "plan_permitter_id")
       
       expect(page).to have_content permitters.first.address
       
     end
+    
+    scenario "admin can add a dispatch", js: true  do
+      click_on "ADD DISPATCH"
+      
+      dispatch_name = "Dispatch One"
+      within '.dispatch_id_name' do
+        find("input").set(dispatch_name)
+      end
+
+      expect { 
+        click_button "SAVE DRAFT"
+      }.to change{ Dispatch.count }.by(1)
+    end
+
+    scenario "admin can add a first aid station", js: true  do
+      pending
+      click_link 'new_first_aid_station'
+      sleep 0.5 #FIXME Waiting for modal
+      
+      first_aid_station_name = "2nd Aid Station"
+      within '.first_aid_stations_id_name' do
+        fill_in 'Name', with: first_aid_station_name
+      end
+
+      click_on "new-first-aid-station-submit"
+
+      expect(page).to have_content first_aid_station_name
+
+      expect { 
+        click_button 'SAVE DRAFT'
+      }.to change{ FirstAidStation.count }.by(1)
+    end
+
+    scenario "admin can add a mobile team", js: true  do
+      click_on "ADD MOBILE TEAM"
+      
+      mobile_team_name = "Mobility One"
+      within '.mobile_teams_id_name' do
+        find("input").set(mobile_team_name)
+      end
+
+      expect { 
+        click_button 'SAVE DRAFT'
+      }.to change{ MobileTeam.count }.by(1)
+    end
+
+    scenario "admin can add a transport", js: true  do
+      click_on "ADD TRANSPORT"
+      
+      transport_name = "Transport One"
+      within '.transport_id_name' do
+        find("input").set(transport_name)
+      end
+
+      expect { 
+        click_button 'SAVE DRAFT'
+      }.to change{ Transport.count }.by(1)
+    end
+
   end
 
   context "request revision" do
