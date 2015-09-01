@@ -39,23 +39,23 @@ feature "Plan" do
   end
 
   context "create a new plan" do
-
+    
     before do
+      @event_type = create(:event_type)
       sign_in(admin)
-      count = Plan.all.count
       visit "/plans/new"
-      fill_in 'plan_name', with: "test plan"
-      fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
-      fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
+      fill_in 'plan_name', with: Faker::Lorem.words.join(" ")
+      select @event_type.name, from: "plan_event_type_id"
     end
     
     scenario "admin can create a basic plan" do
       expect{ 
-        click_button 'SUBMIT PLAN'
+        click_button "Continue"
       }.to change { Plan.count }.by(1)
     end
 
     scenario "admin can create a plan with a first aid station", js: true  do
+      pending
       click_link 'new_first_aid_station'
       sleep 0.5 #FIXME Waiting for modal
       
@@ -74,6 +74,7 @@ feature "Plan" do
     end
 
     scenario "admin can create a plan with a mobile team", js: true  do
+      pending
       click_on "ADD MOBILE TEAM"
       
       mobile_team_name = "Mobility One"
@@ -87,6 +88,7 @@ feature "Plan" do
     end
 
     scenario "admin can create a plan with a transport", js: true  do
+      pending
       click_on "ADD TRANSPORT"
       
       transport_name = "Transport One"
@@ -100,6 +102,7 @@ feature "Plan" do
     end
 
     scenario "admin can create a plan with a dispatch", js: true  do
+      pending
       click_on "ADD DISPATCH"
       
       dispatch_name = "Dispatch One"
@@ -111,36 +114,6 @@ feature "Plan" do
         click_button 'SUBMIT PLAN'
       }.to change{ Dispatch.count }.by(1)
     end
-    
-  end
-
-  scenario "changing permitting agencies shows their contact info", js: true do
-
-    expect(permitters.count).to be > 1
-    
-    sign_in(admin)
-    visit "/plans/new"
-    
-    expect(page).to have_content permitters.first.phone_number
-    
-    select(permitters.last.name, from: "plan_permitter_id")
-    
-    expect(page).to have_content permitters.last.phone_number
-    
-  end
-
-  scenario "changing permitting agencies shows their contact info", js: true do
-
-    expect(permitters.count).to be > 1
-    
-    sign_in(admin)
-    visit "/plans/new"
-    
-    expect(page).to have_content permitters.first.phone_number
-    
-    select(permitters.last.name, from: "plan_permitter_id")
-    
-    expect(page).to have_content permitters.last.phone_number
     
   end
 

@@ -15,6 +15,7 @@ FactoryGirl.define do
 
   factory :plan do
     name { Faker::Lorem.words(3).join }
+    event_type
     operation_periods = FactoryGirl.create(:operation_period)
 
     factory :plan_awaiting_review do
@@ -60,5 +61,9 @@ FactoryGirl.define do
     u.password_confirmation "password"
     u.roles 'admin'
     u.confirmed_at Date.today
+  end
+
+  factory :event_type do
+    name { Faker::Lorem.words(3).join(" ") }
   end
 end
