@@ -24,11 +24,13 @@ FactoryGirl.define do
 
   factory :comment do
     body { Faker::Lorem.paragraph }
+    commentable { FactoryGirl.create(:plan) }
     user
 
     factory :comment_on_event_type do
       element_id "event_type_comment_text"
     end
+  end
 
   factory :permitter do
     name { Faker::Lorem.words(3).join(" ") }
