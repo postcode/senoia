@@ -1,0 +1,16 @@
+<tr>
+  <td colspan="3" class="invitation-form" data-url="<%= url_for([ @plan, :invitations]) %>">
+    <h4>Invite by email:</h4>
+    <div class="row large-collapse">
+      <div class="large-7 columns">
+        <input type="email" id="invitation-email" name="invitation[email]" placeholder="Email address">
+      </div>
+      <div class="large-3 columns">
+        <%= select_tag "invitation[role]", options_for_select([ [ "Can View", "view" ], [ "Can Edit", "edit" ] ]) %>
+      </div>
+      <div class="large-2 columns">
+        <%= link_to "Invite", "javascript:void(0);", id: "invite", class: "button tiny radius", style: "margin-left: 1em; margin-top: 0.1em" %>
+      </div>
+    </div>
+  </td>
+</tr>

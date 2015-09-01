@@ -35,11 +35,13 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, 
          :recoverable, 
+         :registerable,
          :rememberable, 
          :trackable, 
          :validatable, 
          :confirmable
 
+  has_many :invitations, foreign_key: :invited_user_id, inverse_of: :invited_user
   has_many :plans
   has_many :plan_users
 
@@ -49,6 +51,10 @@ class User < ActiveRecord::Base
   # roles later, always append them at the end!
   roles :admin, :user, :guest, :provider, :promoter, :staff
 
+  after_create do
+    Invitation.claim_invitations(self)
+  end
+  
   def to_s
     if [ first_name, last_name ].any?(&:blank?)
       email

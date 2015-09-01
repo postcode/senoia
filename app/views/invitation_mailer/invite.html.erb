@@ -1,0 +1,10 @@
+<p>
+  You have been invited to collaborate on the medical plan <%= @plan %>.
+</p>
+
+<p>
+  Please sign up through the link below to view the plan.
+</p>
+
+<%= link_to "Sign up", new_user_registration_url(email: @email) %>
+

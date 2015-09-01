@@ -2,6 +2,11 @@
   <div id="homepage-hero">
   <div class="row">
     <div class="large-12 columns pageTitle">
+      <% @invitations.each do |invitation| %>
+        <div data-alert class="alert-box info radius">
+          You were invited to collaborate on the plan <%= link_to invitation.plan.name, invitation.plan %>.
+        </div>
+      <% end %>
     </div>  
     <div class="large-4 columns">
       <%= link_to new_plan_path do %>

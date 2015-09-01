@@ -88,7 +88,7 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
-    plan_params[:operation_periods_attributes].each do |op|
+    plan_params[:operation_periods_attributes].try(:each) do |op|
       @operation_period = @plan.operation_periods.find(op[1][:id])
       if op[1][:first_aid_stations_attributes].present? 
         op[1][:first_aid_stations_attributes].each do |first_aid|
@@ -140,17 +140,16 @@ class PlansController < ApplicationController
         end
       end
 
-      if params[:user].present?
-        params[:user].each do |user|
-          @plan.users << User.where(email: user[1][:email]).first
-          p = PlanUser.where(plan_id: @plan.id, user_id: user).first
-          p.role = user[1][:role]
-          p.save
-        end
-      end
-
       @operation_period.save
     end
+
+    if params[:user].present?
+      params[:user].each do |user|
+        user_obj = User.find_by_email(user[1][:email])
+        @plan.plan_users.create(user: user_obj, role: user[1][:role])
+      end
+    end
+
     respond_to do |format|
       if @plan.update_attributes(plan_params)
         format.html { redirect_to @plan, notice: 'plan was successfully updated.' }

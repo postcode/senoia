@@ -18,6 +18,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require "factory_girl"
+require "action_mailer"
 require 'email_spec'
 
 RSpec.configure do |config|

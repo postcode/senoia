@@ -1,0 +1,16 @@
+<% if @invitation.valid? %>
+
+  $(".invitation-form").closest("tr").before("<%= j render @invitation %>");
+  $("#invitation-email").val("");
+  $(".invitation-form").find(".error").remove();
+
+<% else %>
+
+  $(".invitation-form").find(".error").remove();
+
+  <% @invitation.errors.keys.each do |field| %>
+    var field = $("[name='invitation[<%= j field.to_s %>]']");
+    field.after("<%= j render partial: "application/error", locals: { error: @invitation.errors.full_messages_for(field).first } %>");
+  <% end %>
+
+<% end %>

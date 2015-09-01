@@ -16,20 +16,15 @@
           <td><%= check_box "plan_edit[id]", user.id, {:class => 'table-row-checkbox user_edit'}, user.id %></td>
         </tr>
       <% end %>
-      <% if can? :edit, User %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>
-            <%= link_to new_user_path do %>
-              <i class="fi-plus"></i>&nbsp;Add New User
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
+      <%= render @plan.invitations.pending %>
+      <% if @plan.persisted? && can?(:manage, @plan) %>
+        <%= render partial: "invitations/form" %>
+      <% end %>      
       </tbody>
     </table>
+
   </div>
+  
   <div class="modal-footer">
     <%= link_to "Add Collaborator", update_user_plan_path, id: "new-plan-user-submit", class: "button primary save-modal", remote: true, method: :post %>
   </div>
