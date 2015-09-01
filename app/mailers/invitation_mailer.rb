@@ -5,7 +5,7 @@ class InvitationMailer < ActionMailer::Base
     @plan = options[:plan]
     @email = options[:email]
     mail(to: @email,
-         subject: "You have been invited to collaborate on a plan")
+         subject: "You have been invited to collaborate on the medical plan #{@plan.name}")
   end
 
 end
