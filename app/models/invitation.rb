@@ -6,8 +6,8 @@ class Invitation < ActiveRecord::Base
   validates :role, presence: true, inclusion: PlanUser::ROLES
 
   def self.claim_invitations(user)
-    transaction do
-      where(email: user.email).each do |invitation|
+    where(email: user.email).each do |invitation|
+      transaction do
         invitation.plan.plan_users.create(user: user, role: invitation.role)
         invitation.destroy
       end
