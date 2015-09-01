@@ -127,9 +127,16 @@
       <hr/>
 
       <div class="large-12 columns">
-       <!--  <div class="row">
-          <h3>OPERATIONAL PERIOD <a href="#" class="button tiny radius right"><i class="fi-plus"></i> ADD OPERATIONAL PERIOD</a></h3>
-        </div> -->
+        <div class="row">
+          <h3>
+            Operational Periods
+            <span class="add_operation_period_button">
+              <%= link_to add_operation_period_path(@plan.operation_periods.count), remote: true, class: "button primary tiny radius right", id: "new_operation_period" do %> 
+                <i class="fi-plus"></i> ADD OPERATIONAL PERIOD
+              <% end %>
+            </span>
+          </h3>
+        </div>
       <div class="row">
         <ul class="tabs" data-tab>
           <% @plan.operation_periods.each_with_index do |operation_period, index| %>
