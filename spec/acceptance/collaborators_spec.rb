@@ -84,7 +84,7 @@ feature "Collaborators" do
         click_on "Login"
       end
 
-      visit "/plans/#{plan.id}"
+      click_link plan.name
       expect(find("fieldset", text: "COLLABORATORS")).to have_content(invite_email_address)
     end
   end
