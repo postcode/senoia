@@ -20,7 +20,7 @@ RSpec.describe CommentsController do
 
       it "sends notifications" do
 
-        plan.users << notification_recipient
+        plan.users_who_can_view << notification_recipient
         
         expect(NotificationMailer).to receive(:new_comment_notification)
           .with({ recipient: notification_recipient, comment: kind_of(Comment) })

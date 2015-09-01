@@ -26,7 +26,7 @@ RSpec.describe RepliesController do
       
       it "sends notifications" do
 
-        comment.commentable.users << notification_recipient
+        comment.commentable.users_who_can_view << notification_recipient
         
         expect(NotificationMailer).to receive(:new_comment_notification)
           .with({ recipient: notification_recipient, comment: kind_of(Comment) })
