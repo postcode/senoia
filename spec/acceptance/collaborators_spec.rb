@@ -18,11 +18,11 @@ feature "Collaborators" do
 
     scenario "adds a collaborator" do
       click_on "ADD USERS"
+      sleep 0.5 #FIXME Race condition with modal
       
       find("#plan_view_id_#{@user.id}").set(true)
       find("#new-plan-user-submit").click
 
-      #FIXME This fails sometimes due to a race condition
       expect(page).to have_css("input[value='#{@user.email}']") 
       
       click_on "SAVE DRAFT"
@@ -42,7 +42,7 @@ feature "Collaborators" do
 
     scenario "cannot invite a collaborator without an email" do
       click_on "ADD USERS"
-      sleep 1
+      sleep 0.5 #FIXME Race condition with modal
       find("#invitation-email").set("not an email")
       click_on "Invite"
       expect(page).to have_content("Email is invalid")
@@ -52,7 +52,7 @@ feature "Collaborators" do
 
       click_on "ADD USERS"
 
-      sleep 1
+      sleep 0.5 #FIXME Race condition with modal
       find("#invitation-email").set(invite_email_address)
       click_on "Invite"
 
