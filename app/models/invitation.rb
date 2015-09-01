@@ -3,9 +3,9 @@ class Invitation < ActiveRecord::Base
   belongs_to :invited_user, class_name: "User", inverse_of: :invitations
   
   validates :plan, presence: true
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, uniqueness: { scope: :plan_id, message: "has already been invited" }
   validates :role, presence: true, inclusion: PlanUser::ROLES
-
+  
   def self.claim_invitations(user)
     where(email: user.email, invited_user: nil).includes(:plan).each do |invitation|
       transaction do
