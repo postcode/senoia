@@ -48,7 +48,7 @@ feature "Collaborators" do
       find("#invitation-email").set(invite_email_address)
       click_on "Invite"
 
-      expect(page).to have_content("Invite sent")
+      expect(page).to have_content("Invitation sent")
       sign_out
 
       open_email(invite_email_address)
