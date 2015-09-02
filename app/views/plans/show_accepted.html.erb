@@ -90,10 +90,8 @@
         <% end %>
       </ul>
       <div class="tabs-content">
-        <% @plan.operation_periods.each_with_index do |operation_period, index| %>
-        <%= f.simple_fields_for :operation_periods, operation_period do |op| %>
-            <%= render 'operation_period_show', count: index+1, op: op, f: f %>
-          <% end %>
+        <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+          <%= render 'operation_periods/operation_period', count: index+1, f: f %>
         <% end %>
       </div>
     </div>
