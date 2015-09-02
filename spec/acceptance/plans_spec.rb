@@ -118,6 +118,21 @@ feature "Plan" do
       expect(page).to have_content permitters.first.address
       
     end
+
+    scenario "admin can add an operation period", js: true do
+      click_on "ADD OPERATIONAL PERIOD"
+      expect(page).to have_content("OPERATIONAL PERIOD 2")
+      save_screenshot
+      click_on "Operational Period 2"
+      fill_in "plan_operation_periods_attributes_1_start_date", with: "01/01/2020 08:00 am"
+      fill_in "plan_operation_periods_attributes_1_end_date", with: "02/01/2020 08:00 am"
+      click_on "SAVE DRAFT"
+    end
+
+    scenario "admin can clone an operation period", js: true do
+      click_on "Clone"
+      expect(page).to have_selector("#operation-period-tabs li", count: 2)
+    end
     
     scenario "admin can add a dispatch", js: true  do
       click_on "ADD DISPATCH"
