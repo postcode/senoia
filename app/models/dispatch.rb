@@ -14,6 +14,5 @@
 #
 
 class Dispatch < ActiveRecord::Base
-  has_many :users, through: :dispatchs_users
   belongs_to :provider
 end

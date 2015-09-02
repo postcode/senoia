@@ -16,6 +16,5 @@
 #
 
 class Transport < ActiveRecord::Base
-  has_many :users, through: :transports_users
   belongs_to :provider
 end
