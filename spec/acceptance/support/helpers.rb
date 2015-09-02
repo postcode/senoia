@@ -14,7 +14,7 @@ module HelperMethods
   def save_screenshot
     @index ||= 0
     @index = @index + 1
-    super("#{Rails.root}/tmp/phantomjs/#{@index}.jpg")
+    super("#{Rails.root}/tmp/phantomjs/#{@index}.jpg", full: true)
   end
 
 end
