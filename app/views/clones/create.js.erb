@@ -1,0 +1,9 @@
+<% plan_form = form_builder_for(@plan) %>
+
+$(".tabs-content").append("<%= j render(partial: 'operation_periods/operation_period', locals: { f: plan_form, operation_period: @clone, count: @count } )%>")
+$(".tabs").append('<li class="tab-title"><a href="#panel<%= @count %>">Operational Period <%= @count %></a></li>')
+$(".add_operation_period_button").html('<%= link_to add_operation_period_path(@count), remote: true, class: "button primary tiny radius right", id: "new_operation_period"  do %><i class="fi-plus"></i> ADD OPERATIONAL PERIOD<% end %>')
+$('.dateSelect').fdatetimepicker({
+    format: 'mm/dd/yyyy H:ii p'
+  });
+$(".tab-title:last a").trigger("click");

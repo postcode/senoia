@@ -128,11 +128,6 @@ feature "Plan" do
       fill_in "plan_operation_periods_attributes_1_end_date", with: "02/01/2020 08:00 am"
       click_on "SAVE DRAFT"
     end
-
-    scenario "admin can clone an operation period", js: true do
-      click_on "Clone"
-      expect(page).to have_selector("#operation-period-tabs li", count: 2)
-    end
     
     scenario "admin can add a dispatch", js: true  do
       click_on "ADD DISPATCH"
@@ -240,6 +235,46 @@ feature "Plan" do
       email = find_email(creator.email)
       expect(email).to_not be_nil
       expect(email).to have_body_text("has been approved")
+    end
+
+  end
+
+  context "clone an operation period" do
+
+    let(:plan) { create(:plan_awaiting_review) }
+
+    before do
+      plan.operation_periods << create(:operation_period)
+
+      @operation_period = plan.operation_periods.first
+      @operation_period.first_aid_stations << create(:first_aid_station)
+      @operation_period.mobile_teams << create(:mobile_team)
+      @operation_period.transports << create(:transport)
+      @operation_period.dispatchs << create(:dispatch)
+      
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+    end
+    
+    scenario "admin can clone an operation period", js: true do
+      click_on "Clone"
+      expect(page).to have_selector("#operation-period-tabs li", count: 2)
+      click_on "Operational Period 2"
+
+      cloned_attendance = find(".plan_operation_periods_attendance input").value
+      expect(cloned_attendance).to eq plan.operation_periods.first.attendance.to_s
+
+      cloned_first_aid_station_name = find(".plan_operation_periods_first_aid_stations_name input").value
+      expect(cloned_first_aid_station_name).to eq @operation_period.first_aid_stations.first.name
+
+      cloned_mobile_team_name = find(".plan_operation_periods_mobile_teams_name input").value
+      expect(cloned_mobile_team_name).to eq @operation_period.mobile_teams.first.name
+
+      cloned_transport_name = find(".plan_operation_periods_transports_name input").value
+      expect(cloned_transport_name).to eq @operation_period.transports.first.name
+
+      cloned_dispatch_name = find(".plan_operation_periods_dispatchs_name input").value
+      expect(cloned_dispatch_name).to eq @operation_period.dispatchs.first.name
     end
 
   end
