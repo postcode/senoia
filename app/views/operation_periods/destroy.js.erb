@@ -1,0 +1,8 @@
+$(".operation-period-<%= @operation_period.id %>")
+   .fadeOut(
+     400,
+     function() {
+       $(this).remove();
+       $(".tab-title.active").remove();
+       $("#operation-period-tabs li:first a").trigger("click");
+     });
