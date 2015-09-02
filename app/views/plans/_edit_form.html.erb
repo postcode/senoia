@@ -126,7 +126,7 @@
       </div>
       <hr/>
 
-      <div class="large-12 columns">
+      <div class="large-12 columns operation-period-container">
         <div class="row">
           <h3>
             Operational Periods
@@ -138,7 +138,7 @@
           </h3>
         </div>
       <div class="row">
-        <ul class="tabs" data-tab>
+        <ul class="tabs" id="operation-period-tabs" data-tab>
           <% @plan.operation_periods.each_with_index do |operation_period, index| %>
               <%= render 'operation_period_tabs', count: index+1, period: operation_period %>
           <% end %>

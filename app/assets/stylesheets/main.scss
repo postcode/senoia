@@ -525,3 +525,17 @@ input[type="checkbox"]{
 .reveal-modal-bg {
   position: fixed;
 }
+
+.operation-period-container {
+
+  .tabs .tab-title > a {
+    margin-bottom: 0
+  }
+  
+  .content {                            
+    padding: 2em;
+    border: 2px solid #E6E7E8;
+    border-top: none;
+  }
+
+}
