@@ -72,7 +72,7 @@ class Plan < ActiveRecord::Base
       event :accept, :transitions_to => :accepted
     end
     state :being_reviewed do
-      event :accept, :transitions_to => :accepted
+      event :accept, :transitions_to => :accepted, :if => Proc.new(&:all_comments_resolved?)
       event :reject, :transitions_to => :rejected
     end
     state :accepted
@@ -117,6 +117,10 @@ class Plan < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def all_comments_resolved?
+    ! comment_threads.open.exists?
   end
   
   concerning :Notifications do
