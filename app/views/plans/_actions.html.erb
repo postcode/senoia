@@ -1,0 +1,13 @@
+<div class="large-12 columns text-center actions plan-action">
+  <%= f.button :button, class: "button large radius warning", label: false do %>
+    <i class="fi-check"></i> SAVE DRAFT
+  <% end %>
+  <% if current_user.admin? && plan.awaiting_review? %>
+    <%= link_to request_revision_plan_path(plan), class: "button large radius", label: false, method: :post do %>
+      <i class="fi-refresh"></i> REQUEST REVISION
+    <% end %>
+    <%= render "plans/approve", plan: plan %>
+  <% elsif current_user.admin? && plan.being_reviewed? %>
+    <%= render "plans/approve", plan: plan %>
+  <% end %>
+</div>
