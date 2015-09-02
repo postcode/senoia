@@ -133,7 +133,6 @@ feature "Plan" do
     end
 
     scenario "admin can add a first aid station", js: true  do
-      pending
       click_link 'new_first_aid_station'
       sleep 0.5 #FIXME Waiting for modal
       

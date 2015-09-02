@@ -4,6 +4,8 @@
   <% else %>
     <div class="content" id="panel<%= count %>">
   <% end %>
+
+  
       <%= op.input_field :id, as: :hidden %>
         <div class="row">
           <div class="small-2 columns input_label">
@@ -63,10 +65,9 @@
                       </tbody>
                     </table>
 
-                  <div class="large-12 columns"> 
-                    <%= link_to add_first_aid_station_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_first_aid_station"  do %> 
-                      <i class="fi-plus"></i> ADD FIRST AID STATION
-                    <% end %>
+                    <div class="large-12 columns">
+                      <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
+                      <%= render partial: 'new_first_aid_station', :locals => { :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
                   </div>  
               </div>
             </fieldset>
