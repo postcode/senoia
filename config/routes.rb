@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     resources :replies, only: :create
   end
   resources :event_types
+  resources :operation_periods, only: :destroy do
+    resources :clones, only: :create
+  end
   resources :providers
   resources :permitters
 

@@ -12,6 +12,7 @@ gem 'cancancan', '~> 1.10'
 gem "cocoon"
 gem 'compass'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
+gem 'deep_cloneable'
 gem 'devise'
 gem 'email_validator'
 gem 'figaro'

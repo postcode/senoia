@@ -24,4 +24,4 @@ en:
 
   time:
     formats:
-      default: "%D %l:%M %P"
+      default: "%m/%d/%Y %l:%M %P"

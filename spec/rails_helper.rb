@@ -40,7 +40,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
   Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false)
+    Capybara::Poltergeist::Driver.new(app, js_errors: true)
   end
 
   Capybara.javascript_driver = :poltergeist

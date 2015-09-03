@@ -97,7 +97,7 @@
 
       <div class="row">
         <div class="small-3 columns input_label">
-          <%= f.label :permitter, class: "inline", label: "Permitting Agency" %>
+          <%= f.label :permitter, class: "inline", label: "Permitting Agency", required: true %>
         </div>
         <div class="small-5 columns">
         <%= f.association :permitter,
@@ -105,7 +105,8 @@
                           label_method: :name,
                           value_method: :id,
                           include_blank: false,
-                          label: false %>
+                          label: false,
+                          prompt: "(Please select)"%>
         <%= render partial: "permitters/permitter", collection: @permitters %>
         </div>
         <div class="large-4 columns end">
@@ -125,21 +126,26 @@
       </div>
       <hr/>
 
-      <div class="large-12 columns">
-       <!--  <div class="row">
-          <h3>OPERATIONAL PERIOD <a href="#" class="button tiny radius right"><i class="fi-plus"></i> ADD OPERATIONAL PERIOD</a></h3>
-        </div> -->
+      <div class="large-12 columns operation-period-container">
+        <div class="row">
+          <h3>
+            Operational Periods
+            <span class="add_operation_period_button">
+              <%= link_to add_operation_period_path(@plan.operation_periods.count), remote: true, class: "button primary tiny radius right", id: "new_operation_period" do %> 
+                <i class="fi-plus"></i> ADD OPERATIONAL PERIOD
+              <% end %>
+            </span>
+          </h3>
+        </div>
       <div class="row">
-        <ul class="tabs" data-tab>
+        <ul class="tabs" id="operation-period-tabs" data-tab>
           <% @plan.operation_periods.each_with_index do |operation_period, index| %>
               <%= render 'operation_period_tabs', count: index+1, period: operation_period %>
           <% end %>
         </ul>
         <div class="tabs-content">
-          <% @plan.operation_periods.each.with_index do |operation_period,index| %>
-            <%= f.simple_fields_for :operation_periods, operation_period do |op| %>
-              <%= render 'operation_period_show', count: index+1, op: op, f: f %>
-            <% end %>
+          <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+            <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1, f: f %>
           <% end %>
         </div>
       </div>

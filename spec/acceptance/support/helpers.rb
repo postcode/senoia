@@ -11,6 +11,12 @@ module HelperMethods
     click_link "Logout"
   end
 
+  def save_screenshot
+    @index ||= 0
+    @index = @index + 1
+    super("#{Rails.root}/tmp/phantomjs/#{@index}.jpg", full: true)
+  end
+
 end
 
 RSpec.configuration.include HelperMethods, :type => :acceptance

@@ -41,7 +41,8 @@ class Plan < ActiveRecord::Base
 
   accepts_nested_attributes_for :event_type, :operation_periods, :owner
 
-  validates_presence_of :name
+  validates :name, presence: true
+  validates :event_type, presence: true
 
   scope :like, ->(search) { where("name ilike ?", '%' + search + '%').order(created_at: :desc) }
   scope :alcohol, -> { where("alcohol = ?", true).order(created_at: :desc) }

@@ -39,108 +39,20 @@ feature "Plan" do
   end
 
   context "create a new plan" do
-
+    
     before do
+      @event_type = create(:event_type)
       sign_in(admin)
-      count = Plan.all.count
       visit "/plans/new"
-      fill_in 'plan_name', with: "test plan"
-      fill_in 'plan_operation_periods_attributes_0_start_date', with: "01/01/2020 08:00 am"
-      fill_in 'plan_operation_periods_attributes_0_end_date', with: "01/03/2020 08:00 pm"
+      fill_in 'plan_name', with: Faker::Lorem.words.join(" ")
+      select @event_type.name, from: "plan_event_type_id"
     end
     
     scenario "admin can create a basic plan" do
       expect{ 
-        click_button 'SUBMIT PLAN'
+        click_button "Continue"
       }.to change { Plan.count }.by(1)
     end
-
-    scenario "admin can create a plan with a first aid station", js: true  do
-      click_link 'new_first_aid_station'
-      sleep 0.5 #FIXME Waiting for modal
-      
-      first_aid_station_name = "2nd Aid Station"
-      within '.first_aid_stations_id_name' do
-        fill_in 'Name', with: first_aid_station_name
-      end
-
-      click_on "new-first-aid-station-submit"
-
-      expect(page).to have_content first_aid_station_name
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ FirstAidStation.count }.by(1)
-    end
-
-    scenario "admin can create a plan with a mobile team", js: true  do
-      click_on "ADD MOBILE TEAM"
-      
-      mobile_team_name = "Mobility One"
-      within '.operation_periods_id_mobile_teams_id_name' do
-        find("input").set(mobile_team_name)
-      end
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ MobileTeam.count }.by(1)
-    end
-
-    scenario "admin can create a plan with a transport", js: true  do
-      click_on "ADD TRANSPORT"
-      
-      transport_name = "Transport One"
-      within '.operation_periods_id_transport_id_name' do
-        find("input").set(transport_name)
-      end
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ Transport.count }.by(1)
-    end
-
-    scenario "admin can create a plan with a dispatch", js: true  do
-      click_on "ADD DISPATCH"
-      
-      dispatch_name = "Dispatch One"
-      within '.operation_periods_id_dispatch_id_name' do
-        find("input").set(dispatch_name)
-      end
-
-      expect { 
-        click_button 'SUBMIT PLAN'
-      }.to change{ Dispatch.count }.by(1)
-    end
-    
-  end
-
-  scenario "changing permitting agencies shows their contact info", js: true do
-
-    expect(permitters.count).to be > 1
-    
-    sign_in(admin)
-    visit "/plans/new"
-    
-    expect(page).to have_content permitters.first.phone_number
-    
-    select(permitters.last.name, from: "plan_permitter_id")
-    
-    expect(page).to have_content permitters.last.phone_number
-    
-  end
-
-  scenario "changing permitting agencies shows their contact info", js: true do
-
-    expect(permitters.count).to be > 1
-    
-    sign_in(admin)
-    visit "/plans/new"
-    
-    expect(page).to have_content permitters.first.phone_number
-    
-    select(permitters.last.name, from: "plan_permitter_id")
-    
-    expect(page).to have_content permitters.last.phone_number
     
   end
 
@@ -188,24 +100,96 @@ feature "Plan" do
 
   context "viewing an existing plan" do
 
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review", permitter: permitters[1]) }
 
     before do
-      plan.update(permitter: permitters[1])
-    end
+      plan.operation_periods << create(:operation_period)
 
-    scenario "changing permitting agencies shows their contact info", js: true do
-      
       sign_in(admin)
       visit "/plans/#{plan.id}"
+    end
+    
+    scenario "changing permitting agencies shows their contact info", js: true do
       
-      expect(page).to have_content permitters[1].address
+      expect(page).to have_content plan.permitter.address
       
       select(permitters.first.name, from: "plan_permitter_id")
       
       expect(page).to have_content permitters.first.address
       
     end
+
+    scenario "admin can add an operation period", js: true do
+      click_on "ADD OPERATIONAL PERIOD"
+      expect(page).to have_content("OPERATIONAL PERIOD 2")
+      click_on "Operational Period 2"
+      fill_in "plan_operation_periods_attributes_1_start_date", with: "01/01/2020 08:00 am"
+      fill_in "plan_operation_periods_attributes_1_end_date", with: "02/01/2020 08:00 am"
+      click_on "SAVE DRAFT"
+    end
+
+    scenario "admin can remove an operation period", js: true do
+      click_on "Remove"
+      expect(page).to_not have_selector(".operation-period-container .content")
+    end
+    
+    scenario "admin can add a dispatch", js: true  do
+      click_on "ADD DISPATCH"
+      
+      dispatch_name = "Dispatch One"
+      within '.dispatch_id_name' do
+        find("input").set(dispatch_name)
+      end
+
+      expect { 
+        click_button "SAVE DRAFT"
+      }.to change{ Dispatch.count }.by(1)
+    end
+
+    scenario "admin can add a first aid station", js: true  do
+      click_link 'new_first_aid_station'
+      sleep 0.5 #FIXME Waiting for modal
+      
+      first_aid_station_name = "2nd Aid Station"
+      within '.first_aid_stations_id_name' do
+        fill_in 'Name', with: first_aid_station_name
+      end
+
+      click_on "new-first-aid-station-submit"
+
+      expect(page).to have_content first_aid_station_name
+
+      expect { 
+        click_button 'SAVE DRAFT'
+      }.to change{ FirstAidStation.count }.by(1)
+    end
+
+    scenario "admin can add a mobile team", js: true  do
+      click_on "ADD MOBILE TEAM"
+      
+      mobile_team_name = "Mobility One"
+      within '.mobile_teams_id_name' do
+        find("input").set(mobile_team_name)
+      end
+
+      expect { 
+        click_button 'SAVE DRAFT'
+      }.to change{ MobileTeam.count }.by(1)
+    end
+
+    scenario "admin can add a transport", js: true  do
+      click_on "ADD TRANSPORT"
+      
+      transport_name = "Transport One"
+      within '.transport_id_name' do
+        find("input").set(transport_name)
+      end
+
+      expect { 
+        click_button 'SAVE DRAFT'
+      }.to change{ Transport.count }.by(1)
+    end
+
   end
 
   context "request revision" do
@@ -255,6 +239,46 @@ feature "Plan" do
       email = find_email(creator.email)
       expect(email).to_not be_nil
       expect(email).to have_body_text("has been approved")
+    end
+
+  end
+
+  context "clone an operation period" do
+
+    let(:plan) { create(:plan_awaiting_review) }
+
+    before do
+      plan.operation_periods << create(:operation_period)
+
+      @operation_period = plan.operation_periods.first
+      @operation_period.first_aid_stations << create(:first_aid_station)
+      @operation_period.mobile_teams << create(:mobile_team)
+      @operation_period.transports << create(:transport)
+      @operation_period.dispatchs << create(:dispatch)
+      
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+    end
+    
+    scenario "admin can clone an operation period", js: true do
+      click_on "Clone"
+      expect(page).to have_selector("#operation-period-tabs li", count: 2)
+      click_on "Operational Period 2"
+
+      cloned_attendance = find(".plan_operation_periods_attendance input").value
+      expect(cloned_attendance).to eq plan.operation_periods.first.attendance.to_s
+
+      cloned_first_aid_station_name = find(".plan_operation_periods_first_aid_stations_name input").value
+      expect(cloned_first_aid_station_name).to eq @operation_period.first_aid_stations.first.name
+
+      cloned_mobile_team_name = find(".plan_operation_periods_mobile_teams_name input").value
+      expect(cloned_mobile_team_name).to eq @operation_period.mobile_teams.first.name
+
+      cloned_transport_name = find(".plan_operation_periods_transports_name input").value
+      expect(cloned_transport_name).to eq @operation_period.transports.first.name
+
+      cloned_dispatch_name = find(".plan_operation_periods_dispatchs_name input").value
+      expect(cloned_dispatch_name).to eq @operation_period.dispatchs.first.name
     end
 
   end

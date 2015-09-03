@@ -298,7 +298,11 @@ fieldset{
   margin-top: 2em;
   margin-bottom: 2em;
   padding-top: 3rem;
-  padding-bottom: 0rem;  
+  padding-bottom: 0rem;
+
+  input[type=submit] {
+    text-transform: uppercase;
+  }
 }
 .footer-back{
   margin-bottom: 4em;
@@ -520,4 +524,18 @@ input[type="checkbox"]{
 
 .reveal-modal-bg {
   position: fixed;
+}
+
+.operation-period-container {
+
+  .tabs .tab-title > a {
+    margin-bottom: 0
+  }
+  
+  .content {                            
+    padding: 2em;
+    border: 2px solid #E6E7E8;
+    border-top: none;
+  }
+
 }

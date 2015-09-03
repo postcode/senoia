@@ -1,0 +1,10 @@
+$(".operation-period-<%= @operation_period.id %>")
+   .fadeOut(
+     400,
+     function() {
+       $(this).remove();
+       $(".tab-title.active").remove();
+       $("#operation-period-tabs li:first a").trigger("click");
+     });
+
+$(".add_operation_period_button").html('<%= link_to add_operation_period_path(@operation_period.plan.operation_periods.count), remote: true, class: "button primary tiny radius right", id: "new_operation_period"  do %><i class="fi-plus"></i> ADD OPERATIONAL PERIOD<% end %>')

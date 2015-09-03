@@ -46,8 +46,6 @@ class PlansController < ApplicationController
 
   def new
     @plan = Plan.new
-    @plan.operation_periods.build
-    @permitters = Permitter.order("name ASC")
     
     respond_to do |format|
       format.html
@@ -57,62 +55,21 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
-
     if !@plan.valid?
-      redirect_to new_plan_path(@plan), alert: @plan.errors and return
+      render action: :new
+    else
+      redirect_to plan_path(@plan)
     end
-    
-    if params[:operation_periods]
-      operation_periods_params[:id].each do |index, op|
-        operation_period = @plan.operation_periods[index.to_i - 1] # The indexing in params starts at 1
-
-        # First aid stations are handled by Plan.create
-        op[:mobile_teams][:id].each { |_, attributes| operation_period.mobile_teams.create(attributes) } if op[:mobile_teams]
-        op[:transport][:id].each { |_, attributes| operation_period.transports.create(attributes) } if op[:transport]
-        op[:dispatch][:id].each { |_, attributes| operation_period.dispatchs.create(attributes) } if op[:dispatch]
-      end
-    end
-    
-    if params[:user].present?
-      params[:user].each do |user|
-        @plan.users << User.where(email: user[1][:email]).first
-        p = PlanUser.where(plan_id: @plan.id, user_id: user).first
-        p.role = user[1][:role]
-        p.save
-      end
-    end
-
-    @plan.submit!
-    redirect_to plan_path(@plan)
   end
 
   def update
     @plan = Plan.find(params[:id])
+
+    @plan.update(plan_params)
+    
     plan_params[:operation_periods_attributes].try(:each) do |op|
+      next unless op[1][:id]
       @operation_period = @plan.operation_periods.find(op[1][:id])
-      if op[1][:first_aid_stations_attributes].present? 
-        op[1][:first_aid_stations_attributes].each do |first_aid|
-          @first_aid_update = FirstAidStation.find(first_aid[1][:id]).update_attributes(first_aid[1].except("_destroy"))
-        end
-      end
-
-      if op[1][:mobile_teams_attributes].present? 
-        op[1][:mobile_teams_attributes].each do |mobile|
-          @mobile_team_update = MobileTeam.find(mobile[1][:id]).update_attributes(mobile[1].except("_destroy"))
-        end
-      end
-
-      if op[1][:transports_attributes].present? 
-        op[1][:transports_attributes].each do |transport|
-          @transport_team_update = Transport.find(transport[1][:id]).update_attributes(transport[1].except("_destroy"))
-        end
-      end
-
-      if op[1][:dispatchs_attributes].present? 
-        op[1][:dispatchs_attributes].each do |dispatch|
-          @dispatch_team_update = Dispatch.find(dispatch[1][:id]).update_attributes(dispatch[1].except("_destroy"))
-        end
-      end
 
       if params[op[1][:id]].present?
         if params[op[1][:id]][:transport].present?
@@ -151,7 +108,7 @@ class PlansController < ApplicationController
     end
 
     respond_to do |format|
-      if @plan.update_attributes(plan_params)
+      if @plan.valid?
         format.html { redirect_to @plan, notice: 'plan was successfully updated.' }
         format.json { head :no_content }
       else

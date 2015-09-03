@@ -18,6 +18,5 @@
 #
 
 class MobileTeam < ActiveRecord::Base
-  has_many :users, through: :mobile_teams_users
   belongs_to :provider
 end
