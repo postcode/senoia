@@ -80,22 +80,18 @@ class Plan < ActiveRecord::Base
   end
 
   def submit
-    puts "I'm sending an email!"
     send_notifications_on_submit
   end
 
   def review
-    puts "under review"
     send_notifications_on_review
   end
 
   def accept
-    puts "plan accepted"
     send_notifications_on_accept
   end
 
   def reject
-    puts "plan rejected"
     send_notifications_on_reject
   end
 
