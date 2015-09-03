@@ -1,0 +1,9 @@
+<div data-alert class="alert-box info radius">
+  <%= render "notifications/plan_event_submit", notification: notification %>
+  <div class="right" style="margin-right: 1em; color: gray">
+    <em>
+      <%= time_ago_in_words(notification.created_at) %> ago
+    </em>
+  </div>
+  <a href="#" class="close">&times;</a>
+</div>
