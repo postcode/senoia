@@ -209,10 +209,6 @@ feature "Plan" do
       expect { 
         click_link "REQUEST REVISION"
       }.to change{ Plan.with_being_reviewed_state.count }.by(1)
-
-      email = find_email(creator.email)
-      expect(email).to_not be_nil
-      expect(email).to have_body_text("needs revision")
     end
     
   end
