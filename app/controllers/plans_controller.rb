@@ -107,6 +107,10 @@ class PlansController < ApplicationController
       end
     end
 
+    if params[:event] == "submit"
+      @plan.submit!
+    end
+
     respond_to do |format|
       if @plan.valid?
         format.html { redirect_to @plan, notice: 'plan was successfully updated.' }
@@ -137,7 +141,6 @@ class PlansController < ApplicationController
       redirect_to new_plan_path(@plan), alert: @plan.errors
     end
   end
-
 
   def add_first_aid_station
     @first_aid_station = params[:first_aid_station]

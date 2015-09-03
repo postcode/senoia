@@ -157,7 +157,9 @@
       <%= f.button :button, class: "button large radius warning", label: false do %>
         <i class="fi-check"></i> SAVE DRAFT
       <% end %>
-      <% if current_user.admin? && !@plan.being_reviewed? %>
+      <% if @plan.draft? %>
+        <%= link_to "SUBMIT PLAN", [ @plan, { plan: { id: @plan.id }, event: "submit" } ], method: "PUT", class: "button large radius" %>
+      <% elsif current_user.admin? && !@plan.being_reviewed? %>
         <%= link_to request_revision_plan_path(@plan), class: "button large radius", label: false, method: :post do %>
           <i class="fi-refresh"></i> REQUEST REVISION
         <% end %>
