@@ -210,15 +210,11 @@ feature "Plan" do
       expect { 
         click_link "REQUEST REVISION"
       }.to change{ Plan.with_being_reviewed_state.count }.by(1)
-
-      email = find_email(creator.email)
-      expect(email).to_not be_nil
-      expect(email).to have_body_text("needs revision")
     end
     
   end
 
-  context "approve plan" do
+  context "approve plan", js: true do
     
     let(:plan) { FactoryGirl.create(:plan, workflow_state: "being_reviewed") }
     let(:creator) { FactoryGirl.create(:user) }
@@ -227,9 +223,7 @@ feature "Plan" do
       plan.update(creator: creator)
     end
     
-    scenario "admin can approve a plan", js: true do
-
-      count = Plan.where(workflow_state: "accepted").count
+    scenario "admin can approve a plan" do
       sign_in(admin)
       visit "/plans/#{plan.id}"
 
@@ -242,6 +236,28 @@ feature "Plan" do
       expect(email).to have_body_text("has been approved")
     end
 
+    context "with outstanding comments" do
+
+      before do
+        create(:comment_on_event_type, commentable: plan)
+        sign_in(admin)
+        visit "/plans/#{plan.id}"
+      end
+    
+      scenario "admin cannot approve the plan" do
+        expect(page).to_not have_content("APPROVE PLAN")
+      end
+
+      scenario "admin can resolve the comments and then approve the plan", js: true do
+        click_on "RESOLVE"
+        expect(page).to have_content("APPROVE PLAN")
+
+        expect { 
+          click_link "APPROVE PLAN"
+        }.to change{ Plan.with_accepted_state.count }.by(1)
+      end
+      
+    end
   end
 
   context "clone an operation period" do

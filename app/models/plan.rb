@@ -72,7 +72,7 @@ class Plan < ActiveRecord::Base
       event :accept, :transitions_to => :accepted
     end
     state :being_reviewed do
-      event :accept, :transitions_to => :accepted
+      event :accept, :transitions_to => :accepted, :if => Proc.new(&:all_comments_resolved?)
       event :reject, :transitions_to => :rejected
     end
     state :accepted
@@ -80,22 +80,18 @@ class Plan < ActiveRecord::Base
   end
 
   def submit
-    puts "I'm sending an email!"
     send_notifications_on_submit
   end
 
   def review
-    puts "under review"
     send_notifications_on_review
   end
 
   def accept
-    puts "plan accepted"
     send_notifications_on_accept
   end
 
   def reject
-    puts "plan rejected"
     send_notifications_on_reject
   end
 
@@ -118,40 +114,44 @@ class Plan < ActiveRecord::Base
   def to_s
     name
   end
+
+  def all_comments_resolved?
+    ! comment_threads.open.exists?
+  end
   
   concerning :Notifications do
-
-    def users_to_notify
-      [ users, owner, creator ].flatten.compact.uniq
-    end
     
     def send_notifications_on_new_comment(comment)
-      users_to_notify.reject{ |x| x == comment.user }.each do |stakeholder|
-        NotificationMailer.new_comment_notification(recipient: stakeholder, comment: comment).deliver_later
-      end
-    end
-
-    def send_notifications_on_accept
-      users_to_notify.each do |stakeholder|
-        NotificationMailer.plan_accepted_notification(recipient: stakeholder, plan: self).deliver_later
-      end    
-    end
-
-    def send_notifications_on_reject
-      users_to_notify.each do |stakeholder|
-        NotificationMailer.plan_rejected_notification(recipient: stakeholder, plan: self).deliver_later
+      stakeholders.reject{ |x| x == comment.user }.each do |stakeholder|
+        stakeholder.notifications.create(subject: comment, key: "created")
       end
     end
 
     def send_notifications_on_submit
       User.select(&:is_admin?).each do |admin|
-        NotificationMailer.plan_submitted_notification(recipient: admin, plan: self).deliver_later
+        admin.notifications.create(subject: self, key: "submitted")
       end
     end
 
     def send_notifications_on_review
-      users_to_notify.each do |stakeholder|
-        NotificationMailer.plan_revision_requested_notification(recipient: stakeholder, plan: self).deliver_later
+      notify_stakeholders("reviewed")
+    end
+
+    def send_notifications_on_accept
+      notify_stakeholders("accepted")
+    end
+
+    def send_notifications_on_reject
+      notify_stakeholders("rejected")
+    end
+    
+    def stakeholders
+      [ users, owner, creator ].flatten.compact.uniq
+    end
+
+    def notify_stakeholders(key)
+      stakeholders.each do |stakeholder|
+        stakeholder.notifications.create(subject: self, key: key)
       end
     end
 

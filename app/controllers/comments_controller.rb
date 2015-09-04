@@ -1,5 +1,11 @@
 class CommentsController < ApplicationController
 
+  def show
+    @comment = Comment.find(params[:id])
+    authorize! :read, @comment
+    redirect_to [ @comment.commentable, anchor: "comment-#{@comment.id}" ]
+  end
+  
   def index
     authorize! :manage, Comment
     @plans_with_outstanding_comments = Plan

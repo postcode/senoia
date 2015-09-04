@@ -1,0 +1,9 @@
+<p><%= @comment.user %> commented on <%= @comment.commentable %>:</p>
+
+<blockquote>
+  <em>
+    <%= @comment.body %>
+  </em>
+</blockquote>
+
+<p><%= link_to "View comment and reply", [ @comment.commentable, anchor: "comment-#{@comment.id}" ], target: "_blank" %></p>
