@@ -5,5 +5,5 @@
       <%= time_ago_in_words(notification.created_at) %> ago
     </em>
   </div>
-  <a href="#" class="close">&times;</a>
+  <%= link_to "&times;".html_safe, [ notification, notification: { read: true } ], method: "PUT", remote: true, class: "close" %>
 </div>

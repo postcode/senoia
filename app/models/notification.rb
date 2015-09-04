@@ -8,6 +8,8 @@ class Notification < ActiveRecord::Base
     NotificationMailer.notification(notification: self).deliver_later
   end
 
+  scope :unread, -> { where(read: false) }
+
   def partial
     [ subject_type.underscore, key ].join("/")
   end

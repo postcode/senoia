@@ -5,17 +5,9 @@
     </span>
   </div>
 </div>
-<div class="row">
-  <div class="large-12 columns">
-    <% for notification in current_user.try(:notifications) || [] %>
-      <%= render "notifications/notification", notification: notification %>
-    <% end %>
-    <div data-alert class="alert-box warning radius">
-    - 5/21/2015: the status of Summer Fun Time Jam was changed to under review<br>    
-    <a href="#" class="close">&times;</a>
-    </div>
-  </div>  
-</div>
+
+<%= render "users/notifications", user: current_user if current_user %>
+
 <div class="row ">
   <div class="large-3 medium-3 small-12 columns">
     <%= smart_listing_controls_for(:plans) do %>
