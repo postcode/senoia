@@ -1,9 +1,5 @@
-<%= plan_form.simple_fields_for :operation_periods do |op| %>
-  <% if count == 1 %>
-    <div class="content active" id="panel<%= count %>">
-  <% else %>
-    <div class="content" id="panel<%= count %>">
-  <% end %>
+<%= simple_fields_for :operation_period do |op| %>
+  <div class="content operation-period-form" id="panel<%= count %>" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
     <div class="row">
       <div class="small-2 columns input_label">
       <%= op.label :start_date, class: "inline", label: "START" %>
@@ -28,6 +24,11 @@
       </div>
       <div class="small-4 columns end">
         <%= op.input :attendance, label: false %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-4 columns small-offset-2">
+        <%= link_to "Save", "javascript:void(0);", class: "button tiny radius save-operation-period" %>
       </div>
     </div>
   </div>
