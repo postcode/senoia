@@ -5,7 +5,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.string :subject_type
       t.text :key
       t.integer :owner_id
-      t.boolean :read, nil: false, default: false
+      t.boolean :read, null: false, default: false
 
       t.timestamps null: false
     end

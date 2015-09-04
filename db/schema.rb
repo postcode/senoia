@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 20150903174910) do
     t.string   "subject_type"
     t.text     "key"
     t.integer  "owner_id"
-    t.boolean  "read",         default: false
+    t.boolean  "read",         default: false, null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
