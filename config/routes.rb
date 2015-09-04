@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :plans do
     member do
-      post :request_revision
-      post :approve
       delete 'remove_user(/:plan_id/:user_id)', :to => 'plans#remove_user', :as => :remove_user
     end
     resources :comments, only: :create
