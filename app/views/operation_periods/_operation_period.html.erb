@@ -55,7 +55,7 @@
         <fieldset>
           <div class="row">
             <legend>FIRST AID STATIONS</legend>
-            <table id="first_aid_table">
+            <table class="first_aid_table">
               <thead>
                 <th>Name</th>
                 <th>Location</th>
@@ -74,8 +74,8 @@
             </table>
 
             <div class="large-12 columns">
-              <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
-              <%= render partial: 'plans/new_first_aid_station', :locals => { :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
+              <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
+              <%= render partial: 'plans/new_first_aid_station', :locals => { :operation_period => op.object, :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
             </div>  
           </div>
         </fieldset>
