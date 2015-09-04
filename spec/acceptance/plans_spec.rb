@@ -123,9 +123,12 @@ feature "Plan" do
       click_on "ADD OPERATIONAL PERIOD"
       expect(page).to have_content("OPERATIONAL PERIOD 2")
       click_on "Operational Period 2"
-      fill_in "plan_operation_periods_attributes_1_start_date", with: "01/01/2020 08:00 am"
-      fill_in "plan_operation_periods_attributes_1_end_date", with: "02/01/2020 08:00 am"
-      click_on "SAVE DRAFT"
+      fill_in "operation_period_start_date", with: "01/01/2020 08:00 am"
+      fill_in "operation_period_end_date", with: "02/01/2020 08:00 am"
+      expect { 
+        find(".save-operation-period").trigger("click")
+        expect(page).to have_content("Clone")
+      }.to change { OperationPeriod.count }.by(1)
     end
 
     scenario "admin can remove an operation period", js: true do
