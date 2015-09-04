@@ -19,7 +19,6 @@ module HelperMethods
 
   def post_comment(body)
     first("a.comment").click
-    save_screenshot
     
     within ".new-comment-area" do
       find("textarea").set body
