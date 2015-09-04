@@ -17,6 +17,16 @@ module HelperMethods
     super("#{Rails.root}/tmp/phantomjs/#{@index}.jpg", full: true)
   end
 
+  def post_comment(body)
+    first("a.comment").click
+    save_screenshot
+    
+    within ".new-comment-area" do
+      find("textarea").set body
+      click_on "SUBMIT"
+    end
+  end
+
 end
 
 RSpec.configuration.include HelperMethods, :type => :acceptance
