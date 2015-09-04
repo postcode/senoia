@@ -1,9 +1,10 @@
+<% unique_id = SecureRandom.hex(16) %>
 
-<div id="new-first-aid-station" class="reveal-modal medium asset-modal" data-reveal>
+<div id="new-first-aid-station-<%= operation_period_index %>" class="new-first-aid-station reveal-modal medium asset-modal first-aid-station-form" data-url="<%= url_for([ operation_period, :first_aid_stations ]) %>" data-reveal>
   <a class="close-reveal-modal">&#215;</a>
   <h3>Add New First Aid Station</h3>
   <div class="modal-body">
-    <%= simple_fields_for "first_aid_stations[id][#{DateTime.now.to_i}]" do |f| %>
+    <%= simple_fields_for "first_aid_station" do |f| %>
       <%= f.input :name, required: false %>
       <%= f.input :level, required: false, collection: ["ALS", "BLS"] %>
       <%= f.input :md, input_html: {value: 0}, required: false %>
@@ -11,34 +12,34 @@
       <%= f.input :emt, input_html: {value: 0}, required: false %>
       <%= f.input :aed, input_html: {value: 0}, required: false %>
       <%= f.input :provider_id,
-                        collection: Provider.all,
-                        label_method: :name,
-                        value_method: :id,
-                        include_blank: false,
-                        prompt: "Select a provider",
-                        label: "Provider", required: false %>
+      collection: Provider.all,
+      label_method: :name,
+      value_method: :id,
+      include_blank: false,
+      prompt: "Select a provider",
+      label: "Provider", required: false %>
       <%= f.input :contact_name, required: false %>
       <%= f.input :contact_phone, required: false %>
-      <div id='map_first_aid_<%= DateTime.now.to_i %>' class="asset_map"></div>
-      <div id='lat_map_first_aid_<%= DateTime.now.to_i %>'>
+      <div id='map_first_aid_<%= unique_id %>' class="asset_map"></div>
+      <div id='lat_map_first_aid_<%= unique_id %>'>
         <%= f.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
       </div>
-      <div id="lng_map_first_aid_<%= DateTime.now.to_i %>">
+      <div id="lng_map_first_aid_<%= unique_id %>">
         <%= f.input :lng, input_html: { id: 'lng' }, as: :hidden %>
       </div>
     <% end %>
   </div>
   <div class="modal-footer">
-    <%= link_to "Add First Aid Station", update_first_aid_station_path(operation, operation_period_index: operation_period_index), id: "new-first-aid-station-submit", class: "button primary save-modal disabled", method: :post, remote: true %>
+    <%= link_to "Add First Aid Station", "javascript:void(0)", class: "save-first-aid-station button primary save-modal disabled" %>
   </div>
   <script>
-    $(document).ready(function(){
-     $(document).on('opened.fndtn.reveal', '#new-first-aid-station[data-reveal]', function () {
-        gmap_form(null, 'map_first_aid_<%= DateTime.now.to_i %>');    // form map for new view (print nothing with possibility of put marker)
-      });
-    })
+   $(document).ready(function(){
+     $(document).on('opened.fndtn.reveal', '.new-first-aid-station[data-reveal]', function () {
+       gmap_form(null, 'map_first_aid_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
+     });
+   })
   </script>
 </div>
 
 
-    
+
