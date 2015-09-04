@@ -1,17 +1,17 @@
 <div class="row plan-state">
   <div class="large-8 columns">
     <ul class="breadcrumb">
-      <li><a href="#" class="review">Draft</a></li>
-      <li><a href="#" class="review <%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
-      <li><a href="#" class="review <%= @plan.being_reviewed? ? 'active' : 'none' %>">Revision Requested</a></li>
-      <li><a href="#" class="review <%= @plan.accepted? ? 'active' : 'none' %> accepted">Approved</a></li>
+      <li><a href="javascript:void(0);" class="review <%= @plan.draft? ? 'active' : 'none' %>">Draft</a></li>
+      <li><a href="javascript:void(0);" class="review <%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
+      <li><a href="javascript:void(0);" class="review <%= @plan.being_reviewed? ? 'active' : 'none' %>">Revision Requested</a></li>
+      <li><a href="javascript:void(0);" class="review <%= @plan.accepted? ? 'active' : 'none' %> accepted">Approved</a></li>
     </ul>    
   </div> 
 
   <div class="large-4 columns"> 
     <ul class="button-group radius">
-      <li><a href="#" class="button tiny contact-list">Contact List<br><br></a></li>
-      <li><a href="#" class="button tiny">Post Event<br>Treatment Report</a></li>          
+      <li><a href="javascript:void(0);" class="button tiny contact-list">Contact List<br><br></a></li>
+      <li><a href="javascript:void(0);" class="button tiny">Post Event<br>Treatment Report</a></li>          
     </ul>
   </div>         
 </div>

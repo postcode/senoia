@@ -72,7 +72,7 @@ class Plan < ActiveRecord::Base
       event :accept, :transitions_to => :accepted
     end
     state :being_reviewed do
-      event :accept, :transitions_to => :accepted
+      event :accept, :transitions_to => :accepted, :if => Proc.new(&:all_comments_resolved?)
       event :reject, :transitions_to => :rejected
     end
     state :accepted
@@ -80,22 +80,18 @@ class Plan < ActiveRecord::Base
   end
 
   def submit
-    puts "I'm sending an email!"
     send_notifications_on_submit
   end
 
   def review
-    puts "under review"
     send_notifications_on_review
   end
 
   def accept
-    puts "plan accepted"
     send_notifications_on_accept
   end
 
   def reject
-    puts "plan rejected"
     send_notifications_on_reject
   end
 
@@ -117,6 +113,10 @@ class Plan < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def all_comments_resolved?
+    ! comment_threads.open.exists?
   end
   
   concerning :Notifications do
