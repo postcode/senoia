@@ -1,0 +1,8 @@
+<% f = form_builder_for(@plan) %>
+
+$(".tabs-content").html("<%= j render(partial: 'operation_periods/operation_period', locals: { f: f, operation_period: @operation_period, count: @count } )%>")
+$(".tabs .active").replaceWith('<li class="tab-title"><a href="#panel<%= @count %>">Operational Period <%= @count %></a></li>')
+$('.dateSelect').fdatetimepicker({
+    format: 'mm/dd/yyyy H:ii p'
+  });
+$(".tab-title:last a").trigger("click");

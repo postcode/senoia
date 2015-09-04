@@ -1,0 +1,9 @@
+<% plan_form = form_builder_for(@plan) %>
+<% 1.upto(@count - 1).map { |c| render(partial: 'plans/operation_period', locals: { plan_form: plan_form, count: c } ) } %>
+
+$(".tabs-content").append("<%= j render(partial: 'plans/operation_period', locals: { plan_form: plan_form, count: @count } )%>")
+$(".tabs").append('<li class="tab-title"><a href="#panel<%= @count %>">Operational Period <%= @count %></a></li>')
+$('.dateSelect').fdatetimepicker({
+    format: 'mm/dd/yyyy H:ii p'
+  });
+$(".tab-title:last a").trigger("click");

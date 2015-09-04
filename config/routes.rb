@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
     resources :comments, only: :create
     resources :invitations, only: :create
+    resources :operation_periods, only: [ :new, :create ]
   end
   resources :comments do
     resources :replies, only: :create
