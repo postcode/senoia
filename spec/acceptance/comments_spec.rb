@@ -56,12 +56,7 @@ feature "Comments" do
       end
       
       scenario "posts a comment" do
-        first("a.comment").click
-
-        within ".new-comment-area" do
-          find("textarea").set @new_comment_body
-          click_on "SUBMIT"
-        end
+        post_comment(@new_comment_body)
         expect(page).to have_content @new_comment_body
       end
 

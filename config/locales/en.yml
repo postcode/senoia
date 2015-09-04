@@ -25,3 +25,13 @@ en:
   time:
     formats:
       default: "%m/%d/%Y %l:%M %P"
+
+  notification_mailer:
+    subject:
+      comment:
+        created: "New comment on your medical plan"
+      plan:
+        submitted: "New medical plan submitted: %{subject}"
+        reviewed: "Medical plan %{subject} needs revision"
+        accepted: "Your medical plan %{subject} has been approved"
+        rejected: "Your medical plan %{subject} has been rejected"

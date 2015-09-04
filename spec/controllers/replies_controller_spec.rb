@@ -28,8 +28,8 @@ RSpec.describe RepliesController do
 
         comment.commentable.users_who_can_view << notification_recipient
         
-        expect(NotificationMailer).to receive(:new_comment_notification)
-          .with({ recipient: notification_recipient, comment: kind_of(Comment) })
+        expect(NotificationMailer).to receive(:notification)
+          .with({ notification: kind_of(Notification) })
           .and_return(message_delivery)
         expect(message_delivery).to receive(:deliver_later)
 

@@ -1,0 +1,8 @@
+// Delay to let the original close box animation to finish
+setTimeout(
+  function() {
+    $(".notifications-container").replaceWith("<%= j render "users/notifications", user: current_user %>");
+    $(".notifications-container .alert-box:last").css("opacity", "0");
+    $(".notifications-container .alert-box:last").animate({ opacity: 1 });
+  }, 250
+);

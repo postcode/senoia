@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_many :invitations, foreign_key: :invited_user_id, inverse_of: :invited_user
   has_many :plans
   has_many :plan_users
+  has_many :notifications,  -> { order("created_at DESC") }, inverse_of: :owner, foreign_key: :owner_id
 
   roles_attribute :roles_mask
 

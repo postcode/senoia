@@ -2,17 +2,17 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :plans do
     member do
-      post :request_revision
-      post :approve
       delete 'remove_user(/:plan_id/:user_id)', :to => 'plans#remove_user', :as => :remove_user
     end
     resources :comments, only: :create
     resources :invitations, only: :create
+    resources :events, only: :create, controller: "plan_events"
   end
   resources :comments do
     resources :replies, only: :create
   end
   resources :event_types
+  resources :notifications, only: :update
   resources :operation_periods, only: :destroy do
     resources :clones, only: :create
   end

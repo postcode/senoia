@@ -1,0 +1,14 @@
+<div class="row notifications-container">
+  <div class="large-12 columns">
+    <% limit = 5 %>
+    <% for notification in user.notifications.unread.take(limit) %>
+      <%= render notification %>
+    <% end %>
+    <% if user.notifications.unread.length > limit %>
+      <% more_count = user.notifications.unread.length - limit %>
+      <p style="padding-left: 1em">
+        <em><%= pluralize(more_count, "more unread notification") %></em>
+      </p>
+    <% end %>
+  </div>  
+</div>
