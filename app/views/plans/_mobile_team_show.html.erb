@@ -4,14 +4,14 @@
   <td><%= f.input :location, required: false, label: false %></td>
   <td><%= f.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
   <td><%= f.input :type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %></td>
-  <td><%= f.input :aed, label: "AEDs", input_html: {value: 0}, required: false, label: false %></td>
+  <td><%= f.input :aed, input_html: {value: 0}, required: false, label: false %></td>
   <td><%= f.input :provider_id,
                     collection: Provider.all,
                     label_method: :name,
                     value_method: :id,
                     include_blank: false,
                     prompt: "Select a provider",
-                    label: "Provider", required: false, label: false %></td>
+                    required: false, label: false %></td>
   <td><%= f.input :contact_name, required: false, label: false %></td>
   <td><%= f.input :contact_phone, required: false, label: false %></td>
   <td><%= f.input :_destroy, as: :boolean, label: "Remove" %></td>

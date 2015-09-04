@@ -85,18 +85,7 @@
       </div>
       <hr/>
 
-      <div class="row">
-        <h3>Operational Period <span class="add_operation_period_button"><%= link_to add_operation_period_path(1), remote: true, class: "button primary tiny radius right", id: "new_operation_period"  do %> 
-              <i class="fi-plus"></i> ADD OPERATIONAL PERIOD
-            <% end %></span></h3>
-      </div>
-
-      <ul class="tabs" data-tab>
-        <li class="tab-title active"><a href="#panel1">Operational Period 1</a></li>
-      </ul>
-      <div class="tabs-content">
-        <%= render partial: 'operation_period', locals: { plan_form: f, count: 1 } %>
-      </div>
+      <%= render "operation_periods_container", f: f %>
 
     <div class="row">
       <div class="large-12 columns">

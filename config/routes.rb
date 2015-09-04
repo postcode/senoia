@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
     resources :comments, only: :create
     resources :invitations, only: :create
-    resources :events, only: :create, controller: "plan_events"
+    resources :operation_periods, only: [ :new, :create ]
   end
   resources :comments do
     resources :replies, only: :create
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :notifications, only: :update
   resources :operation_periods, only: :destroy do
     resources :clones, only: :create
+    resources :first_aid_stations, only: [ :new, :create ]
   end
   resources :providers
   resources :permitters

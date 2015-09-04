@@ -362,7 +362,7 @@ fieldset{
   left: 100%;
   z-index: 1; 
 }
-#users_table, #first_aid_table, #mobile_team_table, #transport_table, #dispatch_table{
+#users_table, .first_aid_table, #mobile_team_table, #transport_table, #dispatch_table{
   border: none;
   thead tr th{
     color: $mediumgray;
