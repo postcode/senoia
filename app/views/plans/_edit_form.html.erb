@@ -158,7 +158,7 @@
         <i class="fi-check"></i> SAVE DRAFT
       <% end %>
       <% if @plan.draft? %>
-        <%= link_to "SUBMIT PLAN", [ @plan, { plan: { id: @plan.id }, event: "submit" } ], method: "PUT", class: "button large radius" %>
+        <%= link_to "SUBMIT PLAN", [ @plan, :events, event: "submit" ], method: "POST", class: "button large radius" %>
       <% elsif current_user.admin? && !@plan.being_reviewed? %>
         <%= link_to request_revision_plan_path(@plan), class: "button large radius", label: false, method: :post do %>
           <i class="fi-refresh"></i> REQUEST REVISION

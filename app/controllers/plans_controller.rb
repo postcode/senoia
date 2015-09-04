@@ -107,10 +107,6 @@ class PlansController < ApplicationController
       end
     end
 
-    if params[:event] == "submit"
-      @plan.submit!
-    end
-
     respond_to do |format|
       if @plan.valid?
         format.html { redirect_to @plan, notice: 'plan was successfully updated.' }

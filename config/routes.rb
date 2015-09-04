@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
     resources :comments, only: :create
     resources :invitations, only: :create
+    resources :events, only: :create, controller: "plan_events"
   end
   resources :comments do
     resources :replies, only: :create
