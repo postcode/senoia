@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :event_types
   resources :operation_periods, only: :destroy do
     resources :clones, only: :create
+    resources :first_aid_stations, only: [ :new, :create ]
   end
   resources :providers
   resources :permitters
