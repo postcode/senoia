@@ -151,19 +151,17 @@ feature "Plan" do
       sleep 0.5 #FIXME Waiting for modal
       
       first_aid_station_name = "2nd Aid Station"
-      within '.first_aid_stations_id_name' do
+      within '.first_aid_station_name' do
         fill_in 'Name', with: first_aid_station_name
       end
-
-      click_on "new-first-aid-station-submit"
-
-      expect(page).to have_content first_aid_station_name
-
       expect { 
-        click_button 'SAVE DRAFT'
+
+        click_on "Add First Aid Station"
+
+        expect(page).to have_content first_aid_station_name
       }.to change{ FirstAidStation.count }.by(1)
     end
-
+    
     scenario "admin can add a mobile team", js: true  do
       click_on "ADD MOBILE TEAM"
       
@@ -282,4 +280,35 @@ feature "Plan" do
     end
 
   end
+
+  context "when there are two operation periods" do
+
+    before do
+      2.times { plan.operation_periods << create(:operation_period) }
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+    end
+    
+    scenario "admin can add a first aid station to the second", js: true  do
+      find("a[href='#panel2']").click
+      
+      click_link 'new_first_aid_station'
+      sleep 0.5 #FIXME Waiting for modal
+      
+      first_aid_station_name = "2nd Aid Station"
+      within '.first_aid_station_name' do
+        fill_in 'Name', with: first_aid_station_name
+      end
+
+      click_on "Add First Aid Station"
+
+      expect(page).to have_content first_aid_station_name
+
+      visit "/plans/#{plan.id}"
+      find("a[href='#panel2']").click
+      expect(page).to have_selector("#panel2 input[value='#{first_aid_station_name}']")
+    end
+  end
+
+
 end
