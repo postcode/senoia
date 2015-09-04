@@ -16,4 +16,8 @@ class Provider < ActiveRecord::Base
   has_many :dispatchs
   has_many :transports
   has_many :mobile_teams
+
+  def to_s
+    name
+  end
 end
