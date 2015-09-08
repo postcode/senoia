@@ -118,6 +118,26 @@ class PlansController < ApplicationController
     end
   end
 
+  def request_revision
+    @plan = Plan.find(params[:id])
+    if @plan.save
+      @plan.review!
+      redirect_to plans_path
+    else
+      redirect_to new_plan_path(@plan), alert: @plan.errors
+    end
+  end
+
+  def approve
+    @plan = Plan.find(params[:id])
+    if @plan.save
+      @plan.accept!
+      redirect_to plans_path, notice: 'plan was approved.' 
+    else
+      redirect_to new_plan_path(@plan), alert: @plan.errors
+    end
+  end
+
   def add_first_aid_station
     @first_aid_station = params[:first_aid_station]
     @operation_period = params[:operation_period]

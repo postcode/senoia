@@ -130,23 +130,7 @@
 
   <%= render 'plan_agreement' %>
 
-  <div class="large-12 columns text-center actions plan-action">
-    <%= f.button :button, class: "button large radius warning", label: false do %>
-      <i class="fi-check"></i> SAVE DRAFT
-    <% end %>
-    <% if current_user.admin? && !@plan.being_reviewed? %>
-      <%= link_to request_revision_plan_path(@plan), class: "button large radius", label: false, method: :post do %>
-        <i class="fi-refresh"></i> REQUEST REVISION
-      <% end %>
-      <%= link_to approve_plan_path(@plan), class: "button large radius success", label: false, data: { confirm: "I know I know, just want to confirm that you are ready to approve this plan." }, method: :post do %>
-        <i class="fi-check"></i> APPROVE PLAN
-      <% end %>
-    <% elsif current_user.admin? && @plan.being_reviewed? %>
-      <%= link_to approve_plan_path(@plan), class: "button large radius success", label: false, data: { confirm: "I know I know, just want to confirm that you are ready to approve this plan." }, method: :post do %>
-        <i class="fi-check"></i> APPROVE PLAN
-      <% end %>
-    <% end %>
-  </div>
+  <%= render 'actions', f: f, plan: @plan %>
 
 <% end %> 
     </div>
