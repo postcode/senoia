@@ -1,4 +1,0 @@
-<%= simple_fields_for @operation_period do |op| %>
-  $("tbody", "#first_aid_table").append("<%= j render(partial: 'first_aid_station', locals: {op: op, operation_period_index: @operation_period_index, first_aid_station_id: DateTime.now.to_i, first_aid_station: @first_aid_station} ) %>")
-<% end %>
-$('#new-first-aid-station').foundation('reveal','close');

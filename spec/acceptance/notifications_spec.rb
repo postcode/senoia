@@ -95,16 +95,12 @@ feature "Notifications", js: true do
         sign_in(admin)
         sign_out
         sign_in(creator)
-        @event_type = create(:event_type)
-        visit "/plans/new"
-        fill_in 'plan_name', with: "New plan"
-        select @event_type.name, from: "plan_event_type_id"
-        click_button "Continue"
+        visit "/plans/#{plan.id}"
+        click_link "SUBMIT PLAN"
         sign_out
       end
 
       scenario "receives an email notification" do
-        pending
         email = find_email(admin.email)
         expect(email).to_not be_nil
         expect(email).to have_subject(/submitted/)
@@ -112,7 +108,6 @@ feature "Notifications", js: true do
       end
 
       scenario "receives an on-site notification" do
-        pending
         sign_in(admin)
         visit "/plans"
         notification = find(".alert-box", text: plan.name)
