@@ -1,3 +1,16 @@
-$("#supplementary-document-container").replaceWith('<%= j render "index", plan: @plan %>');
-$("#supplementary-document-<%= @supplementary_document.id %>").effect("highlight", {}, 5000);
-$("[data-reveal]").foundation("reveal", "close");
+<% if @supplementary_document.valid? %>
+
+  $("#supplementary-document-container").replaceWith('<%= j render "index", plan: @plan %>');
+  $("#supplementary-document-<%= @supplementary_document.id %>").effect("highlight", {}, 5000);
+  $("[data-reveal]").foundation("reveal", "close");
+
+<% else %>
+
+  $(".document-form").find(".error").remove();
+
+  <% @supplementary_document.errors.keys.each do |field| %>
+    var field = $("[name='supplementary_document[<%= j field.to_s %>]']");
+    field.after("<%= j render partial: "application/error", locals: { error: @supplementary_document.errors.full_messages_for(field).first } %>");
+  <% end %>
+
+<% end %>
