@@ -1,6 +1,6 @@
 require 'carrierwave/processing/mime_types'
 
-if Rails.env.test? && Rails.application.secrets["aws_access_key_id"].blank?
+if Rails.env.test?
 
   CarrierWave.configure do |config|
     config.storage = :file
