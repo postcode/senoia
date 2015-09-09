@@ -22,7 +22,7 @@ class SupplementaryDocumentsController < ApplicationController
   private
 
   def supplementary_document_params
-    params.require(:supplementary_document).permit(:name, :description, :file_url)
+    params.require(:supplementary_document).permit(:name, :description, :file)
   end
 
 end
