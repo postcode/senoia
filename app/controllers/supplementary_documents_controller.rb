@@ -3,7 +3,7 @@ class SupplementaryDocumentsController < ApplicationController
   def new
     @plan = Plan.find(params[:plan_id])
     @s3_direct_post =
-      AWS::S3.new.buckets[ENV["CARRIERWAVE_S3_BUCKET"]]
+      AWS::S3.new.buckets[ENV["s3_bucket"]]
       .presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}",
                       success_action_status: 201,
                       acl: :public_read)
