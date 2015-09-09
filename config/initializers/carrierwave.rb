@@ -15,10 +15,10 @@ else
       provider: "AWS",
       aws_access_key_id: Rails.application.secrets["aws_access_key_id"],
       aws_secret_access_key: Rails.application.secrets["aws_secret_access_key"],
-      region: ENV["CARRIERWAVE_REGION"]
+      region: ENV["s3_region"]
     }
 
-    config.fog_directory = ENV["CARRIERWAVE_S3_BUCKET"]
+    config.fog_directory = ENV["s3_bucket"]
     config.fog_attributes = { cache_control: "public, max-age=315576000" }
 
     config.cache_dir = "#{Rails.root}/tmp/uploads"
