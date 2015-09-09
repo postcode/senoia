@@ -1,28 +1,56 @@
-== README
+# Senoia
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setting up AWS
 
-Things you may want to cover:
+Set the following environment variables:
 
-* Ruby version
+* `s3_bucket` - e.g. `senoia-dev`
+* `s3_region` - e.g. `us-west-1`
 
-* System dependencies
+Set the following in `secrets.yml`:
 
-* Configuration
+* `aws_access_key_id`
+* `aws_secret_access_key`
 
-* Database creation
+The AWS user needs to be able to write to the S3 bucket as well as the ability to list all buckets. Here's an example policy:
 
-* Database initialization
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:ListAllMyBuckets"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::senoia-dev",
+                "arn:aws:s3:::senoia-dev/*"
+            ]
+        }
+    ]
+}
+```
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+In the AWS bucket, set the CORS configuration to the following:
 
-* Deployment instructions
+(Bucket Properties -> Permissions -> Edit CORS Configuration)
 
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <CORSRule>
+        <AllowedOrigin>https://senoia-dev.herokuapp.com</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>PUT</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+</CORSConfiguration>
+````
