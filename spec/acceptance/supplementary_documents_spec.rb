@@ -23,7 +23,6 @@ feature "Supplementary Documents" do
       fake_direct_upload
       click_on "Save"
 
-      save_screenshot
       expect(page).to have_content document_name
     end
 
