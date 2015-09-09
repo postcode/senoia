@@ -54,3 +54,5 @@ In the AWS bucket, set the CORS configuration to the following:
     </CORSRule>
 </CORSConfiguration>
 ````
+
+The direct upload will fail on a newly-created bucket until the DNS records propagate.
