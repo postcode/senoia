@@ -95,4 +95,11 @@ $(function() {
     $.post(url, data);
   });
 
+  $("body").on("click", ".js-form .js-submit", function() {
+    var form = $(this).closest(".js-form");
+    var data = form.find(":input").serialize();
+    var url = form.data().url
+    $.post(url, data);
+  });
+
 });

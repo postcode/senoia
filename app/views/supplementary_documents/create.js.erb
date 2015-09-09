@@ -1,0 +1,3 @@
+$("#supplementary-document-container").replaceWith('<%= j render "index", plan: @plan %>');
+$("#supplementary-document-<%= @supplementary_document.id %>").effect("highlight", {}, 5000);
+$("[data-reveal]").foundation("reveal", "close");
