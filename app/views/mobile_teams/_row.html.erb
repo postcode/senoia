@@ -1,0 +1,7 @@
+<tr>
+  <% %w(name level type aed provider contact_name contact_phone).each do |attribute| %>
+    <td>
+      <%= mobile_team.send(attribute) %>
+    </td>
+  <% end %>
+</tr>
