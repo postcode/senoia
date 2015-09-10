@@ -1,14 +1,42 @@
-<%= op.simple_fields_for "dispatch[id][#{DateTime.now.to_i}]" do |f| %>
-<tr>
-  <td><%= f.input :name, required: false, label: false %></td>
-  <td><%= f.input :provider_id,
-                    collection: Provider.all,
-                    label_method: :name,
-                    value_method: :id,
-                    include_blank: false,
-                    prompt: "Select a provider",
-                    required: false, label: false %></td>
-  <td><%= f.input :contact_name, required: false, label: false %></td>
-  <td><%= f.input :contact_phone, required: false, label: false %></td>
-</tr>
-<% end %>
+
+<% unique_id = SecureRandom.hex(16) %>
+
+<div id="new-dispatch-<%= operation_period_index %>" class="new-dispatch reveal-modal medium asset-modal dispatch-form" data-url="<%= url_for([ operation_period, :dispatches ]) %>" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add New Dispatch</h3>
+  <div class="modal-body">
+    <%= simple_fields_for "dispatch" do |f| %>
+      <%= f.input :name, required: false %>
+      <%= f.input :provider_id,
+      collection: Provider.all,
+      label_method: :name,
+      value_method: :id,
+      include_blank: false,
+      prompt: "Select a provider",
+      label: "Provider", required: false %>
+      <%= f.input :contact_name, required: false %>
+      <%= f.input :contact_phone, required: false %>
+      <div id='map_dispatch_<%= unique_id %>' class="asset_map"></div>
+      <div id='lat_map_dispatch_<%= unique_id %>'>
+        <%= f.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
+      </div>
+      <div id="lng_map_dispatch_<%= unique_id %>">
+        <%= f.input :lng, input_html: { id: 'lng' }, as: :hidden %>
+      </div>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <%= link_to "Add Dispatch", "javascript:void(0)", class: "save-dispatch button primary save-modal disabled" %>
+  </div>
+  <script>
+   $(document).ready(function(){
+     $(document).on('opened.fndtn.reveal', '.new-dispatch[data-reveal]', function () {
+       gmap_form(null, 'map_dispatch_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
+     });
+   })
+  </script>
+</div>
+
+
+
+

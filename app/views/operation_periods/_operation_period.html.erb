@@ -165,11 +165,10 @@
                   <%= render 'plans/dispatch_show', op: op %>
                 </tbody>
               </table>
-              <div class="large-12 columns"> 
-                <%= link_to add_dispatch_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_dispatch"  do %> 
-                  <i class="fi-plus"></i> ADD DISPATCH
-                <% end %> 
-              </div>
+              <div class="large-12 columns">
+                <a id="new_dispatch" class="button primary tiny radius" href="#" data-reveal-id="new-dispatch-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD DISPATCH</a>
+              <%= render partial: 'plans/new_dispatch', :locals => { :operation_period => op.object, :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
+            </div>  
             <% end %>
           </div>
         </fieldset>
