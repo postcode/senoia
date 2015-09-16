@@ -3,28 +3,23 @@ class PlansController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
+  helper_method :view_own_plans?
+  
   def index
-    if !current_user.nil? && current_user.is_admin?
-      plans_scope = Plan.all.includes(:operation_periods, :event_type)
-    else
-      plans_scope = Plan.with_accepted_state.includes(:operation_periods, :event_type)
+    plans_scope = Plan.includes(:operation_periods, :event_type)
+
+    if view_own_plans?
+      plans_scope = plans_scope.affiliated_to(current_user) 
+    elsif !current_user.try(:admin?)
+      plans_scope = plans_scope.with_accepted_state
     end
-    plans_scope = plans_scope.owner(current_user.id) if params[:my_plans_check] == '1'
-    plans_scope = Plan.like(params[:filter]) if params[:filter]
-    plans_scope = plans_scope.alcohol if params[:alcohol_check] == '1'
-    plans_scope = plans_scope.with_accepted_state if params[:accepted_check] == '1'
-    plans_scope = plans_scope.with_draft_state if params[:submitted_check] == '1'
-    plans_scope = plans_scope.with_awaiting_review_state if params[:awaiting_review_check] == '1'
-    plans_scope = plans_scope.with_being_reviewed_state if params[:reviewing_check] == '1'
-    plans_scope = plans_scope.attendance(0, 2500) if params[:filter_2500] == '1'
-    plans_scope = plans_scope.attendance(2500, 15500) if params[:filter_2500_15500] == '1'
-    plans_scope = plans_scope.attendance(15500, 50000) if params[:filter_15500_50000] == '1'
-    plans_scope = plans_scope.event_type(event_type: params[:eventtype]) if params[:eventtype]
-    plans_scope = plans_scope.attendance(50000, 1000000000) if params[:filter_500000] == '1'
-    @plans = smart_listing_create(:plans, plans_scope, partial: 'plans/listing', sort_attributes: [
-                          [:name, 'plans.name'],
-                          [:event_type, 'plans.event_type'],
-                          [:attendance, 'plans.operation_periods.attendance']])
+    
+    plans_scope = plans_scope.search(params[:query] || { })
+    
+    @plans = smart_listing_create(:plans,
+                                  plans_scope,
+                                  partial: 'plans/listing',
+                                  default_sort: { created_at: "desc" })
     respond_to do |format|
       format.js
       format.html
@@ -355,5 +350,14 @@ class PlansController < ApplicationController
                                                               ]
                                                          ]
                                               ])
-    end
+  end
+
+  def view_own_plans?
+    return false unless current_user
+    return true if params[:my_plans] == "1"
+    return false if params[:my_plans] == "0"
+    return true if current_user.affiliated_plans.exists?
+    return false
+  end
+
 end

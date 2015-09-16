@@ -2,27 +2,19 @@
   <table id="all_plans" class="plan_table large-12 columns">
     <thead>
       <th width="75"><%= smart_listing.sortable "Name", "name" %></th>
-      <th width="100"><%= smart_listing.sortable "Event Type", "event_type" %></th>
-      <th width="75"><%= smart_listing.sortable "Attendance", "attendance" %></th>
+      <th width="100"><%= smart_listing.sortable "Event Type", "event_types.name" %></th>
+      <th width="75"><%= smart_listing.sortable "Attendance", "operation_periods.attendance" %></th>
       <th width="75">Start Date</th>
       <th width="75">End Date</th>
     </thead>
     <tbody>
       <% smart_listing.collection.each do |o| %>
-        <% attendance = 0 %>
-        <% if o.operation_periods.present? %>
-          <% start_date = o.operation_periods.sort_by(&:start_date).first.start_date %>
-          <% end_date = o.operation_periods.sort_by(&:end_date).last.end_date %>
-          <% o.operation_periods.sort_by(&:start_date).each do |op| %>
-            <% op.attendance.present? ? attendance += op.attendance : nil %>
-          <% end %>
-        <% end %>
       <tr>
         <td><%= link_to o.name, plan_path(o) %></td>
         <td><%= o.event_type.nil? ? "N/A" : o.event_type.name %></td>
-        <td><%= attendance %></td>
-        <td><%= start_date.present? ? start_date.strftime("%D %l:%M %P") : "No Date" %></td>
-        <td><%= end_date.present? ? end_date.strftime("%D %l:%M %P") : "No Date" %></td>
+        <td><%= o.attendance if o.attendance > 0%></td>
+        <td><%= o.start_date.present? ? o.start_date.strftime("%D %l:%M %P") : "No Date" %></td>
+        <td><%= o.end_date.present? ? o.end_date.strftime("%D %l:%M %P") : "No Date" %></td>
       </tr>
     <% end %>
     </tbody>
