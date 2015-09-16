@@ -44,7 +44,7 @@ class Plan < ActiveRecord::Base
   validates :name, presence: true
   validates :event_type, presence: true
 
-  scope :like, ->(search) { where("name ilike ?", '%' + search + '%') }
+  scope :like, ->(search) { where("plans.name ilike ?", '%' + search + '%') }
   scope :alcohol, -> { where("alcohol = ?", true) }
   scope :owner, -> (search) { where("creator_id = ?", search) }
 
