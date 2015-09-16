@@ -43,19 +43,6 @@ class Plan < ActiveRecord::Base
 
   validates :name, presence: true
   validates :event_type, presence: true
-
-  scope :like, ->(search) { where("plans.name ilike ?", '%' + search + '%') }
-  scope :alcohol, -> { where("alcohol = ?", true) }
-  scope :owner, -> (search) { where("creator_id = ?", search) }
-
-  scope :event_type, lambda { |*args| 
-    event_type = args[0][:event_type]
-    if event_type.empty?
-      Plan.all
-    else
-      Plan.where("event_type_id = ?", event_type)
-    end
-  }
   
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
   
@@ -121,7 +108,18 @@ class Plan < ActiveRecord::Base
     included do
       scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
       scope :calculating_total_attendance, -> { joins("LEFT JOIN (SELECT plan_id, SUM(attendance) AS total_attendance FROM operation_periods GROUP BY plan_id) ta ON ta.plan_id = plans.id")}
+      scope :like, ->(search) { where("plans.name ilike ?", '%' + search + '%') }
+      scope :alcohol, -> { where("alcohol = ?", true) }
+      scope :owner, -> (search) { where("creator_id = ?", search) }
 
+      scope :event_type, lambda { |*args| 
+        event_type = args[0][:event_type]
+        if event_type.empty?
+          Plan.all
+        else
+          Plan.where("event_type_id = ?", event_type)
+        end
+      }
     end
 
     class_methods do
