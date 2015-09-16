@@ -16,7 +16,6 @@ module HelperMethods
     @index = @index + 1
     filename = "#{Rails.root}/tmp/phantomjs/#{@index}.jpg"
     super(filename, full: true)
-    system("open -a Preview #{filename} &")
   end
 
   def post_comment(body)
