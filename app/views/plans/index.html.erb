@@ -11,7 +11,7 @@
 <div class="row ">
   <div class="large-3 medium-3 small-12 columns">
     <%= smart_listing_controls_for(:plans) do %>
-        <!-- # Add search box to form - it submits the form automatically on text change -->
+      <!-- # Add search box to form - it submits the form automatically on text change -->
       <ul class="side-nav large-12 columns">
         <li class="large-12 columns request_search">
           <h4>SEARCH:</h4>
@@ -40,9 +40,11 @@
           <div class="checkbox row collapse">
             <div class="checkbox inline">
               <div>
-              <%= hidden_field_tag :my_plans_check, "0", id: "mr" %>
-              <%= check_box_tag :my_plans_check %>
-              <span class=""><i class="fi-torso"></i><%= "My Plans" %></span>
+                <%= hidden_field_tag :my_plans_check, "0", id: "mr" %>
+                <label>
+                  <%= check_box_tag :my_plans_check %>
+                  <span><i class="fi-torso"></i>My Plans</span>
+                </label>
               </div>
             </div>
           </div>
@@ -52,23 +54,31 @@
               <% if can? :manage, Plan %>
                 <div>
                   <%= hidden_field_tag :submitted_check, "0", id: "draft" %>
-                  <%= check_box_tag :submitted_check %>
-                  <span class="submitted"><%= "Draft" %></span>
+                  <label>
+                    <%= check_box_tag :submitted_check %>
+                    <span class="submitted">Draft</span>
+                  </label>
                 </div>
                 <div>
                   <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
-                  <%= check_box_tag :awaiting_review_check %>
-                  <span><%= "Under Review" %></span>
+                  <label>
+                    <%= check_box_tag :awaiting_review_check %>
+                    <span>Under Review</span>
+                  </label>
                 </div>
                 <div>
                   <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
-                  <%= check_box_tag :reviewing_check %>
-                  <span class="overdue"><%= "Revision Requested" %></span>
+                  <label>
+                    <%= check_box_tag :reviewing_check %>
+                    <span class="overdue">Revision Requested</span>
+                  </label>
                 </div>
                 <div>
                   <%= hidden_field_tag :accepted_check, "0", id: "accepted" %>
-                  <%= check_box_tag :accepted_check %>
-                  <span class="overdue"><%= "Approved" %></span>
+                  <label>
+                    <%= check_box_tag :accepted_check %>
+                    <span class="overdue">Approved</span>
+                  </label>
                 </div>
               <% end %>
             </div>
@@ -79,8 +89,10 @@
                 <h5>Alcohol</h5>
                 <div>
                   <%= hidden_field_tag :alcohol_check, "0", id: "alcohol" %>
-                  <%= check_box_tag :alcohol_check %>
-                  <span class="alcohol"><%= "Yes" %></span>
+                  <label>
+                    <%= check_box_tag :alcohol_check %>
+                    <span class="alcohol">Yes</span>
+                  </label>
                 </div>
                 <h5>Event Type</h5>
                 <div class="row collapse">
@@ -91,23 +103,31 @@
                 <h5>Attendance</h5>
                 <div>
                   <%= hidden_field_tag :filter_2500, "0", id: "2500" %>
-                  <%= check_box_tag :filter_2500 %>
-                  <span class="overdue"><%= "< 2,500" %></span>
+                  <label>
+                    <%= check_box_tag :filter_2500 %>
+                    <span class="overdue">< 2,500</span>
+                  </label>
                 </div>
                 <div>
                   <%= hidden_field_tag :filter_2500_15500, "0", id: "2500_15500" %>
-                  <%= check_box_tag :filter_2500_15500 %>
-                  <span class="overdue"><%= "2,500 - 15,500" %></span>
+                  <label>
+                    <%= check_box_tag :filter_2500_15500 %>
+                    <span class="overdue">2,500 - 15,500</span>
+                  </label>
                 </div>
                 <div>
                   <%= hidden_field_tag :filter_15500_50000, "0", id: "15500_50000" %>
-                  <%= check_box_tag :filter_15500_50000 %>
-                  <span class="overdue"><%= "15,500 - 50,000" %></span>
+                  <label>
+                    <%= check_box_tag :filter_15500_50000 %>
+                    <span class="overdue">15,500 - 50,000</span>
+                  </label>
                 </div>
                 <div>
                   <%= hidden_field_tag :filter_500000, "0", id: "500000" %>
-                  <%= check_box_tag :filter_500000 %>
-                  <span class="overdue"><%= "> 50,000" %></span>
+                  <label>
+                    <%= check_box_tag :filter_500000 %>
+                    <span class="overdue">> 50,000</span>
+                  </label>
                 </div>
                 
                 <h4>CREATOR:</h4>
