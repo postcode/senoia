@@ -44,9 +44,9 @@ class Plan < ActiveRecord::Base
   validates :name, presence: true
   validates :event_type, presence: true
 
-  scope :like, ->(search) { where("name ilike ?", '%' + search + '%').order(created_at: :desc) }
-  scope :alcohol, -> { where("alcohol = ?", true).order(created_at: :desc) }
-  scope :owner, -> (search) { where("creator_id = ?", search).order(created_at: :desc) }
+  scope :like, ->(search) { where("name ilike ?", '%' + search + '%') }
+  scope :alcohol, -> { where("alcohol = ?", true) }
+  scope :owner, -> (search) { where("creator_id = ?", search) }
 
   scope :attendance, -> (low_number, high_number)  {joins(:operation_periods).where('operation_periods.attendance >= ? AND operation_periods.attendance < ?', low_number, high_number)
   }
@@ -56,12 +56,13 @@ class Plan < ActiveRecord::Base
     if event_type.empty?
       Plan.all
     else
-      Plan.where("event_type_id = ?", event_type).order(created_at: :desc)
+      Plan.where("event_type_id = ?", event_type)
     end
   }
   
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
-
+  scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
+  
   include Workflow
   workflow do
     state :draft do
@@ -77,6 +78,29 @@ class Plan < ActiveRecord::Base
     end
     state :accepted
     state :rejected
+  end
+
+  def self.search(options)
+    scope = all
+    scope = scope.like(options[:filter]) if options[:filter]
+    scope = scope.alcohol if options[:alcohol] == '1'
+
+    if options[:state]
+      scope = scope.with_accepted_state if options[:state][:accepted] == '1'
+      scope = scope.with_draft_state if options[:state][:submitted] == '1'
+      scope = scope.with_awaiting_review_state if options[:state][:awaiting_review] == '1'
+      scope = scope.with_being_reviewed_state if options[:state][:being_reviewed] == '1'
+    end
+    
+    if options[:attendance]
+      scope = scope.attendance(0, 2500) if options[:attendance]["2500"] == '1'
+      scope = scope.attendance(2500, 15500) if options[:attendance]["2500_15500"] == '1'
+      scope = scope.attendance(15500, 50000) if options[:attendance]["15500_50000"] == '1'
+      scope = scope.attendance(50000, 1000000000) if options[:attendance]["500000"] == '1'
+    end
+    
+    scope = scope.event_type(event_type: options[:event_type]) if options[:event_type]
+    scope
   end
 
   def submit

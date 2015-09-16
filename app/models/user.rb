@@ -41,11 +41,13 @@ class User < ActiveRecord::Base
          :validatable, 
          :confirmable
 
+  has_many :collaborated_plans, through: :plan_users, source: :plan
+  has_many :created_plans, class_name: "Plan", foreign_key: :creator_id
   has_many :invitations, foreign_key: :invited_user_id, inverse_of: :invited_user
-  has_many :plans
-  has_many :plan_users
   has_many :notifications,  -> { order("created_at DESC") }, inverse_of: :owner, foreign_key: :owner_id
-
+  has_many :owned_plans, class_name: "Plan", foreign_key: :owner_id
+  has_many :plan_users
+  
   roles_attribute :roles_mask
 
   # declare the valid roles -- do not change the order if you add more
@@ -63,4 +65,9 @@ class User < ActiveRecord::Base
       [ first_name, last_name ].join(" ")
     end
   end
+
+  def affiliated_plans
+    Plan.affiliated_to(self)
+  end
+
 end
