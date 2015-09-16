@@ -13,6 +13,20 @@
     <%= smart_listing_controls_for(:plans) do %>
       <!-- # Add search box to form - it submits the form automatically on text change -->
       <ul class="side-nav large-12 columns">
+        <li class="large-12 columns">
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <div>
+                <%= hidden_field_tag :my_plans, "0", id: "mr" %>
+                <label>
+                  <%= check_box_tag :my_plans, "1", view_own_plans? %>
+                  <span><i class="fi-torso"></i>My Plans</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <hr>
         <li class="large-12 columns request_search">
           <h4>SEARCH:</h4>
           <div class="row collapse">
@@ -37,17 +51,6 @@
           </div>
         </li>
         <li class="large-12 columns status_filter">
-          <div class="checkbox row collapse">
-            <div class="checkbox inline">
-              <div>
-                <%= hidden_field_tag :my_plans, "0", id: "mr" %>
-                <label>
-                  <%= check_box_tag :my_plans, "1", view_own_plans? %>
-                  <span><i class="fi-torso"></i>My Plans</span>
-                </label>
-              </div>
-            </div>
-          </div>
           <h5>Status</h5>
           <div class="checkbox row collapse">
             <div class="checkbox inline">
