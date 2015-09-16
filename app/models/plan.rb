@@ -61,7 +61,7 @@ class Plan < ActiveRecord::Base
   }
   
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
-  scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
+  scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
   
   include Workflow
   workflow do
