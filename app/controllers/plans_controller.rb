@@ -6,7 +6,7 @@ class PlansController < ApplicationController
   helper_method :view_own_plans?
   
   def index
-    plans_scope = Plan.includes(:operation_periods, :event_type)
+    plans_scope = Plan.includes(:operation_periods, :event_type).calculating_total_attendance
 
     if view_own_plans?
       plans_scope = plans_scope.affiliated_to(current_user) 
@@ -19,7 +19,7 @@ class PlansController < ApplicationController
     @plans = smart_listing_create(:plans,
                                   plans_scope,
                                   partial: 'plans/listing',
-                                  default_sort: { created_at: "desc" })
+                                  default_sort: { "plans.created_at" => "desc" })
     respond_to do |format|
       format.js
       format.html

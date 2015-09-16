@@ -56,9 +56,9 @@
             <div class="checkbox inline">
               <% if can? :manage, Plan %>
                 <div>
-                  <%= hidden_field_tag "query[state][submitted]", "0", id: "draft" %>
+                  <%= hidden_field_tag "query[state][draft]", "0", id: "draft" %>
                   <label>
-                    <%= check_box_tag "query[state][submitted]" %>
+                    <%= check_box_tag "query[state][draft]" %>
                     <span class="submitted">Draft</span>
                   </label>
                 </div>
@@ -126,9 +126,9 @@
                   </label>
                 </div>
                 <div>
-                  <%= hidden_field_tag "query[attendance][500000]", "0", id: "500000" %>
+                  <%= hidden_field_tag "query[attendance][50000]", "0", id: "500000" %>
                   <label>
-                    <%= check_box_tag "query[attendance][500000]" %>
+                    <%= check_box_tag "query[attendance][50000]" %>
                     <span class="overdue">> 50,000</span>
                   </label>
                 </div>

@@ -48,9 +48,6 @@ class Plan < ActiveRecord::Base
   scope :alcohol, -> { where("alcohol = ?", true) }
   scope :owner, -> (search) { where("creator_id = ?", search) }
 
-  scope :attendance, -> (low_number, high_number)  {joins(:operation_periods).where('operation_periods.attendance >= ? AND operation_periods.attendance < ?', low_number, high_number)
-  }
-
   scope :event_type, lambda { |*args| 
     event_type = args[0][:event_type]
     if event_type.empty?
@@ -61,7 +58,6 @@ class Plan < ActiveRecord::Base
   }
   
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
-  scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
   
   include Workflow
   workflow do
@@ -78,29 +74,6 @@ class Plan < ActiveRecord::Base
     end
     state :accepted
     state :rejected
-  end
-
-  def self.search(options)
-    scope = all
-    scope = scope.like(options[:filter]) if options[:filter]
-    scope = scope.alcohol if options[:alcohol] == '1'
-
-    if options[:state]
-      scope = scope.with_accepted_state if options[:state][:accepted] == '1'
-      scope = scope.with_draft_state if options[:state][:submitted] == '1'
-      scope = scope.with_awaiting_review_state if options[:state][:awaiting_review] == '1'
-      scope = scope.with_being_reviewed_state if options[:state][:being_reviewed] == '1'
-    end
-    
-    if options[:attendance]
-      scope = scope.attendance(0, 2500) if options[:attendance]["2500"] == '1'
-      scope = scope.attendance(2500, 15500) if options[:attendance]["2500_15500"] == '1'
-      scope = scope.attendance(15500, 50000) if options[:attendance]["15500_50000"] == '1'
-      scope = scope.attendance(50000, 1000000000) if options[:attendance]["500000"] == '1'
-    end
-    
-    scope = scope.event_type(event_type: options[:event_type]) if options[:event_type]
-    scope
   end
 
   def submit
@@ -141,6 +114,70 @@ class Plan < ActiveRecord::Base
 
   def all_comments_resolved?
     ! comment_threads.open.exists?
+  end
+
+  concerning :Search do
+
+    included do
+      scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
+      scope :calculating_total_attendance, -> { joins("LEFT JOIN (SELECT plan_id, SUM(attendance) AS total_attendance FROM operation_periods GROUP BY plan_id) ta ON ta.plan_id = plans.id")}
+
+    end
+
+    class_methods do
+      
+      def search(options)
+        scope = all
+        scope = scope.like(options[:filter]) if options[:filter]
+        scope = scope.alcohol if options[:alcohol] == '1'
+
+        if options[:state]
+          scope = scope.filter_by_state(options[:state])
+        end
+        
+        if options[:attendance]
+          scope = scope.filter_by_attendance(options[:attendance])
+        end
+        
+        scope = scope.event_type(event_type: options[:event_type]) if options[:event_type]
+        scope
+      end
+
+      def filter_by_state(options)
+        query_fragments = options.select { |state, selected| selected == "1" }.map do |state, _|
+          sanitize_sql([ "workflow_state = ?", state ])
+        end
+
+        where(query_fragments.join(" OR "))
+      end
+
+      ATTENDANCE_FILTERS = {
+        "2500" => [ 0, 2500 ],
+        "2500_15500" => [ 2500, 15500 ],
+        "15500_50000" => [ 15500, 50000 ],
+        "50000" => [ 50000, nil ]
+      }
+
+      def filter_by_attendance(options)
+        query_fragments = ATTENDANCE_FILTERS.map do |key, range|
+          if options[key] == "1"
+            attendance_query(range)
+          else
+            nil
+          end
+        end.compact
+
+        where(query_fragments.join(" OR "))
+      end
+
+      def attendance_query(range)
+        query = sanitize_sql([ "total_attendance >= ?", range.first ])
+        if range.last
+          query = query + sanitize_sql([ " AND total_attendance <= ?", range.last ])
+        end
+        "(#{query})"
+      end
+    end
   end
   
   concerning :Notifications do
