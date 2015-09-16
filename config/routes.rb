@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :first_aid_stations, only: [ :new, :create ]
   end
   resources :providers
+  resources :provider_confirmations
   resources :permitters
 
   devise_for :users

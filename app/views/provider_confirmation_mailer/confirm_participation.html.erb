@@ -2,7 +2,7 @@
   <%= @requester %> of <%= @plan %>
   has indicated that
   <%= @provider %> will be providing
-  <%= @medical_asset.class.name.underscore.humanize %> on
+  a <%= @medical_asset.class.name.underscore.humanize %> on
   <%= l @operation_period.start_date %>
   to
   <%= l @operation_period.end_date %>.
@@ -13,6 +13,6 @@
 </p>
 
 <p>
-  <%= link_to "Yes", "#", class: "btn" %>
-  <%= link_to "No", "#", class: "btn" %>
+  <%= link_to "Yes", [ @confirmation, confirm: true ], class: "btn" %>
+  <%= link_to "No", [ @confirmation, reject: true ], class: "btn" %>
 </p>

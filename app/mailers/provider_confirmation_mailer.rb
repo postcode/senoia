@@ -3,11 +3,12 @@ class ProviderConfirmationMailer < ActionMailer::Base
   default from: "Senoia <senoia@senoia.com>"
   layout "mailer"
     
-  def confirm_participation(requester:, recipient:, provider:, medical_asset:)
+  def confirm_participation(requester:, recipient:, confirmation:)
     @requester = requester
     @recipient = recipient
-    @provider = provider
-    @medical_asset = medical_asset
+    @confirmation = confirmation
+    @provider = @confirmation.provider
+    @medical_asset = @confirmation.medical_asset
     @operation_period = @medical_asset.operation_period
     @plan = @medical_asset.plan
     

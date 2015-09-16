@@ -20,7 +20,5 @@
 #
 
 class FirstAidStation < ActiveRecord::Base
-  belongs_to :provider
-  belongs_to :operation_period
-  has_one :plan, through: :operation_period
+  include MedicalAsset
 end
