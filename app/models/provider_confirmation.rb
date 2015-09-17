@@ -23,4 +23,9 @@ class ProviderConfirmation < ActiveRecord::Base
       ProviderConfirmationMailer.confirm_participation(requester: requester, recipient: contact, confirmation: self).deliver_later
     end
   end
+
+  def to_s
+    workflow_state.humanize
+  end
+
 end
