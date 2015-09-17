@@ -12,14 +12,14 @@ module MedicalAsset
     end
 
     after_create do
-      if provider
+      if provider && operation_period
         create_provider_confirmation
         provider_confirmation.deliver_email!
       end
     end
 
     after_update do
-      if provider_id_changed? && provider
+      if provider_id_changed? || operation_period_id_changed? && (provider && operation_period)
         provider_confirmation.try(:destroy)
         create_provider_confirmation
         provider_confirmation.deliver_email!
