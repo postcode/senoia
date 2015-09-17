@@ -1,14 +1,18 @@
 module HelperMethods
   def sign_in(user)
     visit "/users/sign_in"
-    fill_in "user_email",    with: user.email
-    fill_in "user_password", with: user.password
-    click_button "Login"
+    fill_in_login_information(user)
   end
 
   def sign_out
     visit "/"
     click_link "Logout"
+  end
+
+  def fill_in_login_information(user)
+    fill_in "user_email",    with: user.email
+    fill_in "user_password", with: user.password
+    click_button "Login"
   end
 
   def save_screenshot
