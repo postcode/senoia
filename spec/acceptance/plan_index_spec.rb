@@ -28,7 +28,10 @@ feature "Plan Index" do
 
   context "Admin" do
 
+    let(:high_attendance_plan) { create(:plan, operation_periods: [ create(:operation_period, attendance: 45000) ]) }
+
     before do
+      high_attendance_plan
       sign_in(admin)
       visit "/plans"
     end
@@ -39,6 +42,33 @@ feature "Plan Index" do
     
     scenario "views unaccepted plans" do
       expect(page).to have_content plan.name
+    end
+
+    scenario "filters by state", js: true do
+      check "Approved"
+      expect(page).to have_content accepted_plan.name
+      expect(page).to_not have_content plan.name
+      check "Under Review"
+      expect(page).to have_content plan.name
+    end
+
+    scenario "filters by attendance", js: true do
+      check "15,500 - 50,000"
+      expect(page).to have_content high_attendance_plan.name
+      expect(page).to_not have_content plan.name
+    end
+
+    scenario "filters by event type", js: true do
+      select plan.event_type, from: "query_event_type"
+      expect(page).to have_content plan.name
+      expect(page).to_not have_content accepted_plan.name
+    end
+
+    scenario "sorts by attendance", js: true do
+      click_on "Attendance"
+      expect(first("#plans tr td", visible: true)).to have_content high_attendance_plan.name
+      click_on "Attendance"
+      expect(all("#plans tr td", visible: true).last).to have_content high_attendance_plan.end_date.strftime("%D %l:%M %P")
     end
   end
 
