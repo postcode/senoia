@@ -33,7 +33,7 @@ feature "Medical Provider Confirmation" do
       
       scenario "gets a confirmation email" do
         expect(@email).to_not be_nil
-        expect(@email).to have_body_text("confirm your participation")
+        expect(@email).to have_body_text("#{admin} of #{plan} has indicated that")
       end
 
       context "when clicking yes on the confirmation email" do
