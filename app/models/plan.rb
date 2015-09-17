@@ -79,10 +79,6 @@ class Plan < ActiveRecord::Base
     send_notifications_on_reject
   end
 
-  def self.a(number)
-    Plan.all.collect { |a| a.operation_periods.where("attendance >= ?", number) }.flatten 
-  end
-
   def start_date
     operation_periods.map(&:start_date).compact.min
   end
