@@ -100,7 +100,15 @@
                 <h5>Event Type</h5>
                 <div class="row collapse">
                   <div class="medium-12 small-12 columns">
-                    <%= select_tag "query[event_type]", options_for_select(EventType.all.collect{ |d| [d.name, d.id] }), {prompt: "Event Type"}  %>
+                    <% EventType.order("name ASC").each do |event_type| %>
+                      <div>
+                        <%= hidden_field_tag "query[event_type][#{event_type.id}]", "0", id: "event_type_#{event_type.id}" %>
+                        <label>
+                          <%= check_box_tag "query[event_type][#{event_type.id}]" %>
+                          <span class="overdue"><%= event_type.name %></span>
+                        </label>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
                 <h5>Attendance</h5>

@@ -144,17 +144,31 @@ class Plan < ActiveRecord::Base
         if options[:attendance]
           scope = scope.filter_by_attendance(options[:attendance])
         end
-        
-        scope = scope.event_type(event_type: options[:event_type]) if options[:event_type]
+
+        if options[:event_type]
+          scope = scope.filter_by_event_type(options[:event_type])
+        end
+
         scope
       end
 
-      def filter_by_state(options)
-        query_fragments = options.select { |state, selected| selected == "1" }.map do |state, _|
-          sanitize_sql([ "workflow_state = ?", state ])
+      def filter_by_event_type(options)
+        event_type_ids = options.map{ |id, selected| id if selected == "1" }.compact
+        if event_type_ids.any?
+          where(event_type_id: event_type_ids)
+        else
+          all
         end
+      end
 
-        where(query_fragments.join(" OR "))
+      def filter_by_state(options)
+        selected_states = options.map { |state, selected| state if selected == "1" }.compact
+
+        if selected_states.any?
+          where(workflow_state: selected_states)
+        else
+          all
+        end
       end
 
       ATTENDANCE_FILTERS = {

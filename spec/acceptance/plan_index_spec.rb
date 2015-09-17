@@ -59,7 +59,7 @@ feature "Plan Index" do
     end
 
     scenario "filters by event type", js: true do
-      select plan.event_type, from: "query_event_type"
+      check plan.event_type.name
       expect(page).to have_content plan.name
       expect(page).to_not have_content accepted_plan.name
     end
