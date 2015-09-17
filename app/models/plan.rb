@@ -103,7 +103,9 @@ class Plan < ActiveRecord::Base
 
     included do
       scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
-      scope :calculating_total_attendance, -> { joins("LEFT JOIN (SELECT plan_id, SUM(attendance) AS total_attendance FROM operation_periods GROUP BY plan_id) ta ON ta.plan_id = plans.id")}
+      scope :calculating_total_attendance, -> { joins("LEFT JOIN (SELECT plan_id, SUM(attendance) AS total_attendance FROM operation_periods GROUP BY plan_id) join_total_attendance ON join_total_attendance.plan_id = plans.id")}
+      scope :calculating_start_date, -> { joins("LEFT JOIN (SELECT plan_id, MIN(start_date) as start_date FROM operation_periods GROUP BY plan_id) join_start_date ON join_start_date.plan_id = plans.id")}
+      scope :calculating_end_date, -> { joins("LEFT JOIN (SELECT plan_id, MIN(end_date) as end_date FROM operation_periods GROUP BY plan_id) join_end_date ON join_end_date.plan_id = plans.id")}
       scope :like, ->(search) { where("plans.name ilike ?", '%' + search + '%') }
       scope :alcohol, -> { where("alcohol = ?", true) }
       scope :owner, -> (search) { where("creator_id = ?", search) }
@@ -119,11 +121,21 @@ class Plan < ActiveRecord::Base
     end
 
     class_methods do
-      
+
       def search(options)
         scope = all
         scope = scope.like(options[:filter]) if options[:filter]
         scope = scope.alcohol if options[:alcohol] == '1'
+
+        if options[:start_date].present?
+          scope = scope.calculating_end_date
+          scope = scope.where("end_date >= ?", options[:start_date])
+        end
+          
+        if options[:end_date].present?
+          scope = scope.calculating_start_date
+          scope = scope.where("start_date <= ?", options[:end_date])
+        end
 
         if options[:state]
           scope = scope.filter_by_state(options[:state])

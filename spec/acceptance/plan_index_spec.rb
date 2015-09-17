@@ -71,6 +71,11 @@ feature "Plan Index" do
       expect(page).to_not have_selector(".loading")
       expect(all("#plans tr td.attendance").last).to have_content ""
     end
+
+    scenario "filters by start date", js: true do
+      find("#query_start_date").set(high_attendance_plan.end_date + 1.day)
+      expect(page).to_not have_content high_attendance_plan.name
+    end
   end
 
   context "User" do
