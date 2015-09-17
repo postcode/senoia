@@ -18,5 +18,12 @@ module MedicalAsset
       end
     end
 
+    after_update do
+      if provider_id_changed? && provider
+        provider_confirmation.try(:destroy)
+        create_provider_confirmation
+        provider_confirmation.deliver_email!
+      end
+    end
   end
 end

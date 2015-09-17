@@ -91,6 +91,28 @@ feature "Medical Provider Confirmation" do
       end
     end
 
+    context "when a medical asset changes providers", js: true do
+
+      before do
+        operation_period.first_aid_stations << create(:first_aid_station)
+        provider
+        
+        sign_in(admin)
+        visit "/plans/#{plan.id}"
+
+        within ".plan_operation_periods_first_aid_stations_provider_id" do
+          select provider.name
+        end
+        click_on "SAVE DRAFT"
+        sign_out
+        @email = find_email(contact.email)
+      end
+      
+      scenario "gets a confirmation email" do
+        expect(@email).to_not be_nil
+        expect(@email).to have_body_text("confirm your participation")
+      end
+    end
   end
   
 end
