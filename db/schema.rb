@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(version: 20150916130716) do
     t.integer  "provider_id"
     t.integer  "medical_asset_id"
     t.string   "medical_asset_type"
+    t.integer  "requester_id"
     t.string   "workflow_state"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false

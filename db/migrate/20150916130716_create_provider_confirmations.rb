@@ -4,6 +4,7 @@ class CreateProviderConfirmations < ActiveRecord::Migration
       t.belongs_to :provider
       t.integer :medical_asset_id
       t.string :medical_asset_type
+      t.integer :requester_id
       t.string :workflow_state
 
       t.timestamps null: false
