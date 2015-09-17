@@ -6,15 +6,21 @@
       <th width="75"><%= smart_listing.sortable "Attendance", "total_attendance" %></th>
       <th width="75">Start Date</th>
       <th width="75">End Date</th>
+      <% if current_user.try(:is_admin?) %>
+        <th width="20">Status</th>
+      <% end %>
     </thead>
     <tbody>
       <% smart_listing.collection.each do |o| %>
       <tr>
-        <td><%= link_to o.name, plan_path(o) %></td>
+        <td class="name"><%= link_to o.name, plan_path(o) %></td>
         <td><%= o.event_type.nil? ? "N/A" : o.event_type.name %></td>
-        <td><%= o.attendance if o.attendance > 0%></td>
+        <td class="attendance"><%= o.attendance if o.attendance > 0%></td>
         <td><%= o.start_date.present? ? o.start_date.strftime("%D %l:%M %P") : "No Date" %></td>
         <td><%= o.end_date.present? ? o.end_date.strftime("%D %l:%M %P") : "No Date" %></td>
+        <% if current_user.try(:is_admin?) %>
+          <td><%= t(o.workflow_state, scope: "plans.state") %></td>
+        <% end %>
       </tr>
     <% end %>
     </tbody>

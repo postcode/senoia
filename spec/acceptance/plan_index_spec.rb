@@ -66,9 +66,10 @@ feature "Plan Index" do
 
     scenario "sorts by attendance", js: true do
       click_on "Attendance"
-      expect(first("#plans tr td", visible: true)).to have_content high_attendance_plan.name
-      click_on "Attendance"
-      expect(all("#plans tr td", visible: true).last).to have_content high_attendance_plan.end_date.strftime("%D %l:%M %P")
+      expect(page).to_not have_selector(".loading")
+      expect(first("#plans tr td.name", visible: true)).to have_content high_attendance_plan.name
+      expect(page).to_not have_selector(".loading")
+      expect(all("#plans tr td.attendance").last).to have_content ""
     end
   end
 
@@ -120,6 +121,10 @@ feature "Plan Index" do
       
       scenario "can't see unaccepted plans" do
         expect(page).to have_no_content plan.name
+      end
+
+      scenario "can't see plan status" do
+        expect(page).to_not have_content "Status"
       end
 
     end
