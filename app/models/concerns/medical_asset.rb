@@ -5,10 +5,10 @@ module MedicalAsset
     belongs_to :provider
     belongs_to :operation_period
     has_one :plan, through: :operation_period
-    has_one :provider_confirmation, as: :medical_asset
+    has_one :provider_confirmation, as: :medical_asset, dependent: :destroy
 
     def create_provider_confirmation
-      super(provider: self.provider)
+      super(provider: self.provider, requester: Current.user)
     end
 
     after_create do

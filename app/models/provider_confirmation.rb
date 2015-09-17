@@ -2,6 +2,7 @@ class ProviderConfirmation < ActiveRecord::Base
 
   belongs_to :provider
   belongs_to :medical_asset, polymorphic: true
+  belongs_to :requester, class_name: "User"
 
   validates :provider, presence: true
   validates :medical_asset, presence: true
@@ -19,7 +20,7 @@ class ProviderConfirmation < ActiveRecord::Base
 
   def deliver_email!
     provider.contact_users.each do |contact|
-      ProviderConfirmationMailer.confirm_participation(requester: User.first, recipient: contact, confirmation: self).deliver_later
+      ProviderConfirmationMailer.confirm_participation(requester: requester, recipient: contact, confirmation: self).deliver_later
     end
   end
 end
