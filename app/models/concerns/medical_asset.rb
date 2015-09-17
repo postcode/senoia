@@ -17,5 +17,6 @@ module MedicalAsset
         provider_confirmation.deliver_email!
       end
     end
+
   end
 end

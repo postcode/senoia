@@ -12,8 +12,8 @@
         <script>
          $(function(){
            $.ajax("<%= url_for(@provider_confirmation) %>",
-                  { method: "PUT", data: { confirm: "true" } }).done(function(){
-                    location.reload();
+                  { method: "PUT", data: { confirm: "true" } }).done(function(data){
+                    $("#content").replaceWith($(data).filter("#content"));
                   });
          });
         </script>
@@ -25,7 +25,7 @@
          $(function(){
            $.ajax("<%= url_for(@provider_confirmation) %>",
                   { method: "PUT", data: { reject: "true" } }).done(function(){
-                    location.reload();
+                    $("#content").replaceWith($(data).filter("#content"));
                   });
          });
         </script>

@@ -1,8 +1,10 @@
 class ProviderConfirmationsController < ApplicationController
 
+  before_action :authenticate_user!
+  
   def show
     @provider_confirmation = ProviderConfirmation.find(params[:id])
-    authorize! :read, @provider_confirmation
+    authorize! :manage, @provider_confirmation
 
     @provider = @provider_confirmation.provider
     @medical_asset = @provider_confirmation.medical_asset
@@ -13,10 +15,12 @@ class ProviderConfirmationsController < ApplicationController
   def update
     @provider_confirmation = ProviderConfirmation.find(params[:id])
     authorize! :manage, @provider_confirmation
-    if params[:confirm]
-      @provider_confirmation.confirm!
-    elsif params[:reject]
-      @provider_confirmation.reject!
+    if @provider_confirmation.requested?
+      if params[:confirm]
+        @provider_confirmation.confirm!
+      elsif params[:reject]
+        @provider_confirmation.reject!
+      end
     end
     redirect_to action: :show, status: 303
   end
