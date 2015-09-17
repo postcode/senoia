@@ -1,8 +1,12 @@
 $(function() {
-  $('.dateSelect').fdatetimepicker({
+  $('.dateTimeSelect').fdatetimepicker({
     format: 'mm/dd/yyyy H:ii p'
   }); 
 
+  $('.dateSelect').fdatepicker({
+		format: 'mm/dd/yyyy'
+	});
+  
   $('#all_plans tbody tr').css('cursor', 'pointer')
   $('#all_plans tbody tr').click(function() {
     window.location = $('a', $(this)).attr('href')

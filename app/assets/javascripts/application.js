@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require foundation
 //= require foundation-datetimepicker
+//= require foundation-datepicker
 //= require main
 //= require turbolinks
 //= require smart_listing
