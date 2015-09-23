@@ -25,6 +25,32 @@ feature "Plan Permissions" do
     end
 
   end
+
+  shared_examples "cannot edit" do
+
+    background do
+      visit "/plans/#{plan.id}"
+    end
+
+    scenario "cannot be edited" do
+      expect(page).to_not have_selector("input")
+    end
+
+  end
+  
+  shared_examples "can edit" do
+
+    background do
+      visit "/plans/#{plan.id}"
+    end
+
+    scenario "can be edited" do
+      expect(page).to have_selector("input")
+    end
+
+  end
+
+  ALL_STATES = Plan.workflow_spec.state_names
   
   context "as a guest" do
 
@@ -49,7 +75,7 @@ feature "Plan Permissions" do
     end
 
     context "a plan in state" do
-      Plan.workflow_spec.state_names.each do |state|
+      ALL_STATES.each do |state|
         context state do
           let(:plan) { create(:plan, workflow_state: state, creator: creator) }
           include_examples "can view"
@@ -67,10 +93,11 @@ feature "Plan Permissions" do
     end
 
     context "a plan in state" do
-      Plan.workflow_spec.state_names.each do |state|
+      ALL_STATES.each do |state|
         context state do
           let(:plan) { create(:plan, workflow_state: state, users_who_can_view: [ viewer ]) }
           include_examples "can view"
+          include_examples "cannot edit"
         end
       end
     end
@@ -85,10 +112,16 @@ feature "Plan Permissions" do
     end
 
     context "a plan in state" do
-      Plan.workflow_spec.state_names.each do |state|
+      ALL_STATES.each do |state|
         context state do
           let(:plan) { create(:plan, workflow_state: state, users_who_can_edit: [ editor ]) }
           include_examples "can view"
+
+          if state == :accepted
+            include_examples "cannot edit"
+          else
+            include_examples "can edit"
+          end
         end
       end
     end
@@ -103,7 +136,7 @@ feature "Plan Permissions" do
     end
 
     context "a plan in state" do
-      Plan.workflow_spec.state_names.each do |state|
+      ALL_STATES.each do |state|
         context state do
           let(:plan) { create(:plan, workflow_state: state) }
           include_examples "can view"
