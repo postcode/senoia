@@ -25,8 +25,8 @@ FactoryGirl.define do
     event_type
     operation_periods = FactoryGirl.create(:operation_period)
 
-    factory :plan_awaiting_review do
-      workflow_state :awaiting_review
+    factory :plan_under_review do
+      workflow_state :under_review
     end
     
     factory :draft do

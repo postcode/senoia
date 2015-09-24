@@ -99,7 +99,7 @@ feature "Plan Permissions" do
         context state do
           let(:plan) { create(:plan, workflow_state: state, creator: creator) }
           include_examples "can view"
-          include_examples "can comment" if state.in? [ :awaiting_review, :revision_requested ]
+          include_examples "can comment" if state.in? [ :under_review, :revision_requested ]
         end
       end
     end    

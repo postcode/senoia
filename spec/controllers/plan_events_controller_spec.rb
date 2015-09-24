@@ -17,7 +17,7 @@ RSpec.describe PlanEventsController do
       end
 
       it "reviews a plan" do
-        plan.update(workflow_state: "awaiting_review")
+        plan.update(workflow_state: "under_review")
         expect { 
           post :create, { plan_id: plan.id, event: "review" }
         }.to change{ Plan.with_revision_requested_state.count }.by(1)
@@ -45,7 +45,7 @@ RSpec.describe PlanEventsController do
         plan.update(workflow_state: "draft")
         expect { 
           post :create, { plan_id: plan.id, event: "submit" }
-        }.to change{ Plan.with_awaiting_review_state.count }.by(1)
+        }.to change{ Plan.with_under_review_state.count }.by(1)
       end
 
       it "doesn't approve a plan" do
@@ -56,7 +56,7 @@ RSpec.describe PlanEventsController do
       end
       
       it "doesn't review a plan" do
-        plan.update(workflow_state: "awaiting_review")
+        plan.update(workflow_state: "under_review")
         expect { 
           post :create, { plan_id: plan.id, event: "review" }
         }.to change{ Plan.with_revision_requested_state.count }.by(0)

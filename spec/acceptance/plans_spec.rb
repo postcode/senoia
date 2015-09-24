@@ -68,7 +68,7 @@ feature "Plan" do
 
   context "viewing an existing plan" do
 
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review", permitter: permitters[1]) }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review", permitter: permitters[1]) }
 
     before do
       plan.operation_periods << create(:operation_period)
@@ -162,7 +162,7 @@ feature "Plan" do
 
   context "request revision" do
 
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review") }
     let(:creator) { FactoryGirl.create(:user) }
     
     before do
@@ -229,7 +229,7 @@ feature "Plan" do
 
   context "clone an operation period" do
 
-    let(:plan) { create(:plan_awaiting_review) }
+    let(:plan) { create(:plan_under_review) }
 
     before do
       plan.operation_periods << create(:operation_period)

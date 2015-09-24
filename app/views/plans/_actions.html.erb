@@ -6,7 +6,7 @@
   <% case plan.workflow_state %>
   <% when "draft" %>
     <%= link_to "SUBMIT PLAN", [ plan, :events, event: "submit" ], method: "POST", class: "button large radius" %>
-  <% when "awaiting_review" %>
+  <% when "under_review" %>
     <% if current_user.admin? %>
       <%= render "plans/request_revision", plan: plan %>
       <%= render "plans/approve", plan: plan %>

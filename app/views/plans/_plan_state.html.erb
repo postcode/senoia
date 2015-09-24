@@ -2,7 +2,7 @@
   <div class="large-8 columns">
     <ul class="breadcrumb">
       <li><a href="javascript:void(0);" class="review <%= @plan.draft? ? 'active' : 'none' %>">Draft</a></li>
-      <li><a href="javascript:void(0);" class="review <%= @plan.awaiting_review? ? 'active' : 'none' %>">Under Review</a></li>
+      <li><a href="javascript:void(0);" class="review <%= @plan.under_review? ? 'active' : 'none' %>">Under Review</a></li>
       <li><a href="javascript:void(0);" class="review <%= @plan.revision_requested? ? 'active' : 'none' %>">Revision Requested</a></li>
       <li><a href="javascript:void(0);" class="review <%= @plan.approved? ? 'active' : 'none' %> approved">Approved</a></li>
     </ul>    

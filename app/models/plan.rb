@@ -50,9 +50,9 @@ class Plan < ActiveRecord::Base
   include Workflow
   workflow do
     state :draft do
-      event :submit, :transitions_to => :awaiting_review
+      event :submit, :transitions_to => :under_review
     end
-    state :awaiting_review do
+    state :under_review do
       event :review, :transitions_to => :revision_requested
       event :accept, :transitions_to => :approved
     end
