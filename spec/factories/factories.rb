@@ -28,6 +28,14 @@ FactoryGirl.define do
     factory :plan_awaiting_review do
       workflow_state :awaiting_review
     end
+    
+    factory :draft do
+      workflow_state :draft
+    end
+
+    factory :plan_requiring_revision do
+      workflow_state :being_reviewed
+    end
 
     factory :accepted_plan do
       workflow_state :accepted

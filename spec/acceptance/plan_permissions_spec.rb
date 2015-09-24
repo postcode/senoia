@@ -25,18 +25,6 @@ feature "Plan Permissions" do
     end
 
   end
-
-  shared_examples "cannot edit" do
-
-    background do
-      visit "/plans/#{plan.id}"
-    end
-
-    scenario "cannot be edited" do
-      expect(page).to_not have_selector("input")
-    end
-
-  end
   
   shared_examples "can edit" do
 
@@ -49,6 +37,29 @@ feature "Plan Permissions" do
     end
 
   end
+
+  shared_examples "cannot edit" do
+
+    background do
+      visit "/plans/#{plan.id}"
+    end
+
+    scenario "cannot be edited" do
+      expect(page).to_not have_selector("input")
+    end
+
+  end
+
+  shared_examples "can comment" do
+    background do
+      visit "/plans/#{plan.id}"
+    end
+
+    scenario "can be commented on" do
+      expect(page).to have_selector("a", text: "COMMENT")
+    end
+  end
+  
 
   ALL_STATES = Plan.workflow_spec.state_names
   
@@ -79,6 +90,7 @@ feature "Plan Permissions" do
         context state do
           let(:plan) { create(:plan, workflow_state: state, creator: creator) }
           include_examples "can view"
+          include_examples "can comment" if state.in? [ :awaiting_review, :being_reviewed ]
         end
       end
     end    
@@ -90,6 +102,21 @@ feature "Plan Permissions" do
 
     background do
       sign_in viewer
+    end
+
+    context "a comment" do
+
+      let(:plan) { create(:plan, users_who_can_view: [ viewer ]) }
+      
+      background do
+        plan.comments << create(:comment, commentable: plan, element_id: "contact_comment_text")
+        visit "/plans/#{plan.id}"
+      end
+
+      scenario "cannot be replied to" do
+        expect(page).to_not have_selector("a", text: "REPLY")
+      end
+      
     end
 
     context "a plan in state" do
@@ -109,6 +136,21 @@ feature "Plan Permissions" do
 
     background do
       sign_in editor
+    end
+
+    context "a comment" do
+
+      let(:plan) { create(:plan, users_who_can_edit: [ editor ]) }
+      
+      background do
+        plan.comments << create(:comment, commentable: plan, element_id: "contact_comment_text")
+        visit "/plans/#{plan.id}"
+      end
+
+      scenario "can be replied to" do
+        expect(page).to have_selector("a", text: "REPLY")
+      end
+      
     end
 
     context "a plan in state" do
