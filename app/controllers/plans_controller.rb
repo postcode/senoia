@@ -203,7 +203,6 @@ class PlansController < ApplicationController
               :alcohol,
               :event_type_id,
               :permitter_id,
-              :workflow_state,
               :owner_id,
               :post_event_name,
               :post_event_email,
