@@ -14,7 +14,8 @@ module HelperMethods
   def save_screenshot
     @index ||= 0
     @index = @index + 1
-    super("#{Rails.root}/tmp/phantomjs/#{@index}.jpg", full: true)
+    filename = "#{Rails.root}/tmp/phantomjs/#{@index}.jpg"
+    super(filename, full: true)
   end
 
   def post_comment(body)

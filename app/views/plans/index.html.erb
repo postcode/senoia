@@ -11,13 +11,27 @@
 <div class="row ">
   <div class="large-3 medium-3 small-12 columns">
     <%= smart_listing_controls_for(:plans) do %>
-        <!-- # Add search box to form - it submits the form automatically on text change -->
+      <!-- # Add search box to form - it submits the form automatically on text change -->
       <ul class="side-nav large-12 columns">
+        <li class="large-12 columns">
+          <div class="checkbox row collapse">
+            <div class="checkbox inline">
+              <div>
+                <%= hidden_field_tag :my_plans, "0", id: "mr" %>
+                <label>
+                  <%= check_box_tag :my_plans, "1", view_own_plans? %>
+                  <span><i class="fi-torso"></i>My Plans</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <hr>
         <li class="large-12 columns request_search">
           <h4>SEARCH:</h4>
           <div class="row collapse">
             <div class="small-10 columns">
-              <%= text_field_tag :filter, '', placeholder: "I'd like to find...", autocomplete: :on %>
+              <%= text_field_tag "query[filter]", '', placeholder: "I'd like to find...", autocomplete: :on %>
             </div>
             <div class="small-2 columns">
               <button class="button postfix primary radius"><i class="fi-magnifying-glass"></i></button>
@@ -29,91 +43,108 @@
           <h5>Event Date</h5>
           <div class="row collapse">
             <div class="large-5 medium-5 small-5 columns">
-              <%= text_field_tag :start_date, '', placeholder: "start", class: 'dateSelect' %>
+              <%= text_field_tag "query[start_date]", '', placeholder: "start", class: 'dateSelect' %>
             </div>
             <div class="Large-5 large-offset-1 medium-5 medium-offset-1 small-5 small-offset-1 columns end">
-              <%= text_field_tag :end_date, '', placeholder: "end", class: 'dateSelect'  %>
+              <%= text_field_tag "query[end_date]", '', placeholder: "end", class: 'dateSelect'  %>
             </div>
           </div>
         </li>
-        <li class="large-12 columns status_filter">
-          <div class="checkbox row collapse">
-            <div class="checkbox inline">
-              <div>
-              <%= hidden_field_tag :my_plans_check, "0", id: "mr" %>
-              <%= check_box_tag :my_plans_check %>
-              <span class=""><i class="fi-torso"></i><%= "My Plans" %></span>
+        <% if current_user.try(:is_admin?) %>
+          <li class="large-12 columns status_filter">
+            <h5>Status</h5>
+            <div class="checkbox row collapse">
+              <div class="checkbox inline">
+                <div>
+                  <%= hidden_field_tag "query[state][draft]", "0", id: "draft" %>
+                  <label>
+                    <%= check_box_tag "query[state][draft]" %>
+                    <span class="submitted">Draft</span>
+                  </label>
+                </div>
+                <div>
+                  <%= hidden_field_tag "query[state][awaiting_review]", "0", id: "awaiting" %>
+                  <label>
+                    <%= check_box_tag "query[state][awaiting_review]" %>
+                    <span>Under Review</span>
+                  </label>
+                </div>
+                <div>
+                  <%= hidden_field_tag "query[state][being_reviewed]", "0", id: "reviewing" %>
+                  <label>
+                    <%= check_box_tag "query[state][being_reviewed]" %>
+                    <span class="overdue">Revision Requested</span>
+                  </label>
+                </div>
+                <div>
+                  <%= hidden_field_tag "query[state][accepted]", "0", id: "accepted" %>
+                  <label>
+                    <%= check_box_tag "query[state][accepted]" %>
+                    <span class="overdue">Approved</span>
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-          <h5>Status</h5>
-          <div class="checkbox row collapse">
-            <div class="checkbox inline">
-              <% if can? :manage, Plan %>
-                <div>
-                  <%= hidden_field_tag :submitted_check, "0", id: "draft" %>
-                  <%= check_box_tag :submitted_check %>
-                  <span class="submitted"><%= "Draft" %></span>
-                </div>
-                <div>
-                  <%= hidden_field_tag :awaiting_review_check, "0", id: "awaiting" %>
-                  <%= check_box_tag :awaiting_review_check %>
-                  <span><%= "Under Review" %></span>
-                </div>
-                <div>
-                  <%= hidden_field_tag :reviewing_check, "0", id: "reviewing" %>
-                  <%= check_box_tag :reviewing_check %>
-                  <span class="overdue"><%= "Revision Requested" %></span>
-                </div>
-                <div>
-                  <%= hidden_field_tag :accepted_check, "0", id: "accepted" %>
-                  <%= check_box_tag :accepted_check %>
-                  <span class="overdue"><%= "Approved" %></span>
-                </div>
-              <% end %>
-            </div>
-          </div>
+        <% end %>
           <div class="checkbox row collapse">
             <div class="checkbox inline">
               <% if can? :manage, Plan %>
                 <h5>Alcohol</h5>
                 <div>
-                  <%= hidden_field_tag :alcohol_check, "0", id: "alcohol" %>
-                  <%= check_box_tag :alcohol_check %>
-                  <span class="alcohol"><%= "Yes" %></span>
+                  <%= hidden_field_tag "query[alcohol]", "0", id: "alcohol" %>
+                  <label>
+                    <%= check_box_tag "query[alcohol]" %>
+                    <span class="alcohol">Yes</span>
+                  </label>
                 </div>
                 <h5>Event Type</h5>
                 <div class="row collapse">
                   <div class="medium-12 small-12 columns">
-                    <%= select_tag 'eventtype', options_for_select(EventType.all.collect{ |d| [d.name, d.id] }), {prompt: "Event Type"}  %>
+                    <% EventType.order("name ASC").each do |event_type| %>
+                      <div>
+                        <%= hidden_field_tag "query[event_type][#{event_type.id}]", "0", id: "event_type_#{event_type.id}" %>
+                        <label>
+                          <%= check_box_tag "query[event_type][#{event_type.id}]" %>
+                          <span class="overdue"><%= event_type.name %></span>
+                        </label>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
                 <h5>Attendance</h5>
                 <div>
-                  <%= hidden_field_tag :filter_2500, "0", id: "2500" %>
-                  <%= check_box_tag :filter_2500 %>
-                  <span class="overdue"><%= "< 2,500" %></span>
+                  <%= hidden_field_tag "query[attendance][2500]", "0", id: "2500" %>
+                  <label>
+                    <%= check_box_tag "query[attendance][2500]" %>
+                    <span class="overdue">< 2,500</span>
+                  </label>
                 </div>
                 <div>
-                  <%= hidden_field_tag :filter_2500_15500, "0", id: "2500_15500" %>
-                  <%= check_box_tag :filter_2500_15500 %>
-                  <span class="overdue"><%= "2,500 - 15,500" %></span>
+                  <%= hidden_field_tag "query[attendance][2500_15500]", "0", id: "2500_15500" %>
+                  <label>
+                    <%= check_box_tag "query[attendance][2500_15500]" %>
+                    <span class="overdue">2,500 - 15,500</span>
+                  </label>
                 </div>
                 <div>
-                  <%= hidden_field_tag :filter_15500_50000, "0", id: "15500_50000" %>
-                  <%= check_box_tag :filter_15500_50000 %>
-                  <span class="overdue"><%= "15,500 - 50,000" %></span>
+                  <%= hidden_field_tag "query[attendance][15500_50000]", "0", id: "15500_50000" %>
+                  <label>
+                    <%= check_box_tag "query[attendance][15500_50000]" %>
+                    <span class="overdue">15,500 - 50,000</span>
+                  </label>
                 </div>
                 <div>
-                  <%= hidden_field_tag :filter_500000, "0", id: "500000" %>
-                  <%= check_box_tag :filter_500000 %>
-                  <span class="overdue"><%= "> 50,000" %></span>
+                  <%= hidden_field_tag "query[attendance][50000]", "0", id: "500000" %>
+                  <label>
+                    <%= check_box_tag "query[attendance][50000]" %>
+                    <span class="overdue">> 50,000</span>
+                  </label>
                 </div>
                 
                 <h4>CREATOR:</h4>
                 <div class="row collapse">
                   <div class="small-10 columns">
-                    <%= text_field_tag :creator, '', placeholder: "I'd like to find...", autocomplete: :on %>
+                    <%= text_field_tag "query[creator]", '', placeholder: "I'd like to find...", autocomplete: :on %>
                   </div>
                   <div class="small-2 columns">
                     <button class="button postfix primary"><i class="fi-magnifying-glass"></i></button>

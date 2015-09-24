@@ -44,25 +44,9 @@ class Plan < ActiveRecord::Base
 
   validates :name, presence: true
   validates :event_type, presence: true
-
-  scope :like, ->(search) { where("name ilike ?", '%' + search + '%').order(created_at: :desc) }
-  scope :alcohol, -> { where("alcohol = ?", true).order(created_at: :desc) }
-  scope :owner, -> (search) { where("creator_id = ?", search).order(created_at: :desc) }
-
-  scope :attendance, -> (low_number, high_number)  {joins(:operation_periods).where('operation_periods.attendance >= ? AND operation_periods.attendance < ?', low_number, high_number)
-  }
-
-  scope :event_type, lambda { |*args| 
-    event_type = args[0][:event_type]
-    if event_type.empty?
-      Plan.all
-    else
-      Plan.where("event_type_id = ?", event_type).order(created_at: :desc)
-    end
-  }
   
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
-
+  
   include Workflow
   workflow do
     state :draft do
@@ -96,10 +80,6 @@ class Plan < ActiveRecord::Base
     send_notifications_on_reject
   end
 
-  def self.a(number)
-    Plan.all.collect { |a| a.operation_periods.where("attendance >= ?", number) }.flatten 
-  end
-
   def start_date
     operation_periods.map(&:start_date).compact.min
   end
@@ -118,6 +98,107 @@ class Plan < ActiveRecord::Base
 
   def all_comments_resolved?
     ! comment_threads.open.exists?
+  end
+
+  concerning :Search do
+
+    included do
+      scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
+      scope :calculating_total_attendance, -> { joins("LEFT JOIN (SELECT plan_id, SUM(attendance) AS total_attendance FROM operation_periods GROUP BY plan_id) join_total_attendance ON join_total_attendance.plan_id = plans.id")}
+      scope :calculating_start_date, -> { joins("LEFT JOIN (SELECT plan_id, MIN(start_date) as start_date FROM operation_periods GROUP BY plan_id) join_start_date ON join_start_date.plan_id = plans.id")}
+      scope :calculating_end_date, -> { joins("LEFT JOIN (SELECT plan_id, MIN(end_date) as end_date FROM operation_periods GROUP BY plan_id) join_end_date ON join_end_date.plan_id = plans.id")}
+      scope :like, ->(search) { where("plans.name ilike ?", '%' + search + '%') }
+      scope :alcohol, -> { where("alcohol = ?", true) }
+      scope :owner, -> (search) { where("creator_id = ?", search) }
+
+      scope :event_type, lambda { |*args| 
+        event_type = args[0][:event_type]
+        if event_type.empty?
+          Plan.all
+        else
+          Plan.where("event_type_id = ?", event_type)
+        end
+      }
+    end
+
+    class_methods do
+
+      def search(options)
+        scope = all
+        scope = scope.like(options[:filter]) if options[:filter]
+        scope = scope.alcohol if options[:alcohol] == '1'
+
+        if options[:start_date].present?
+          scope = scope.calculating_end_date
+          scope = scope.where("end_date >= ?", options[:start_date])
+        end
+          
+        if options[:end_date].present?
+          scope = scope.calculating_start_date
+          scope = scope.where("start_date <= ?", options[:end_date])
+        end
+
+        if options[:state]
+          scope = scope.filter_by_state(options[:state])
+        end
+        
+        if options[:attendance]
+          scope = scope.filter_by_attendance(options[:attendance])
+        end
+
+        if options[:event_type]
+          scope = scope.filter_by_event_type(options[:event_type])
+        end
+
+        scope
+      end
+
+      def filter_by_event_type(options)
+        event_type_ids = options.map{ |id, selected| id if selected == "1" }.compact
+        if event_type_ids.any?
+          where(event_type_id: event_type_ids)
+        else
+          all
+        end
+      end
+
+      def filter_by_state(options)
+        selected_states = options.map { |state, selected| state if selected == "1" }.compact
+
+        if selected_states.any?
+          where(workflow_state: selected_states)
+        else
+          all
+        end
+      end
+
+      ATTENDANCE_FILTERS = {
+        "2500" => [ 0, 2500 ],
+        "2500_15500" => [ 2500, 15500 ],
+        "15500_50000" => [ 15500, 50000 ],
+        "50000" => [ 50000, nil ]
+      }
+
+      def filter_by_attendance(options)
+        query_fragments = ATTENDANCE_FILTERS.map do |key, range|
+          if options[key] == "1"
+            attendance_query(range)
+          else
+            nil
+          end
+        end.compact
+
+        where(query_fragments.join(" OR "))
+      end
+
+      def attendance_query(range)
+        query = sanitize_sql([ "total_attendance >= ?", range.first ])
+        if range.last
+          query = query + sanitize_sql([ " AND total_attendance <= ?", range.last ])
+        end
+        "(#{query})"
+      end
+    end
   end
   
   concerning :Notifications do

@@ -16,6 +16,7 @@
 //= require jquery.fileupload
 //= require foundation
 //= require foundation-datetimepicker
+//= require foundation-datepicker
 //= require main
 //= require direct-upload
 //= require turbolinks
