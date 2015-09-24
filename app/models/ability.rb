@@ -8,6 +8,7 @@ class Ability
     elsif user.id?
       can :manage, Plan, creator_id: user.id
       can :manage, Plan, plan_users: { role: "edit", user_id: user.id }
+      can :create, Comment, commentable: { users_who_can_edit: { id: user.id } }
       can :read, Plan, plan_users: { role: "view", user_id: user.id }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
     else
