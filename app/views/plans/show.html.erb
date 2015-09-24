@@ -1,6 +1,108 @@
-<%= render 'edit_form' %>
-<div class="row">
-  <div class="large-12 columns text-center footer-back">
-    <%= link_to '< Back', plans_path %>
+<div class="large-12 columns">
+  <div class="row">
+    <div class="large-7 columns pageTitle">
+      <h1><%= @plan.name %></h1>
+    </div>
+    <div class="large-3 columns text-right pageTitle">
+      <p><em>UPDATED: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
+    </div>
   </div>
 </div>
+<%= render 'plan_state' %>
+<div class="large-12 columns plan_form">
+  <div class="row">
+    <div class="large-8 columns">
+      <fieldset>
+        <legend>EVENT PLAN CREATOR</legend>   
+        <% if @plan.creator.present? %>
+          <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
+          <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
+        <% end %> 
+      </fieldset>   
+    </div>
+    <div class="large-4 columns end">
+      <%= render 'comment_form', plan: @plan, title: "contact" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-8 columns">
+      <fieldset>
+        <legend>COLLABORATORS</legend>
+        <div class="row">
+          <div class="large-9 columns">
+            <table id="users_table">
+              <thead>
+                <th>Email</th>
+                <th>Role</th>
+              </thead>
+              <tbody>
+                <% @plan.users.each do |user| %>
+                  <tr>
+                    <td><%= user.email %></td>
+                    <td><%= PlanUser.where(user_id: user.id, plan_id: @plan.id).first.present? ? PlanUser.where(user_id: user.id, plan_id: @plan.id).first.role : nil %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>  
+        </div>
+      </fieldset>
+    </div>
+    <div class="large-4 columns end">
+      <%= render 'comment_form', plan: @plan, title: "collaborators" %>
+    </div>
+  </div>          
+</div>
+<div class="row">
+  <div class="small-3 columns input_label">
+    <label>Event Type</label>
+  </div>
+  <div class="small-5 columns">
+    <p>
+      <%= @plan.event_type %>
+    </p>
+  </div>
+  <div class="large-4 columns end">
+    <%= render 'comment_form', plan: @plan, title: "event_type" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-3 columns input_label">
+    <label>Permitting Agency</label>
+  </div>
+  <div class="small-5 columns">
+    <p>
+      <% if @plan.permitter %>
+        <%= render @plan.permitter %>
+      <% else %>
+        (Not provided)
+      <% end %>
+    </p>
+  </div>
+  <div class="large-4 columns end">
+    <%= render 'comment_form', plan: @plan, title: "permitter" %>
+  </div>
+</div>
+<div class="row">
+  <div class="small-3 columns input_label">
+    <label>Alcohol Present</label>
+  </div>
+  <div class="small-5 columns">
+    <p>
+      <% if @plan.alcohol? %>
+        Yes
+      <% elsif @plan.alcohol.nil? %>
+        (Not provided)
+      <% else %>
+        No
+      <% end %>
+    </p>
+  </div>
+  <div class="large-4 columns end">
+    <%= render 'comment_form', plan: @plan, title: "alcohol" %>
+  </div>
+</div>
+<hr/>
+<%= render "operation_periods_container" %>
+

@@ -33,9 +33,11 @@ class PlansController < ApplicationController
     @permitters = Permitter.order("name ASC")
     
     if @plan.accepted?
-      render 'plans/show_accepted'
+      render "plans/show_accepted"
+    elsif can? :edit, @plan
+      render "plans/edit"
     else
-      render 'plans/show'
+      render "plans/show"
     end
   end
 

@@ -1,6 +1,5 @@
 <% comments = plan.root_comments.open.element("#{title}_comment_text") %>
-
-<% if (plan.persisted? && can?(:create, Comment)) || comments.any? %>
+<% if (plan.persisted? && can?(:create, plan.comments.build)) || comments.any? %>
   <div id="<%= title %>_comment" class="comment-section">
     <% if can? :edit, plan %>
       <a href="#" class="comment"><i class="fi-plus"></i> COMMENT</a>
