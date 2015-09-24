@@ -79,11 +79,11 @@ feature "Plan" do
     
     scenario "changing permitting agencies shows their contact info", js: true do
       
-      expect(page).to have_content plan.permitter.address
+      expect(page).to have_content plan.permitter.phone_number
       
       select(permitters.first.name, from: "plan_permitter_id")
       
-      expect(page).to have_content permitters.first.address
+      expect(page).to have_content permitters.first.phone_number
       
     end
 

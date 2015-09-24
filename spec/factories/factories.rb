@@ -56,6 +56,7 @@ FactoryGirl.define do
     name { Faker::Lorem.words(3).join(" ") }
     phone_number { Faker::PhoneNumber.phone_number }
     address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
+    email { Faker::Internet.email }
   end
 
   factory :first_aid_station do
