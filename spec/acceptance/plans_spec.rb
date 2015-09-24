@@ -196,7 +196,7 @@ feature "Plan" do
 
       expect { 
         click_link "APPROVE PLAN"
-      }.to change{ Plan.with_accepted_state.count }.by(1)
+      }.to change{ Plan.with_approved_state.count }.by(1)
 
       email = find_email(creator.email)
       expect(email).to_not be_nil
@@ -221,7 +221,7 @@ feature "Plan" do
 
         expect { 
           click_link "APPROVE PLAN"
-        }.to change{ Plan.with_accepted_state.count }.by(1)
+        }.to change{ Plan.with_approved_state.count }.by(1)
       end
       
     end

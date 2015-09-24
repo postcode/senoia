@@ -11,7 +11,7 @@ class PlansController < ApplicationController
     if view_own_plans?
       plans_scope = plans_scope.affiliated_to(current_user) 
     elsif !current_user.try(:admin?)
-      plans_scope = plans_scope.with_accepted_state
+      plans_scope = plans_scope.with_approved_state
     end
     
     plans_scope = plans_scope.search(params[:query] || { })
@@ -32,9 +32,9 @@ class PlansController < ApplicationController
     @count = 0
     @permitters = Permitter.order("name ASC")
     
-    if @plan.accepted?
+    if @plan.approved?
       if current_user.try(:is_admin?)
-        render "plans/show_accepted"
+        render "plans/show_approved"
       else
         render "plans/show"
       end

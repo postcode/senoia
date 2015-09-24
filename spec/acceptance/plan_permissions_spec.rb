@@ -79,8 +79,8 @@ feature "Plan Permissions" do
       include_examples "cannot view"
     end
 
-    context "an accepted plan" do
-      let(:plan) { create(:accepted_plan) }
+    context "an approved plan" do
+      let(:plan) { create(:approved_plan) }
       include_examples "can view"
     end
 
@@ -154,7 +154,7 @@ feature "Plan Permissions" do
           let(:plan) { create(:plan, workflow_state: state, users_who_can_edit: [ editor ]) }
           include_examples "can view"
 
-          if state == :accepted
+          if state == :approved
             include_examples "cannot edit"
           else
             include_examples "can edit"
@@ -178,7 +178,7 @@ feature "Plan Permissions" do
           let(:plan) { create(:plan, workflow_state: state) }
           include_examples "can view"
           include_examples "can edit"
-          include_examples "can comment" unless state == :accepted
+          include_examples "can comment" unless state == :approved
         end
       end
     end

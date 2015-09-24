@@ -342,7 +342,7 @@ fieldset{
   &.active {
     border-left: 30px solid #f19b3b;
   } 
-  &.accepted {
+  &.approved {
     content: none;
     color: pink;
   }
@@ -488,7 +488,7 @@ input[type="checkbox"]{
       border-left: 30px solid #f19b3b;
     }
   }
-  // &.accepted {
+  // &.approved {
   //   border-right: 30px solid $mediumgray;
   //   &:after {
   //     content: none;

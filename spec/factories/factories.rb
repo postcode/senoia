@@ -37,8 +37,8 @@ FactoryGirl.define do
       workflow_state :being_reviewed
     end
 
-    factory :accepted_plan do
-      workflow_state :accepted
+    factory :approved_plan do
+      workflow_state :approved
     end
   end
 

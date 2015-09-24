@@ -15,7 +15,7 @@ class Ability
       can :read, Plan, plan_users: { role: "view", user_id: user.id }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
     else
-      can :read, Plan, { workflow_state: "accepted" }
+      can :read, Plan, { workflow_state: "approved" }
     end
   end
 end
