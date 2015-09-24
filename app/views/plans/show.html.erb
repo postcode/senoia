@@ -53,9 +53,10 @@
     </div>
   </div>          
 </div>
+
 <div class="row">
   <div class="small-3 columns input_label">
-    <label>Event Type</label>
+    <label><%= t ".event_type" %></label>
   </div>
   <div class="small-5 columns">
     <p>
@@ -69,7 +70,7 @@
 
 <div class="row">
   <div class="small-3 columns input_label">
-    <label>Permitting Agency</label>
+    <label><%= t ".permitter" %></label>
   </div>
   <div class="small-5 columns">
     <p>
@@ -84,9 +85,10 @@
     <%= render 'comment_form', plan: @plan, title: "permitter" %>
   </div>
 </div>
+
 <div class="row">
   <div class="small-3 columns input_label">
-    <label>Alcohol Present</label>
+    <label><%= t ".alcohol" %></label>
   </div>
   <div class="small-5 columns">
     <p>
@@ -103,6 +105,8 @@
     <%= render 'comment_form', plan: @plan, title: "alcohol" %>
   </div>
 </div>
+
 <hr/>
+
 <%= render "operation_periods_container" %>
 

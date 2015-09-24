@@ -30,11 +30,11 @@
             <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
           <% else %>
             <%= f.association :creator,
-            collection: User.all,
-            label_method: :email,
-            value_method: :id,
-            include_blank: false,
-            label: false %>
+                              collection: User.all,
+                              label_method: :email,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false %>
           <% end %> 
         </fieldset>   
       </div>
@@ -103,16 +103,16 @@
 
   <div class="row">
     <div class="small-3 columns input_label">
-      <%= f.label :permitter, class: "inline", label: "Permitting Agency", required: true %>
+      <%= f.label :permitter, class: "inline", required: true %>
     </div>
     <div class="small-5 columns">
       <%= f.association :permitter,
-      collection: @permitters,
-      label_method: :name,
-      value_method: :id,
-      include_blank: false,
-      label: false,
-      prompt: "(Please select)"%>
+                        collection: @permitters,
+                        label_method: :name,
+                        value_method: :id,
+                        include_blank: false,
+                        label: false,
+                        prompt: "(Please select)"%>
       <%= render partial: "permitters/permitter", collection: @permitters %>
     </div>
     <div class="large-4 columns end">
@@ -121,7 +121,7 @@
   </div>
   <div class="row">
     <div class="small-3 columns input_label">
-      <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
+      <%= f.label :alcohol, class: "inline" %>
     </div>
     <div class="small-5 columns">
       <%= f.input :alcohol, label: "Yes" %>
