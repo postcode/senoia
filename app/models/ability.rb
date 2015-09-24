@@ -10,6 +10,8 @@ class Ability
       can :manage, Plan, plan_users: { role: "edit", user_id: user.id }
       can :create, Comment, commentable: { users_who_can_edit: { id: user.id } }
       can :create, Comment, commentable: { creator_id: user.id }
+      can :create, Comment, parent: { commentable: { users_who_can_edit: { id: user.id } } }
+      can :create, Comment, parent: { commentable: { creator_id: user.id } }
       can :read, Plan, plan_users: { role: "view", user_id: user.id }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
     else

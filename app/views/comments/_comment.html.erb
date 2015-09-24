@@ -15,13 +15,13 @@
       </div>
     <% end %>
 
-    <% if can? :create, comment.commentable.comments.build %>
+    <% if can? :create, comment.children.build %>
       <div class="row" style="margin-top: 1em">
         <div class="small-12 columns" style="margin-left: 0.5em">
           <div class="reply-form" data-url="<%= comment_replies_url(comment) %>">
             <textarea name="comment[body]" rows="2" style="margin-bottom: 0.5em"></textarea>
             <%= link_to "REPLY", "javascript:void(0);", class: "button warning tiny radius reply" %>
-            <% if can? :edit, comment %>
+            <% if can? :resolve, comment %>
               <%= link_to "RESOLVE", [ comment, comment: { open: false } ], method: "PUT", class: "button secondary radius tiny", remote: true %>
             <% end %>
           </div>

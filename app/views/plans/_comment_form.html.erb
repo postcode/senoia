@@ -1,7 +1,7 @@
 <% comments = plan.root_comments.open.element("#{title}_comment_text") %>
 <% if (plan.persisted? && can?(:create, plan.comments.build)) || comments.any? %>
   <div id="<%= title %>_comment" class="comment-section">
-    <% if can? :edit, plan %>
+    <% if can? :create, plan.comments.build %>
       <a href="#" class="comment"><i class="fi-plus"></i> COMMENT</a>
       <div class="new-comment-area" data-url="<%= url_for([ plan, :comments, element_id: "#{title}_comment_text" ]) %>">
         <%= text_area_tag "comment[body]", "", id: "#{title}_comment_text", cols: 10, rows: 5 %>

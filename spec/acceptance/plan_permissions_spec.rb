@@ -59,7 +59,17 @@ feature "Plan Permissions" do
       expect(page).to have_selector("a", text: "COMMENT")
     end
   end
-  
+
+  shared_examples "cannot comment" do
+    background do
+      visit "/plans/#{plan.id}"
+    end
+
+    scenario "cannot be commented on" do
+      expect(page).to_not have_selector("a", text: "COMMENT")
+    end
+  end
+
 
   ALL_STATES = Plan.workflow_spec.state_names
   
@@ -125,6 +135,7 @@ feature "Plan Permissions" do
           let(:plan) { create(:plan, workflow_state: state, users_who_can_view: [ viewer ]) }
           include_examples "can view"
           include_examples "cannot edit"
+          include_examples "cannot comment"
         end
       end
     end
