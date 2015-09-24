@@ -1,5 +1,7 @@
 class PermittersController < ApplicationController
 
+  load_and_authorize_resource
+  
   def index
     @permitters = Permitter.all
     respond_to do |format|
@@ -9,22 +11,18 @@ class PermittersController < ApplicationController
   end
 
   def show
-    @permitter = Permitter.find(params[:id])
     respond_to do |format|
       format.html
     end
   end
 
   def edit
-    @permitter = Permitter.find(params[:id])
     respond_to do |format|
       format.html
     end
-    
   end
 
   def new
-    @permitter = Permitter.new
     respond_to do |format|
       format.html
       format.json { render json: @permitter }
@@ -33,29 +31,24 @@ class PermittersController < ApplicationController
 
   def create
     @permitter = Permitter.new(permitter_params)
-    if @permitter.save
-      redirect_to permitters_path
+    if !@permitter.save
+      render action: :new
     else
-      redirect_to permitter_new(@permitter), alert: @permitter.errors
+      redirect_to action: :index
     end
   end
 
   def update
-    @permitter = Permitter.find(params[:id])
-    if @permitter.update_attributes(permitter_params)
-      redirect_to permitters_path
+    if !@permitter.update(permitter_params)
+      render action: :edit
     else
-      redirect_to permitter_new(@permitter), alert: @permitter.errors
+      redirect_to action: :index
     end
   end
 
   private 
 
-   # Using a private method to encapsulate the permissible parameters is
-    # just a good pattern since you'll be able to reuse the same permit
-    # list between create and update. Also, you can specialize this method
-    # with per-user checking of permissible attributes.
-    def permitter_params
-      params.require(:permitter).permit(:name, :phone_number, :address)
-    end
+  def permitter_params
+    params.require(:permitter).permit(:name, :phone_number, :address, :email)
+  end
 end
