@@ -76,7 +76,7 @@ $(function() {
 
   var updatePermitterContactInfo = function() {
     var activePermitterId = $("#plan_permitter_id").val();
-    $(".permitter").hide();
+    $(".permitter.hidden").hide();
     if(activePermitterId) {
       $("[data-permitter-id=" + activePermitterId + "]").show();
     }

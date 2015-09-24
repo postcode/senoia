@@ -73,13 +73,11 @@
     <label><%= t ".permitter" %></label>
   </div>
   <div class="small-5 columns">
-    <p>
-      <% if @plan.permitter %>
-        <%= render @plan.permitter %>
-      <% else %>
-        (Not provided)
-      <% end %>
-    </p>
+    <% if @plan.permitter %>
+      <%= render @plan.permitter, hidden: false %>
+    <% else %>
+      (Not provided)
+    <% end %>
   </div>
   <div class="large-4 columns end">
     <%= render 'comment_form', plan: @plan, title: "permitter" %>
