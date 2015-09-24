@@ -53,10 +53,10 @@ class Plan < ActiveRecord::Base
       event :submit, :transitions_to => :awaiting_review
     end
     state :awaiting_review do
-      event :review, :transitions_to => :being_reviewed
+      event :review, :transitions_to => :revision_requested
       event :accept, :transitions_to => :approved
     end
-    state :being_reviewed do
+    state :revision_requested do
       event :accept, :transitions_to => :approved, :if => Proc.new(&:all_comments_resolved?)
       event :reject, :transitions_to => :rejected
     end

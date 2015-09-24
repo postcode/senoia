@@ -34,7 +34,7 @@ FactoryGirl.define do
     end
 
     factory :plan_requiring_revision do
-      workflow_state :being_reviewed
+      workflow_state :revision_requested
     end
 
     factory :approved_plan do

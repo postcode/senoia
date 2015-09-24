@@ -176,14 +176,14 @@ feature "Plan" do
 
       expect { 
         click_link "REQUEST REVISION"
-      }.to change{ Plan.with_being_reviewed_state.count }.by(1)
+      }.to change{ Plan.with_revision_requested_state.count }.by(1)
     end
     
   end
 
   context "approve plan", js: true do
     
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "being_reviewed") }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "revision_requested") }
     let(:creator) { FactoryGirl.create(:user) }
     
     before do

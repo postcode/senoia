@@ -11,7 +11,7 @@
       <%= render "plans/request_revision", plan: plan %>
       <%= render "plans/approve", plan: plan %>
     <% end %>
-  <% when "being_reviewed" %>
+  <% when "revision_requested" %>
     <% if current_user.admin? %>
       <%= render "plans/approve", plan: plan %>
     <% end %>
