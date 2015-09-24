@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :invitations, only: :create
     resources :operation_periods, only: [ :new, :create ]
     resources :events, only: :create, controller: "plan_events"
+    resources :supplementary_documents, only: [ :new, :create ]
   end
   resources :comments do
     resources :replies, only: :create
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
   end
   resources :providers
   resources :permitters
+  resources :supplementary_documents, only: [ :destroy ]
 
   devise_for :users
   resources :users

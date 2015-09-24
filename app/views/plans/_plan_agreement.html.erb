@@ -24,10 +24,7 @@
         <a href="#" class="button tiny radius">ACCEPT</a> 
       </fieldset>                      
 
-      <fieldset>
-        <legend>SUPPLEMENTARY DOCUMENTS</legend>
-        <a href="#" class="button tiny radius"><i class="fi-plus"></i> UPLOAD FILE</a> 
-      </fieldset>               
+      <%= render "supplementary_documents/index", plan: @plan %>
 
       <fieldset>
         <legend>POST EVENT TREATMENT REPORT CREATOR</legend>

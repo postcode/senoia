@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery.fileupload
 //= require foundation
 //= require foundation-datetimepicker
 //= require main
+//= require direct-upload
 //= require turbolinks
 //= require smart_listing
 //= require asset_update

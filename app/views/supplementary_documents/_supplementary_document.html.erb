@@ -1,0 +1,13 @@
+<div class="supplementary-document" id="supplementary-document-<%= supplementary_document.id %>">
+  <h4>
+    <%= supplementary_document.name %>
+  </h4>
+  <p>
+    <%= simple_format supplementary_document.description %>
+  </p>
+  <p>
+    <%= link_to "View", supplementary_document.file.url, target: "_blank" %>
+    &middot;
+    <%= link_to "Remove", supplementary_document, method: "DELETE", remote: true, data: { confirm: "Are you sure you want to remove this document?" } %>
+  </p>
+</div>

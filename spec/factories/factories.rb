@@ -66,4 +66,10 @@ FactoryGirl.define do
   factory :event_type do
     name { Faker::Lorem.words(3).join(" ") }
   end
+
+  factory :supplementary_document do
+    plan
+    name { Faker::Lorem.words(3).join(" ") }
+    file { Rack::Test::UploadedFile.new(File.join(Rails.root, 'README.rdoc')) }
+  end
 end

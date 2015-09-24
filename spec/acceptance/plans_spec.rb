@@ -151,7 +151,6 @@ feature "Plan" do
 
     scenario "admin can add a first aid station", js: true  do
       click_link 'new_first_aid_station'
-      sleep 0.5 #FIXME Waiting for modal
       
       first_aid_station_name = "2nd Aid Station"
       within '.first_aid_station_name' do
@@ -312,7 +311,6 @@ feature "Plan" do
       find("a[href='#panel2']").click
       
       click_link 'new_first_aid_station'
-      sleep 0.5 #FIXME Waiting for modal
       
       first_aid_station_name = "2nd Aid Station"
       within '.first_aid_station_name' do
