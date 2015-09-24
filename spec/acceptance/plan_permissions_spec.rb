@@ -69,8 +69,7 @@ feature "Plan Permissions" do
       expect(page).to_not have_selector("a", text: "COMMENT")
     end
   end
-
-
+  
   ALL_STATES = Plan.workflow_spec.state_names
   
   context "as a guest" do
@@ -149,21 +148,6 @@ feature "Plan Permissions" do
       sign_in editor
     end
 
-    context "a comment" do
-
-      let(:plan) { create(:plan, users_who_can_edit: [ editor ]) }
-      
-      background do
-        plan.comments << create(:comment, commentable: plan, element_id: "contact_comment_text")
-        visit "/plans/#{plan.id}"
-      end
-
-      scenario "can be replied to" do
-        expect(page).to have_selector("a", text: "REPLY")
-      end
-      
-    end
-
     context "a plan in state" do
       ALL_STATES.each do |state|
         context state do
@@ -193,6 +177,8 @@ feature "Plan Permissions" do
         context state do
           let(:plan) { create(:plan, workflow_state: state) }
           include_examples "can view"
+          include_examples "can edit"
+          include_examples "can comment" unless state == :accepted
         end
       end
     end
