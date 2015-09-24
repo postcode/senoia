@@ -11,9 +11,9 @@ class PlanEventsController < ApplicationController
     when "approve"
       authorize! :manage, Plan
       @plan.approve! if current_user.is_admin?
-    when "review"
+    when "request_revision"
       authorize! :manage, Plan
-      @plan.review! if current_user.is_admin?
+      @plan.request_revision! if current_user.is_admin?
     when "reject"
       authorize! :manage, Plan
       @plan.reject! if current_user.is_admin?

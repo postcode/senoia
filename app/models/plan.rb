@@ -53,7 +53,7 @@ class Plan < ActiveRecord::Base
       event :submit, :transitions_to => :under_review
     end
     state :under_review do
-      event :review, :transitions_to => :revision_requested
+      event :request_revision, :transitions_to => :revision_requested
       event :approve, :transitions_to => :approved
     end
     state :revision_requested do
@@ -68,8 +68,8 @@ class Plan < ActiveRecord::Base
     send_notifications_on_submit
   end
 
-  def review
-    send_notifications_on_review
+  def request_revision
+    send_notifications_on_request_revision
   end
 
   def approve
@@ -215,8 +215,8 @@ class Plan < ActiveRecord::Base
       end
     end
 
-    def send_notifications_on_review
-      notify_stakeholders("reviewed")
+    def send_notifications_on_request_revision
+      notify_stakeholders("revision_requested")
     end
 
     def send_notifications_on_approve
