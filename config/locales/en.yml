@@ -52,5 +52,5 @@ en:
       plan:
         submitted: "New medical plan submitted: %{subject}"
         reviewed: "Medical plan %{subject} needs revision"
-        accepted: "Your medical plan %{subject} has been approved"
+        approved: "Your medical plan %{subject} has been approved"
         rejected: "Your medical plan %{subject} has been rejected"
