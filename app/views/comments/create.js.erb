@@ -1,6 +1,3 @@
 var section = $("#<%= @comment.element_id %>").closest(".comment-section");
-section.find(".existing-comments").html('<%= j render partial: "plans/existing_comments", locals: { plan: @plan, element_id: @comment.element_id } %>');
-section.find(".new-comment-area").hide();
-section.find("textarea").val("");
-
+section.replaceWith('<%= j render "plans/comment_form", plan: @plan, title: @comment.element_id.gsub("_comment_text", "") %>');
 $(".plan-action").replaceWith('<%= j render "plans/actions", f: form_builder_for(@plan), plan: @plan %>');
