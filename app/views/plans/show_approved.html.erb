@@ -1,0 +1,103 @@
+<%= simple_form_for [@plan] do |f| %>
+<div class="row">
+  <div class="large-12 columns pageTitle">
+    <h1><%= @plan.name %> </h1>
+  </div>
+  <div class="large-12 columns plan_form">
+      <div class="row">
+        <div class="large-8 columns">
+          <fieldset>
+            <legend>Event Plan Creator</legend>
+            <% if @plan.creator.present? %>
+              <p><i class="fi-torso"></i> <%= @plan.creator.name %></p>
+              <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
+              <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
+            <% else %>
+              <p>Contact information is missing!</p>  
+            <% end %> 
+          </fieldset>          
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-8 columns">
+          <fieldset>
+            <legend>COLLABORATORS</legend>
+             <%= simple_fields_for :users do |u| %>
+              <div class="row">
+                <div class="small-9 columns">                
+                  <div class="row">
+                    <div class="small-3 columns input_label">
+                      <%= u.label "Email", class: "inline" %>
+                    </div>
+                    <div class="small-8 columns">
+                      <%= u.input :email, label: false %>
+                    </div>
+                  </div>
+                </div>  
+
+                <div class="small-3 columns">
+                  <a href="#" class="button small radius "><i class="fi-plus"></i> Add Editors</a>
+                </div>
+              </div>
+            <% end %>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns input_label">
+          <%= f.label :event_type, class: "inline" %>
+        </div>
+        <div class="small-5 columns end">
+        <%= f.association :event_type,
+                              collection: EventType.all,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-3 columns input_label">
+          <%= f.label :permitter, class: "inline", label: "Permitting Agency" %>
+        </div>
+        <div class="small-5 columns end">
+        <%= f.association :permitter,
+                          collection: Permitter.all,
+                          label_method: :name,
+                          value_method: :id,
+                          include_blank: false,
+                          label: false %>
+        </div>
+      </div>
+       <div class="row">
+        <div class="small-3 columns input_label end">
+          <%= f.label :permitter, class: "inline", label: "Alcohol Present" %>
+        </div>
+        <div class="small-5 columns">
+          <%= f.input :alcohol, label: "Yes" %>
+        </div>
+      </div>
+      <hr/>
+
+      <div class="row">
+        <h3>Operational Period <a href="#" class="button tiny radius right"><i class="fi-plus"></i> Add Operational Period</a></h3>
+      </div>
+
+      <ul class="tabs" data-tab>
+        <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+          <%= render 'operation_period_tabs', count: index+1, period: operation_period %>
+        <% end %>
+      </ul>
+      <div class="tabs-content">
+        <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+          <%= render 'operation_periods/operation_period', count: index+1, f: f %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render 'plan_agreement' %>
+
+    <% end %> 
+  </div>
+</div>
