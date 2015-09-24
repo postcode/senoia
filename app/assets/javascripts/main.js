@@ -33,8 +33,7 @@ $(function() {
   $(".day-alert").parent().addClass("day-alert")
   $(".day-normal").parent().addClass("day-normal")
 
-  $('.comment').click(function(e) {
-    e.preventDefault();
+  $("body").on("click", '.comment', function() {
     $(this).siblings('.new-comment-area').toggle();
   })
 
