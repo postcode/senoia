@@ -22,7 +22,7 @@ feature "Users" do
       fill_in "Phone number", with: (new_phone_number = Faker::PhoneNumber.phone_number)
       click_on "Save"
       visit "/users/#{user.id}/edit"
-      expect(page).to have_content new_phone_number
+      expect(page.body).to match Regexp.new(new_phone_number)
     end
 
     scenario "cannot edit another user's profile" do
