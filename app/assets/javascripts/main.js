@@ -1,8 +1,12 @@
 $(function() {
-  $('.dateSelect').fdatetimepicker({
+  $('.dateTimeSelect').fdatetimepicker({
     format: 'mm/dd/yyyy H:ii p'
   }); 
 
+  $('.dateSelect').fdatepicker({
+		format: 'mm/dd/yyyy'
+	});
+  
   $('#all_plans tbody tr').css('cursor', 'pointer')
   $('#all_plans tbody tr').click(function() {
     window.location = $('a', $(this)).attr('href')
@@ -92,6 +96,13 @@ $(function() {
     var form = $(this).closest(".invitation-form");
     var url = form.data().url;
     var data = form.find(":input").serialize();
+    $.post(url, data);
+  });
+
+  $("body").on("click", ".js-form .js-submit", function() {
+    var form = $(this).closest(".js-form");
+    var data = form.find(":input").serialize();
+    var url = form.data().url
     $.post(url, data);
   });
 

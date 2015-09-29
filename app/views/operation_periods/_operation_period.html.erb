@@ -20,7 +20,7 @@
         <%= op.label :start_date, class: "inline", label: "START" %>
       </div>
       <div class="small-4 columns">
-        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: l(op.object.start_date).squeeze(" ") %>
+        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateTimeSelect", value: l(op.object.start_date).squeeze(" ") %>
       </div>
       <div class="large-4 columns">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_start_date" %>

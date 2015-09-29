@@ -28,6 +28,10 @@ FactoryGirl.define do
     factory :plan_awaiting_review do
       workflow_state :awaiting_review
     end
+
+    factory :accepted_plan do
+      workflow_state :accepted
+    end
   end
 
   factory :comment do
@@ -76,5 +80,11 @@ FactoryGirl.define do
 
   factory :provider do
     name { Faker::Lorem.words(3).join(" ") }
+  end
+
+  factory :supplementary_document do
+    plan
+    name { Faker::Lorem.words(3).join(" ") }
+    file { Rack::Test::UploadedFile.new(File.join(Rails.root, 'README.rdoc')) }
   end
 end

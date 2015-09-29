@@ -3,40 +3,8 @@ require_relative "./acceptance_helper"
 feature "Plan" do
   
   let(:plan) { FactoryGirl.create(:plan) }
-  let(:accepted) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
   let(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter) }.sort_by(&:name) }
-
-  context "not logged in" do
-    scenario "show all of the accepted plans" do
-      accepted.submit!
-      accepted.review!
-      accepted.accept!
-      visit "/plans"
-      expect(page).to have_content "#{accepted.name}"
-    end
-    scenario "don't show unaccepted plans" do
-      visit "/plans"
-      expect(page).to have_no_content "#{plan.name}"
-    end
-  end
-
-  context "logged in as an admin" do
-    scenario "show all of the accepted plans" do
-      sign_in(admin)
-      accepted.submit!
-      accepted.review!
-      accepted.accept!
-      visit "/plans"
-      expect(page).to have_content "#{accepted.name}"
-    end
-    scenario "show unaccepted plans" do
-      sign_in(admin)
-      plan.submit!
-      visit "/plans"
-      expect(page).to have_content "#{plan.name}"
-    end
-  end
 
   context "create a new plan" do
     
@@ -151,7 +119,6 @@ feature "Plan" do
 
     scenario "admin can add a first aid station", js: true  do
       click_link 'new_first_aid_station'
-      sleep 0.5 #FIXME Waiting for modal
       
       first_aid_station_name = "2nd Aid Station"
       within '.first_aid_station_name' do
@@ -312,7 +279,6 @@ feature "Plan" do
       find("a[href='#panel2']").click
       
       click_link 'new_first_aid_station'
-      sleep 0.5 #FIXME Waiting for modal
       
       first_aid_station_name = "2nd Aid Station"
       within '.first_aid_station_name' do

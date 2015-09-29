@@ -26,6 +26,14 @@ en:
     formats:
       default: "%m/%d/%Y %l:%M %P"
 
+  plans:
+    state:
+      draft: Draft
+      awaiting_review: Under Review
+      being_reviewed: Revision Requested
+      accepted: Approved
+  
+
   notification_mailer:
     subject:
       comment:

@@ -205,6 +205,15 @@ ActiveRecord::Schema.define(version: 20150916130716) do
     t.boolean "contact"
   end
 
+  create_table "supplementary_documents", force: :cascade do |t|
+    t.text     "name"
+    t.text     "description"
+    t.text     "file"
+    t.integer  "plan_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "transports", force: :cascade do |t|
     t.string   "name"
     t.string   "level"

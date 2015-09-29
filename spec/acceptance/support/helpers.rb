@@ -18,7 +18,8 @@ module HelperMethods
   def save_screenshot
     @index ||= 0
     @index = @index + 1
-    super("#{Rails.root}/tmp/phantomjs/#{@index}.jpg", full: true)
+    filename = "#{Rails.root}/tmp/phantomjs/#{@index}.jpg"
+    super(filename, full: true)
   end
 
   def post_comment(body)
@@ -30,6 +31,20 @@ module HelperMethods
     end
   end
 
+  def carrierwave_configured?
+    ! CarrierWave::Uploader::Base.fog_directory.blank?
+  end
+
+  def uploaded_file_url
+    "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}/robots.txt"
+  end
+
+  def fake_direct_upload
+    input = "<input name=\"supplementary_document[file]\" value=\"#{uploaded_file_url}\" type=\"hidden\" />"
+    script = "$(\"input[type=file]\").replaceWith('#{input}');"
+    page.evaluate_script script
+  end
+  
 end
 
 RSpec.configuration.include HelperMethods, :type => :acceptance
