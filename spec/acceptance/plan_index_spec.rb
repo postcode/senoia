@@ -2,7 +2,7 @@ require_relative "acceptance_helper"
 
 feature "Plan Index" do
 
-  let(:plan) { create(:plan_awaiting_review) }
+  let(:plan) { create(:plan_under_review) }
   let(:approved_plan) { create(:approved_plan) }
   let(:admin) { create(:admin) }
 
