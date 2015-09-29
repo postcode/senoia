@@ -51,6 +51,10 @@ RSpec.configure do |config|
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 
+  config.before :each do
+    allow(CarrierWave).to receive(:root).and_return(Pathname.new "#{Rails.root}/tmp/public")
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

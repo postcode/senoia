@@ -14,5 +14,5 @@
 #
 
 class Dispatch < ActiveRecord::Base
-  belongs_to :provider
+  include MedicalAsset
 end

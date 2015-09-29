@@ -5,6 +5,13 @@ FactoryGirl.define do
     password "password"
     password_confirmation "password"
     confirmed_at Date.today
+
+    factory :medical_contact do
+      after(:create) do |user, evaluator|
+        provider = create(:provider)
+        provider.contact_users << user
+      end
+    end
   end
   
   factory :operation_period do
@@ -68,6 +75,10 @@ FactoryGirl.define do
   end
 
   factory :event_type do
+    name { Faker::Lorem.words(3).join(" ") }
+  end
+
+  factory :provider do
     name { Faker::Lorem.words(3).join(" ") }
   end
 

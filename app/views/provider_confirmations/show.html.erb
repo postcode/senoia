@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="large-12 columns pageTitle">
+    <h1><%= @plan %></h1>
+  </div>
+  <div class="large-12 columns">
+    
+    <% case @provider_confirmation.workflow_state %>
+    <% when "requested" %>
+
+      <% if params[:confirm] %>
+        <h2>Confirming...</h2>
+        <script>
+         $(function(){
+           $.ajax("<%= url_for(@provider_confirmation) %>",
+                  { method: "PUT", data: { confirm: "true" } }).done(function(data){
+                    $("#content").replaceWith($(data).filter("#content"));
+                  });
+         });
+        </script>
+
+      <% elsif params[:reject] %>
+
+        <h2>Rejecting...</h2>
+        <script>
+         $(function(){
+           $.ajax("<%= url_for(@provider_confirmation) %>",
+                  { method: "PUT", data: { reject: "true" } }).done(function(){
+                    $("#content").replaceWith($(data).filter("#content"));
+                  });
+         });
+        </script>
+        
+      <% end %>
+              
+      
+    <% when "confirmed" %>
+
+      <h2>Confirmed!</h2>
+      <p>
+        <%= @provider %> will be providing
+        a <%= @medical_asset.class.name.titleize %> on
+        <%= l @operation_period.start_date %>
+        to
+        <%= l @operation_period.end_date %>
+        at
+        <%= @plan %>.
+      </p>
+
+    <% when "rejected" %>
+      <h2>Rejected</h2>
+      <p>
+        <%= @provider %> will not be providing
+        a <%= @medical_asset.class.name.titleize %> on
+        <%= l @operation_period.start_date %>
+        to
+        <%= l @operation_period.end_date %>
+        at
+        <%= @plan %>.
+      </p>
+    <% end %>
+
+  </div>
+</div>

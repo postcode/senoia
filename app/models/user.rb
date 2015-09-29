@@ -47,7 +47,9 @@ class User < ActiveRecord::Base
   has_many :notifications,  -> { order("created_at DESC") }, inverse_of: :owner, foreign_key: :owner_id
   has_many :owned_plans, class_name: "Plan", foreign_key: :owner_id
   has_many :plan_users
-  
+  has_many :providers, through: :providers_users
+  has_many :providers_users
+
   roles_attribute :roles_mask
 
   # declare the valid roles -- do not change the order if you add more

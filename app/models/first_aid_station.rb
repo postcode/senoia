@@ -20,5 +20,5 @@
 #
 
 class FirstAidStation < ActiveRecord::Base
-  belongs_to :provider
+  include MedicalAsset
 end

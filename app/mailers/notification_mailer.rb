@@ -1,6 +1,7 @@
 class NotificationMailer < ActionMailer::Base
 
   default from: "Senoia <senoia@senoia.com>"
+  layout "mailer"
 
   def notification(options = { notification: nil })
     @notification = options[:notification]
