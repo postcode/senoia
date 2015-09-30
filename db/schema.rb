@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916130716) do
+ActiveRecord::Schema.define(version: 20150930114937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20150916130716) do
     t.text     "address"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.text     "email"
   end
 
   create_table "permitters_users", force: :cascade do |t|
@@ -180,6 +181,21 @@ ActiveRecord::Schema.define(version: 20150916130716) do
     t.string   "post_event_phone"
     t.integer  "creator_id"
   end
+
+  create_table "post_event_treatment_reports", force: :cascade do |t|
+    t.integer  "plan_id"
+    t.integer  "creator_id"
+    t.integer  "actual_crowd_size"
+    t.text     "resource_differences"
+    t.string   "medical_resource_sufficiency"
+    t.text     "medical_resource_sufficiency_explanation"
+    t.text     "other_comments"
+    t.boolean  "submitted"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "post_event_treatment_reports", ["plan_id"], name: "index_post_event_treatment_reports_on_plan_id", using: :btree
 
   create_table "provider_confirmations", force: :cascade do |t|
     t.integer  "provider_id"

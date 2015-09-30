@@ -40,6 +40,8 @@ class Plan < ActiveRecord::Base
   has_many :invitations, inverse_of: :plan, dependent: :destroy
   has_many :supplementary_documents
 
+  has_one :post_event_treatment_report
+
   accepts_nested_attributes_for :event_type, :operation_periods, :owner
 
   validates :name, presence: true
