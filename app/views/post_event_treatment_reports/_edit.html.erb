@@ -1,0 +1,13 @@
+<%= simple_form_for [ @plan, @post_event_treatment_report ] do |f| %>
+
+  <%= f.input :actual_crowd_size %>
+  <%= f.input :resource_differences %>
+  <%= f.label :medical_resource_sufficiency %>
+  <%= f.collection_radio_buttons :medical_resource_sufficiency,
+  PostEventTreatmentReport::VALID_MEDICAL_RESOURCE_SUFFICIENCY_OPTIONS,
+  :to_s,
+  :humanize %>
+  <%= f.input :other_comments %>
+  <%= f.submit "Save Draft", class: "button" %>
+  <%= f.submit "Submit", name: "submit", class: "button" %>
+<% end %>

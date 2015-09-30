@@ -1,0 +1,110 @@
+<%= simple_form_for [ @plan, @post_event_treatment_report ] do |f| %>
+
+  <div class="row">
+    <div class="small-6 columns">
+  
+      <div class="row">
+        <div class="small-4 columns input_label">
+          <label><%= t ".event_type" %></label>
+        </div>
+        <div class="small-8 columns">
+          <p>
+            <%= @plan.event_type %>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns input_label">
+          <label><%= t ".event_date" %></label>
+        </div>
+        <div class="small-8 columns">
+          <p>
+            <%= l @plan.start_date if @plan.start_date %>
+            to
+            <%= l @plan.end_date if @plan.end_date %>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-5 columns input_label">
+          <label><%= t ".attendance" %></label>
+        </div>
+        <div class="small-5 columns">
+          <p>
+            <%= @plan.attendance %>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-5 columns input_label">
+          <%= f.label :actual_crowd_size, class: "inline" %>
+        </div>
+        <div class="small-5 columns">
+          <%= f.input :actual_crowd_size, label: false %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="small-6 columns">
+      <%= render "creator", creator: current_user %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.label :resource_differences %>
+      <%= f.input :resource_differences, label: false, input_html: { rows: 5 } %>
+    </div>
+  </div>
+
+  <hr/>
+  
+  <fieldset>
+    <legend>Treated and Released Patients</legend>
+  </fieldset>
+
+  <fieldset>
+    <legend>Transported Patients</legend>
+  </fieldset>
+
+  <hr/>
+  
+  <div class="row">
+    <div class="small-4 columns input_label">
+      <%= f.label :medical_resource_sufficiency %>
+    </div>
+    <div class="small-8 columns">
+      <%= f.collection_radio_buttons :medical_resource_sufficiency,
+      PostEventTreatmentReport::VALID_MEDICAL_RESOURCE_SUFFICIENCY_OPTIONS,
+      :to_s,
+      :humanize %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.label :medical_resource_sufficiency_explanation %>
+      <%= f.input :medical_resource_sufficiency_explanation, label: false, input_html: { rows: 5 } %>
+    </div>
+  </div>
+
+  <hr/>
+  
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.label :other_comments %>
+      <%= f.input :other_comments, label: false, input_html: { rows: 5 } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns buttons">
+      <%= f.submit "Save Draft", class: "button" %>
+      <%= f.submit "Submit", name: "submit", class: "button" %>
+    </div>
+  </div>
+<% end %>
