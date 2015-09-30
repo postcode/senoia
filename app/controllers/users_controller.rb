@@ -45,13 +45,8 @@ class UsersController < ApplicationController
     end
 
     if @user.update(user_params)
-      if @user == current_user
-        flash[:notice] = "Your account has been updated."
-        redirect_to root_path
-      else
-        flash[:notice] = "User updated."
-        redirect_to action: :index
-      end
+      flash[:notice] = "User updated."
+      redirect_to action: :index
     else
       render action: :edit
     end
