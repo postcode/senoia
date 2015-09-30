@@ -26,6 +26,11 @@ function gmap_show(asset) {
 }
 
 function gmap_form(asset, map_id) {
+
+  if (window.google === undefined) {
+    return false;
+  }
+  
   handler = Gmaps.build('Google');    // map init
   handler.buildMap({ provider: {}, internal: {id: map_id}}, function(){
     if (asset && asset.lat && asset.lng) {    // statement check - new or edit view

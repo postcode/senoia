@@ -82,5 +82,13 @@ RSpec.configure do |config|
   config.after(:all) do
     DatabaseCleaner.clean_with(:truncation)
   end
+
+  config.before(:each, js: true) do
+    page.driver.browser.url_blacklist = [
+                                         "http://maps.google.com",
+                                         "http://*.googlecode.com"
+                                        ]
+  end
+
 end
 
