@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="small-6 columns">
-  
+      
       <div class="row">
         <div class="small-4 columns input_label">
           <label><%= t ".event_type" %></label>
@@ -62,13 +62,68 @@
   </div>
 
   <hr/>
-  
+
   <fieldset>
     <legend>Treated and Released Patients</legend>
+    <p>
+      <strong>Total number of patients treated per operational period:</strong>
+    </p>
+    <% @plan.operation_periods.each do |op| %>
+      <div class="row">
+        <div class="small-5 columns">
+          <label class="inline right">- <%= op %>:</label>
+        </div>
+        <div class="small-2 columns end">
+          <%= text_field_tag "number_of_patients", "", class: "inline" %>
+        </div>
+      </div>
+    <% end %>
+
+    <table>
+      <thead>
+        <th></th>
+        <th>Problem Description</th>
+        <th>Number of Persons Treated for Problem</th>
+        <th>Treatment Provided</th>
+        <th>Outcome or Recommended Follow-up</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="javascript:void(0)" class="button tiny radius">&plus;</a></td>
+        </tr>
+      </tbody>
+    </table>
   </fieldset>
 
   <fieldset>
     <legend>Transported Patients</legend>
+    <p>
+      <strong>Total number of patients transported per operational period:</strong>
+    </p>
+    <% @plan.operation_periods.each do |op| %>
+      <div class="row">
+        <div class="small-5 columns">
+          <label class="inline right">- <%= op %>:</label>
+        </div>
+        <div class="small-2 columns end">
+          <%= text_field_tag "number_of_patients", "", class: "inline" %>
+        </div>
+      </div>
+    <% end %>
+    <table>
+      <thead>
+        <th></th>
+        <th>Chief Complaint</th>
+        <th>Transporting Unit</th>
+        <th>Destination</th>
+        <th>Time Patient Transported Off-site</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="javascript:void(0)" class="button tiny radius">&plus;</a></td>
+        </tr>
+      </tbody>
+    </table>
   </fieldset>
 
   <hr/>

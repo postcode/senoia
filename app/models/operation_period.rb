@@ -36,6 +36,14 @@ class OperationPeriod < ActiveRecord::Base
     super parse_date_time_if_in_preferred_format(new_end_date)
   end
 
+  def to_s
+    [
+     start_date.strftime(DEFAULT_DATETIME_FORMAT),
+     "to",
+     end_date.strftime(DEFAULT_DATETIME_FORMAT)
+    ].join(" ")
+  end
+
   private
 
   def parse_date_time_if_in_preferred_format(date_time)
