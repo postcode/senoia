@@ -61,10 +61,10 @@ class User < ActiveRecord::Base
   end
   
   def to_s
-    if [ first_name, last_name ].any?(&:blank?)
+    if name.blank?
       email
     else
-      [ first_name, last_name ].join(" ")
+      name
     end
   end
 
