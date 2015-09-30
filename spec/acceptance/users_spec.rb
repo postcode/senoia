@@ -34,6 +34,11 @@ feature "Users" do
       visit "/users"
       expect(page).to have_content "not authorized"
     end
+
+    scenario "cannot create a new user" do
+      visit "/users/new"
+      expect(page).to have_content "not authorized"
+    end
     
   end
 
@@ -53,6 +58,40 @@ feature "Users" do
       expect(page).to have_content new_name
     end
 
+    scenario "views the user index" do
+      visit "/users"
+      expect(page).to have_content "ALL USERS"
+    end
+
+    scenario "creates a new user" do
+      visit "/users"
+      click_on "Create New User"
+      fill_in "Name", with: Faker::Name.name
+      fill_in "Email", with: Faker::Internet.email
+      fill_in "Phone number", with: Faker::PhoneNumber.phone_number
+      select "user", from: "Roles"
+      fill_in "user_password", with: (password = Faker::Internet.password)
+      fill_in "user_password_confirmation", with: password
+      click_on "Save"
+    end
+
+  end
+
+  context "Guest" do
+    
+    scenario "signs up" do
+      visit "/"
+      click_on "Login"
+      click_on "Sign up"
+      fill_in "Name", with: Faker::Name.name
+      fill_in "Email", with: Faker::Internet.email
+      fill_in "Phone number", with: Faker::PhoneNumber.phone_number
+      fill_in "user_password", with: (password = Faker::Internet.password)
+      fill_in "user_password_confirmation", with: password
+      click_on "Sign Up"
+      expect(page).to have_content("activate your account")
+    end
+    
   end
   
 end
