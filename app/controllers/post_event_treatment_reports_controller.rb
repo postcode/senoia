@@ -27,8 +27,8 @@ class PostEventTreatmentReportsController < ApplicationController
               :medical_resource_sufficiency_explanation,
               :other_comments)
     if params[:submit]
-      result.merge(submitted: true,
-                   creator: current_user)
+      result.merge!(submitted: true,
+                    creator: current_user)
       
     end
     result
