@@ -73,8 +73,10 @@
         <div class="small-5 columns">
           <label class="inline right">- <%= op %>:</label>
         </div>
-        <div class="small-2 columns end">
-          <%= text_field_tag "number_of_patients", "", class: "inline" %>
+        <div class="small-2 columns end js-form" data-url="<%= url_for op %>" data-method="PUT">
+          <%= fields_for op do |g| %>
+            <%= g.number_field "patients_treated_count", class: "inline js-submit-on-blur", style: "text-align:center" %>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -92,8 +94,10 @@
         <div class="small-5 columns">
           <label class="inline right">- <%= op %>:</label>
         </div>
-        <div class="small-2 columns end">
-          <%= text_field_tag "number_of_patients", "", class: "inline" %>
+        <div class="small-2 columns end js-form" data-url="<%= url_for op %>" data-method="PUT">
+          <%= fields_for op do |g| %>
+            <%= g.number_field "patients_transported_count", class: "inline js-submit-on-blur", style: "text-align:center" %>
+          <% end %>
         </div>
       </div>
     <% end %>

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
   resources :event_types
   resources :notifications, only: :update
-  resources :operation_periods, only: :destroy do
+  resources :operation_periods, only: [ :update, :destroy ] do
     resources :clones, only: :create
     resources :first_aid_stations, only: [ :new, :create ]
   end

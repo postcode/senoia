@@ -17,10 +17,22 @@ class OperationPeriodsController < ApplicationController
     @operation_period.destroy
   end
 
+  def update
+    @operation_period = OperationPeriod.find(params[:id])
+    authorize! :manage, @operation_period.plan
+    @operation_period.update(operation_period_params)
+    render nothing: true
+  end
+
   private
 
   def operation_period_params
-    params.require(:operation_period).permit(:start_date, :end_date, :attendance)
+    params.require(:operation_period)
+      .permit(:start_date,
+              :end_date,
+              :attendance,
+              :patients_treated_count,
+              :patients_transported_count)
   end
 
 end
