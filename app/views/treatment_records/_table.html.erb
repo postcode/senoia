@@ -1,0 +1,22 @@
+<table id="treatment-records">
+  <thead>
+    <th>Problem Description</th>
+    <th>Number of Persons Treated for Problem</th>
+    <th>Treatment Provided</th>
+    <th>Outcome or Recommended Follow-up</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% treatment_records.each do |record| %>
+      <%= render record %>
+    <% end %>
+    <tr id="new-treatment-record">
+      <td>
+        <%= link_to [ :new, @plan, @post_event_treatment_report, :treatment_record, format: :js ], class: "button tiny radius", id: "neww-treatment-record", remote: true do %>
+          &plus;
+        <% end %>
+      </td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>

@@ -79,20 +79,7 @@
       </div>
     <% end %>
 
-    <table>
-      <thead>
-        <th></th>
-        <th>Problem Description</th>
-        <th>Number of Persons Treated for Problem</th>
-        <th>Treatment Provided</th>
-        <th>Outcome or Recommended Follow-up</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td><a href="javascript:void(0)" class="button tiny radius">&plus;</a></td>
-        </tr>
-      </tbody>
-    </table>
+    <%= render "treatment_records/table", treatment_records: @post_event_treatment_report.treatment_records %>
   </fieldset>
 
   <fieldset>

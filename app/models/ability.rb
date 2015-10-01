@@ -8,6 +8,9 @@ class Ability
     else
       can :manage, Plan, :creator_id => user.id
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
+      can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
+      can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
       can :read, :all
     end

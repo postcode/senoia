@@ -1,0 +1,6 @@
+<tr class="treatment-record" id="treatment-record-<%= treatment_record.id %>">
+  <% %w(problem_description persons_count treatment outcome).each do |attribute| %>
+    <td><%= treatment_record.send(attribute) %></td>
+  <% end %>
+  <td><%= link_to "Remove", treatment_record, method: "DELETE", remote: true, data: { confirm: "Really remove this record?" } %></td>
+</tr>

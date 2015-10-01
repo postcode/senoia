@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930114937) do
+ActiveRecord::Schema.define(version: 20151001071309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -249,6 +249,18 @@ ActiveRecord::Schema.define(version: 20150930114937) do
     t.integer "user_id"
     t.boolean "contact"
   end
+
+  create_table "treatment_records", force: :cascade do |t|
+    t.integer  "post_event_treatment_report_id"
+    t.text     "problem_description"
+    t.integer  "persons_count"
+    t.text     "treatment"
+    t.text     "outcome"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "treatment_records", ["post_event_treatment_report_id"], name: "index_treatment_records_on_post_event_treatment_report_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",      null: false

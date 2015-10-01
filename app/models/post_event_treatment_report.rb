@@ -2,6 +2,8 @@ class PostEventTreatmentReport < ActiveRecord::Base
   belongs_to :plan
   belongs_to :creator
 
+  has_many :treatment_records, inverse_of: :post_event_treatment_report
+  
   VALID_MEDICAL_RESOURCE_SUFFICIENCY_OPTIONS = [ "too_few", "too_many", "appropriate" ]
   validates :medical_resource_sufficiency, inclusion: VALID_MEDICAL_RESOURCE_SUFFICIENCY_OPTIONS, allow_blank: true
 

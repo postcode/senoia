@@ -1,0 +1,11 @@
+<% form_id = SecureRandom.hex %>
+<tr class="js-form" data-url="<%= url_for([ @plan, @post_event_treatment_report, :treatment_records, format: :js ]) %>" id="<%= form_id %>">
+  <td><%= text_area_tag "treatment_record[problem_description]", class: "treatment_record_problem_description" %></td>
+  <td><%= text_field_tag "treatment_record[persons_count]" %></td>
+  <td><%= text_area_tag "treatment_record[treatment]" %></td>
+  <td><%= text_area_tag "treatment_record[outcome]" %></td>
+  <td>
+    <%= hidden_field_tag "form_id", form_id %>
+    <%= link_to "Save", "javascript:void(0);", class: "button tiny radius js-submit" %>
+  </td>
+</tr>
