@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="small-6 columns">
+  <div class="small-7 columns">
     
     <div class="row">
       <div class="small-4 columns input_label">
@@ -49,7 +49,7 @@
 
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-5 columns">
     <%= render "creator", creator: post_event_treatment_report.creator %>
   </div>
 </div>
@@ -63,13 +63,7 @@
 
 <hr/>
 
-<fieldset>
-  <legend>Treated and Released Patients</legend>
-</fieldset>
-
-<fieldset>
-  <legend>Transported Patients</legend>
-</fieldset>
+<%= render partial: "patient_reports_container" %>
 
 <hr/>
 
@@ -97,3 +91,7 @@
     <p><%= simple_format post_event_treatment_report.other_comments %></p>
   </div>
 </div>
+
+<hr/>
+
+
