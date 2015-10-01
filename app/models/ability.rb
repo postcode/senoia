@@ -11,8 +11,14 @@ class Ability
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
       can :read, :all
     end
+    cannot :edit, PostEventTreatmentReport, submitted: true
+    cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
+    cannot [ :edit, :destroy ], TransportationRecord, post_event_treatment_report: { submitted: true }
   end
 end
