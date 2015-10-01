@@ -1,6 +1,6 @@
 class PostEventTreatmentReport < ActiveRecord::Base
   belongs_to :plan
-  belongs_to :creator
+  belongs_to :creator, class_name: "User"
 
   has_many :supplementary_documents, as: :parent
   has_many :transportation_records, inverse_of: :post_event_treatment_report
