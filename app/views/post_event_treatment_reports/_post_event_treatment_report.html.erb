@@ -72,7 +72,13 @@
     <label><%= t ".medical_resource_sufficiency" %></label>
   </div>
   <div class="small-8 columns">
-    <p><%= post_event_treatment_report.medical_resource_sufficiency.humanize %></p>
+    <p>
+      <% if post_event_treatment_report.medical_resource_sufficiency %>
+        <%= post_event_treatment_report.medical_resource_sufficiency.humanize %>
+      <% else %>
+        N/A
+      <% end %>
+    </p>
   </div>
 </div>
 
