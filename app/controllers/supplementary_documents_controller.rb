@@ -1,7 +1,8 @@
 class SupplementaryDocumentsController < ApplicationController
 
   def new
-    @plan = Plan.find(params[:plan_id])
+    @parent = parent
+    authorize! :edit, @parent
     @s3_direct_post =
       AWS::S3.new.buckets[ENV["s3_bucket"]]
       .presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}",
@@ -10,16 +11,26 @@ class SupplementaryDocumentsController < ApplicationController
   end
   
   def create
-    @plan = Plan.find(params[:plan_id])
-    @supplementary_document = @plan.supplementary_documents.create(supplementary_document_params)
+    @parent = parent
+    authorize! :edit, @parent
+    @supplementary_document = @parent.supplementary_documents.create(supplementary_document_params)
   end
 
   def destroy
     @supplementary_document = SupplementaryDocument.find(params[:id])
+    authorize! :edit, @supplementary_document.parent
     @supplementary_document.destroy
   end
 
   private
+
+  def parent
+    if params[:plan_id]
+      Plan.find(params[:plan_id])
+    elsif params[:post_event_treatment_report_id]
+      PostEventTreatmentReport.find(params[:post_event_treatment_report_id])
+    end
+  end
 
   def supplementary_document_params
     params.require(:supplementary_document).permit(:name, :description, :file)

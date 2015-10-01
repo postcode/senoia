@@ -1,3 +1,3 @@
-$("#supplementary-document-modal").html('<%= j render "form", plan: @plan %>');
+$("#supplementary-document-modal").html('<%= j render "form", parent: @parent %>');
 $("#supplementary-document-modal [data-reveal]").foundation('reveal', 'open');
 initDirectUpload('<%= @s3_direct_post.url %>', <%= @s3_direct_post.fields.to_json.html_safe %>, '<%= @s3_direct_post.url.host %>');

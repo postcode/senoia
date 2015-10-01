@@ -1,7 +1,7 @@
 <fieldset id="supplementary-document-container">
   <legend>SUPPLEMENTARY DOCUMENTS</legend>
-  <%= render partial: "supplementary_documents/supplementary_document", collection: plan.supplementary_documents, spacer_template: "supplementary_documents/spacer" %>
-  <%= link_to [ :new, plan, :supplementary_document ], class: "button tiny radius", remote: true do %>
+  <%= render partial: "supplementary_documents/supplementary_document", collection: parent.supplementary_documents, spacer_template: "supplementary_documents/spacer" %>
+  <%= link_to [ :new, parent, :supplementary_document ], class: "button tiny radius", remote: true do %>
     <i class="fi-plus"></i> ADD DOCUMENT</a>
   <% end %>
   <div id="supplementary-document-modal"></div>

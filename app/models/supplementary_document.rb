@@ -1,7 +1,7 @@
 class SupplementaryDocument < ActiveRecord::Base
-  belongs_to :plan
+  belongs_to :parent, polymorphic: true
 
-  validates :plan, presence: true
+  validates :parent, presence: true
   validates :name, presence: true
   validates :file, presence: true
   
