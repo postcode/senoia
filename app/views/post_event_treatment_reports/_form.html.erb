@@ -97,20 +97,7 @@
         </div>
       </div>
     <% end %>
-    <table>
-      <thead>
-        <th></th>
-        <th>Chief Complaint</th>
-        <th>Transporting Unit</th>
-        <th>Destination</th>
-        <th>Time Patient Transported Off-site</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td><a href="javascript:void(0)" class="button tiny radius">&plus;</a></td>
-        </tr>
-      </tbody>
-    </table>
+    <%= render "transportation_records/table", transportation_records: @post_event_treatment_report.transportation_records %>
   </fieldset>
 
   <hr/>

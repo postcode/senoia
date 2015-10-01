@@ -25,5 +25,9 @@ module MedicalAsset
         provider_confirmation.deliver_email!
       end
     end
+
+    def to_s
+      name
+    end
   end
 end

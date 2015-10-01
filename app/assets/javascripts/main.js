@@ -1,4 +1,7 @@
-$(function() {
+
+window.senoia = {};
+
+window.senoia.initDatepickers = function() {
   $('.dateTimeSelect').fdatetimepicker({
     format: 'mm/dd/yyyy H:ii p'
   }); 
@@ -6,6 +9,11 @@ $(function() {
   $('.dateSelect').fdatepicker({
 		format: 'mm/dd/yyyy'
 	});
+}
+
+$(function() {
+
+  senoia.initDatepickers();
   
   $('#all_plans tbody tr').css('cursor', 'pointer')
   $('#all_plans tbody tr').click(function() {

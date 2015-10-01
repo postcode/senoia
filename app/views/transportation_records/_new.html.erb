@@ -1,0 +1,11 @@
+<% form_id = SecureRandom.hex %>
+<tr class="js-form" data-url="<%= url_for([ @plan, @post_event_treatment_report, :transportation_records, format: :js ]) %>" id="<%= form_id %>">
+  <td><%= text_area_tag "transportation_record[chief_complaint]" %></td>
+  <td><%= select_tag "transportation_record[transport_id]", options_for_select(@plan.transports.map{|x| [ x, x.id ] }), prompt: "(Please select)", allow_nil: true %></td>
+  <td><%= text_area_tag "transportation_record[destination]" %></td>
+  <td><%= text_field_tag "transportation_record[transported_at]", "", class: "dateTimeSelect" %></td>
+  <td>
+    <%= hidden_field_tag "form_id", form_id %>
+    <%= link_to "Save", "javascript:void(0);", class: "button tiny radius js-submit" %>
+  </td>
+</tr>
