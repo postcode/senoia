@@ -13,6 +13,7 @@ class PostEventTreatmentReportsController < ApplicationController
     if @post_event_treatment_report.update(post_event_treatment_report_params)
       redirect_to action: :show
     else
+      @post_event_treatment_report.submitted = false
       render action: :show
     end
   end
