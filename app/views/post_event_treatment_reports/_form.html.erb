@@ -1,4 +1,18 @@
 <%= simple_form_for [ @plan, @post_event_treatment_report ] do |f| %>
+  <div class="row">
+    <div class="small-12 columns">
+      <% if @post_event_treatment_report.errors.any? %>
+        <div id="error_explanation" class="panel callout">
+          <h2><%= pluralize(@post_event_treatment_report.errors.count, "error") %> prohibited this department from being saved:</h2>
+          <ul>
+            <% @post_event_treatment_report.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <div class="row">
     <div class="small-7 columns">
