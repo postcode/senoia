@@ -2,27 +2,7 @@ require_relative "./acceptance_helper"
 
 feature "Post Event Treatment Report" do
 
-  let(:plan) do
-    create(:accepted_plan,
-           creator: create(:user),
-           operation_periods: [ operation_period ])
-  end
-  
-  let(:operation_period) do
-    create(:operation_period,
-           transports: [ transport ])
-  end
-
-  let(:transport) { create(:transport) }
-
-  context "Plan Creator" do
-
-    background do
-      sign_in plan.creator
-      visit "/plans/#{plan.id}"
-      click_on "Post Event Treatment Report"
-    end
-
+  shared_examples "editable post event treatment report" do
     scenario "saves an incomplete report" do
       fill_in "Actual crowd size", with: 10000
       click_on "Save Draft"
@@ -88,7 +68,47 @@ feature "Post Event Treatment Report" do
       expect(page).to have_content document_name
     end
   end
+  
+  let(:plan) do
+    create(:accepted_plan,
+           creator: create(:user),
+           operation_periods: [ operation_period ])
+  end
+  
+  let(:operation_period) do
+    create(:operation_period,
+           transports: [ transport ])
+  end
 
+  let(:transport) { create(:transport) }
+
+  context "Plan Creator" do
+
+    background do
+      sign_in plan.creator
+      visit "/plans/#{plan.id}"
+      click_on "Post Event Treatment Report"
+    end
+
+    include_examples "editable post event treatment report"
+
+  end
+
+  context "Plan Editor" do
+
+    let(:editor) { create(:user) }
+    
+    background do
+      plan.users_who_can_edit << editor
+      sign_in editor
+      visit "/plans/#{plan.id}"
+      click_on "Post Event Treatment Report"
+    end
+
+    include_examples "editable post event treatment report"
+
+  end
+  
   def add_transportation_record
     within "#transportation-records" do
       click_on "+"
