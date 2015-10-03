@@ -10,6 +10,10 @@ class PostEventTreatmentReport < ActiveRecord::Base
   validates :medical_resource_sufficiency, inclusion: VALID_MEDICAL_RESOURCE_SUFFICIENCY_OPTIONS, allow_blank: true
 
   validates :plan, presence: true
+
+  %w(actual_crowd_size resource_differences medical_resource_sufficiency medical_resource_sufficiency_explanation).each do |attribute|
+    validates attribute, presence: true, if: :submitted?
+  end
   
   delegate :event_type, :start_date, :end_date, :attendance, to: :plan
   
