@@ -342,7 +342,7 @@ fieldset{
   &.active {
     border-left: 30px solid #f19b3b;
   } 
-  &.accepted {
+  &.approved {
     content: none;
     color: pink;
   }
@@ -510,7 +510,6 @@ input[type="checkbox"]{
   table {
     width: 100%;
   }
-
 }
 
 .map_container {
@@ -557,6 +556,9 @@ input[type="checkbox"]{
 
 }
 
+div.input.radio_buttons {
+  margin-top: 0.5rem;
+}
 .supplementary-document {
   margin-bottom: 1.5em;                            
 }

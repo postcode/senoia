@@ -2,13 +2,13 @@ require_relative "acceptance_helper"
 
 feature "Plan Index" do
 
-  let(:plan) { create(:plan_awaiting_review) }
-  let(:accepted_plan) { create(:accepted_plan) }
+  let(:plan) { create(:plan_under_review) }
+  let(:approved_plan) { create(:approved_plan) }
   let(:admin) { create(:admin) }
 
   before do
     plan
-    accepted_plan
+    approved_plan
   end
 
   context "Guest" do
@@ -17,11 +17,11 @@ feature "Plan Index" do
       visit "/plans"
     end
     
-    scenario "views accepted plans" do
-      expect(page).to have_content accepted_plan.name
+    scenario "views approved plans" do
+      expect(page).to have_content approved_plan.name
     end
     
-    scenario "can't see unaccepted plans" do
+    scenario "can't see unapproved plans" do
       expect(page).to have_no_content plan.name
     end
   end
@@ -36,17 +36,17 @@ feature "Plan Index" do
       visit "/plans"
     end
     
-    scenario "views accepted plans" do
-      expect(page).to have_content accepted_plan.name
+    scenario "views approved plans" do
+      expect(page).to have_content approved_plan.name
     end
     
-    scenario "views unaccepted plans" do
+    scenario "views unapproved plans" do
       expect(page).to have_content plan.name
     end
 
     scenario "filters by state", js: true do
       check "Approved"
-      expect(page).to have_content accepted_plan.name
+      expect(page).to have_content approved_plan.name
       expect(page).to_not have_content plan.name
       check "Under Review"
       expect(page).to have_content plan.name
@@ -61,7 +61,7 @@ feature "Plan Index" do
     scenario "filters by event type", js: true do
       check plan.event_type.name
       expect(page).to have_content plan.name
-      expect(page).to_not have_content accepted_plan.name
+      expect(page).to_not have_content approved_plan.name
     end
 
     scenario "sorts by attendance", js: true do
@@ -111,12 +111,12 @@ feature "Plan Index" do
       end
 
       scenario "sees only their plans by default" do
-        expect(page).to_not have_content accepted_plan.name
+        expect(page).to_not have_content approved_plan.name
       end
 
-      scenario "views accepted plans", js: true do
+      scenario "views approved plans", js: true do
         uncheck "My Plans"
-        expect(page).to have_content accepted_plan.name
+        expect(page).to have_content approved_plan.name
       end
     end
 
@@ -125,11 +125,11 @@ feature "Plan Index" do
         sign_in(user)
         visit "/plans"
       end
-      scenario "views accepted plans" do
-        expect(page).to have_content accepted_plan.name
+      scenario "views approved plans" do
+        expect(page).to have_content approved_plan.name
       end
       
-      scenario "can't see unaccepted plans" do
+      scenario "can't see unapproved plans" do
         expect(page).to have_no_content plan.name
       end
 

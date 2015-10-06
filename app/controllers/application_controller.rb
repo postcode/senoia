@@ -55,8 +55,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:name, :email) }
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ roles: [] }, :email, :password, :password_confirmation, :name, :current_password) }
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:name, :email, :phone_number) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :name, :current_password, :phone_number) }
   end
 
   def set_current_user

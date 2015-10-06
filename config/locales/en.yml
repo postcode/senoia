@@ -22,6 +22,17 @@
 en:
   hello: "Hello world"
 
+  simple_form:
+    labels:
+      plan: &PlanAttributes
+        alcohol: Alcohol Present
+        permitter: Permitting Agency
+        event_type: Event Type
+
+  plans:
+    show: *PlanAttributes
+
+  
   time:
     formats:
       default: "%m/%d/%Y %l:%M %P"
@@ -53,6 +64,6 @@ en:
         created: "New comment on your medical plan"
       plan:
         submitted: "New medical plan submitted: %{subject}"
-        reviewed: "Medical plan %{subject} needs revision"
-        accepted: "Your medical plan %{subject} has been approved"
+        revision_requested: "Medical plan %{subject} needs revision"
+        approved: "Your medical plan %{subject} has been approved"
         rejected: "Your medical plan %{subject} has been rejected"

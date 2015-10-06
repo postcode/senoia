@@ -16,6 +16,8 @@ class Ability
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
       can :read, :all
+      cannot :read, User
+      cannot :index, User
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }

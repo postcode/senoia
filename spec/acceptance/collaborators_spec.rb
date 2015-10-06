@@ -3,7 +3,7 @@ require_relative "acceptance_helper"
 feature "Collaborators" do
 
   let(:admin) { FactoryGirl.create(:admin) }
-  let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+  let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review") }
   let(:invite_email_address) { Faker::Internet.email }
 
   context "Admin", js: true do

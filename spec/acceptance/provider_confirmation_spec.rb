@@ -3,7 +3,7 @@ require_relative "./acceptance_helper"
 feature "Medical Provider Confirmation" do
 
   let(:admin) { create(:admin) }
-  let(:plan) { create(:plan_awaiting_review, operation_periods: [ create(:operation_period) ]) }
+  let(:plan) { create(:plan_under_review, operation_periods: [ create(:operation_period) ]) }
   let(:operation_period) { plan.operation_periods.first }
   let(:contact) { create(:medical_contact) }
   let(:provider) { contact.providers.first }

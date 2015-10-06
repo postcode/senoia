@@ -53,17 +53,17 @@ class Plan < ActiveRecord::Base
   include Workflow
   workflow do
     state :draft do
-      event :submit, :transitions_to => :awaiting_review
+      event :submit, :transitions_to => :under_review
     end
-    state :awaiting_review do
-      event :review, :transitions_to => :being_reviewed
-      event :accept, :transitions_to => :accepted
+    state :under_review do
+      event :request_revision, :transitions_to => :revision_requested
+      event :approve, :transitions_to => :approved
     end
-    state :being_reviewed do
-      event :accept, :transitions_to => :accepted, :if => Proc.new(&:all_comments_resolved?)
+    state :revision_requested do
+      event :approve, :transitions_to => :approved, :if => Proc.new(&:all_comments_resolved?)
       event :reject, :transitions_to => :rejected
     end
-    state :accepted
+    state :approved
     state :rejected
   end
 
@@ -71,12 +71,12 @@ class Plan < ActiveRecord::Base
     send_notifications_on_submit
   end
 
-  def review
-    send_notifications_on_review
+  def request_revision
+    send_notifications_on_request_revision
   end
 
-  def accept
-    send_notifications_on_accept
+  def approve
+    send_notifications_on_approve
   end
 
   def reject
@@ -218,12 +218,12 @@ class Plan < ActiveRecord::Base
       end
     end
 
-    def send_notifications_on_review
-      notify_stakeholders("reviewed")
+    def send_notifications_on_request_revision
+      notify_stakeholders("revision_requested")
     end
 
-    def send_notifications_on_accept
-      notify_stakeholders("accepted")
+    def send_notifications_on_approve
+      notify_stakeholders("approved")
     end
 
     def send_notifications_on_reject

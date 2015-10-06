@@ -1,0 +1,7 @@
+<tr>
+  <% %w(name location provider contact_name contact_phone).each do |attribute| %>
+    <td>
+      <%= dispatch.send(attribute) %>
+    </td>
+  <% end %>
+</tr>

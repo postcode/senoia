@@ -41,8 +41,7 @@ $(function() {
   $(".day-alert").parent().addClass("day-alert")
   $(".day-normal").parent().addClass("day-normal")
 
-  $('.comment').click(function(e) {
-    e.preventDefault();
+  $("body").on("click", '.comment', function() {
     $(this).siblings('.new-comment-area').toggle();
   })
 
@@ -85,7 +84,7 @@ $(function() {
 
   var updatePermitterContactInfo = function() {
     var activePermitterId = $("#plan_permitter_id").val();
-    $(".permitter").hide();
+    $(".permitter.hidden").hide();
     if(activePermitterId) {
       $("[data-permitter-id=" + activePermitterId + "]").show();
     }
