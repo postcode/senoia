@@ -38,7 +38,7 @@ RSpec.describe PlansController do
   end
 
   describe 'GET show' do
-    let(:plan) { FactoryGirl.create(:plan) }
+    let(:plan) { FactoryGirl.create(:approved_plan) }
     context 'when there is a plan' do
       it 'renders the show page' do
         get :show, id: plan.id

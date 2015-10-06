@@ -11,7 +11,7 @@ class PlansController < ApplicationController
     if view_own_plans?
       plans_scope = plans_scope.affiliated_to(current_user) 
     elsif !current_user.try(:admin?)
-      plans_scope = plans_scope.with_accepted_state
+      plans_scope = plans_scope.with_approved_state
     end
     
     plans_scope = plans_scope.search(params[:query] || { })
@@ -32,10 +32,16 @@ class PlansController < ApplicationController
     @count = 0
     @permitters = Permitter.order("name ASC")
     
-    if @plan.accepted?
-      render 'plans/show_accepted'
+    if @plan.approved?
+      if current_user.try(:is_admin?)
+        render "plans/show_approved"
+      else
+        render "plans/show"
+      end
+    elsif can? :edit, @plan
+      render "plans/edit"
     else
-      render 'plans/show'
+      render "plans/show"
     end
   end
 
@@ -197,7 +203,6 @@ class PlansController < ApplicationController
               :alcohol,
               :event_type_id,
               :permitter_id,
-              :workflow_state,
               :owner_id,
               :post_event_name,
               :post_event_email,

@@ -1,182 +1,142 @@
-<%= f.simple_fields_for :operation_periods, operation_period do |op| %>
-  <div class="content <%= "active" if count == 1 %> <%= "operation-period-#{op.object.id}" %>" id="panel<%= count %>">
-
-    <% if op.object.persisted? %>
-      <div class="row">
-        <div class="large-12 columns">
-          <%= link_to "Clone", [ operation_period, :clones ], method: "POST", remote: true, class: "button primary tiny radius" %>
-          <%= link_to operation_period, method: "DELETE", remote: true, class: "button alert right tiny radius", data: { confirm: "Are you sure you want to remove this operational period?" } do %>
-            <i class="fi-x"></i>
-            Remove
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
-    <%= op.input_field :id, as: :hidden %>
-    
-    <div class="row">
-      <div class="small-2 columns input_label">
-        <%= op.label :start_date, class: "inline", label: "START" %>
-      </div>
-      <div class="small-4 columns">
-        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateTimeSelect", value: l(op.object.start_date).squeeze(" ") %>
-      </div>
-      <div class="large-4 columns">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_start_date" %>
-      </div>
+<div class="content <%= "active" if count == 1 %> <%= "operation-period-#{operation_period.id}" %>" id="panel<%= count %>">
+  
+  <div class="row">
+    <div class="small-2 columns input_label">
+      <label>Start</label>
     </div>
-    <div class="row">
-      <div class="small-2 columns input_label">
-        <%= op.label :end_date, class: "inline", label: "END" %>
-      </div>
-      <div class="small-4 columns">
-        <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: l(op.object.end_date).squeeze(" ") %>
-      </div>
-      <div class="large-4 columns">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_end_date" %>
-      </div>
-    </div>        
-    <div class="row">
-      <div class="small-2 columns input_label">
-        <%= op.label :attendance, class: "inline" do %>
-          Crowd Size
-        <% end %>
-      </div>
-      <div class="small-4 columns">
-        <%= op.input :attendance, label: false, input_html: { id: "#{op.object.id}_attendance"} %>
-      </div>
-      <div class="large-4 columns">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_attendance" %>
-      </div>
+    <div class="small-4 columns">
+      <p><%= l(operation_period.start_date) %></p>
     </div>
-    <div class="row">
-      <div class="large-9 columns">
-        <fieldset>
-          <div class="row">
-            <legend>FIRST AID STATIONS</legend>
-            <table class="first_aid_table">
-              <thead>
-                <th>Name</th>
-                <th>Location</th>
-                <th width="75">Level</th>
-                <th>MDs</th>
-                <th>RNs</th>
-                <th>EMTs</th>
-                <th>AEDs</th>
-                <th>Provider</th>
-                <th>Contact Name</th>
-                <th>Contact Phone</th>
-              </thead>
-              <tbody>
-                <%= render 'plans/first_aid_stations_show', op: op %>
-              </tbody>
-            </table>
-
-            <div class="large-12 columns">
-              <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
-              <%= render partial: 'plans/new_first_aid_station', :locals => { :operation_period => op.object, :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
-            </div>  
-          </div>
-        </fieldset>
-      </div>
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_first_aid_stations" %>
-      </div>          
-    </div>
-    <div class="row">
-      <div class="large-9 columns">
-        <fieldset>
-          <legend>MOBILE TEAMS</legend>
-          <div class="row">          
-            <table id="mobile_team_table">
-              <thead>
-                <th>Name</th>
-                <th>Location</th>
-                <th width="75">Level</th>
-                <th width="75">Type</th>
-                <th>AEDs</th>
-                <th>Provider</th>
-                <th>Contact Name</th>
-                <th>Contact Phone</th>
-              </thead>
-              <tbody>
-                <%= render 'plans/mobile_team_show', op: op %>
-              </tbody>
-            </table> 
-            <div class="large-12 columns"> 
-              <%= link_to add_mobile_team_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
-                <i class="fi-plus"></i> ADD MOBILE TEAM
-              <% end %>
-            </div>
-          </div> 
-        </fieldset>
-      </div>  
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_mobile_teams" %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-9 columns">
-        <fieldset>
-          <div class="row">              
-            <legend>TRANSPORT</legend>
-            <%= simple_fields_for :transports do |t| %>
-              <table id="transport_table">
-                <thead>
-                  <th>Name</th>
-                  <th>Location</th>
-                  <th>Provider</th>
-                  <th>Contact Name</th>
-                  <th>Contact Phone</th>
-                </thead>
-                <tbody>
-                  <%= render 'plans/transport_show', op: op %>
-                </tbody>
-              </table>
-              <div class="large-12 columns"> 
-                <%= link_to add_transport_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_transport"  do %> 
-                  <i class="fi-plus"></i> ADD TRANSPORT
-                <% end %>
-              </div> 
-            <% end %>
-          </div>
-        </fieldset>
-      </div>
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_transport" %>
-      </div>
-    </div>   
-    <div class="row">
-      <div class="large-9 columns">            
-        <fieldset>
-          <div class="row">              
-            <legend>DISPATCH</legend>
-            <%= simple_fields_for :dispatchs do |d| %>
-              <table id="dispatch_table">
-                <thead>
-                  <th>Name</th>
-                  <th>Provider</th>
-                  <th>Contact Name</th>
-                  <th>Contact Phone</th>
-                </thead>
-                <tbody>
-                  <%= render 'plans/dispatch_show', op: op %>
-                </tbody>
-              </table>
-              <div class="large-12 columns"> 
-                <%= link_to add_dispatch_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_dispatch"  do %> 
-                  <i class="fi-plus"></i> ADD DISPATCH
-                <% end %> 
-              </div>
-            <% end %>
-          </div>
-        </fieldset>
-      </div>
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_dispatch" %>
-      </div>          
+    <div class="large-4 columns">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_start_date" %>
     </div>
   </div>
-<% end %>
+  <div class="row">
+    <div class="small-2 columns input_label">
+      <label>End</label>
+    </div>
+    <div class="small-4 columns">
+      <p><%= l(operation_period.end_date) %></p>
+    </div>
+    <div class="large-4 columns">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_end_date" %>
+    </div>
+  </div>        
+  <div class="row">
+    <div class="small-2 columns input_label">
+      <label>Crowd Size</label>
+    </div>
+    <div class="small-4 columns">
+      <p><%= @plan.attendance %></p>
+    </div>
+    <div class="large-4 columns">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_attendance" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-9 columns">
+      <fieldset>
+        <legend>FIRST AID STATIONS</legend>
+        <div class="row">
+          <table class="first_aid_table">
+            <thead>
+              <th>Name</th>
+              <th>Location</th>
+              <th width="75">Level</th>
+              <th>MDs</th>
+              <th>RNs</th>
+              <th>EMTs</th>
+              <th>AEDs</th>
+              <th>Provider</th>
+              <th>Contact Name</th>
+              <th>Contact Phone</th>
+            </thead>
+            <tbody>
+              <%= render partial: "first_aid_stations/row", collection: operation_period.first_aid_stations, as: :first_aid_station %>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_first_aid_stations" %>
+    </div>          
+  </div>
+  <div class="row">
+    <div class="large-9 columns">
+      <fieldset>
+        <legend>MOBILE TEAMS</legend>
+        <div class="row">          
+          <table id="mobile_team_table">
+            <thead>
+              <th>Name</th>
+              <th>Location</th>
+              <th width="75">Level</th>
+              <th width="75">Type</th>
+              <th>AEDs</th>
+              <th>Provider</th>
+              <th>Contact Name</th>
+              <th>Contact Phone</th>
+            </thead>
+            <tbody>
+              <%= render partial: "mobile_teams/row", collection: operation_period.mobile_teams, as: :mobile_team %>
+            </tbody>
+          </table> 
+        </div> 
+      </fieldset>
+    </div>  
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_mobile_teams" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-9 columns">
+      <fieldset>
+        <legend>TRANSPORTs</legend>
+        <div class="row">              
+          <%= simple_fields_for :transports do |t| %>
+            <table id="transport_table">
+              <thead>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Provider</th>
+                <th>Contact Name</th>
+                <th>Contact Phone</th>
+              </thead>
+              <tbody>
+                <%= render partial: "transports/row", collection: operation_period.transports, as: :transport %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_transport" %>
+    </div>
+  </div>   
+  <div class="row">
+    <div class="large-9 columns">            
+      <fieldset>
+        <legend>DISPATCHES</legend>
+        <div class="row">              
+          <table id="dispatch_table">
+            <thead>
+              <th>Name</th>
+              <th>Provider</th>
+              <th>Contact Name</th>
+              <th>Contact Phone</th>
+            </thead>
+            <tbody>
+              <%= render partial: "dispatches/row", collection: operation_period.dispatchs, as: :dispatch %>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_dispatch" %>
+    </div>          
+  </div>
+</div>

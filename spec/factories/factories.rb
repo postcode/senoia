@@ -25,12 +25,20 @@ FactoryGirl.define do
     event_type
     operation_periods = FactoryGirl.create(:operation_period)
 
-    factory :plan_awaiting_review do
-      workflow_state :awaiting_review
+    factory :plan_under_review do
+      workflow_state :under_review
+    end
+    
+    factory :draft do
+      workflow_state :draft
     end
 
-    factory :accepted_plan do
-      workflow_state :accepted
+    factory :plan_requiring_revision do
+      workflow_state :revision_requested
+    end
+
+    factory :approved_plan do
+      workflow_state :approved
     end
   end
 
@@ -48,6 +56,7 @@ FactoryGirl.define do
     name { Faker::Lorem.words(3).join(" ") }
     phone_number { Faker::PhoneNumber.phone_number }
     address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
+    email { Faker::Internet.email }
   end
 
   factory :first_aid_station do

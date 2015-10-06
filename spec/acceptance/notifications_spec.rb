@@ -7,7 +7,7 @@ feature "Notifications", js: true do
   
   context "Creator" do
 
-    let(:plan) { create(:plan_awaiting_review, creator: creator) }
+    let(:plan) { create(:plan_under_review, creator: creator) }
     
     context "when their plan is reviewed" do
 

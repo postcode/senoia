@@ -17,12 +17,12 @@
           <li class="accordion-navigation">
 
             <%= link_to "#plan-panel-#{plan.id}" do %>
-              <%= pluralize(plan.comment_threads.select(&:open?).count, "comment") %>
+              <%= pluralize(plan.root_comments.select(&:open?).count, "comment") %>
             <% end %>
 
             <div id="plan-panel-<%= plan.id %>" class="content">
-              <% plan.comment_threads.select(&:open?).each do |comment| %>
-                <%= render comment %>
+              <% plan.root_comments.select(&:open?).each do |thread| %>
+                <%= render "thread", root_comment: thread %>
               <% end %>
             </div>
 

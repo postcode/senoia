@@ -1,0 +1,141 @@
+<%= simple_form_for @plan do |f| %>
+  <% if @plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@plan.errors.count, "error") %> prohibited this department from being saved:</h2>
+      <ul>
+        <% @plan.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="large-12 columns">
+    <div class="row">
+      <div class="large-7 columns pageTitle">
+        <h1><%= f.input :name, label: false %></h1>
+      </div>
+      <div class="large-3 columns text-right pageTitle">
+        <p><em>UPDATED: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
+      </div>
+    </div>
+  </div>
+  <%= render 'plan_state' %>
+  <div class="large-12 columns plan_form">
+    <div class="row">
+      <div class="large-8 columns">
+        <fieldset>
+          <legend>EVENT PLAN CREATOR</legend>   
+          <% if @plan.creator.present? %>
+            <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
+            <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
+          <% else %>
+            <%= f.association :creator,
+                              collection: User.all,
+                              label_method: :email,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false %>
+          <% end %> 
+        </fieldset>   
+      </div>
+      <div class="large-4 columns end">
+        <%= render 'comment_form', plan: @plan, title: "contact" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-8 columns">
+        <fieldset>
+          <legend>COLLABORATORS</legend>
+          <div class="row">
+            <div class="large-9 columns">
+              <table id="users_table">
+                <thead>
+                  <th>Email</th>
+                  <th>Role</th>
+                </thead>
+                <tbody>
+                  <% @plan.users.each do |user| %>
+                    <tr>
+                      <td><%= user.email %></td>
+                      <td><%= PlanUser.where(user_id: user.id, plan_id: @plan.id).first.present? ? PlanUser.where(user_id: user.id, plan_id: @plan.id).first.role : nil %></td>
+                      <td><%= link_to "Remove", remove_user_plan_path(plan_id: @plan.id, user_id: user.id), method: :delete %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>  
+            <div class="large-3 columns">
+              <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user" class="button tiny radius"><i class="fi-plus"></i> ADD USERS</a>
+              <%= render 'new_plan_user', :plan => @plan %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="large-4 columns end">
+        <% if @plan.id.present? && !@plan.draft? %>
+          <%= render 'comment_form', plan: @plan, title: "collaborators" %>
+        <% end %>
+      </div>
+    </div>          
+  </div>
+  <div class="row">
+    <div class="small-3 columns input_label">
+      <%= f.label :event_type %>
+    </div>
+    <div class="small-5 columns">
+      <% if can? :edit, @plan %>
+        <%= f.association :event_type,
+        collection: EventType.all,
+        label_method: :name,
+        value_method: :id,
+        include_blank: false,
+        label: false %>
+      <% else %>
+        <p>
+          <%= @plan.event_type %>
+        </p>
+      <% end %>
+    </div>
+    <div class="large-4 columns end">
+      <%= render 'comment_form', plan: @plan, title: "event_type" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-3 columns input_label">
+      <%= f.label :permitter, class: "inline", required: true %>
+    </div>
+    <div class="small-5 columns">
+      <%= f.association :permitter,
+                        collection: @permitters,
+                        label_method: :name,
+                        value_method: :id,
+                        include_blank: false,
+                        label: false,
+                        prompt: "(Please select)"%>
+      <%= render partial: "permitters/permitter", collection: @permitters %>
+    </div>
+    <div class="large-4 columns end">
+      <%= render 'comment_form', plan: @plan, title: "permitter" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns input_label">
+      <%= f.label :alcohol, class: "inline", required: true %>
+    </div>
+    <div class="small-5 columns">
+      <%= f.input :alcohol, as: :radio_buttons, label: false %>
+    </div>
+    <div class="large-4 columns end">
+      <%= render 'comment_form', plan: @plan, title: "alcohol" %>
+    </div>
+  </div>
+  <hr/>
+
+  <%= render "operation_periods_container", f: f %>
+
+  <%= render 'plan_agreement' %>
+
+  <%= render 'actions', f: f, plan: @plan %>
+
+<% end %> 
