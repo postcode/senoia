@@ -576,6 +576,3 @@ DEPENDENCIES
   unicorn
   unicorn-worker-killer
   workflow
-
-BUNDLED WITH
-   1.10.6
