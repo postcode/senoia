@@ -92,7 +92,7 @@ FactoryGirl.define do
   end
 
   factory :supplementary_document do
-    plan
+    parent { plan }
     name { Faker::Lorem.words(3).join(" ") }
     file { Rack::Test::UploadedFile.new(File.join(Rails.root, 'README.rdoc')) }
   end

@@ -38,7 +38,10 @@ class Plan < ActiveRecord::Base
   has_many :operation_periods
   has_many :comments, as: :commentable
   has_many :invitations, inverse_of: :plan, dependent: :destroy
-  has_many :supplementary_documents
+  has_many :supplementary_documents, as: :parent
+  has_many :transports, -> { uniq }, through: :operation_periods
+
+  has_one :post_event_treatment_report
 
   accepts_nested_attributes_for :event_type, :operation_periods, :owner
 

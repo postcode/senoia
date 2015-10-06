@@ -1,0 +1,26 @@
+<table id="transportation-records">
+  <thead>
+    <th>Chief Complaint</th>
+    <th>Transporting Unit</th>
+    <th>Destination</th>
+    <th>Time Patient Transported Off-site</th>
+    <% if can? :edit, @post_event_treatment_report %>
+      <th></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% transportation_records.each do |record| %>
+      <%= render record %>
+    <% end %>
+    <% if can? :edit, @post_event_treatment_report %>
+      <tr id="new-transportation-record">
+        <td>
+          <%= link_to [ :new, @plan, @post_event_treatment_report, :transportation_record, format: :js ], class: "button tiny radius", id: "neww-transportation-record", remote: true do %>
+            &plus;
+          <% end %>
+        </td>
+        <td colspan="4"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

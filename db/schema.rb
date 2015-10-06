@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924133012) do
+ActiveRecord::Schema.define(version: 20151001140057) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,8 +139,10 @@ ActiveRecord::Schema.define(version: 20150924133012) do
     t.datetime "end_date"
     t.integer  "attendance"
     t.integer  "plan_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "patients_treated_count"
+    t.integer  "patients_transported_count"
   end
 
   create_table "permitters", force: :cascade do |t|
@@ -182,6 +185,21 @@ ActiveRecord::Schema.define(version: 20150924133012) do
     t.integer  "creator_id"
   end
 
+  create_table "post_event_treatment_reports", force: :cascade do |t|
+    t.integer  "plan_id"
+    t.integer  "creator_id"
+    t.integer  "actual_crowd_size"
+    t.text     "resource_differences"
+    t.string   "medical_resource_sufficiency"
+    t.text     "medical_resource_sufficiency_explanation"
+    t.text     "other_comments"
+    t.boolean  "submitted"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "post_event_treatment_reports", ["plan_id"], name: "index_post_event_treatment_reports_on_plan_id", using: :btree
+
   create_table "provider_confirmations", force: :cascade do |t|
     t.integer  "provider_id"
     t.integer  "medical_asset_id"
@@ -210,10 +228,24 @@ ActiveRecord::Schema.define(version: 20150924133012) do
     t.text     "name"
     t.text     "description"
     t.text     "file"
-    t.integer  "plan_id"
+    t.integer  "parent_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "parent_type"
   end
+
+  create_table "transportation_records", force: :cascade do |t|
+    t.integer  "post_event_treatment_report_id"
+    t.text     "chief_complaint"
+    t.integer  "transport_id"
+    t.text     "destination"
+    t.datetime "transported_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "transportation_records", ["post_event_treatment_report_id"], name: "index_transportation_records_on_post_event_treatment_report_id", using: :btree
+  add_index "transportation_records", ["transport_id"], name: "index_transportation_records_on_transport_id", using: :btree
 
   create_table "transports", force: :cascade do |t|
     t.string   "name"
@@ -234,6 +266,18 @@ ActiveRecord::Schema.define(version: 20150924133012) do
     t.integer "user_id"
     t.boolean "contact"
   end
+
+  create_table "treatment_records", force: :cascade do |t|
+    t.integer  "post_event_treatment_report_id"
+    t.text     "problem_description"
+    t.integer  "persons_count"
+    t.text     "treatment"
+    t.text     "outcome"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "treatment_records", ["post_event_treatment_report_id"], name: "index_treatment_records_on_post_event_treatment_report_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",      null: false

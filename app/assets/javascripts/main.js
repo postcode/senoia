@@ -1,4 +1,7 @@
-$(function() {
+
+window.senoia = {};
+
+window.senoia.initDatepickers = function() {
   $('.dateTimeSelect').fdatetimepicker({
     format: 'mm/dd/yyyy H:ii p'
   }); 
@@ -6,6 +9,11 @@ $(function() {
   $('.dateSelect').fdatepicker({
 		format: 'mm/dd/yyyy'
 	});
+}
+
+$(function() {
+
+  senoia.initDatepickers();
   
   $('#all_plans tbody tr').css('cursor', 'pointer')
   $('#all_plans tbody tr').click(function() {
@@ -98,11 +106,22 @@ $(function() {
     $.post(url, data);
   });
 
-  $("body").on("click", ".js-form .js-submit", function() {
+  window.senoia.submitForm = function() {
     var form = $(this).closest(".js-form");
     var data = form.find(":input").serialize();
     var url = form.data().url
-    $.post(url, data);
+    var method = "POST";
+    if (form.data().method == "PUT") {
+      var method = "PUT";
+    }
+    $.ajax(url, { method: method, data: data });
+  }
+
+  $("body").on("click", ".js-form .js-submit", function() {
+    senoia.submitForm.apply(this);
   });
 
+  $("body").on("blur", ".js-form .js-submit-on-blur", function() {
+    senoia.submitForm.apply(this);
+  });
 });

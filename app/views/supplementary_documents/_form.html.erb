@@ -2,7 +2,7 @@
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   <h3>Add Supplementary Document</h3>
   <div class="modal-body">
-    <div class="document-form js-form", data-url="<%= url_for [ plan, :supplementary_documents ] %>">
+    <div class="document-form js-form", data-url="<%= url_for [ parent, :supplementary_documents ] %>">
       <%= simple_fields_for :supplementary_document, SupplementaryDocument.new do |f| %>
         <%= f.input :name, as: :string %>
         <%= f.input :description %>

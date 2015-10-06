@@ -8,7 +8,7 @@ feature "Supplementary Documents" do
   context "Creator", js: true do
     
     background do
-      @document = create(:supplementary_document, plan: plan)
+      @document = create(:supplementary_document, parent: plan)
       sign_in(creator)
       visit "/plans/#{plan.id}"
     end

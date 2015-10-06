@@ -43,8 +43,21 @@ en:
       awaiting_review: Under Review
       being_reviewed: Revision Requested
       accepted: Approved
-  
 
+  simple_form:
+    labels:
+      post_event_treatment_report: &PostEventTreatmentReportAttributes
+        resource_differences: "Describe differences between planned and actual resources"
+        medical_resource_sufficiency: "Planned Medical Resources"
+        medical_resource_sufficiency_explanation: "Please Explain"
+        other_comments: "Other comments or areas of improvement"
+        attendance: "Expected crowd size"
+
+  post_event_treatment_reports:
+    form: *PostEventTreatmentReportAttributes
+    post_event_treatment_report: *PostEventTreatmentReportAttributes
+
+      
   notification_mailer:
     subject:
       comment:

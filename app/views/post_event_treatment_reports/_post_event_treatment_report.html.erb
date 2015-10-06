@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="small-7 columns">
+    
+    <div class="row">
+      <div class="small-4 columns input_label">
+        <label><%= t ".event_type" %></label>
+      </div>
+      <div class="small-8 columns">
+        <p>
+          <%= post_event_treatment_report.event_type %>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-4 columns input_label">
+        <label><%= t ".event_date" %></label>
+      </div>
+      <div class="small-8 columns">
+        <p>
+          <%= l post_event_treatment_report.start_date if post_event_treatment_report.start_date %>
+          to
+          <%= l post_event_treatment_report.end_date if post_event_treatment_report.end_date %>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-5 columns input_label">
+        <label><%= t ".attendance" %></label>
+      </div>
+      <div class="small-5 columns">
+        <p>
+          <%= post_event_treatment_report.attendance %>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-5 columns input_label">
+        <label><%= t ".actual_crowd_size" %></label>
+      </div>
+      <div class="small-5 columns">
+        <p>
+          <%= post_event_treatment_report.actual_crowd_size %>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="small-5 columns">
+    <%= render "creator", creator: post_event_treatment_report.creator %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns input_label">
+    <label><%= t ".resource_differences" %></label>
+    <p><%= simple_format post_event_treatment_report.resource_differences %></p>
+  </div>
+</div>
+
+<hr/>
+
+<%= render partial: "patient_reports_container" %>
+
+<hr/>
+
+<div class="row">
+  <div class="small-4 columns input_label">
+    <label><%= t ".medical_resource_sufficiency" %></label>
+  </div>
+  <div class="small-8 columns">
+    <p>
+      <% if post_event_treatment_report.medical_resource_sufficiency %>
+        <%= post_event_treatment_report.medical_resource_sufficiency.humanize %>
+      <% else %>
+        N/A
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns input_label">
+    <label><%= t ".medical_resource_sufficiency_explanation" %></label>
+    <p><%= simple_format post_event_treatment_report.medical_resource_sufficiency_explanation %></p>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
+  <div class="small-12 columns input_label">
+    <label><%= t ".other_comments" %></label>
+    <p><%= simple_format post_event_treatment_report.other_comments %></p>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= render "supplementary_documents/index", parent: @post_event_treatment_report %>
+  </div>
+</div>
+
+

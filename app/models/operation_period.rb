@@ -26,24 +26,15 @@ class OperationPeriod < ActiveRecord::Base
   validates :start_date, presence: true
   validates :end_date, presence: true
   
-  DEFAULT_DATETIME_FORMAT = "%m/%d/%Y %H:%M %p"
+  include CustomDateTimeFormat
+  use_custom_datetime_format_for :start_date, :end_date
 
-  def start_date=(new_end_date)
-    super parse_date_time_if_in_preferred_format(new_end_date)
-  end
-
-  def end_date=(new_end_date)
-    super parse_date_time_if_in_preferred_format(new_end_date)
-  end
-
-  private
-
-  def parse_date_time_if_in_preferred_format(date_time)
-    if date_time =~ /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/
-      DateTime.strptime(date_time, DEFAULT_DATETIME_FORMAT)
-    else
-      date_time
-    end
+  def to_s
+    [
+     start_date.strftime(DEFAULT_DATETIME_FORMAT),
+     "to",
+     end_date.strftime(DEFAULT_DATETIME_FORMAT)
+    ].join(" ")
   end
   
 end

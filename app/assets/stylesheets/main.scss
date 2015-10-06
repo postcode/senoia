@@ -479,6 +479,7 @@ input[type="checkbox"]{
 .plan-state{
   .button{
     background: $mediumgray;
+    line-height: 2.7em;
   }
 }
 .review {
@@ -488,12 +489,27 @@ input[type="checkbox"]{
       border-left: 30px solid #f19b3b;
     }
   }
-  // &.approved {
-  //   border-right: 30px solid $mediumgray;
-  //   &:after {
-  //     content: none;
-  //   }
-  // }
+   &.accepted {
+     border-right: 28px solid $mediumgray;
+     &.active {
+       border-right: 28px solid #f19b3b;
+     }
+     &:before, &:after {
+       content: none;
+     }
+   }
+}
+
+#post-event-treatment-report {
+  .plan-state {
+    .button.post-event-treatment-report {
+      background: #f19b3b;
+    }
+  }
+
+  table {
+    width: 100%;
+  }
 }
 
 .map_container {
@@ -546,3 +562,4 @@ div.input.radio_buttons {
 .supplementary-document {
   margin-bottom: 1.5em;                            
 }
+

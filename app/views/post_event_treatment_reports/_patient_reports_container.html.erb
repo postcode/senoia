@@ -1,0 +1,56 @@
+<fieldset>
+  <legend>Treated and Released Patients</legend>
+  <p>
+    <strong>Total number of patients treated per operational period:</strong>
+  </p>
+  <% @plan.operation_periods.each do |op| %>
+    <div class="row">
+      <div class="small-5 columns">
+        <label class="inline right">- <%= op %>:</label>
+      </div>
+      <div class="small-2 columns end js-form" data-url="<%= url_for op %>" data-method="PUT">
+        <% if can? :edit, @post_event_treatment_report %>
+          <%= fields_for op do |g| %>
+            <%= g.number_field "patients_treated_count", class: "inline js-submit-on-blur", style: "text-align:center" %>
+          <% end %>
+        <% else %>
+          <p>
+            <label class="inline">
+              <%= op.patients_treated_count || "N/A" %>
+            </label>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= render "treatment_records/table", treatment_records: @post_event_treatment_report.treatment_records %>
+</fieldset>
+
+<fieldset>
+  <legend>Transported Patients</legend>
+  <p>
+    <strong>Total number of patients transported per operational period:</strong>
+  </p>
+  <% @plan.operation_periods.each do |op| %>
+    <div class="row">
+      <div class="small-5 columns">
+        <label class="inline right">- <%= op %>:</label>
+      </div>
+      <div class="small-2 columns end js-form" data-url="<%= url_for op %>" data-method="PUT">
+        <% if can? :edit, @post_event_treatment_report %>
+          <%= fields_for op do |g| %>
+            <%= g.number_field "patients_transported_count", class: "inline js-submit-on-blur", style: "text-align:center" %>
+          <% end %>
+        <% else %>
+          <p>
+            <label class="inline">
+              <%= op.patients_transported_count || "N/A" %>
+            </label>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <%= render "transportation_records/table", transportation_records: @post_event_treatment_report.transportation_records %>
+</fieldset>
