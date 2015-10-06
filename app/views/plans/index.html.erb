@@ -63,23 +63,23 @@
                   </label>
                 </div>
                 <div>
-                  <%= hidden_field_tag "query[state][awaiting_review]", "0", id: "awaiting" %>
+                  <%= hidden_field_tag "query[state][under_review]", "0", id: "under_review" %>
                   <label>
-                    <%= check_box_tag "query[state][awaiting_review]" %>
+                    <%= check_box_tag "query[state][under_review]" %>
                     <span>Under Review</span>
                   </label>
                 </div>
                 <div>
-                  <%= hidden_field_tag "query[state][being_reviewed]", "0", id: "reviewing" %>
+                  <%= hidden_field_tag "query[state][revision_requested]", "0", id: "revision_requested" %>
                   <label>
-                    <%= check_box_tag "query[state][being_reviewed]" %>
+                    <%= check_box_tag "query[state][revision_requested]" %>
                     <span class="overdue">Revision Requested</span>
                   </label>
                 </div>
                 <div>
-                  <%= hidden_field_tag "query[state][accepted]", "0", id: "accepted" %>
+                  <%= hidden_field_tag "query[state][approved]", "0", id: "approved" %>
                   <label>
-                    <%= check_box_tag "query[state][accepted]" %>
+                    <%= check_box_tag "query[state][approved]" %>
                     <span class="overdue">Approved</span>
                   </label>
                 </div>

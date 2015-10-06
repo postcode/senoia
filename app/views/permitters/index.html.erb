@@ -7,18 +7,21 @@
 </div>
 <div class="row">
   <div class="large-12 medium-12 small-12 columns">
-    <%= link_to "New Provider", new_permitter_path, class: "button primary" %>
+    <%= link_to "New Permitting Agency", new_permitter_path, class: "button primary" %>
     <table>
       <thead>
         <th>Name</th>
         <th>Address</th>
+        <th>Email</th>
         <th>Phone Number</th>
+        <th>Actions</th>
       </thead>
       <% @permitters.all.each do |p| %>
       <tbody>
         <tr>
           <td><%= p.name %></td>
           <td><%= p.address %></td>
+          <td><%= p.email %></td>
           <td><%= p.phone_number %></td>
           <td><%= link_to "Edit", edit_permitter_path(p.id), class: 'button tiny default' %></td>
         </tr>

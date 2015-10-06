@@ -68,7 +68,7 @@ feature "Plan" do
 
   context "viewing an existing plan" do
 
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review", permitter: permitters[1]) }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review", permitter: permitters[1]) }
 
     before do
       plan.operation_periods << create(:operation_period)
@@ -79,11 +79,11 @@ feature "Plan" do
     
     scenario "changing permitting agencies shows their contact info", js: true do
       
-      expect(page).to have_content plan.permitter.address
+      expect(page).to have_content plan.permitter.phone_number
       
       select(permitters.first.name, from: "plan_permitter_id")
       
-      expect(page).to have_content permitters.first.address
+      expect(page).to have_content permitters.first.phone_number
       
     end
 
@@ -162,7 +162,7 @@ feature "Plan" do
 
   context "request revision" do
 
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "awaiting_review") }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review") }
     let(:creator) { FactoryGirl.create(:user) }
     
     before do
@@ -176,14 +176,14 @@ feature "Plan" do
 
       expect { 
         click_link "REQUEST REVISION"
-      }.to change{ Plan.with_being_reviewed_state.count }.by(1)
+      }.to change{ Plan.with_revision_requested_state.count }.by(1)
     end
     
   end
 
   context "approve plan", js: true do
     
-    let(:plan) { FactoryGirl.create(:plan, workflow_state: "being_reviewed") }
+    let(:plan) { FactoryGirl.create(:plan, workflow_state: "revision_requested") }
     let(:creator) { FactoryGirl.create(:user) }
     
     before do
@@ -196,7 +196,7 @@ feature "Plan" do
 
       expect { 
         click_link "APPROVE PLAN"
-      }.to change{ Plan.with_accepted_state.count }.by(1)
+      }.to change{ Plan.with_approved_state.count }.by(1)
 
       email = find_email(creator.email)
       expect(email).to_not be_nil
@@ -221,7 +221,7 @@ feature "Plan" do
 
         expect { 
           click_link "APPROVE PLAN"
-        }.to change{ Plan.with_accepted_state.count }.by(1)
+        }.to change{ Plan.with_approved_state.count }.by(1)
       end
       
     end
@@ -229,7 +229,7 @@ feature "Plan" do
 
   context "clone an operation period" do
 
-    let(:plan) { create(:plan_awaiting_review) }
+    let(:plan) { create(:plan_under_review) }
 
     before do
       plan.operation_periods << create(:operation_period)

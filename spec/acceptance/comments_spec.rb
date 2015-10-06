@@ -4,7 +4,7 @@ feature "Comments" do
 
   let(:admin) { create(:admin) }
   let(:guest) { create(:user) }
-  let(:plan) { create(:plan_awaiting_review) }
+  let(:plan) { create(:plan_under_review) }
 
   context "Admin", js: true do
     

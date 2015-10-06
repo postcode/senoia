@@ -23,6 +23,7 @@ module HelperMethods
   end
 
   def post_comment(body)
+    expect(page).to have_selector("a.comment")
     first("a.comment").click
     
     within ".new-comment-area" do

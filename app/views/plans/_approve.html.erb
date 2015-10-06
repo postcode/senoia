@@ -1,5 +1,5 @@
 <% if plan.all_comments_resolved? %>
-  <%= link_to [ plan, :events, event: "accept" ], class: "button large radius success", label: false, data: { confirm: "I know I know, just want to confirm that you are ready to approve this plan." }, method: :post do %>
+  <%= link_to [ plan, :events, event: "approve" ], class: "button large radius success", label: false, data: { confirm: "I know I know, just want to confirm that you are ready to approve this plan." }, method: :post do %>
     <i class="fi-check"></i> APPROVE PLAN
   <% end %>
 <% else %>
