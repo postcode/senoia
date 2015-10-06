@@ -55,7 +55,7 @@
         <fieldset>
           <legend>FIRST AID STATIONS</legend>
           <div class="row">
-            <table class="first_aid_table">
+            <table id="first_aid_table">
               <thead>
                 <th>Name</th>
                 <th>Location</th>
@@ -104,10 +104,9 @@
                 <%= render 'plans/mobile_team_show', op: op %>
               </tbody>
             </table> 
-            <div class="large-12 columns"> 
-              <%= link_to add_mobile_team_path(op.object.id), remote: true, class: "button primary tiny radius", id: "new_mobile_team"  do %> 
-                <i class="fi-plus"></i> ADD MOBILE TEAM
-              <% end %>
+            <div class="large-12 columns">
+              <a id="new_mobile_team" class="button primary tiny radius" href="#" data-reveal-id="new-mobile-team-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD MOBILE TEAM</a>
+              <%= render partial: 'plans/new_mobile_team', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
             </div>
           </div> 
         </fieldset>
