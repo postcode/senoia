@@ -14,8 +14,9 @@ class Ability
       can :create, Comment, parent: { commentable: { creator_id: user.id } }
       can :read, Plan, plan_users: { role: "view", user_id: user.id }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
-    else
-      can :read, Plan, { workflow_state: "approved" }
+      can :read, :all
+      cannot :read, User
+      cannot :index, User
     end
   end
 end
