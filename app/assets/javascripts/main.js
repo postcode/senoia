@@ -59,7 +59,7 @@ $(function() {
     $.post(url, data);
   });
 
-  var assets = ["first-aid-station", "mobile-team"];
+  var assets = ["first-aid-station", "mobile-team", "transport", "dispatch"];
 
   $.each(assets, function(index, asset) {
     var button = ".save-" + asset
