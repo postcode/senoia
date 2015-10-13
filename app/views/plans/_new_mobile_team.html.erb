@@ -1,35 +1,41 @@
-<%= op.simple_fields_for "mobile_teams[id][#{DateTime.now.to_i}]" do |f| %>
-<tr>
-  <td><%= f.input :name, required: false, label: false %></td>
-  <td><%= f.input :location, required: false, label: false %></td>
-  <td><%= f.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
-  <td><%= f.input :type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %></td>
-  <td><%= f.input :aed, input_html: {value: 0}, required: false, label: false %></td>
-  <td><%= f.input :provider_id,
-                    collection: Provider.all,
-                    label_method: :name,
-                    value_method: :id,
-                    include_blank: false,
-                    prompt: "Select a provider",
-                    required: false, label: false %></td>
-  <td><%= f.input :contact_name, required: false, label: false %></td>
-  <td><%= f.input :contact_phone, required: false, label: false %></td>
-</tr>
-<tr>
-  <td>
-    <div id='map_mobile_<%= DateTime.now.to_i %>' class="asset_map" style="width: 550px; height: 350px;"></div>
-      <div id='lat_map_mobile_<%= DateTime.now.to_i %>'>
+
+<% unique_id = SecureRandom.hex(16) %>
+
+<div id="new-mobile-team-<%= operation_period_index %>" class="new-mobile-team reveal-modal medium asset-modal mobile-team-form" data-url="<%= url_for([ operation_period, :mobile_teams ]) %>" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add New Mobile Team</h3>
+  <div class="modal-body">
+    <%= simple_fields_for "mobile_team" do |f| %>
+      <%= f.input :name, required: false %>
+      <%= f.input :level, required: false, collection: ["ALS", "BLS"] %>
+      <%= f.input :type, required: false, collection: ["Foot", "Bike", "Gator/Cart"] %>
+      <%= f.input :aed, input_html: {value: 0}, required: false %>
+      <%= f.input :provider_id,
+      collection: Provider.all,
+      label_method: :name,
+      value_method: :id,
+      include_blank: false,
+      prompt: "Select a provider",
+      label: "Provider", required: false %>
+      <%= f.input :contact_name, required: false %>
+      <%= f.input :contact_phone, required: false %>
+      <div id='map_mobile_team_<%= unique_id %>' class="asset_map"></div>
+      <div id='lat_map_mobile_team_<%= unique_id %>'>
         <%= f.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
       </div>
-      <div id='lng_map_mobile_<%= DateTime.now.to_i %>'>
+      <div id="lng_map_mobile_team_<%= unique_id %>">
         <%= f.input :lng, input_html: { id: 'lng' }, as: :hidden %>
       </div>
-  </td>
-</tr> 
-
-<script>
-  $(document).ready(function(){
-    gmap_form(null, 'map_mobile_<%= DateTime.now.to_i %>');    // form map for new view (print nothing with possibility of put marker)
-  })
-</script>
-<% end %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <%= link_to "Add Mobile Team", "javascript:void(0)", class: "save-mobile-team button primary save-modal disabled" %>
+  </div>
+  <script>
+   $(document).ready(function(){
+     $(document).on('opened.fndtn.reveal', '.new-mobile-team[data-reveal]', function () {
+       gmap_form(null, 'map_mobile_team_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
+     });
+   })
+  </script>
+</div>

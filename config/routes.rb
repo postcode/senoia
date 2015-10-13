@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   resources :operation_periods, only: [ :update, :destroy ] do
     resources :clones, only: :create
     resources :first_aid_stations, only: [ :new, :create ]
+    resources :mobile_teams, only: [ :new, :create ]
+    resources :dispatches, only: [ :new, :create ]
+    resources :transports, only: [ :new, :create ]
   end
   resources :providers
   resources :provider_confirmations

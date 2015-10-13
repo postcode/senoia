@@ -59,12 +59,20 @@ $(function() {
     $.post(url, data);
   });
 
-  $("body").on("click", ".save-first-aid-station", function(event) {
-    var form = $(this).closest(".first-aid-station-form");
-    var data = form.find(":input").serialize();
-    var url = form.data().url
-    $.post(url, data);
-  });
+  var assets = ["first-aid-station", "mobile-team", "transport", "dispatch"];
+
+  $.each(assets, function(index, asset) {
+    var button = ".save-" + asset
+    console.log(button)
+    $("body").on("click", button, function(event) {
+      var formElement = "." + asset + "-form"
+      console.log(formElement)
+      var form = $(this).closest(formElement);
+      var data = form.find(":input").serialize();
+      var url = form.data().url
+      $.post(url, data);
+    });
+  })
 
   $("body").on("click", ".save-operation-period", function(event) {
     var form = $(this).closest(".operation-period-form");
@@ -78,9 +86,6 @@ $(function() {
     $(this).closest('tr').empty()
   })
   
-  $(document).on('opened.fndtn.reveal', '#new-first-aid-station[data-reveal]', function () {
-    console.log("open!!")
-  });
 
   var updatePermitterContactInfo = function() {
     var activePermitterId = $("#plan_permitter_id").val();
