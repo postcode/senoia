@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001140057) do
+ActiveRecord::Schema.define(version: 20151118185322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(version: 20151001140057) do
 
   create_table "mobile_teams", force: :cascade do |t|
     t.string   "level"
-    t.string   "type"
     t.integer  "aed"
     t.integer  "provider_id"
     t.string   "name"
@@ -117,6 +116,7 @@ ActiveRecord::Schema.define(version: 20151001140057) do
     t.string   "contact_name"
     t.string   "contact_phone"
     t.text     "location"
+    t.string   "mobile_team_type"
   end
 
   create_table "mobile_teams_users", force: :cascade do |t|

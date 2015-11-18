@@ -15,7 +15,7 @@ class MobileTeamsController < ApplicationController
       .permit([
                :name,
                :level,
-               :type,
+               :mobile_team_type,
                :aed,
                :provider_id,
                :contact_name,

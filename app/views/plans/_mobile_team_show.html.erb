@@ -3,7 +3,7 @@
   <td><%= f.input :name, required: false, label: false %></td>
   <td><%= f.input :location, required: false, label: false %></td>
   <td><%= f.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
-  <td><%= f.input :type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %></td>
+  <td><%= f.input :mobile_team_type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %></td>
   <td><%= f.input :aed, input_html: {value: 0}, required: false, label: false %></td>
   <td><%= f.input :provider_id,
                     collection: Provider.all,
