@@ -4,8 +4,8 @@ class SupplementaryDocumentsController < ApplicationController
     @parent = parent
     authorize! :edit, @parent
     @s3_direct_post =
-      AWS::S3.new.buckets[ENV["s3_bucket"]]
-      .presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}",
+      AWS::S3.new.buckets[ENV["S3_BUCKET"]]
+      .presigned_post(key: "#{SecureRandom.uuid}/${filename}",
                       success_action_status: 201,
                       acl: :public_read)
   end

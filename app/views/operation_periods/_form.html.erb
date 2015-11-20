@@ -19,8 +19,11 @@
       <div class="small-2 columns input_label">
         <%= op.label :start_date, class: "inline", label: "START" %>
       </div>
-      <div class="small-4 columns">
-        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: l(op.object.start_date).squeeze(" ") %>
+      <div class="small-2 columns">
+        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: op.object.formatted_start_date %>
+      </div>
+      <div class="small-2 columns">
+        <%= op.input_field :start_time, label: false, placeholder: "Time", as: "string", value: op.object.formatted_start_time %>
       </div>
       <div class="large-4 columns">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_start_date" %>
@@ -30,8 +33,11 @@
       <div class="small-2 columns input_label">
         <%= op.label :end_date, class: "inline", label: "END" %>
       </div>
-      <div class="small-4 columns">
-        <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: l(op.object.end_date).squeeze(" ") %>
+      <div class="small-2 columns">
+        <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: op.object.formatted_end_date %>
+      </div>
+      <div class="small-2 columns">
+        <%= op.input_field :end_time, label: false, placeholder: "Time", as: "string", value: op.object.formatted_end_time %>
       </div>
       <div class="large-4 columns">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_end_date" %>

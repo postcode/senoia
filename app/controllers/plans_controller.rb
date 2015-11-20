@@ -188,6 +188,10 @@ class PlansController < ApplicationController
     redirect_to plan_path(@plan)
   end
 
+  def update_acceptance
+    
+  end
+
   private 
 
   # Using a private method to encapsulate the permissible parameters is
@@ -246,6 +250,8 @@ class PlansController < ApplicationController
                                              :attendance,
                                              :start_date,
                                              :end_date,
+                                             :start_time,
+                                             :end_time,
                                              first_aid_stations_attributes: [
                                                                              :name,
                                                                              :level,
@@ -300,6 +306,8 @@ class PlansController < ApplicationController
                                               [
                                                :start_date,
                                                :end_date,
+                                               :start_time,
+                                               :end_time,
                                                :attendance,
                                                :plan_id,
                                                first_aid_stations: [

@@ -1,3 +1,5 @@
-AWS.config(access_key_id: Rails.application.secrets.aws_access_key_id,
-           secret_access_key: Rails.application.secrets.aws_secret_access_key,
-           region: ENV["s3_region"])
+AWS.config(access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+           secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
+
+S3_BUCKET = AWS::S3.new.buckets['senoia']
+

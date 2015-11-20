@@ -107,7 +107,7 @@
     </div>
     <div class="small-5 columns">
       <%= f.association :permitter,
-                        collection: @permitters,
+                        collection: Permitter.order("name ASC"),
                         label_method: :name,
                         value_method: :id,
                         include_blank: false,

@@ -1,7 +1,7 @@
 module CustomDateTimeFormat
   extend ActiveSupport::Concern
 
-  DEFAULT_DATETIME_FORMAT = "%m/%d/%Y %H:%M %p"
+  DEFAULT_DATETIME_FORMAT = "%m/%d/%Y"
 
   included do
 

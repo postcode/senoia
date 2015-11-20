@@ -36,5 +36,21 @@ class OperationPeriod < ActiveRecord::Base
      end_date.strftime(DEFAULT_DATETIME_FORMAT)
     ].join(" ")
   end
+
+  def formatted_start_date
+    start_date.strftime("%D") if start_date
+  end
+
+  def formatted_end_date
+    end_date.strftime("%D") if end_date
+  end
+
+  def formatted_start_time
+    start_time.getlocal.strftime("%I:%M %p") if start_date
+  end
+
+  def formatted_end_time
+    end_time.getlocal.strftime("%I:%M %p") if end_time
+  end
   
 end

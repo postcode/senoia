@@ -32,7 +32,9 @@ class OperationPeriodsController < ApplicationController
               :end_date,
               :attendance,
               :patients_treated_count,
-              :patients_transported_count)
+              :patients_transported_count,
+              :start_time,
+              :end_time)
   end
 
 end

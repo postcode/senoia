@@ -7,7 +7,6 @@ gem 'rails', '~> 4.2.0'
 gem 'acts_as_commentable_with_threading'
 gem 'annotate'
 gem 'aws-sdk', '< 2.0'
-gem 'browser-timezone-rails'
 gem 'cancancan', '~> 1.10'
 gem 'carrierwave'
 gem "cocoon"
