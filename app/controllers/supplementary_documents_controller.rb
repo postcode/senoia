@@ -1,5 +1,4 @@
 class SupplementaryDocumentsController < ApplicationController
-require 'pry'
   def new
     @parent = parent
     authorize! :edit, @parent
