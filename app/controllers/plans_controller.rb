@@ -363,7 +363,9 @@ class PlansController < ApplicationController
                                                                :provider_id,
                                                                :contact_name,
                                                                :contact_phone,
-                                                               :location
+                                                               :location,
+                                                               :lat,
+                                                               :lng
                                                               ]
                                                          ]
                                               ])
