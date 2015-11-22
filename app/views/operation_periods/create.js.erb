@@ -2,7 +2,7 @@
 
 $(".tabs-content").html("<%= j render(partial: 'operation_periods/form', locals: { f: f, operation_period: @operation_period, count: @count } )%>")
 $(".tabs .active").replaceWith('<li class="tab-title"><a href="#panel<%= @count %>">Operational Period <%= @count %></a></li>')
-$('.dateTimeSelect').fdatepicker({
+$('.dateSelect').fdatepicker({
     format: 'mm/dd/yyyy'
   });
 $(".tab-title:last a").trigger("click");

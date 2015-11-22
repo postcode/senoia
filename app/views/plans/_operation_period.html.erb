@@ -2,18 +2,24 @@
   <div class="content operation-period-form" id="panel<%= count %>" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
     <div class="row">
       <div class="small-2 columns input_label">
-      <%= op.label :start_date, class: "inline", label: "START" %>
+        <%= op.label :start_date, class: "inline", label: "START" %>
       </div>
-      <div class="small-4 columns end">
+      <div class="small-2 columns">
         <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
+      </div>
+      <div class="small-2 columns end">
+        <%= op.input_field :start_time, label: false, placeholder: "Time", as: "string" %>
       </div>
     </div>
     <div class="row">
       <div class="small-2 columns input_label">
-      <%= op.label :end_date, class: "inline", label: "END" %>
+        <%= op.label :end_date, class: "inline", label: "END" %>
       </div>
-      <div class="small-4 columns end">
+      <div class="small-2 columns">
         <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
+      </div>
+      <div class="small-2 columns end">
+        <%= op.input_field :end_time, label: false, placeholder: "Time", as: "string" %>
       </div>
     </div>        
     <div class="row">
