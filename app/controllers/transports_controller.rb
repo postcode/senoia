@@ -14,6 +14,7 @@ class TransportsController < ApplicationController
       .require(:transport)
       .permit([
                :name,
+               :level,
                :provider_id,
                :contact_name,
                :contact_phone,

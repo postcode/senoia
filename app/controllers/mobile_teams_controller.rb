@@ -16,6 +16,7 @@ class MobileTeamsController < ApplicationController
                :name,
                :level,
                :mobile_team_type,
+               :type,
                :aed,
                :provider_id,
                :contact_name,

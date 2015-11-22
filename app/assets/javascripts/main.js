@@ -74,6 +74,27 @@ $(function() {
     });
   })
 
+  $("body").on("click", ".save-dispatch", function(event) {
+    var form = $(this).closest(".dispatch-form");
+    var data = form.find(":input").serialize();
+    var url = form.data().url
+    $.post(url, data);
+  });
+
+  $("body").on("click", ".save-mobile-team", function(event) {
+    var form = $(this).closest(".mobile-team-form");
+    var data = form.find(":input").serialize();
+    var url = form.data().url
+    $.post(url, data);
+  });
+
+  $("body").on("click", ".save-transport", function(event) {
+    var form = $(this).closest(".transport-form");
+    var data = form.find(":input").serialize();
+    var url = form.data().url
+    $.post(url, data);
+  });
+
   $("body").on("click", ".save-operation-period", function(event) {
     var form = $(this).closest(".operation-period-form");
     var data = form.find(":input").serialize();
