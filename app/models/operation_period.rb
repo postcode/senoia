@@ -38,11 +38,11 @@ class OperationPeriod < ActiveRecord::Base
   end
 
   def formatted_start_date
-    start_date.strftime("%m/%d/%Y") if start_date
+    start_date.getutc.strftime("%m/%d/%Y") if start_date
   end
 
   def formatted_end_date
-    end_date.strftime("%m/%d/%Y") if end_date
+    end_date.getutc.strftime("%m/%d/%Y") if end_date
   end
 
   def formatted_start_time
