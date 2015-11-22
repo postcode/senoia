@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :treatment_records, only: [ :new, :create ]
       resources :transportation_records, only: [ :new, :create ]
     end
+    post '/update_acceptance/:category', to: 'plans#update_acceptance', as: :update_acceptance
   end
   resources :post_event_treatment_reports, only: :none do
     resources :supplementary_documents, only: [ :new, :create ]

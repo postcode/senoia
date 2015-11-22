@@ -189,7 +189,11 @@ class PlansController < ApplicationController
   end
 
   def update_acceptance
-    
+    @category = params[:category]
+    @plan = Plan.find(params[:plan_id])
+    @plan.paper_trail_event = "update #{@category}"
+    @plan.update_attribute("#{@category}", true)
+    redirect_to plan_path(@plan)
   end
 
   private 

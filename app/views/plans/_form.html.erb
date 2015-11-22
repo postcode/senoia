@@ -92,7 +92,7 @@
         <fieldset>
           <legend>RESPONSIBILITY</legend>
           <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
-          <%= f.input :responsibility, required: true %>
+          <%= link_to "ACCEPT", plans_update_acceptance_path("responsibility"), class: 'button primary tiny' %>
         </fieldset>     
         <fieldset>
           <legend>CPR &amp; 911</legend>
