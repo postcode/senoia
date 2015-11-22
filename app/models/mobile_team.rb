@@ -4,7 +4,6 @@
 #
 #  id                  :integer          not null, primary key
 #  level               :string
-#  type                :string
 #  aed                 :integer
 #  provider_id         :integer
 #  name                :string
@@ -15,6 +14,8 @@
 #  operation_period_id :integer
 #  contact_name        :string
 #  contact_phone       :string
+#  location            :text
+#  mobile_team_type    :string
 #
 
 class MobileTeam < ActiveRecord::Base

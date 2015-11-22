@@ -8,6 +8,7 @@
 #  address      :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  email        :text
 #
 
 class Permitter < ActiveRecord::Base

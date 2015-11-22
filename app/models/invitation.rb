@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: invitations
+#
+#  id              :integer          not null, primary key
+#  plan_id         :integer
+#  email           :text
+#  role            :string
+#  invited_user_id :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class Invitation < ActiveRecord::Base
   belongs_to :plan, inverse_of: :invitations
   belongs_to :invited_user, class_name: "User", inverse_of: :invitations

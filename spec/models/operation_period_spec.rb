@@ -2,13 +2,17 @@
 #
 # Table name: operation_periods
 #
-#  id         :integer          not null, primary key
-#  start_date :datetime
-#  end_date   :datetime
-#  attendance :integer
-#  plan_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                         :integer          not null, primary key
+#  start_date                 :datetime
+#  end_date                   :datetime
+#  attendance                 :integer
+#  plan_id                    :integer
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  patients_treated_count     :integer
+#  patients_transported_count :integer
+#  start_time                 :datetime
+#  end_time                   :datetime
 #
 
 require 'rails_helper'

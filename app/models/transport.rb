@@ -13,6 +13,7 @@
 #  operation_period_id :integer
 #  contact_name        :string
 #  contact_phone       :string
+#  location            :text
 #
 
 class Transport < ActiveRecord::Base

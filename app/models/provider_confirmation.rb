@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: provider_confirmations
+#
+#  id                 :integer          not null, primary key
+#  provider_id        :integer
+#  medical_asset_id   :integer
+#  medical_asset_type :string
+#  requester_id       :integer
+#  workflow_state     :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
 class ProviderConfirmation < ActiveRecord::Base
 
   belongs_to :provider

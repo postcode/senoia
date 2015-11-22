@@ -11,6 +11,9 @@
 #  operation_period_id :integer
 #  contact_name        :string
 #  contact_phone       :string
+#  location            :text
+#  lat                 :decimal(10, 6)
+#  lng                 :decimal(10, 6)
 #
 
 class Dispatch < ActiveRecord::Base

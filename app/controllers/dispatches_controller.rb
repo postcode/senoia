@@ -15,7 +15,6 @@ class DispatchesController < ApplicationController
       .permit([
                :name,
                :level,
-               :type,
                :aed,
                :provider_id,
                :contact_name,
