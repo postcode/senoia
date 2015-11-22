@@ -49,6 +49,7 @@ function gmap_form(asset, map_id) {
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
       handler.getMap().setZoom(12);
+      handler.map.centerOn([37.773972, -122.431297]);
     }
     else {    // show the empty map
       handler.fitMapToBounds();
