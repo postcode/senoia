@@ -33,4 +33,8 @@ class Invitation < ActiveRecord::Base
   def send_invitation_email!
     InvitationMailer.invite(email: email, plan: plan).deliver_later
   end
+
+  def send_collaboration_email!
+    InvitationMailer.collaborate(email: email, plan: plan).deliver_later
+  end
 end
