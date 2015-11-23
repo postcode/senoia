@@ -32,6 +32,9 @@
 
   <body class="main" data-no-turbolink>
     <%= render 'shared/mainnav' %>
+    <% if current_user.admin? %>
+      <%= render 'shared/adminnav' %>
+    <% end %>
     <%= render 'shared/messages'  %>
 
     <% if content_for? :content %>

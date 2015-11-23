@@ -1,0 +1,10 @@
+<% if current_user.admin? %>
+  <dl class="sub-nav right">
+    <dt><i class="fi-widget"></i> <%= link_to "ADMIN", :admin %></dt>
+    <span class="right">
+        <dd><%= link_to "Manage Users", users_path %>
+        <dd><%= link_to "Manage Providers", providers_path %></dd>
+        <dd><%= link_to "Manage Permitters", permitters_path %></dd>
+    </span>
+  </dl>
+<% end %>
