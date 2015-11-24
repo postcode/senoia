@@ -74,6 +74,13 @@ $(function() {
     });
   })
 
+  $("body").on("click", ".save-operation-period", function(event) {
+    var form = $(this).closest(".operation-period-form");
+    var data = form.find(":input").serialize();
+    var url = form.data().url
+    $.post(url, data);
+  });
+
   $('.remove-user').click(function(event) {
     event.preventDefault()
     $(this).closest('tr').empty()
