@@ -8,7 +8,9 @@
         <%= link_to "Plan Archive", plans_path %>
       </li>
       <li>
-        <%= link_to "New Plan", new_plan_path %>
+        <% if user_signed_in? %>
+          <%= link_to "New Plan", new_plan_path %>
+        <% end %>
       </li>
       <% if user_signed_in? %>
         <% if current_user.admin? %>

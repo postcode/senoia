@@ -46,6 +46,7 @@ class PlansController < ApplicationController
   end
 
   def new
+    authorize! :create, Plan
     @plan = Plan.new
     
     respond_to do |format|
@@ -55,6 +56,7 @@ class PlansController < ApplicationController
   end  
 
   def create
+    authorize! :create, Plan
     @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
     if !@plan.valid?
       render action: :new
