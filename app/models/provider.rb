@@ -24,4 +24,18 @@ class Provider < ActiveRecord::Base
   def to_s
     name
   end
+
+  def save_provider_users(ids)
+    ids.each do |user_id|
+      if user_id[1] == "1"
+        @provider_user = ProvidersUser.where(:provider_id => id, :user_id => user_id[0]).first_or_create
+        @user = User.find(user_id[0])
+        @provider_user.save!
+      else
+        if ProvidersUser.exists?(:provider_id => id, :user_id => user_id[0])
+          ProvidersUser.where(:provider_id => id, :user_id => user_id[0]).delete_all
+        end
+      end
+    end
+  end
 end

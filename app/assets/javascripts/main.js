@@ -75,6 +75,7 @@ $(function() {
   })
 
   $("body").on("click", ".save-operation-period", function(event) {
+    $(this).addClass('disabled');
     var form = $(this).closest(".operation-period-form");
     var data = form.find(":input").serialize();
     var url = form.data().url

@@ -17,9 +17,10 @@
       <% @providers.all.each do |p| %>
       <tbody>
         <tr>
-          <td><%= p.name %></td>
+          <td><%= link_to p.name, provider_path(p.id) %></td>
           <td><%= p.address %></td>
           <td><%= p.phone_number %></td>
+          <td><%= link_to_if(can?(:edit, Provider), "Edit", edit_provider_path(p.id), :class => 'button secondary tiny') %></td>
         </tr>
       </tbody>
       <% end %>
