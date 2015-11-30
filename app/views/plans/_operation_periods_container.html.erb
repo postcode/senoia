@@ -1,28 +1,28 @@
 <div class="row">
   <div class="large-12 columns operation-period-container">
-    <h3>
-      Operational Periods
-      <% if can? :edit, @plan %>
-        <span class="add_operation_period_button">
-          <%= link_to [ :new, @plan, :operation_period ], remote: true, class: "button primary tiny radius right", id: "new_operation_period" do %> 
-            <i class="fi-plus"></i> ADD OPERATIONAL PERIOD
-          <% end %>
-        </span>
-      <% end %>
-    </h3>
-    <ul class="tabs" id="operation-period-tabs" data-tab>
-      <% @plan.operation_periods.each_with_index do |operation_period, index| %>
-        <%= render 'plans/operation_period_tabs', count: index+1, period: operation_period %>
-      <% end %>
-    </ul>
-    <div class="tabs-content">
-      <% @plan.operation_periods.each.with_index do |operation_period, index| %>
-        <% if can? :edit, @plan %>
-          <%= render 'operation_periods/form', operation_period: operation_period, count: index+1, f: f %>
-        <% else %>
-          <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1 %>
+    <% if @plan.operation_periods.present? %>
+      <%= render 'plans/operation_period_button', plan: @plan %>
+      <ul class="tabs" id="operation-period-tabs" data-tab>
+        <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+          <%= render 'plans/operation_period_tabs', count: index+1, period: operation_period %>
         <% end %>
-      <% end %>
-    </div>
+      </ul>
+      <div class="tabs-content">
+          <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+            <% if can? :edit, @plan %>
+              <%= render 'operation_periods/form', operation_period: operation_period, count: index+1, f: f %>
+            <% else %>
+              <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1 %>
+            <% end %>
+          <% end %>
+      </div>
+    <% else %>
+      <ul class="tabs" id="operation-period-tabs" data-tab>
+        <li class="tab-title active"><a href="#panel0">Operational Period</a></li>
+      </ul>
+      <div class="tabs-content">
+        <%= render 'plans/operation_period', count: 0 %>
+      </div>
+    <% end %>
   </div>
 </div>
