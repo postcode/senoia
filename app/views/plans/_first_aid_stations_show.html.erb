@@ -1,24 +1,24 @@
-<%= op.simple_fields_for :first_aid_stations do |f| %>
+<%= op.simple_fields_for :first_aid_stations do |a| %>
   <tr>
-    <td><%= f.input :name, required: false, label: false %></td>
-    <td><%= f.input :location, required: false, label: false %></td>
-    <td><%= f.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
-    <td><%= f.input :md, required: false, label: false %></td>
-    <td><%= f.input :rn, required: false, label: false %></td>
-    <td><%= f.input :emt, required: false, label: false %></td>
-    <td><%= f.input :aed, required: false, label: false %></td>
-    <td><%= f.input :provider_id,
+    <td><%= a.input :name, required: false, label: false %></td>
+    <td><%= a.input :location, required: false, label: false %></td>
+    <td><%= a.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
+    <td><%= a.input :md, required: false, label: false %></td>
+    <td><%= a.input :rn, required: false, label: false %></td>
+    <td><%= a.input :emt, required: false, label: false %></td>
+    <td><%= a.input :aed, required: false, label: false %></td>
+    <td><%= a.input :provider_id,
         collection: Provider.all,
         label_method: :name,
         value_method: :id,
         include_blank: false,
         prompt: "Select a provider",
         required: false, label: false %>
-      <%= f.object.try(:provider_confirmation) %>
+      <%= a.object.try(:provider_confirmation) %>
     </td>
-    <td><%= f.input :contact_name, required: false, label: false %></td>
-    <td><%= f.input :contact_phone, required: false, label: false %></td>
-    <td><%= f.input :_destroy, as: :boolean, label: "Remove" %></td>
+    <td><%= a.input :contact_name, required: false, label: false %></td>
+    <td><%= a.input :contact_phone, required: false, label: false %></td>
+    <td><%= a.input :_destroy, as: :boolean, label: "Remove" %></td>
   </tr>
 <% end %>
 

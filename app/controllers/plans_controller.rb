@@ -330,7 +330,8 @@ class PlansController < ApplicationController
                                                                         :location,
                                                                         :id,
                                                                         :lat,
-                                                                        :lng
+                                                                        :lng,
+                                                                        :service_area
                                                                        ]
                                                                    ],
                                                transport: [
@@ -342,7 +343,8 @@ class PlansController < ApplicationController
                                                                 :contact_phone,
                                                                 :location,
                                                                 :lat,
-                                                                :lng
+                                                                :lng,
+                                                                :service_area
                                                                ]
                                                           ],
                                                mobile_teams: [
@@ -355,7 +357,8 @@ class PlansController < ApplicationController
                                                                    :contact_phone,
                                                                    :location,
                                                                    :lat,
-                                                                   :lng
+                                                                   :lng,
+                                                                   :service_area
                                                                   ]
                                                              ],
                                                dispatch: [
@@ -367,7 +370,8 @@ class PlansController < ApplicationController
                                                                :contact_phone,
                                                                :location,
                                                                :lat,
-                                                               :lng
+                                                               :lng,
+                                                               :service_area
                                                               ]
                                                          ]
                                               ])

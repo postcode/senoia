@@ -5,23 +5,26 @@
   <a class="close-reveal-modal">&#215;</a>
   <h3>Add TRANSPORT</h3>
   <div class="modal-body">
-    <%= simple_fields_for "transport" do |f| %>
-      <%= f.input :name, required: false %>
-      <%= f.input :provider_id,
+    <%= simple_fields_for "transport" do |a| %>
+      <%= a.input :name, required: false %>
+      <%= a.input :provider_id,
       collection: Provider.all,
       label_method: :name,
       value_method: :id,
       include_blank: false,
       prompt: "Select a provider",
       label: "Provider", required: false %>
-      <%= f.input :contact_name, required: false %>
-      <%= f.input :contact_phone, required: false %>
+      <%= a.input :contact_name, required: false %>
+      <%= a.input :contact_phone, required: false %>
       <div id='map_transport_<%= unique_id %>' class="asset_map"></div>
       <div id='lat_map_transport_<%= unique_id %>'>
-        <%= f.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
+        <%= a.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
       </div>
       <div id="lng_map_transport_<%= unique_id %>">
-        <%= f.input :lng, input_html: { id: 'lng' }, as: :hidden %>
+        <%= a.input :lng, input_html: { id: 'lng' }, as: :hidden %>
+      </div>
+      <div id="service_area_map_transport_<%= unique_id %>">
+        <%= a.input :service_area, input_html: { id: 'service_area' }, as: :hidden %>
       </div>
     <% end %>
   </div>

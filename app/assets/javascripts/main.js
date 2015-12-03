@@ -7,8 +7,8 @@ window.senoia.initDatepickers = function() {
   }); 
 
   $('.dateSelect').fdatepicker({
-		format: 'mm/dd/yyyy'
-	});
+    format: 'mm/dd/yyyy'
+  });
 }
 
 $(function() {
@@ -75,7 +75,6 @@ $(function() {
   })
 
   $("body").on("click", ".save-operation-period", function(event) {
-    $(this).addClass('disabled');
     var form = $(this).closest(".operation-period-form");
     var data = form.find(":input").serialize();
     var url = form.data().url

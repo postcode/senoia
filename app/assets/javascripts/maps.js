@@ -4,17 +4,17 @@ var map;
 function map_initialize(map_id) {
         
   var mapOptions = {
-          center: new google.maps.LatLng(37.773972, -122.431297),
-          zoom: 12,
-          mapTypeId: google.maps.MapTypeId.NORMAL,
-          panControl: true,
-          scaleControl: false,
-          streetViewControl: true,
-          overviewMapControl: true
-        };
-        // initializing map
-        map = new google.maps.Map(document.getElementById(map_id),mapOptions);
-  // trying the drawing liberary
+    center: new google.maps.LatLng(37.773972, -122.431297),
+    zoom: 12,
+    mapTypeId: google.maps.MapTypeId.NORMAL,
+    panControl: true,
+    scaleControl: false,
+    streetViewControl: true,
+    overviewMapControl: true
+  };
+  // initializing map
+  map = new google.maps.Map(document.getElementById(map_id),mapOptions);
+
   var drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: null,
     drawingControl: true,
@@ -42,9 +42,8 @@ function map_initialize(map_id) {
     $('#lng', '#lng_'+map_id).val(event.overlay.position.lng());
   } else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
     console.log(event.overlay.getPath().getArray())
-    $('#lat', '#lat_'+map_id).val(event.overlay.getPath().getArray());
-    console.log( $('#lat', '#lat_'+map_id).val())
-    // Define the LatLng coordinates for the polygon's path.
+    $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
+    console.log( $('#service_area', '#service_area_'+map_id).val())
   }
 });
         

@@ -5,26 +5,29 @@
   <% unique_id = SecureRandom.hex(16) %>
   <h3>Add New Mobile Team</h3>
   <div class="modal-body">
-    <%= simple_fields_for "mobile_team" do |f| %>
-      <%= f.input :name, required: false %>
-      <%= f.input :level, required: false, collection: ["ALS", "BLS"] %>
-      <%= f.input :type, required: false, collection: ["Foot", "Bike", "Gator/Cart"] %>
-      <%= f.input :aed, input_html: {value: 0}, required: false %>
-      <%= f.input :provider_id,
+    <%= simple_fields_for "mobile_team" do |a| %>
+      <%= a.input :name, required: false %>
+      <%= a.input :level, required: false, collection: ["ALS", "BLS"] %>
+      <%= a.input :type, required: false, collection: ["Foot", "Bike", "Gator/Cart"] %>
+      <%= a.input :aed, input_html: {value: 0}, required: false %>
+      <%= a.input :provider_id,
       collection: Provider.all,
       label_method: :name,
       value_method: :id,
       include_blank: false,
       prompt: "Select a provider",
       label: "Provider", required: false %>
-      <%= f.input :contact_name, required: false %>
-      <%= f.input :contact_phone, required: false %>
+      <%= a.input :contact_name, required: false %>
+      <%= a.input :contact_phone, required: false %>
       <div id='map_mobile_team_<%= unique_id %>' class="asset_map"></div>
       <div id='lat_map_mobile_team_<%= unique_id %>'>
-        <%= f.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
+        <%= a.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
       </div>
       <div id="lng_map_mobile_team_<%= unique_id %>">
-        <%= f.input :lng, input_html: { id: 'lng' }, as: :hidden %>
+        <%= a.input :lng, input_html: { id: 'lng' }, as: :hidden %>
+      </div>
+      <div id="service_area_map_mobile_team_<%= unique_id %>">
+        <%= a.input :service_area, input_html: { id: 'service_area' }, as: :hidden %>
       </div>
     <% end %>
   </div>

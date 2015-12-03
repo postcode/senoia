@@ -11,8 +11,10 @@
           <% @plan.operation_periods.each.with_index do |operation_period, index| %>
             <% if can? :edit, @plan %>
               <%= render 'operation_periods/form', operation_period: operation_period, count: index+1, f: f %>
+              <%= render 'actions', f: f, plan: @plan %>
             <% else %>
               <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1 %>
+              <%= render 'actions', f: f, plan: @plan %>
             <% end %>
           <% end %>
       </div>
@@ -22,6 +24,7 @@
       </ul>
       <div class="tabs-content">
         <%= render 'plans/operation_period', count: 0 %>
+        <%= render 'actions', f: f, plan: @plan %>
       </div>
     <% end %>
   </div>

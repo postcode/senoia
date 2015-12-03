@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119161953) do
+ActiveRecord::Schema.define(version: 20151203184418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151119161953) do
     t.text     "location"
     t.decimal  "lat",                 precision: 10, scale: 6
     t.decimal  "lng",                 precision: 10, scale: 6
+    t.text     "service_area"
   end
 
   create_table "dispatchs_users", force: :cascade do |t|
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 20151119161953) do
     t.string   "contact_name"
     t.string   "contact_phone"
     t.text     "location"
+    t.text     "service_area"
   end
 
   create_table "first_aid_stations_users", force: :cascade do |t|
@@ -117,6 +119,7 @@ ActiveRecord::Schema.define(version: 20151119161953) do
     t.string   "contact_phone"
     t.text     "location"
     t.string   "mobile_team_type"
+    t.text     "service_area"
   end
 
   create_table "mobile_teams_users", force: :cascade do |t|
@@ -262,6 +265,7 @@ ActiveRecord::Schema.define(version: 20151119161953) do
     t.string   "contact_name"
     t.string   "contact_phone"
     t.text     "location"
+    t.text     "service_area"
   end
 
   create_table "transports_users", force: :cascade do |t|
