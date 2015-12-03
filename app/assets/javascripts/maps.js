@@ -1,84 +1,53 @@
 
+var map;
 
-function gmap_show(asset) {
-  if ((asset.lat == null) || (asset.lng == null) ) {    // validation check if coordinates are there
-    return 0;
-  }
-
-  handler = Gmaps.build('Google');    // map init
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers([    // put marker method
-      {
-        "lat": asset.lat,    // coordinates from parameter asset
-        "lng": asset.lng,
-        "picture": {    // setup marker icon
-          "url": 'http://www.planet-action.org/img/2009/interieur/icons/orange-dot.png',
-          "width":  32,
-          "height": 32
-        },
-        "infowindow": "<b>" + asset.name + "</b> "
-      }
-    ]);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    handler.getMap().setZoom(12);    // set the default zoom of the map
-  });
-}
-
-function gmap_form(asset, map_id) {
-
-  if (window.google === undefined) {
-    return false;
-  }
-  
-  handler = Gmaps.build('Google');    // map init
-  handler.buildMap({ provider: {}, internal: {id: map_id}}, function(){
-    if (asset && asset.lat && asset.lng) {    // statement check - new or edit view
-      markers = handler.addMarkers([    // print existent marker
-        {
-          "lat": asset.lat,
-          "lng": asset.lng,
-          "picture": {
-            "url": 'http://www.planet-action.org/img/2009/interieur/icons/orange-dot.png',
-            "width":  32,
-            "height": 32
-          },
-          "infowindow": "<b>" + asset.name + "</b> "
-        }
-      ]);
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-      handler.getMap().setZoom(12);
-      handler.map.centerOn([37.773972, -122.431297]);
-    }
-    else {    // show the empty map
-      handler.fitMapToBounds();
-      handler.map.centerOn([37.773972, -122.431297]);
-      handler.getMap().setZoom(12);
+function map_initialize(map_id) {
+        
+  var mapOptions = {
+          center: new google.maps.LatLng(37.773972, -122.431297),
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.NORMAL,
+          panControl: true,
+          scaleControl: false,
+          streetViewControl: true,
+          overviewMapControl: true
+        };
+        // initializing map
+        map = new google.maps.Map(document.getElementById(map_id),mapOptions);
+  // trying the drawing liberary
+  var drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: null,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [
+        google.maps.drawing.OverlayType.MARKER,
+        google.maps.drawing.OverlayType.POLYGON,
+      ]
     }
   });
+  drawingManager.setMap(map);
 
-  var markerOnMap;
-
-  function placeMarker(location) {    //method for put new marker on map
-    if (markerOnMap) {
-      markerOnMap.setPosition(location);
-    }
-    else {
-      markerOnMap = new google.maps.Marker({
-        position: location,
-        map: handler.getMap()
-      });
-    }
-  }
-
-  google.maps.event.addListener(handler.getMap(), 'click', function(event) {    // event for click-put marker on map and pass coordinates to hidden fields in form
-    placeMarker(event.latLng);
+  google.maps.event.addListener(map, 'click', function(event) {    // event for click-put marker on map and pass coordinates to hidden fields in form
     console.log($('#lat', '#lat_'+map_id))
     $('#lat', '#lat_'+map_id).val(event.latLng.lat());
     $('#lng', '#lng_'+map_id).val(event.latLng.lng());
   });
-}
 
+  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+  if (event.type == google.maps.drawing.OverlayType.MARKER) {
+    console.log(event)
+    console.log(event.overlay.position.lat())
+    $('#lat', '#lat_'+map_id).val(event.overlay.position.lat());
+    $('#lng', '#lng_'+map_id).val(event.overlay.position.lng());
+  } else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
+    console.log(event.overlay.getPath().getArray())
+    $('#lat', '#lat_'+map_id).val(event.overlay.getPath().getArray());
+    console.log( $('#lat', '#lat_'+map_id).val())
+    // Define the LatLng coordinates for the polygon's path.
+  }
+});
+        
+}
 
 

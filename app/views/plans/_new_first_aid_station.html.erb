@@ -35,7 +35,7 @@
   <script>
    $(document).ready(function(){
      $(document).on('opened.fndtn.reveal', '.new-first-aid-station[data-reveal]', function () {
-       gmap_form(null, 'map_first_aid_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
+       map_initialize('map_first_aid_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
      });
    })
   </script>

@@ -31,7 +31,7 @@
   <script>
    $(document).ready(function(){
      $(document).on('opened.fndtn.reveal', '.new-transport[data-reveal]', function () {
-       gmap_form(null, 'map_transport_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
+       map_initialize('map_transport_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
      });
    })
   </script>
