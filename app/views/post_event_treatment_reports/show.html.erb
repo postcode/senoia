@@ -16,7 +16,9 @@
       <% if @post_event_treatment_report.submitted? %>
         <%= render @post_event_treatment_report %>
       <% else %>
-        <%= render "form" %>
+        <% if user_signed_in? %>
+          <%= render "form" %>
+        <% end %>
       <% end %>
     </div>
   </div>
