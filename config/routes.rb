@@ -51,4 +51,6 @@ Rails.application.routes.draw do
   post "/add_user_plan" => 'plans#add_user', as: 'add_user_plan'
   post "/update_user_plan" => 'plans#update_plan_user', as: 'update_user_plan'
 
+  get 'admin', to: 'admin#index'
+  
 end

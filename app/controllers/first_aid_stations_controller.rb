@@ -23,7 +23,8 @@ class FirstAidStationsController < ApplicationController
                :contact_name,
                :contact_phone,
                :lat,
-               :lng
+               :lng,
+               :service_area
               ])
   end
 end

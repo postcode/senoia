@@ -22,7 +22,6 @@
 #
 
 class Plan < ActiveRecord::Base
-  extend SimpleCalendar
   has_paper_trail
   acts_as_commentable
   belongs_to :owner, class_name: User

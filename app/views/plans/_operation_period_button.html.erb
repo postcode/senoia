@@ -1,0 +1,10 @@
+<h3>
+  Operational Periods
+  <% if can? :edit, plan %>
+    <span class="add_operation_period_button">
+      <%= link_to [ :new, plan, :operation_period ], remote: true, class: "button primary tiny radius right", id: "new_operation_period" do %> 
+        <i class="fi-plus"></i> ADD OPERATIONAL PERIOD
+      <% end %>
+    </span>
+  <% end %>
+</h3>

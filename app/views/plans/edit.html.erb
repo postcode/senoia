@@ -11,6 +11,7 @@
   <% end %>
   <div class="large-12 columns">
     <div class="row">
+      <h1>edit</h1>
       <div class="large-7 columns pageTitle">
         <h1><%= f.input :name, label: false %></h1>
       </div>
@@ -131,11 +132,8 @@
     </div>
   </div>
   <hr/>
+  <%= render 'plan_agreement', plan: @plan %>
 
-  <%= render "operation_periods_container", f: f %>
-
-  <%= render 'plan_agreement' %>
-
-  <%= render 'actions', f: f, plan: @plan %>
+  <%= render 'operation_periods_container', f: f %>
 
 <% end %> 

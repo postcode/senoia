@@ -46,6 +46,7 @@ class PlansController < ApplicationController
   end
 
   def new
+    authorize! :create, Plan
     @plan = Plan.new
     
     respond_to do |format|
@@ -55,6 +56,7 @@ class PlansController < ApplicationController
   end  
 
   def create
+    authorize! :create, Plan
     @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
     if !@plan.valid?
       render action: :new
@@ -328,7 +330,8 @@ class PlansController < ApplicationController
                                                                         :location,
                                                                         :id,
                                                                         :lat,
-                                                                        :lng
+                                                                        :lng,
+                                                                        :service_area
                                                                        ]
                                                                    ],
                                                transport: [
@@ -340,7 +343,8 @@ class PlansController < ApplicationController
                                                                 :contact_phone,
                                                                 :location,
                                                                 :lat,
-                                                                :lng
+                                                                :lng,
+                                                                :service_area
                                                                ]
                                                           ],
                                                mobile_teams: [
@@ -353,7 +357,8 @@ class PlansController < ApplicationController
                                                                    :contact_phone,
                                                                    :location,
                                                                    :lat,
-                                                                   :lng
+                                                                   :lng,
+                                                                   :service_area
                                                                   ]
                                                              ],
                                                dispatch: [
@@ -365,7 +370,8 @@ class PlansController < ApplicationController
                                                                :contact_phone,
                                                                :location,
                                                                :lat,
-                                                               :lng
+                                                               :lng,
+                                                               :service_area
                                                               ]
                                                          ]
                                               ])

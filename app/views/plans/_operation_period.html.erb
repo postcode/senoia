@@ -1,5 +1,5 @@
 <%= simple_fields_for :operation_period do |op| %>
-  <div class="content operation-period-form" id="panel<%= count %>" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
+  <div class="content operation-period-form active" id="panel<%= count %>" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
     <div class="row">
       <div class="small-2 columns input_label">
         <%= op.label :start_date, class: "inline", label: "START" %>

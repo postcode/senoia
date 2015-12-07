@@ -11,7 +11,7 @@ gem 'cancancan', '~> 1.10'
 gem 'carrierwave'
 gem "cocoon"
 gem 'compass'
-gem "compass-rails", github: "Compass/compass-rails", branch: "master"
+gem "compass-rails"
 gem 'deep_cloneable'
 gem 'devise'
 gem 'email_validator'
@@ -39,7 +39,7 @@ gem 'rack-attack'
 gem 'rakismet'
 gem 'role_model'
 gem 'sass-rails', '~> 5.0.0'
-gem "simple_calendar"
+gem "simple_calendar", "~> 2.0"
 gem 'simple_form'
 gem 'smart_listing'
 gem 'turbolinks'

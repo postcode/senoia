@@ -7,8 +7,8 @@ window.senoia.initDatepickers = function() {
   }); 
 
   $('.dateSelect').fdatepicker({
-		format: 'mm/dd/yyyy'
-	});
+    format: 'mm/dd/yyyy'
+  });
 }
 
 $(function() {

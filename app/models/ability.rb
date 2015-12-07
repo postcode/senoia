@@ -5,6 +5,9 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.has_role? :admin
       can :manage, :all
+      can :read, :admin_only_items
+    elsif user.has_role? :user
+      can [:create, :edit, :update, :read], Plan
     else
       can :manage, Plan, :creator_id => user.id
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
@@ -18,6 +21,7 @@ class Ability
       can :read, :all
       cannot :read, User
       cannot :index, User
+      cannot [:create, :edit, :destroy], Plan
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }

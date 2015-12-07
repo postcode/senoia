@@ -1,0 +1,37 @@
+<div id="provider">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="small-7 columns pageTitle">
+        <h1><%= @provider.name %></h1>
+        <h4><%= @provider.address %></h4>
+        <h4><%= @provider.phone_number %></h4>
+      </div>
+      <div class="small-offset-1 small-2 columns end pageTitle">
+        <%= link_to "Edit Provider", edit_provider_path(@provider.id), class: "button default tiny" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-hover datatable small-12 twelve" id="provider-users">
+      <thead>
+        <tr>
+          <th width="300">Name</th>
+          <th width="300">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for user in @provider.users %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= link_to "All Providers", providers_path, class: "button default small" %>
+    </div>
+  </div>
+</div>
