@@ -16,6 +16,7 @@
 #
 
 class OperationPeriod < ActiveRecord::Base
+  extend SimpleCalendar
   acts_as_commentable
   has_many :first_aid_stations
   has_many :mobile_teams

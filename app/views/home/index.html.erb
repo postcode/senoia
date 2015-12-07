@@ -37,16 +37,18 @@
         <h4>Zombie ipsum brains reversus ab cerebellum viral inferno, brein nam rick mend grimes malum cerveau cerebro. De carne cerebro lumbering animata cervello corpora quaeritis. Summus thalamus brains sit​​, morbo basal ganglia vel maleficia? De braaaiiiins apocalypsi gorger omero prefrontal cortex undead survivor fornix dictum mauris. Hi brains mindless mortuis limbic cortex soulless creaturas optic nerve, imo evil braaiinns stalking monstra. </h4>
     </div>
     <div class="large-5 columns">
-      <%= month_calendar td: {class: "day"}, events: @operation_period do |date, op| %>
-        <%= date.day %>
-        <% if op.count > 0 %>
-          <div class="day-op <%= op.count >= 5 ? 'day-alert' : 'day-normal' %>">
-            <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= op.map.each do |p| p.plan.present? ? p.plan.name : "no name" end %>"><%= op.count %></span>
-          </div>
-        <% else %>
-          <div>
-            <span data-tooltip aria-haspopup="true" class="has-tip" title="This is a tooltip">&nbsp;</span>
-          </div>
+      <%= month_calendar attribute: :start_date, td: {class: "day"}, events: @operation_period do |date, op| %>
+        <% if date.present? %>
+          <%= date.day %>
+          <% if op.count > 0 %>
+            <div class="day-op <%= op.count >= 5 ? 'day-alert' : 'day-normal' %>">
+              <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= op.map.each do |p| p.plan.present? ? p.plan.name : "no name" end %>"><%= op.count %></span>
+            </div>
+          <% else %>
+            <div>
+              <span data-tooltip aria-haspopup="true" class="has-tip" title="This is a tooltip">&nbsp;</span>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
