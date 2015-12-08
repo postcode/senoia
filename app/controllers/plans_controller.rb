@@ -4,8 +4,6 @@ class PlansController < ApplicationController
   helper  SmartListing::Helper
 
   helper_method :view_own_plans?
-
-  require 'pry'
   
   def index
     plans_scope = Plan.includes(:operation_periods, :event_type).calculating_total_attendance
@@ -69,7 +67,6 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
-    binding.pry
 
     @plan.update(plan_params)
     
