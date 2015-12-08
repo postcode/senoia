@@ -4,6 +4,8 @@ class PlansController < ApplicationController
   helper  SmartListing::Helper
 
   helper_method :view_own_plans?
+
+  require 'pry'
   
   def index
     plans_scope = Plan.includes(:operation_periods, :event_type).calculating_total_attendance
@@ -67,6 +69,7 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
+    binding.pry
 
     @plan.update(plan_params)
     
@@ -106,7 +109,7 @@ class PlansController < ApplicationController
     if params[:user].present?
       params[:user].each do |user|
         user_obj = User.find_by_email(user[1][:email])
-        @plan.plan_users.create(user: user_obj, role: user[1][:role])
+        @plan.users.create(user: user_obj, role: user[1][:role])
       end
     end
 
