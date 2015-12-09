@@ -195,7 +195,9 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     @plan.paper_trail_event = "update #{@category}"
     @plan.update_attribute("#{@category}", true)
-    redirect_to plan_path(@plan)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private 

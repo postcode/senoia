@@ -13,7 +13,7 @@
       <% if permitter.email %>
         <%= mail_to(permitter.email, nil, target: "_blank") %>
       <% else %>
-        "(email missing)" %>
+        <%= "(email missing)" %>
       <% end %>
       <br/>
     </span>
