@@ -1,5 +1,5 @@
 <div class="content <%= "active" if count == 1 %> <%= "operation-period-#{operation_period.id}" %>" id="panel<%= count %>">
-  
+
   <div class="row">
     <div class="small-2 columns input_label">
       <label>Start</label>
@@ -21,7 +21,7 @@
     <div class="large-4 columns">
       <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_end_date" %>
     </div>
-  </div>        
+  </div>
   <div class="row">
     <div class="small-2 columns input_label">
       <label>Crowd Size</label>
@@ -33,6 +33,9 @@
       <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_attendance" %>
     </div>
   </div>
+
+  <%= render 'operation_periods/asset_map', operation_period: operation_period %>
+
   <div class="row">
     <div class="large-9 columns">
       <fieldset>
@@ -60,13 +63,13 @@
     </div>
     <div class="large-3 columns right end">
       <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_first_aid_stations" %>
-    </div>          
+    </div>
   </div>
   <div class="row">
     <div class="large-9 columns">
       <fieldset>
         <legend>MOBILE TEAMS</legend>
-        <div class="row">          
+        <div class="row">
           <table id="mobile_team_table">
             <thead>
               <th>Name</th>
@@ -81,10 +84,10 @@
             <tbody>
               <%= render partial: "mobile_teams/row", collection: operation_period.mobile_teams, as: :mobile_team %>
             </tbody>
-          </table> 
-        </div> 
+          </table>
+        </div>
       </fieldset>
-    </div>  
+    </div>
     <div class="large-3 columns right end">
       <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_mobile_teams" %>
     </div>
@@ -94,7 +97,7 @@
     <div class="large-9 columns">
       <fieldset>
         <legend>TRANSPORTs</legend>
-        <div class="row">              
+        <div class="row">
           <%= simple_fields_for :transports do |t| %>
             <table id="transport_table">
               <thead>
@@ -115,12 +118,12 @@
     <div class="large-3 columns right end">
       <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_transport" %>
     </div>
-  </div>   
+  </div>
   <div class="row">
-    <div class="large-9 columns">            
+    <div class="large-9 columns">
       <fieldset>
         <legend>DISPATCHES</legend>
-        <div class="row">              
+        <div class="row">
           <table id="dispatch_table">
             <thead>
               <th>Name</th>
@@ -137,6 +140,6 @@
     </div>
     <div class="large-3 columns right end">
       <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_dispatch" %>
-    </div>          
+    </div>
   </div>
 </div>
