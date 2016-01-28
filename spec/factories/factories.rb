@@ -13,11 +13,11 @@ FactoryGirl.define do
       end
     end
   end
-  
+
   factory :operation_period do
     start_date DateTime.now
     end_date   DateTime.now + 1.day
-    attendance Faker::Number.number(5)     
+    attendance Faker::Number.number(5)
   end
 
   factory :plan do
@@ -28,7 +28,7 @@ FactoryGirl.define do
     factory :plan_under_review do
       workflow_state :under_review
     end
-    
+
     factory :draft do
       workflow_state :draft
     end
@@ -80,6 +80,14 @@ FactoryGirl.define do
     u.password "password"
     u.password_confirmation "password"
     u.roles 'admin'
+    u.confirmed_at Date.today
+  end
+
+  factory :promoter, :class => User do |u|
+    u.email { Faker::Internet.email }
+    u.password "password"
+    u.password_confirmation "password"
+    u.roles 'promoter'
     u.confirmed_at Date.today
   end
 

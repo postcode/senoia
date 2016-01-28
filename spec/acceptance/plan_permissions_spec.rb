@@ -7,11 +7,11 @@ feature "Plan Permissions" do
     background do
       visit "/plans/#{plan.id}"
     end
-    
+
     scenario "can be viewed" do
       expect(page.body).to match %r{#{plan.name}}i
     end
-    
+
   end
 
   shared_examples "cannot view" do
@@ -25,7 +25,7 @@ feature "Plan Permissions" do
     end
 
   end
-  
+
   shared_examples "can edit" do
 
     background do
@@ -69,9 +69,9 @@ feature "Plan Permissions" do
       expect(page).to_not have_selector("a", text: "COMMENT")
     end
   end
-  
+
   ALL_STATES = Plan.workflow_spec.state_names
-  
+
   context "as a guest" do
 
     context "a draft" do
@@ -89,7 +89,7 @@ feature "Plan Permissions" do
   context "as the creator" do
 
     let(:creator) { create(:user) }
-    
+
     background do
       sign_in creator
     end
@@ -102,7 +102,7 @@ feature "Plan Permissions" do
           include_examples "can comment" if state.in? [ :under_review, :revision_requested ]
         end
       end
-    end    
+    end
   end
 
   context "as a viewer" do
@@ -116,7 +116,7 @@ feature "Plan Permissions" do
     context "a comment" do
 
       let(:plan) { create(:plan, users_who_can_view: [ viewer ]) }
-      
+
       background do
         plan.comments << create(:comment, commentable: plan, element_id: "contact_comment_text")
         visit "/plans/#{plan.id}"
@@ -125,7 +125,7 @@ feature "Plan Permissions" do
       scenario "cannot be replied to" do
         expect(page).to_not have_selector("a", text: "REPLY")
       end
-      
+
     end
 
     context "a plan in state" do
@@ -142,7 +142,7 @@ feature "Plan Permissions" do
 
   context "as an editor" do
 
-    let(:editor) { create(:user) }
+    let(:editor) { create(:promoter) }
 
     background do
       sign_in editor
@@ -167,7 +167,7 @@ feature "Plan Permissions" do
   context "as an admin" do
 
     let(:admin) { create(:admin) }
-    
+
     background do
       sign_in admin
     end
@@ -183,5 +183,5 @@ feature "Plan Permissions" do
       end
     end
   end
-  
+
 end
