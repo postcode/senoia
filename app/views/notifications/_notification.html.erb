@@ -1,5 +1,5 @@
 <div data-alert class="alert-box info radius">
-  <%= render [ "notifications", notification.partial ].join("/"), notification: notification, "#{notification.subject_type.underscore}": notification.subject %>
+  <%= render [ "notifications", notification.partial ].join("/"), notification: notification, "#{notification.subject_type.underscore}" => notification.subject %>
   <div class="right" style="margin-right: 1em; color: gray">
     <em>
       <%= time_ago_in_words(notification.created_at) %> ago
