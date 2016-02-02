@@ -1,0 +1,171 @@
+<div class="row">
+  <div class="large-12 columns">
+    <div class="asset_map_legend">
+      <strong>ASSETS:</strong>
+      <span class="marker_legend_firstaid">First Aid</span>
+      <span class="marker_legend_mobileteam">Mobile Team</span>
+      <span class="marker_legend_transport">Transport</span>
+      <span class="marker_legend_dispatch">Dispatch</span>
+    </div>
+    <div class="asset_map" id="<%= operation_period.id %>_asset_map"></div>
+    <script type="text/javascript">
+    $(function() {
+      var firstAidStations = <%== json_escape(operation_period.first_aid_stations.to_json) %>;
+      var mobileTeams = <%== json_escape(operation_period.mobile_teams.to_json) %>;
+      var transports = <%== json_escape(operation_period.transports.to_json) %>;
+      var dispatches = <%== json_escape(operation_period.dispatchs.to_json) %>;
+
+      // to_json produces null values, which are displayed as "null", which is
+      // not ideal. This sets a sensible alternative.
+      var i, j, property;
+      var datasets = [firstAidStations, mobileTeams, transports, dispatches];
+
+      for (i = 0; i < datasets.length; i++) {
+        for (j = 0; j < datasets[i].length; j++) {
+          for (property in datasets[i][j]) {
+              if (datasets[i][j].hasOwnProperty(property)) {
+                if (datasets[i][j][property] === null) {
+                  datasets[i][j][property] = 'Not entered';
+                }
+              }
+          }
+        }
+      }
+
+      var mapOptions = {
+        center: new google.maps.LatLng(37.773972, -122.431297),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.NORMAL,
+        panControl: true,
+        scaleControl: false,
+        streetViewControl: true,
+        overviewMapControl: true
+      };
+
+      map = new google.maps.Map(document.getElementById('<%= operation_period.id %>_asset_map'), mapOptions);
+      var markers = [];
+
+      function fitBoundsToVisibleMarkers() {
+        var bounds = new google.maps.LatLngBounds();
+        for (var i=0; i<markers.length; i++) {
+          if(markers[i].getVisible()) {
+            bounds.extend( markers[i].getPosition() );
+          }
+        }
+        map.fitBounds(bounds);
+      }
+
+      function makeInfoWindowListener(infowindow, map, marker) {
+        return function() {
+          infowindow.open(map, marker);
+        }
+      }
+
+      function addMarkers(collection, options) {
+        for (var i = 0; i < collection.length; i++) {
+          var obj = collection[i];
+          console.log("Adding", collection[i]);
+          var latlng = {lat: Number(obj.lat), lng: Number(obj.lng)};
+
+          var infowindow = new google.maps.InfoWindow({
+            content: options.content(obj)
+          });
+
+          var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            icon: options.icon
+          });
+
+          marker.addListener('click', makeInfoWindowListener(infowindow, map, marker));
+
+          markers.push(marker);
+        }
+      }
+
+      addMarkers(firstAidStations, {
+        icon: {
+          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          scale: 5,
+          fillColor: '#ca0020',
+          fillOpacity: 1.0,
+          strokeColor:  '#ca0020',
+          strokeWeight: 2
+        },
+        content: function(obj) {
+          var content = '<div><strong>First Aid Station</strong></div>';
+          content += '<div>' + obj.name + '</div>';
+          content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
+          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+          content += '<div><strong>EMTs</strong>: ' + obj.emt + '</div>';
+          content += '<div><strong>RNs</strong>: ' + obj.rn + '</div>';
+          content += '<div><strong>MDs</strong>: ' + obj.md + '</div>';
+          return content;
+        }
+      });
+      addMarkers(mobileTeams, {
+        icon: {
+          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          scale: 5,
+          fillColor: '#0571b0',
+          fillOpacity: 1.0,
+          strokeColor:  '#0571b0',
+          strokeWeight: 2
+        },
+        content: function(obj) {
+          var content = '<div><strong>Mobile Team</strong></div>';
+          content += '<div>' + obj.name + '</div>';
+          content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
+          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+          content += '<div><strong>Level</strong>: ' + obj.level + '</div>';
+          content += '<div><strong>Type</strong>: ' + obj.mobile_team_type + '</div>';
+          content += '<div><strong>AEDs</strong>: ' + obj.aed + '</div>';
+          return content;
+        }
+      });
+      addMarkers(transports, {
+        icon: {
+          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          scale: 5,
+          fillColor: '#85048a',
+          fillOpacity: 1.0,
+          strokeColor:  '#85048a',
+          strokeWeight: 2
+        },
+        content: function(obj) {
+          var content = '<div><strong>Transport</strong></div>';
+          content += '<div>' + obj.name + '</div>';
+          content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
+          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+          content += '<div><strong>Level</strong>: ' + obj.level + '</div>';
+          return content;
+        }
+      });
+      addMarkers(dispatches, {
+        icon: {
+          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          scale: 5,
+          fillColor: '#45403e',
+          fillOpacity: 1.0,
+          strokeColor:  '#45403e',
+          strokeWeight: 2
+        },
+        content: function(obj) {
+          var content = '<div><strong>Dispatcher</strong></div>';
+          content += '<div>' + obj.name + '</div>';
+          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+          return content;
+        }
+      });
+
+      fitBoundsToVisibleMarkers();
+
+    });
+    </script>
+  </div>
+</div>
+

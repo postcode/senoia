@@ -14,7 +14,7 @@
     <% end %>
 
     <%= op.input_field :id, as: :hidden %>
-    
+
     <div class="row">
       <div class="small-2 columns input_label">
         <%= op.label :start_date, class: "inline", label: "START" %>
@@ -42,7 +42,7 @@
       <div class="large-4 columns">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_end_date" %>
       </div>
-    </div>        
+    </div>
     <div class="row">
       <div class="small-2 columns input_label">
         <%= op.label :attendance, class: "inline" do %>
@@ -56,6 +56,9 @@
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_attendance" %>
       </div>
     </div>
+
+    <%= render 'operation_periods/asset_map', operation_period: op.object %>
+
     <div class="row">
       <div class="large-9 columns">
         <fieldset>
@@ -82,19 +85,19 @@
             <div class="large-12 columns">
               <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
               <%= render partial: 'plans/new_first_aid_station', :locals => { :operation_period => op.object, :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
-            </div>  
+            </div>
           </div>
         </fieldset>
       </div>
       <div class="large-3 columns right end">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_first_aid_stations" %>
-      </div>          
+      </div>
     </div>
     <div class="row">
       <div class="large-9 columns">
         <fieldset>
           <legend>MOBILE TEAMS</legend>
-          <div class="row">          
+          <div class="row">
             <table id="mobile_team_table">
               <thead>
                 <th>Name</th>
@@ -109,14 +112,14 @@
               <tbody>
                 <%= render 'plans/mobile_team_show', op: op %>
               </tbody>
-            </table> 
+            </table>
             <div class="large-12 columns">
               <a id="new_mobile_team" class="button primary tiny radius" href="#" data-reveal-id="new-mobile-team-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD MOBILE TEAM</a>
               <%= render partial: 'plans/new_mobile_team', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
             </div>
-          </div> 
+          </div>
         </fieldset>
-      </div>  
+      </div>
       <div class="large-3 columns right end">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_mobile_teams" %>
       </div>
@@ -126,7 +129,7 @@
       <div class="large-9 columns">
         <fieldset>
           <legend>TRANSPORTS</legend>
-          <div class="row">              
+          <div class="row">
             <%= simple_fields_for :transports do |t| %>
               <table id="transport_table">
                 <thead>
@@ -151,11 +154,11 @@
       <div class="large-3 columns right end">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_transport" %>
       </div>
-    </div>   
+    </div>
     <div class="row">
-      <div class="large-9 columns">            
+      <div class="large-9 columns">
         <fieldset>
-          <div class="row">              
+          <div class="row">
             <legend>DISPATCH</legend>
             <%= simple_fields_for :dispatchs do |d| %>
               <table id="dispatch_table">
@@ -179,7 +182,7 @@
       </div>
       <div class="large-3 columns right end">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_dispatch" %>
-      </div>          
+      </div>
     </div>
   </div>
 <% end %>
