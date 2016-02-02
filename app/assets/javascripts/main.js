@@ -14,6 +14,11 @@ window.senoia.initDatepickers = function() {
 $(function() {
 
   senoia.initDatepickers();
+
+  $(".show-resolved-comments").click( function(event) {
+    event.preventDefault();
+    $(this).closest(".existing-comments").find(".resolved-comments").toggle()
+  })
   
   $('#all_plans tbody tr').css('cursor', 'pointer')
   $('#all_plans tbody tr').click(function() {

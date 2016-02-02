@@ -1,4 +1,4 @@
-<% threads = plan.root_comments.open.element("#{title}_comment_text") %>
+<% threads = plan.root_comments.element("#{title}_comment_text") %>
 <% if (plan.persisted? && can?(:create, plan.comments.build)) || threads.any? %>
   <div id="<%= title %>_comment" class="comment-section">
     <% if can? :create, plan.comments.build %>
@@ -10,6 +10,9 @@
     <% end %>
     <div class="existing-comments">
       <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
+      <div>
+        <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
+      </div>
     </div>
   </div>
 <% end %>
