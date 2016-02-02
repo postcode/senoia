@@ -30,7 +30,7 @@ feature "Post Event Treatment Report" do
       end
       expect(page).to_not have_selector(".treatment-record")
     end
-    
+
     scenario "adds a transportation record", js: true do
       add_transportation_record
     end
@@ -68,13 +68,13 @@ feature "Post Event Treatment Report" do
       expect(page).to have_content document_name
     end
   end
-  
+
   let(:plan) do
-    create(:accepted_plan,
+    create(:approved_plan,
            creator: create(:user),
            operation_periods: [ operation_period ])
   end
-  
+
   let(:operation_period) do
     create(:operation_period,
            transports: [ transport ])
@@ -97,7 +97,7 @@ feature "Post Event Treatment Report" do
   context "Plan Editor" do
 
     let(:editor) { create(:user) }
-    
+
     background do
       plan.users_who_can_edit << editor
       sign_in editor
@@ -108,7 +108,7 @@ feature "Post Event Treatment Report" do
     include_examples "editable post event treatment report"
 
   end
-  
+
   def add_transportation_record
     within "#transportation-records" do
       click_on "+"
@@ -124,7 +124,7 @@ feature "Post Event Treatment Report" do
       expect(page).to have_content transport.name
     end
   end
-  
+
   def add_treatment_record
     within "#treatment-records" do
       click_on "+"
