@@ -6,7 +6,7 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "Senoia" %></title>
 
-    <script src="//maps.google.com/maps/api/js?v=3.18&sensor=false&client=&key=&libraries=geometry&language=&hl=&region=&libraries=drawing"></script> 
+    <script src="https://maps.google.com/maps/api/js?v=3.18&sensor=false&client=&key=&libraries=geometry&language=&hl=&region=&libraries=drawing"></script>
     <!-- Foundation 3 for IE 8 and earlier -->
     <!--[if lt IE 9]>
       <%= stylesheet_link_tag 'ie8', :media => 'all' %>
@@ -23,7 +23,7 @@
     <%= csrf_meta_tags %>
 
     <% if Rails.env.test? %>
-      <script>  
+      <script>
         $.fx.off = true; // Disable animations
       </script>
     <% end %>
@@ -50,7 +50,7 @@
       </div>
     <% end %>
 
-    
+
     <%= render 'shared/footer' %>
   </body>
   <!-- Foundation 3 for IE 8 and earlier -->

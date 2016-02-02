@@ -7,7 +7,7 @@ require 'database_cleaner'
 require 'capybara/poltergeist'
 
 require 'simplecov'
-SimpleCov.start do 
+SimpleCov.start do
   add_group "Models", "app/models"
   add_group "Controllers", "app/controllers"
   add_group "Custom Models", "lib"
@@ -42,7 +42,10 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
   Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: true)
+    Capybara::Poltergeist::Driver.new(app, {
+      js_errors: true,
+      phantomjs_options: ['--ignore-ssl-errors=yes']
+    })
   end
 
   Capybara.javascript_driver = :poltergeist
