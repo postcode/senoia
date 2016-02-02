@@ -6,9 +6,11 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
       can :read, :admin_only_items
-    elsif user.has_role? :user
-      can [:create, :edit, :update, :read], Plan
     elsif user.has_role? :promoter
+      can :manage, Plan, :creator_id => user.id
+      can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
+      can [:create, :edit, :update, :read], Plan
+    elsif user.has_role? :user
       can [:create, :edit, :update, :read], Plan
     elsif user.has_role? :permitter
       can [:edit, :update, :read], Plan
