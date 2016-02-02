@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   around_action :set_current_user
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => "You are not authorized to access this page."
+    redirect_to root_url, alert: exception.message
   end
 
   # if user is logged in, return current_user, else return guest_user

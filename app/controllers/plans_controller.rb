@@ -1,5 +1,4 @@
 class PlansController < ApplicationController
-  load_and_authorize_resource
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
@@ -46,7 +45,7 @@ class PlansController < ApplicationController
   end
 
   def new
-    authorize! :create, Plan
+    authorize! :create, Plan, message: "Sorry, you are not authorized to create a new plan."
     @plan = Plan.new
     
     respond_to do |format|
@@ -56,7 +55,7 @@ class PlansController < ApplicationController
   end  
 
   def create
-    authorize! :create, Plan
+    authorize! :create, Plan, message: "Sorry, you are not authorized to create a new plan."
     @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
     if !@plan.valid?
       render action: :new
