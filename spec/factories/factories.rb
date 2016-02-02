@@ -83,6 +83,14 @@ FactoryGirl.define do
     u.confirmed_at Date.today
   end
 
+  factory :promoter, :class => User do |u|
+    u.email { Faker::Internet.email }
+    u.password "password"
+    u.password_confirmation "password"
+    u.roles 'promoter'
+    u.confirmed_at Date.today
+  end
+
   factory :event_type do
     name { Faker::Lorem.words(3).join(" ") }
   end
