@@ -41,8 +41,15 @@
         <% if date.present? %>
           <%= date.day %>
           <% if op.count > 0 %>
+          <% plan_names = [] %>
+          <% op.map{ |p| 
+              if p.plan.present? 
+                plan_names << p.plan.name 
+              end
+                }
+            %>
             <div class="day-op <%= op.count >= 5 ? 'day-alert' : 'day-normal' %>">
-              <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= op.map.each do |p| p.plan.present? ? p.plan.name : "no name" end %>"><%= op.count %></span>
+              <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= p plan_names %>"><%= op.count %></span>
             </div>
           <% else %>
             <div>
