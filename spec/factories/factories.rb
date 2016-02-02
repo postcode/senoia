@@ -13,22 +13,22 @@ FactoryGirl.define do
       end
     end
   end
-  
+
   factory :operation_period do
     start_date DateTime.now
     end_date   DateTime.now + 1.day
-    attendance Faker::Number.number(5)     
+    attendance Faker::Number.number(5)
   end
 
   factory :plan do
     name { Faker::Lorem.words(3).join }
     event_type
-    operation_periods = FactoryGirl.create(:operation_period)
+    operation_periods { [FactoryGirl.create(:operation_period)] }
 
     factory :plan_under_review do
       workflow_state :under_review
     end
-    
+
     factory :draft do
       workflow_state :draft
     end
