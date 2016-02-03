@@ -13,6 +13,7 @@
     <%= smart_listing_controls_for(:plans) do %>
       <!-- # Add search box to form - it submits the form automatically on text change -->
       <ul class="side-nav large-12 columns">
+      <% if can? :edit, Plan %>
         <li class="large-12 columns">
           <div class="checkbox row collapse">
             <div class="checkbox inline">
@@ -26,6 +27,7 @@
             </div>
           </div>
         </li>
+      <% end %>
         <hr>
         <li class="large-12 columns request_search">
           <h4>SEARCH:</h4>
