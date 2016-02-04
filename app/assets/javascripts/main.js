@@ -13,6 +13,16 @@ window.senoia.initDatepickers = function() {
 
 $(function() {
 
+  $("body").delegate('.dateSelect', 'hide', function(event) {
+    if ($("#operation_period_start_date").val().length > 0 && $("#operation_period_start_date").val().length > 0) {
+      $(".save-operation-period").prop("disabled", false)
+                                 .removeClass("disabled");
+    } else {
+      $(".save-operation-period").prop("disabled", true)
+                                 .addClass("disabled");
+    }
+  });
+
   senoia.initDatepickers();
 
   $(".show-resolved-comments").click( function(event) {
@@ -80,10 +90,15 @@ $(function() {
   })
 
   $("body").on("click", ".save-operation-period", function(event) {
-    var form = $(this).closest(".operation-period-form");
-    var data = form.find(":input").serialize();
-    var url = form.data().url
-    $.post(url, data);
+    if ($(this).hasClass("disabled")) {
+        event.preventDefault();
+        return;
+    } else {
+      var form = $(this).closest(".operation-period-form");
+      var data = form.find(":input").serialize();
+      var url = form.data().url
+      $.post(url, data);
+    }
   });
 
   $('.remove-user').click(function(event) {
