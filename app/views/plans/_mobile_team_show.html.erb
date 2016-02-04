@@ -1,7 +1,6 @@
 <%= op.simple_fields_for :mobile_teams do |a| %>
 <tr>
   <td><%= a.input :name, required: false, label: false %></td>
-  <td><%= a.input :location, required: false, label: false %></td>
   <td><%= a.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
   <td><%= a.input :mobile_team_type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %></td>
   <td><%= a.input :aed, input_html: {value: 0}, required: false, label: false %></td>
