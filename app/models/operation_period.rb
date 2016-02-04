@@ -49,11 +49,11 @@ class OperationPeriod < ActiveRecord::Base
   end
 
   def formatted_start_time
-    start_time.strftime("%I:%M %p") if start_time
+    start_time.strftime("%l:%M %p") if start_time
   end
 
   def formatted_end_time
-    end_time.strftime("%I:%M %p") if end_time
+    end_time.strftime("%l:%M %p") if end_time
   end
   
 end
