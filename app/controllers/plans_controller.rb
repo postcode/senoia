@@ -133,7 +133,6 @@ class PlansController < ApplicationController
   def update_first_aid_station
     @operation_period = params[:operation_period]
     @operation_period_index = params[:operation_period_index]
-    # binding.pry
     respond_to do |format|
       format.js
     end
