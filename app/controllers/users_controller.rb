@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   skip_before_filter :require_no_authentication, only: :create
   load_and_authorize_resource
 
+  require 'pry'
+
   def index
     @users = User.all
   end
@@ -31,7 +33,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.roles << :user
-
+    binding.pry
     if @user.save
       flash[:notice] = "User created."
       redirect_to action: :index
