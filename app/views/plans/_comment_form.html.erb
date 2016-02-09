@@ -1,18 +1,20 @@
-<% threads = plan.root_comments.element("#{title}_comment_text") %>
-<% if (plan.persisted? && can?(:create, plan.comments.build)) || threads.any? %>
-  <div id="<%= title %>_comment" class="comment-section">
-    <% if can? :create, plan.comments.build %>
-      <a href="javascript:void(0);" class="comment"><i class="fi-plus"></i> COMMENT</a>
-      <div class="new-comment-area" data-url="<%= url_for([ plan, :comments, element_id: "#{title}_comment_text" ]) %>">
-        <%= text_area_tag "comment[body]", "", id: "#{title}_comment_text", cols: 10, rows: 5 %>
-        <%= link_to "SUBMIT", "javascript:void(0);", class: "new-comment button warning tiny radius" %>
-      </div>
-    <% end %>
-    <div class="existing-comments">
-      <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
-      <div>
-        <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
+<% if can? :manage, plan %>
+  <% threads = plan.root_comments.element("#{title}_comment_text") %>
+  <% if (plan.persisted? && can?(:create, plan.comments.build)) || threads.any? %>
+    <div id="<%= title %>_comment" class="comment-section">
+      <% if can? :create, plan.comments.build %>
+        <a href="javascript:void(0);" class="comment"><i class="fi-plus"></i> COMMENT</a>
+        <div class="new-comment-area" data-url="<%= url_for([ plan, :comments, element_id: "#{title}_comment_text" ]) %>">
+          <%= text_area_tag "comment[body]", "", id: "#{title}_comment_text", cols: 10, rows: 5 %>
+          <%= link_to "SUBMIT", "javascript:void(0);", class: "new-comment button warning tiny radius" %>
+        </div>
+      <% end %>
+      <div class="existing-comments">
+        <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
+        <div>
+          <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
