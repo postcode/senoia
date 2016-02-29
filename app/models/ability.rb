@@ -26,11 +26,11 @@ class Ability
       cannot :read, User
       cannot :index, User
       cannot [:create, :edit, :destroy, :show], Plan
+      cannot :read, Provider
+      cannot :read, Permitter
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
     cannot [ :edit, :destroy ], TransportationRecord, post_event_treatment_report: { submitted: true }
-    cannot :read, Provider
-    cannot :read, Permitter
   end
 end
