@@ -8,22 +8,13 @@
 <div class="row">
   <div class="large-12 medium-12 small-12 columns">
     <%= link_to "New Provider", new_provider_path, class: "button primary" %>
-    <table>
-      <thead>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-      </thead>
-      <% @providers.all.each do |p| %>
-      <tbody>
-        <tr>
-          <td><%= link_to p.name, provider_path(p.id) %></td>
-          <td><%= p.address %></td>
-          <td><%= p.phone_number %></td>
-          <td><%= link_to_if(can?(:edit, Provider), "Edit", edit_provider_path(p.id), :class => 'button secondary tiny') %></td>
-        </tr>
-      </tbody>
-      <% end %>
-    </table>  
+    <%= grid(@provider_grid, show_filters: :when_filtered) do |g|
+      g.column name: 'Name', attribute: 'name'
+      g.column name: 'Address', attribute: 'address'
+      g.column name: 'Phone Number', attribute: 'phone_number'
+      g.column name: '' do |u|
+        link_to 'Edit', edit_provider_path(u.id), class: 'button secondary tiny'
+      end
+    end -%>
   </div>
 </div>

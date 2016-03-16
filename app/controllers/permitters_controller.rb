@@ -4,6 +4,7 @@ class PermittersController < ApplicationController
   
   def index
     @permitters = Permitter.all
+    @permitter_grid = initialize_grid(Permitter)
     respond_to do |format|
       format.html
       format.json { render json: @permitters }

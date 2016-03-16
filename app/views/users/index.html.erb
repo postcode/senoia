@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="row">
-  <%= grid(@user_grid, show_filters: :no) do |g|
+  <%= grid(@user_grid, show_filters: :when_filtered) do |g|
     g.column name: 'Name', attribute: 'name'
     g.column name: 'Email', attribute: 'email'
     g.column name: 'Role' do |u|

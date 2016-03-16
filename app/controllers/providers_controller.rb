@@ -3,6 +3,7 @@ class ProvidersController < ApplicationController
   
   def index
     @providers = Provider.all
+    @provider_grid = initialize_grid(Provider)
     respond_to do |format|
       format.html
       format.json { render json: @providers }
