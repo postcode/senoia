@@ -8,25 +8,14 @@
 <div class="row">
   <div class="large-12 medium-12 small-12 columns">
     <%= link_to "New Permitting Agency", new_permitter_path, class: "button primary" %>
-    <table>
-      <thead>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-        <th>Actions</th>
-      </thead>
-      <% @permitters.all.each do |p| %>
-      <tbody>
-        <tr>
-          <td><%= p.name %></td>
-          <td><%= p.address %></td>
-          <td><%= p.email %></td>
-          <td><%= p.phone_number %></td>
-          <td><%= link_to "Edit", edit_permitter_path(p.id), class: 'button tiny default' %></td>
-        </tr>
-      </tbody>
-      <% end %>
-    </table>  
+    <%= grid(@permitter_grid, show_filters: :when_filtered) do |g|
+      g.column name: 'Name', attribute: 'name'
+      g.column name: 'Address', attribute: 'address'
+      g.column name: 'Email', attribute: 'email'
+      g.column name: 'Phone Number', attribute: 'phone_number'
+      g.column name: '' do |u|
+        link_to 'Edit', edit_permitter_path(u.id), class: 'button secondary tiny'
+      end
+    end -%>
   </div>
 </div>
