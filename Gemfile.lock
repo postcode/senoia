@@ -61,7 +61,6 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
-    callsite (0.0.11)
     cancancan (1.13.1)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -244,9 +243,8 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-sass-rails (3.0.2.2)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
+    font-awesome-sass (4.5.0)
+      sass (>= 3.2)
     formatador (0.2.5)
     foundation-datetimepicker-rails (0.2.1)
     foundation-icons-sass-rails (3.0.0)
@@ -256,7 +254,6 @@ GEM
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
     get_process_mem (0.2.0)
-    git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     gmaps4rails (2.1.2)
@@ -316,10 +313,6 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    meta_request (0.3.4)
-      callsite (~> 0.0, >= 0.0.11)
-      rack-contrib (~> 1.1)
-      railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
     mime-types (2.99)
     mini_portile2 (2.0.0)
@@ -363,9 +356,6 @@ GEM
     rack (1.6.4)
     rack-attack (4.3.0)
       rack
-    rack-contrib (1.4.0)
-      git-version-bump (~> 0.15)
-      rack (~> 1.4)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5)
@@ -496,6 +486,10 @@ GEM
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    wice_grid (3.6.0.pre5)
+      activerecord (> 3.2)
+      coffee-rails (> 3.2)
+      kaminari (~> 0.16)
     workflow (1.2.0)
     xml-simple (1.1.5)
     xpath (2.0.0)
@@ -525,7 +519,7 @@ DEPENDENCIES
   faker
   figaro
   fog
-  font-awesome-sass-rails
+  font-awesome-sass (~> 4.5.0)
   foundation-datetimepicker-rails
   foundation-icons-sass-rails
   foundation-rails (= 5.5.1)
@@ -541,7 +535,6 @@ DEPENDENCIES
   kaminari
   launchy
   letter_opener
-  meta_request
   negative_captcha
   newrelic_rpm
   paper_trail (~> 4.0.0.rc)
@@ -570,6 +563,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   unicorn-worker-killer
+  wice_grid (= 3.6.0.pre5)
   workflow
 
 BUNDLED WITH

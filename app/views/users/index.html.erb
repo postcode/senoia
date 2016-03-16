@@ -8,28 +8,19 @@
     </div>
   </div>
   <div class="row">
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th width="300">Name</th>
-            <th width="300">Email</th>
-            <th width="100">Roles</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @users.each do |u| %>
-          <tr id="user_<%= u.id %>">
-            <td><%= link_to_if(can?(:read, User), "#{u.name}", user_path(u.id)) {} %></td>
-            <td><%= u.email %></td>
-            <td><%= u.roles.first %></td>
-            <td><%= link_to_if(can?(:edit, User), "Edit", edit_user_path(u.id), :class => 'button secondary tiny') %></td>
-            <td><%= link_to_if(can?(:delete, u), "Delete", user_path(u.id), method: :delete, :confirm => "Are you sure?", :class => 'button alert tiny') %></td>
-          </tr>    
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+  <%= grid(@user_grid, show_filters: :no) do |g|
+    g.column name: 'Name', attribute: 'name'
+    g.column name: 'Email', attribute: 'email'
+    g.column name: 'Role' do |u|
+      u.roles.first
+    end
+    g.column name: '' do |u|
+      link_to 'Edit', edit_user_path(u.id), class: 'button secondary tiny'
+    end
+    g.column name: '' do |u|
+      link_to 'Delete', user_path(u.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button tiny alert'
+    end
+  end -%>
   </div>
 </div>
 

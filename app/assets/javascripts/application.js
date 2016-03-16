@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require jquery.fileupload
 //= require foundation
+//= require wice_grid
 //= require foundation-datetimepicker
 //= require foundation-datepicker
 //= require main
