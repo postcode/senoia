@@ -56,6 +56,9 @@ class User < ActiveRecord::Base
   # roles later, always append them at the end!
   roles :admin, :user, :guest, :provider, :promoter, :staff
 
+  validates :name, presence: true
+  validates :phone_number, presence: true
+
   after_create do
     Invitation.claim_invitations(self)
   end
