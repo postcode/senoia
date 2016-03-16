@@ -10,6 +10,10 @@ class Ability
       can :manage, Plan, :creator_id => user.id
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
       can [:create, :edit, :update, :read], Plan
+    elsif user.has_role? :provider
+      can :manage, Plan, :creator_id => user.id
+      can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
+      can [:create, :edit, :update, :read], Plan
     elsif user.has_role? :permitter
       can [:edit, :update, :read], Plan
     else
