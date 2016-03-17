@@ -59,6 +59,7 @@ class PlansController < ApplicationController
     authorize! :create, Plan, message: "Sorry, you are not authorized to create a new plan."
     @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
     if !@plan.valid?
+      flash.now[:alert] = @plan.errors.full_messages.to_sentence
       render action: :new
     else
       redirect_to plan_path(@plan)
