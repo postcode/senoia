@@ -18,4 +18,19 @@ class Organization < ActiveRecord::Base
   has_one :organization_type
 
   validates :name, presence: true
+
+  def save_organization_users(ids)
+    ids.each do |user_id|
+      if user_id[1] == "1"
+        @organization_user = OrganizationUser.where(:organization_id => id, :user_id => user_id[0]).first_or_create
+        @user = User.find(user_id[0])
+        @organization_user.save!
+      else
+        if OrganizationUser.exists?(:organization_id => id, :user_id => user_id[0])
+          OrganizationUser.where(:organization_id => id, :user_id => user_id[0]).delete_all
+        end
+      end
+    end
+  end
+
 end
