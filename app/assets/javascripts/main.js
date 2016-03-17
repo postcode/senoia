@@ -13,6 +13,8 @@ window.senoia.initDatepickers = function() {
 
 $(function() {
 
+  $('.time-input').timepicker();
+
   $("body").delegate('.dateSelect', 'hide', function(event) {
     if ($("#operation_period_start_date").val().length > 0 && $("#operation_period_start_date").val().length > 0) {
       $(".save-operation-period").prop("disabled", false)
