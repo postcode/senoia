@@ -40,6 +40,7 @@ class Plan < ActiveRecord::Base
   has_many :transports, -> { uniq }, through: :operation_periods
 
   has_one :post_event_treatment_report
+  has_one :venue
 
   accepts_nested_attributes_for :event_type, :operation_periods, :owner
 

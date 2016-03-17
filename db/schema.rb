@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203184418) do
+ActiveRecord::Schema.define(version: 20160317183952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,30 @@ ActiveRecord::Schema.define(version: 20151203184418) do
     t.datetime "end_time"
   end
 
+  create_table "organization_types", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "organization_users", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "email"
+    t.string   "phone_number"
+    t.integer  "organization_type_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "permitters", force: :cascade do |t|
     t.string   "name"
     t.string   "phone_number"
@@ -189,6 +213,7 @@ ActiveRecord::Schema.define(version: 20151203184418) do
     t.string   "post_event_email"
     t.string   "post_event_phone"
     t.integer  "creator_id"
+    t.integer  "venue_id"
   end
 
   create_table "post_event_treatment_reports", force: :cascade do |t|
@@ -315,6 +340,12 @@ ActiveRecord::Schema.define(version: 20151203184418) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "venues", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "version_associations", force: :cascade do |t|
     t.integer "version_id"

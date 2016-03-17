@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="pageHeader small-12 large-12 columns">
+    <span class="pageTitle large-9 columns">
+      <h2>Venues</h2>
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 medium-12 small-12 columns">
+    <%= link_to "New Venue", new_venue_path, class: "button primary" %>
+    <%= grid(@venue_grid, show_filters: :when_filtered) do |g|
+      g.column name: 'Name', attribute: 'name'
+      g.column name: '' do |u|
+        link_to 'Edit', edit_venue_path(u.id), class: 'button secondary tiny'
+      end
+    end -%>
+  </div>
+</div>
