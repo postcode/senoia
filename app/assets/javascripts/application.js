@@ -18,6 +18,8 @@
 //= require wice_grid
 //= require foundation-datetimepicker
 //= require foundation-datepicker
+//= require jquery.timepicker.js
+//= require jquery.datepair.js
 //= require main
 //= require direct-upload
 //= require turbolinks
