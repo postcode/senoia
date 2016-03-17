@@ -46,6 +46,10 @@
       var markers = [];
 
       function fitBoundsToVisibleMarkers() {
+        if (markers.length === 0) {
+          return;
+        }
+
         var bounds = new google.maps.LatLngBounds();
         for (var i=0; i<markers.length; i++) {
           if(markers[i].getVisible()) {
