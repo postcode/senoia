@@ -16,6 +16,7 @@
 #  contact_phone       :string
 #  location            :text
 #  mobile_team_type    :string
+#  service_area        :text
 #
 
 class MobileTeam < ActiveRecord::Base

@@ -14,6 +14,7 @@
 #  location            :text
 #  lat                 :decimal(10, 6)
 #  lng                 :decimal(10, 6)
+#  service_area        :text
 #
 
 class Dispatch < ActiveRecord::Base
