@@ -9,6 +9,7 @@ gem 'annotate'
 gem 'aws-sdk', '< 2.0'
 gem 'cancancan', '~> 1.10'
 gem 'carrierwave'
+gem 'chosen-rails'
 gem "cocoon"
 gem 'compass'
 gem "compass-rails"

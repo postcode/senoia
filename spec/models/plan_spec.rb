@@ -19,6 +19,7 @@
 #  post_event_email :string
 #  post_event_phone :string
 #  creator_id       :integer
+#  venue_id         :integer
 #
 
 require 'rails_helper'
