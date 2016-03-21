@@ -8,12 +8,20 @@
       <span class="marker_legend_dispatch">Dispatch</span>
     </div>
     <div class="asset_map" id="<%= operation_period.id %>_asset_map"></div>
+    <%= f.simple_fields_for :operation_periods, operation_period do |op| %>
+      <div id="service_area_<%= operation_period.id %>_asset_map">
+        <%= op.input :service_area, input_html: { id: 'service_area' }, as: :hidden %>
+      </div>
+    <% end %>
+
     <script type="text/javascript">
     $(function() {
+      var map_id = '<%= operation_period.id %>_asset_map'
       var firstAidStations = <%== json_escape(operation_period.first_aid_stations.to_json) %>;
       var mobileTeams = <%== json_escape(operation_period.mobile_teams.to_json) %>;
       var transports = <%== json_escape(operation_period.transports.to_json) %>;
       var dispatches = <%== json_escape(operation_period.dispatchs.to_json) %>;
+      var service_area = <%== json_escape(operation_period.service_area.to_json) %>;
 
       // to_json produces null values, which are displayed as "null", which is
       // not ideal. This sets a sensible alternative.
@@ -53,10 +61,14 @@
         var bounds = new google.maps.LatLngBounds();
         for (var i=0; i<markers.length; i++) {
           if(markers[i].getVisible()) {
-            bounds.extend( markers[i].getPosition() );
+            if(markers[i].getPosition().lat() > 0) {
+              bounds.extend( markers[i].getPosition() );
+            }
           }
         }
-        map.fitBounds(bounds);
+        if(!bounds.isEmpty()) {
+          map.fitBounds(bounds);
+        }
       }
 
       function makeInfoWindowListener(infowindow, map, marker) {
@@ -166,8 +178,51 @@
         }
       });
 
-      fitBoundsToVisibleMarkers();
+      // fitBoundsToVisibleMarkers();
 
+      function addPolygon(polygon) {
+        var area = [];
+        service_area_array = polygon.split("),")
+
+        for (var i = 0; i < service_area_array.length; i++) {
+          var obj = service_area_array[i].replace(/\(|\)/g, "").split(",");
+          area.push( {lat: Number(obj[0]), lng: Number(obj[1])} );
+        }
+        
+        var serviceArea = new google.maps.Polygon({
+          paths: area,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+        console.log(map)
+        console.log(area)
+        serviceArea.setMap(map);
+      }
+          // Construct the polygon.
+
+      var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: null,
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: [
+            google.maps.drawing.OverlayType.MARKER,
+            google.maps.drawing.OverlayType.POLYGON,
+          ]
+        }
+      });
+      drawingManager.setMap(map);
+
+      google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+        if (event.type == google.maps.drawing.OverlayType.POLYGON) {
+        $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
+        }
+      });
+      fitBoundsToVisibleMarkers()
+      addPolygon(service_area);
     });
     </script>
   </div>

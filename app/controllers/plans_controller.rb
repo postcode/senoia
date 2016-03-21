@@ -71,7 +71,6 @@ class PlansController < ApplicationController
 
     @plan.update(plan_params)
     
-    binding.pry
     plan_params[:operation_periods_attributes].try(:each) do |op|
       next unless op[1][:id]
       @operation_period = @plan.operation_periods.find(op[1][:id])
@@ -265,6 +264,7 @@ class PlansController < ApplicationController
                                              :end_date,
                                              :start_time,
                                              :end_time,
+                                             :service_area,
                                              first_aid_stations_attributes: [
                                                                              :name,
                                                                              :level,
@@ -323,6 +323,7 @@ class PlansController < ApplicationController
                                                :end_time,
                                                :attendance,
                                                :plan_id,
+                                               :service_area,
                                                first_aid_stations: [
                                                                     id:[
                                                                         :name,
