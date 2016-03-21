@@ -401,7 +401,12 @@ fieldset{
   -moz-border-radius-topright: 5px;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
-
+}
+#planAgreement{
+  .plan-accepted{
+    color: #43AC6A;
+    font-weight: bold;
+  }
 }
 
 /* PLAN ARCHIVE */
