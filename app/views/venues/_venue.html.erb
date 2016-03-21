@@ -1,0 +1,13 @@
+<% hidden = true unless hidden == false %>
+<div class="venue <%= "hidden" if hidden %>" data-venue-id="<%= venue.id %>">
+  <p>
+    <% if !hidden %>
+      <span class="name">
+        <%= venue.name %>
+        <br/>
+      </span>
+    <% end %>
+
+  </p>
+</div>
+

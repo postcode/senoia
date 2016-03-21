@@ -19,6 +19,7 @@
 #  post_event_email :string
 #  post_event_phone :string
 #  creator_id       :integer
+#  venue_id         :integer
 #
 
 class Plan < ActiveRecord::Base
@@ -40,6 +41,8 @@ class Plan < ActiveRecord::Base
   has_many :transports, -> { uniq }, through: :operation_periods
 
   has_one :post_event_treatment_report
+  has_many :plan_venues
+  has_many :venues, through: :plan_venues
 
   accepts_nested_attributes_for :event_type, :operation_periods, :owner
 

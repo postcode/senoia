@@ -6,7 +6,10 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "Senoia" %></title>
 
-    <script src="https://maps.google.com/maps/api/js?v=3.18&sensor=false&client=&key=&libraries=geometry&language=&hl=&region=&libraries=drawing"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnDsM_6JrXW5Y-LW1CjOZU2JWDpflU_oU&libraries=geometry&language=&hl=&region=&libraries=drawing"
+    async defer></script>
+
     <!-- Foundation 3 for IE 8 and earlier -->
     <!--[if lt IE 9]>
       <%= stylesheet_link_tag 'ie8', :media => 'all' %>

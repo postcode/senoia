@@ -223,6 +223,10 @@ class PlansController < ApplicationController
               :cpr,
               :communication,
               :event_contact,
+              :venue_ids,
+              venue_attributes: [
+                :id,
+                :name],
               users_attributes: [
                                  :id,
                                  :email,
@@ -260,6 +264,7 @@ class PlansController < ApplicationController
                                              :end_date,
                                              :start_time,
                                              :end_time,
+                                             :service_area,
                                              first_aid_stations_attributes: [
                                                                              :name,
                                                                              :level,
@@ -318,6 +323,7 @@ class PlansController < ApplicationController
                                                :end_time,
                                                :attendance,
                                                :plan_id,
+                                               :service_area,
                                                first_aid_stations: [
                                                                     id:[
                                                                         :name,

@@ -13,6 +13,12 @@ window.senoia.initDatepickers = function() {
 
 $(function() {
 
+  $('.tabs').on('toggled', function (event, tab) {
+    var map = $(tab).closest(".asset_map")
+    console.log($(tab));
+    reloadMap($(tab).find(".asset_map").attr("id"))
+  });
+
   $('.time-input').timepicker();
 
   $("body").delegate('.dateSelect', 'hide', function(event) {
