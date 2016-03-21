@@ -35,6 +35,10 @@ class Organization < ActiveRecord::Base
 end
 
 class NullOrganization
+  def id
+    0
+  end
+  
   def name
     'N/A'
   end
