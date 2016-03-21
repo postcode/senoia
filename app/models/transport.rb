@@ -14,6 +14,7 @@
 #  contact_name        :string
 #  contact_phone       :string
 #  location            :text
+#  service_area        :text
 #
 
 class Transport < ActiveRecord::Base

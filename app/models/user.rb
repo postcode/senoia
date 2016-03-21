@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
   has_many :plan_users
   has_many :providers, through: :providers_users
   has_many :providers_users
+  has_many :organization_users
+  has_many :organizations, through: :organizations_users
 
   roles_attribute :roles_mask
 

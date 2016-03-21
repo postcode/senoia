@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   resources :provider_confirmations
   resources :permitters
   resources :supplementary_documents, only: [ :destroy ]
+  resources :organizations
 
   devise_for :users
   resources :users
