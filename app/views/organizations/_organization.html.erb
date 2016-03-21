@@ -1,0 +1,27 @@
+<% hidden = true unless hidden == false %>
+<div class="organization <%= "hidden" if hidden %>" data-organization-id="<%= organization.id %>">
+  <p>
+    <% if !hidden %>
+      <span class="name">
+        <%= organization.name %>
+        <br/>
+      </span>
+    <% end %>
+
+    <span class="email">
+      <i class="fi-mail"></i>
+      <% if organization.email %>
+        <%= mail_to(organization.email, nil, target: "_blank") %>
+      <% else %>
+        <%= "(email missing)" %>
+      <% end %>
+      <br/>
+    </span>
+
+    <span class="phone-number">
+      <i class="fi-telephone"></i>
+      <%= organization.phone_number || "(phone number missing)" %>
+    </span>
+  </p>
+</div>
+

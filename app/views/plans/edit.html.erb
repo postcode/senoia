@@ -108,13 +108,13 @@
     </div>
     <div class="small-5 columns">
       <%= f.association :permitter,
-                        collection: Permitter.order("name ASC"),
+                        collection: OrganizationType.find_permitters,
                         label_method: :name,
                         value_method: :id,
                         include_blank: false,
                         label: false,
                         prompt: "(Please select)"%>
-      <%= render partial: "permitters/permitter", collection: @permitters %>
+      <%= render partial: "permitters/permitter", collection: OrganizationType.find_permitters %>
     </div>
     <div class="large-4 columns end">
       <%= render 'comment_form', plan: @plan, title: "permitter" %>

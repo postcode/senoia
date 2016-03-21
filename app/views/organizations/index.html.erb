@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="pageHeader small-12 large-12 columns">
+    <span class="pageTitle large-9 columns">
+      <h2>Organizations</h2>
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 medium-12 small-12 columns">
+    <%= link_to "New Organization", new_organization_path, class: "button primary" %>
+    <%= grid(@organization_grid, show_filters: :when_filtered) do |g|
+      g.column name: 'Name', attribute: 'name'
+      g.column name: 'Address', attribute: 'address'
+      g.column name: 'Email', attribute: 'email'
+      g.column name: 'Phone Number', attribute: 'phone_number'
+      g.column name: '' do |u|
+        link_to 'Edit', edit_organization_path(u.id), class: 'button secondary tiny'
+      end
+    end -%>
+  </div>
+</div>

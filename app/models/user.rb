@@ -49,12 +49,14 @@ class User < ActiveRecord::Base
   has_many :plan_users
   has_many :providers, through: :providers_users
   has_many :providers_users
+  has_many :organization_users
+  has_many :organizations, through: :organizations_users
 
   roles_attribute :roles_mask
 
   # declare the valid roles -- do not change the order if you add more
   # roles later, always append them at the end!
-  roles :admin, :user, :guest, :provider, :promoter, :staff
+  roles :admin, :user, :guest, :provider, :promoter, :staff, :permitter
 
   validates :name, presence: true
   validates :phone_number, presence: true

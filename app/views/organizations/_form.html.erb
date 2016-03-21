@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="large-12 columns">
+    <%= simple_form_for @organization do |f| %>
+      <%= f.input :name %>  
+      <%= f.input :address %>
+      <%= f.input :email, as: "email" %>
+      <%= f.input :phone_number %>
+      <%= f.collection_select :organization_type_id, OrganizationType.order(:name).all, :id, :name, {:prompt => 'Choose a type'} %>
+
+      <table class="table table-hover datatable small-12 twelve" id="organization-users">
+      <thead>
+        <tr>
+          <th width="100">Add to Organization</th>
+
+          <th width="300">Name</th>
+          <th width="300">Email</th>
+          <th width="100">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% User.all.each do |user| %>
+        <tr>
+          <% if OrganizationUser.exists?(:organization_id => @organization.id, :user_id => user.id) %>
+            <td><%= check_box "organizations_user[user_ids]", user.id, :class => 'table-row-checkbox member', data: { "userid": user.id }, checked: true %></td>
+          <% else %>
+            <td><%= check_box "organizations_user[user_ids]", user.id, :class => 'table-row-checkbox member', data: { "userid": user.id } %></td>
+          <% end %>
+
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+      
+      <%= f.submit class: "button" %>
+
+    <% end %> 
+  </div>
+</div>

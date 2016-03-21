@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   resources :permitters
   resources :venues
   resources :supplementary_documents, only: [ :destroy ]
+  resources :organizations
 
   devise_for :users
   resources :users
