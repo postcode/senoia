@@ -123,6 +123,9 @@ ol{
 
 /* GENERAL */
 
+hr{
+  margin:0rem;
+}
 .pageTitle{
   margin-top: 2em;
   margin-bottom: 2em;
@@ -404,6 +407,9 @@ fieldset{
 /* PLAN ARCHIVE */
 .plan-archive{
   margin-top: 2em;
+  button, .button{
+    margin: 0rem;
+  }
 }
 .side-nav{
   background: #eee;
@@ -414,6 +420,9 @@ fieldset{
   i{
     margin-left: .5em;
     margin-right: .35em;
+  }
+  li{
+    margin-bottom: 1rem;
   }
 }
 .plan-archive a{
