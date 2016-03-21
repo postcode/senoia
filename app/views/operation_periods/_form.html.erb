@@ -3,9 +3,9 @@
 
     <% if op.object.persisted? %>
       <div class="row">
-        <div class="large-12 columns">
+        <div class="large-12 columns text-right">
           <%= link_to "Clone", [ operation_period, :clones ], method: "POST", remote: true, class: "button primary tiny radius" %>
-          <%= link_to operation_period, method: "DELETE", remote: true, class: "button alert right tiny radius", data: { confirm: "Are you sure you want to remove this operational period?" } do %>
+          <%= link_to operation_period, method: "DELETE", remote: true, class: "button alert tiny radius", data: { confirm: "Are you sure you want to remove this operational period?" } do %>
             <i class="fi-x"></i>
             Remove
           <% end %>
