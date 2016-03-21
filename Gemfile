@@ -49,6 +49,8 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 gem 'unicorn'
 gem 'unicorn-worker-killer'
 gem 'wice_grid', '3.6.0.pre5'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 gem 'workflow'
 
 group :development do
