@@ -221,8 +221,8 @@
         $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
         }
       });
-      fitBoundsToVisibleMarkers()
       addPolygon(service_area);
+      fitBoundsToVisibleMarkers()
     });
     </script>
   </div>

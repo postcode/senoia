@@ -49,4 +49,9 @@ function map_initialize(map_id) {
         
 }
 
+function reloadMap(map_id) {
+  var test = document.getElementById(map_id)
+  google.maps.event.trigger(test, 'resize');
+}
+
 
