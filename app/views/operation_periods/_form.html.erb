@@ -48,7 +48,7 @@
         <%= op.label :attendance, class: "inline", label: "Crowd Size" %>
       </div>
       <div class="small-4 columns">
-        <%= op.input :attendance, label: false, input_html: { id: "#{op.object.id}_attendance"} %>
+        <%= op.input :attendance, label: false, as: :string, input_html: { id: "#{op.object.id}_attendance"} %>
       </div>
       <div class="large-4 columns">
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_attendance" %>
