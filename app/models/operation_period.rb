@@ -28,7 +28,7 @@ class OperationPeriod < ActiveRecord::Base
 
   validates :start_date, presence: true
   validates :end_date, presence: true
-  validates :attendance, presence: true
+  validates :attendance, presence: true, numericality: { only_integer: true, greater_than: 0 }
   
   include CustomDateTimeFormat
   use_custom_datetime_format_for :start_date, :end_date
