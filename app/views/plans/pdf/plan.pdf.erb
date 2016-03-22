@@ -1,12 +1,187 @@
-<div class="large-12 columns">
-  <div class="row">
-    <div class="large-7 columns pageTitle">
-      <h1><%= @plan.name %></h1>
+<%= simple_form_for [@plan] do |f| %>
+<div class="row">
+  <div class="large-12 columns pageTitle">
+    <h1><%= @plan.name %></h1>
+    <p>Last updated: <%= @plan.updated_at %></p>
+    <p>Created by: <%= @plan.creator.name %>&nbsp;<%= @plan.creator.email %>&nbsp;<%= @plan.creator.phone_number %></p>
+  </div>
+  <div class="large-12 columns plan_form">
+      <div class="row">
+        <div class="large-8 columns">
+        <h3>Collaborators</h3>
+          <% @plan.users.each do |user| %>
+            <p><%= user.name %></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-8 columns end">
+          Event Type: <%= @plan.event_type %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-8 columns end">
+          Permitting Agency: <%= @plan.permitter.name %>
+        </div>
+      </div>
+       <div class="row">
+        <div class="small-8 columns">
+          Alcohol Present: <%= @plan.alcohol ? 'Yes' : 'No' %>
+        </div>
+      </div>
+      <hr/>
+      <div class="tabs-content">
+        <% @plan.operation_periods.each.with_index do |period, index| %>
+         <h3>Operational Period  <%= period.formatted_start_date %>&nbsp;<%= period.formatted_start_time %></h3>
+          <div class="content operation-period-form active" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
+            <div class="row">
+              <div class="small-8 columns">
+                Start: <%= period.formatted_start_date %>&nbsp;<%= period.formatted_start_time %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-8 columns end">
+                End: <%= period.formatted_end_date %>&nbsp;<%= period.formatted_end_time %>
+              </div>
+            </div>        
+            <div class="row">
+              <div class="small-4 columns end">
+                Attendance: <%= period.attendance %>
+              </div>
+            </div>
+              <div class="row">
+                <div class="large-9 columns">
+                  <fieldset>
+                    <legend>FIRST AID STATIONS</legend>
+                    <div class="row">
+                      <table class="first_aid_table">
+                        <thead>
+                          <th>Name</th>
+                          <th>Location</th>
+                          <th width="75">Level</th>
+                          <th>MDs</th>
+                          <th>RNs</th>
+                          <th>EMTs</th>
+                          <th>AEDs</th>
+                          <th>Provider</th>
+                          <th>Contact Name</th>
+                          <th>Contact Phone</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                          <% period.first_aid_stations.each do |first_aid_station| %>
+                            <% %w(name level md rn emt aed provider contact_name contact_phone).each do |attribute| %>
+                              <td>
+                                <%= first_aid_station.send(attribute) %>
+                              </td>
+                            <% end %>
+                            <% end %>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="row">
+                <div class="large-9 columns">
+                  <fieldset>
+                    <legend>MOBILE TEAMS</legend>
+                    <div class="row">
+                      <table id="mobile_team_table">
+                        <thead>
+                          <th>Name</th>
+                          <th>Location</th>
+                          <th width="75">Level</th>
+                          <th width="75">Type</th>
+                          <th>AEDs</th>
+                          <th>Provider</th>
+                          <th>Contact Name</th>
+                          <th>Contact Phone</th>
+                        </thead>
+                        <tbody>
+                        <% period.mobile_teams.each do |mobile_team| %>
+                          <tr>
+                            <% %w(name level mobile_team_type provider contact_name contact_phone).each do |attribute| %>
+                              <td>
+                                <%= mobile_team.send(attribute) %>
+                              </td>
+                            <% end %>
+                          </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="large-9 columns">
+                  <fieldset>
+                    <legend>TRANSPORT</legend>
+                    <div class="row">
+                      <%= simple_fields_for :transports do |t| %>
+                        <table id="transport_table">
+                          <thead>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Provider</th>
+                            <th>Contact Name</th>
+                            <th>Contact Phone</th>
+                          </thead>
+                          <tbody>
+                          <% period.transports.each do |transport| %>
+                            <tr>
+                              <% %w(name provider contact_name contact_phone).each do |attribute| %>
+                                <td>
+                                  <%= transport.send(attribute) %>
+                                </td>
+                              <% end %>
+                            </tr>
+                          <% end %>
+                          </tbody>
+                        </table>
+                      <% end %>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="row">
+                <div class="large-9 columns">
+                  <fieldset>
+                    <legend>DISPATCHES</legend>
+                    <div class="row">
+                      <table id="dispatch_table">
+                        <thead>
+                          <th>Name</th>
+                          <th>Provider</th>
+                          <th>Contact Name</th>
+                          <th>Contact Phone</th>
+                        </thead>
+                        <tbody>
+                          <% period.dispatchs.each do |dispatch| %>
+                            <tr>
+                              <% %w(name provider contact_name contact_phone).each do |attribute| %>
+                                <td>
+                                  <%= dispatch.send(attribute) %>
+                                </td>
+                              <% end %>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
     </div>
-    <div class="large-3 columns text-right pageTitle">
-      <p><em>UPDATED: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
-    </div>
+    <% end %> 
   </div>
 </div>
-
-

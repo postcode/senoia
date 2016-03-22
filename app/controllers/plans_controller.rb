@@ -50,7 +50,7 @@ class PlansController < ApplicationController
           end
           format.pdf do
             render pdf: "test_plan",   # Excluding ".pdf" extension.
-            template: "pdf/plan.pdf.erb"
+            template: "plans/pdf/plan.pdf.erb"
           end
         end
       end

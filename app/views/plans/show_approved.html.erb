@@ -87,7 +87,7 @@
 
       <ul class="tabs" data-tab>
         <% @plan.operation_periods.each_with_index do |operation_period, index| %>
-          <%= render 'operation_period_tabs', count: index+1, period: operation_period %>
+          <%= render 'operation_period_tabs', count: index+1, period: operation_period, f: f %>
         <% end %>
       </ul>
       <div class="tabs-content">
