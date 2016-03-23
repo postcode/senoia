@@ -33,25 +33,3 @@ class Organization < ActiveRecord::Base
     end
   end
 end
-
-class NullOrganization
-  def id
-    0
-  end
-  
-  def name
-    'N/A'
-  end
-
-  def email
-    'zombie@fake.com'
-  end
-
-  def phone_number
-    '9999999999'
-  end
-
-  def address
-    '123 fake st'
-  end
-end
