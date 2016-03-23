@@ -63,7 +63,13 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :phone_number, presence: true
 
-  scope :to_notify_on, -> notification_type { joins(:notification_groups).where("notification_groups.notification_type" => notification_type) }
+  scope :to_notify_on, -> (notification_type) do
+    if notification_type.present?
+      joins(:notification_groups).where("notification_groups.notification_type" => notification_type)
+    else
+      none
+    end
+  end
 
   after_create do
     Invitation.claim_invitations(self)
