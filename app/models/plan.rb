@@ -236,7 +236,9 @@ class Plan < ActiveRecord::Base
     end
 
     def notify_stakeholders(key)
-      stakeholders.each do |stakeholder|
+      users_to_notify = (stakeholders + User.to_notify_on("plan.#{key}")).uniq
+      
+      users_to_notify.each do |stakeholder|
         stakeholder.notifications.create(subject: self, key: key)
       end
     end
