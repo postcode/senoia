@@ -1,16 +1,26 @@
 FactoryGirl.define do
- factory :user do
+  factory :user do
     email { Faker::Internet.email }
     first_name Faker::Name.name
     password "password"
     password_confirmation "password"
     confirmed_at Date.today
+    name { Faker::Name.name }
+    phone_number { Faker::PhoneNumber.phone_number }
 
     factory :medical_contact do
       after(:create) do |user, evaluator|
         provider = create(:provider)
         provider.contact_users << user
       end
+    end
+
+    factory :admin do
+      roles "admin"
+    end
+
+    factory :promoter do
+      roles "promoter"
     end
   end
 
@@ -75,33 +85,22 @@ FactoryGirl.define do
     name Faker::Lorem.words(3).join(" ")
   end
 
-  factory :admin, :class => User do |u|
-    u.email { Faker::Internet.email }
-    u.password "password"
-    u.password_confirmation "password"
-    u.roles 'admin'
-    u.confirmed_at Date.today
-  end
-
-  factory :promoter, :class => User do |u|
-    u.email { Faker::Internet.email }
-    u.password "password"
-    u.password_confirmation "password"
-    u.roles 'promoter'
-    u.confirmed_at Date.today
-  end
-
   factory :event_type do
     name { Faker::Lorem.words(3).join(" ") }
   end
 
   factory :provider do
-    name { Faker::Lorem.words(3).join(" ") }
+    name { Faker::Lorem.words(3).join(" ") } 
   end
 
   factory :supplementary_document do
     parent { plan }
     name { Faker::Lorem.words(3).join(" ") }
     file { Rack::Test::UploadedFile.new(File.join(Rails.root, 'README.rdoc')) }
+  end
+
+  factory :notification_group do
+    name { Faker::Lorem.words(3).join(" ") }
+    notification_type "plan.approved"
   end
 end
