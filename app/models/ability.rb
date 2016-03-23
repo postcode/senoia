@@ -35,6 +35,7 @@ class Ability
       cannot [:create, :edit, :destroy, :show], Plan
       cannot :read, Provider
       cannot :read, Permitter
+      cannot :read, NotificationGroup
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
