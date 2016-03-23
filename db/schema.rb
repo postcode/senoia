@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 20160323125120) do
 
   create_table "notification_groups", force: :cascade do |t|
     t.string   "name"
+    t.text     "description"
     t.string   "notification_type"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
