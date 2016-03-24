@@ -7,7 +7,8 @@ class InvitationsController < ApplicationController
     
     if @invitation.valid?
       if @invitation.claimed? # User already has an account, send notification
-        @invitation.send_notifications!
+        users = User.where(email: invitation_params[:email])
+        @invitation.send_notifications!(users)
       else # User doesn't have an account, send invitation
         @invitation.send_invitation_email!
       end

@@ -44,8 +44,10 @@ class Invitation < ActiveRecord::Base
     end
   end
 
-  def send_notifications!
-    user.notifications.create(subject: self, key: "created")
+  def send_notifications!(users)
+    users.each do |user|
+      user.notifications.create(subject: self, key: "created")
+    end
   end
 
   def send_invitation_email!
