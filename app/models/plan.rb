@@ -62,6 +62,7 @@ class Plan < ActiveRecord::Base
     end
     state :revision_requested do
       event :approve, :transitions_to => :approved, :if => Proc.new(&:all_comments_resolved?)
+      event :request_review, :transitions_to => :under_review
       event :reject, :transitions_to => :rejected
     end
     state :approved
@@ -74,6 +75,10 @@ class Plan < ActiveRecord::Base
 
   def request_revision
     send_notifications_on_request_revision
+  end
+
+  def request_review
+    send_notifications_on_request_review
   end
 
   def approve
@@ -221,6 +226,10 @@ class Plan < ActiveRecord::Base
 
     def send_notifications_on_request_revision
       notify_stakeholders("revision_requested")
+    end
+
+    def send_notifications_on_request_review
+      notify_stakeholders("review_requested")
     end
 
     def send_notifications_on_approve

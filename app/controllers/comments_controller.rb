@@ -19,6 +19,12 @@ class CommentsController < ApplicationController
     authorize! :manage, Comment
     @comment = Comment.find(params[:id])
     @comment.update(comment_params)
+    if @comment.open == false
+      @comment.children.each do |child|
+        child.open = false 
+        child.save!
+      end
+    end
 
     respond_to do |format|
       format.js
