@@ -123,6 +123,9 @@ ol{
 
 /* GENERAL */
 
+hr{
+  margin:0rem;
+}
 .pageTitle{
   margin-top: 2em;
   margin-bottom: 2em;
@@ -398,12 +401,20 @@ fieldset{
   -moz-border-radius-topright: 5px;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
-
+}
+#planAgreement{
+  .plan-accepted{
+    color: #43AC6A;
+    font-weight: bold;
+  }
 }
 
 /* PLAN ARCHIVE */
 .plan-archive{
   margin-top: 2em;
+  button, .button{
+    margin: 0rem;
+  }
 }
 .side-nav{
   background: #eee;
@@ -414,6 +425,9 @@ fieldset{
   i{
     margin-left: .5em;
     margin-right: .35em;
+  }
+  li{
+    margin-bottom: 1rem;
   }
 }
 .plan-archive a{

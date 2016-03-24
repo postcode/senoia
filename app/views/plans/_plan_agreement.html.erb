@@ -3,11 +3,10 @@
         <legend>RESPONSIBILITY</legend>
         <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
         <% if @plan.responsibility == true %>
-          <%= link_to "ACCEPTED", "#", class: 'button success tiny' %>
           <div>
             <% @event = @plan.versions.where(event: "update responsibility").first %>
             <% if @event.present? %>
-              Accepted by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em> by: <%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
             <% end %>
           </div>
         <% else %>
@@ -21,11 +20,10 @@
         <legend>CPR & 911</legend>
         <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
         <% if @plan.cpr == true %>
-          <%= link_to "ACCEPTED", "#", class: 'button success tiny' %>
           <div>
             <% @event = @plan.versions.where(event: "update cpr").first %>
             <% if @event.present? %>
-              Accepted by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em>by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
             <% end %>
           </div>
         <% else %>
@@ -46,11 +44,10 @@
           </div>
         </div> 
         <% if @plan.communication == true %>
-          <%= link_to "ACCEPTED", "#", class: 'button success tiny' %>
           <div>
             <% @event = @plan.versions.where(event: "update communication").first %>
             <% if @event.present? %>
-              Accepted by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
             <% end %>
           </div>
         <% else %>
