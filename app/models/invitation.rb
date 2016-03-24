@@ -20,21 +20,40 @@ class Invitation < ActiveRecord::Base
   validates :role, presence: true, inclusion: PlanUser::ROLES
 
   scope :pending, -> { where(invited_user_id: nil) }
+
+  after_create do
+    if !self.invited_user && (user = User.find_by_email(email))
+      self.claim!(user)
+    end
+  end
+
+  def claimed?
+    self.invited_user.present?
+  end
+  
+  def claim!(user)
+    transaction do
+      self.plan.plan_users.create(user: user, role: self.role)
+      self.update(invited_user: user)
+    end
+  end
   
   def self.claim_invitations(user)
     pending.where(email: user.email).includes(:plan).each do |invitation|
-      transaction do
-        invitation.plan.plan_users.create(user: user, role: invitation.role)
-        invitation.update(invited_user: user)
-      end
+      invitation.claim!(user)
     end
+  end
+
+  def send_notifications!
+    user.notifications.create(subject: self, key: "created")
   end
 
   def send_invitation_email!
     InvitationMailer.invite(email: email, plan: plan).deliver_later
   end
 
-  def send_collaboration_email!
-    InvitationMailer.collaborate(email: email, plan: plan).deliver_later
+  def to_s
+    self.plan.try(:to_s)
   end
+
 end

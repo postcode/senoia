@@ -74,6 +74,11 @@ class User < ActiveRecord::Base
   after_create do
     Invitation.claim_invitations(self)
   end
+
+  def self.find_by_email(email)
+    return nil if email.blank?
+    User.where("LOWER(email) = ?", email.downcase).first
+  end
   
   def to_s
     if name.blank?
