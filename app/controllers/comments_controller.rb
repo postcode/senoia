@@ -29,7 +29,8 @@ class CommentsController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     authorize! :manage, @plan
     @comment = @plan.comments.create(comment_params.merge(user: current_user, element_id: params[:element_id]))
-
+    @comment.send_notifications!
+    
     respond_to do |format|
       format.js
     end
