@@ -87,6 +87,7 @@ $(function() {
   $.each(assets, function(index, asset) {
     var button = ".save-" + asset
     console.log(button)
+    $(button).prop("disabled", true)
     $("body").on("click", button, function(event) {
       var formElement = "." + asset + "-form"
       console.log(formElement)
