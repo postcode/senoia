@@ -1,3 +1,4 @@
+{<img alt='Stories in Ready' src='https://badge.waffle.io/postcode/senoia.png?label=ready&title=Ready' />}[https://waffle.io/postcode/senoia]
 # Senoia
 
 ## Setting up AWS
