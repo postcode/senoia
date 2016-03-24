@@ -19,3 +19,15 @@
     <%= link_to "Manage Venues", venues_path, class: "button primary small" %>
   </div>
 </div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <h2>Notification Groups</h2>
+    <ul>
+      <% @notification_groups.each do |notification_group| %>
+        <li><%= link_to notification_group.name, notification_group %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

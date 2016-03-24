@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :replies, only: :create
   end
   resources :event_types
+  resources :notification_groups, only: [ :show, :update ]
   resources :notifications, only: :update
   resources :operation_periods, only: [ :update, :destroy ] do
     resources :clones, only: :create

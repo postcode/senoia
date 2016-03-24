@@ -51,6 +51,8 @@ class User < ActiveRecord::Base
   has_many :providers_users
   has_many :organization_users
   has_many :organizations, through: :organizations_users
+  has_many :notification_group_memberships, inverse_of: :user, dependent: :destroy
+  has_many :notification_groups, through: :notification_group_memberships, source: :notification_group, inverse_of: :members
 
   roles_attribute :roles_mask
 
@@ -60,6 +62,14 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :phone_number, presence: true
+
+  scope :to_notify_on, -> (notification_type) do
+    if notification_type.present?
+      joins(:notification_groups).where("notification_groups.notification_type" => notification_type)
+    else
+      none
+    end
+  end
 
   after_create do
     Invitation.claim_invitations(self)

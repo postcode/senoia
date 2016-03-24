@@ -117,5 +117,38 @@ feature "Notifications", js: true do
     end
     
   end
+
+  context "Notification Group Member" do
+
+    context "when a plan is approved" do
+
+      let(:plan) { create(:plan_under_review) }
+      let(:group_member) { create(:user) }
+      let(:notification_group) { create(:notification_group, notification_type: "plan.approved") }
+      
+      before do
+        notification_group.members << group_member
+        sign_in(admin)
+        visit "/plans/#{plan.id}"
+        click_link "APPROVE PLAN"
+        sign_out
+      end
+      
+      scenario "receives an email notification" do
+        email = find_email(group_member.email)
+        expect(email).to_not be_nil
+        expect(email).to have_body_text("approved")
+      end
+
+      scenario "receives an on-site notification" do
+        sign_in(group_member)
+        visit "/plans"
+        notification = find(".alert-box", text: plan.name)
+        expect(notification).to have_content("approved")
+      end
+
+    end
+    
+  end
   
 end

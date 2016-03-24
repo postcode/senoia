@@ -24,4 +24,27 @@ class OrganizationType < ActiveRecord::Base
     type.present? ? organizations = Organization.all.where(organization_type_id: type.id) : organizations =[ NullOrganization.new]
     organizations.empty? ? organizations =[ NullOrganization.new] : organizations
   end
+  
+  class NullOrganization
+    def id
+      0
+    end
+    
+    def name
+      'N/A'
+    end
+
+    def email
+      'zombie@fake.com'
+    end
+
+    def phone_number
+      '9999999999'
+    end
+
+    def address
+      '123 fake st'
+    end
+  end
+
 end

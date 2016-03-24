@@ -2,7 +2,8 @@ class AdminController < ApplicationController
   before_filter :verify_is_admin
 
   def index
-
+    @notification_groups = NotificationGroup.order("id ASC")
+    
     respond_to do |format|
       format.html # index.html.erb
     end
