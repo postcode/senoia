@@ -95,7 +95,7 @@ feature "Plan" do
       fill_in "operation_period_end_date", with: "02/01/2020 08:00 am"
       expect { 
         find(".save-operation-period").trigger("click")
-        expect(page).to have_content("Clone")
+        expect(page).to have_content("Create Duplicate Operation Period")
       }.to change { OperationPeriod.count }.by(1)
     end
 
@@ -245,7 +245,7 @@ feature "Plan" do
     end
     
     scenario "admin can clone an operation period", js: true do
-      click_on "Clone"
+      click_on "Create Duplicate Operation Period"
       expect(page).to have_selector("#operation-period-tabs li", count: 2)
       click_on "Operational Period 2"
 
