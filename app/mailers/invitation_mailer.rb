@@ -8,12 +8,4 @@ class InvitationMailer < ActionMailer::Base
     mail(to: @email,
          subject: "You have been invited to collaborate on the medical plan #{@plan.name}")
   end
-
-  def collaborate(options = { email: nil, plan: nil })
-    @plan = options[:plan]
-    @email = options[:email]
-    mail(to: @email,
-         subject: "You have been invited to collaborate on the medical plan #{@plan.name}")
-  end
-
 end
