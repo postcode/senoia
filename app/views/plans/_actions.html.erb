@@ -14,6 +14,8 @@
   <% when "revision_requested" %>
     <% if current_user.admin? %>
       <%= render "plans/approve", plan: plan %>
+    <% elsif can? :manage, plan %>
+      <%= render "plans/request_review", plan: plan %>
     <% end %>
   <% end %>
 </div>
