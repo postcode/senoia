@@ -126,7 +126,7 @@ feature "Plan" do
       end
       expect { 
 
-        click_on "Add First Aid Station"
+        click_on "Confirm This Asset"
 
         expect(page).to have_content first_aid_station_name
       }.to change{ FirstAidStation.count }.by(1)
@@ -285,7 +285,7 @@ feature "Plan" do
         fill_in 'Name', with: first_aid_station_name
       end
 
-      click_on "Add First Aid Station"
+      click_on "Confirm This Asset"
 
       expect(page).to have_content first_aid_station_name
 

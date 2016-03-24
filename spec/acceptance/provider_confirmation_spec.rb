@@ -26,7 +26,7 @@ feature "Medical Provider Confirmation" do
           fill_in 'Name', with: Faker::Lorem.word
         end
         select provider.name, from: "Provider"
-        click_on "Add First Aid Station"
+        click_on "Confirm This Asset"
         sign_out
         @email = find_email(contact.email)
       end
