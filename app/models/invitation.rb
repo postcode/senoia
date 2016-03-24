@@ -26,6 +26,10 @@ class Invitation < ActiveRecord::Base
       self.claim!(user)
     end
   end
+
+  def claimed?
+    self.invited_user.present?
+  end
   
   def claim!(user)
     transaction do
@@ -40,11 +44,16 @@ class Invitation < ActiveRecord::Base
     end
   end
 
+  def send_notifications!
+    user.notifications.create(subject: self, key: "created")
+  end
+
   def send_invitation_email!
     InvitationMailer.invite(email: email, plan: plan).deliver_later
   end
 
-  def send_collaboration_email!
-    InvitationMailer.collaborate(email: email, plan: plan).deliver_later
+  def to_s
+    self.plan.try(:to_s)
   end
+
 end

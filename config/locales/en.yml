@@ -67,3 +67,5 @@ en:
         revision_requested: "Medical plan %{subject} needs revision"
         approved: "Your medical plan %{subject} has been approved"
         rejected: "Your medical plan %{subject} has been rejected"
+      invitation:
+        created: "You have been invited to collaborate on the medical plan %{subject}"

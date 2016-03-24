@@ -1,0 +1,9 @@
+<p>
+  You have been invited to collaborate on the medical plan titled <%= @invitation.plan.try(:name) %>.
+</p>
+
+<p>
+  Please sign in through the link below to view the plan.
+</p>
+
+<%= link_to "Sign in", new_user_session_url(email: @recipient.email) %>
