@@ -39,7 +39,7 @@ function map_initialize(map_id) {
     console.log(event)
     console.log(event.overlay.position.lat())
     console.log($('#lat_'+map_id).parents(".reveal-modal"))
-    $('#lng_'+map_id).parents(".reveal-modal").find(".save-modal",".modal-footer").prop("disabled", false)
+    $('#lng_'+map_id).parents(".reveal-modal").find(".save-modal",".modal-footer").prop("disabled", false).removeClass("disabled")
     $('#lat', '#lat_'+map_id).val(event.overlay.position.lat());
     $('#lng', '#lng_'+map_id).val(event.overlay.position.lng());
   } else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
