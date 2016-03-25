@@ -1,4 +1,6 @@
+@import "colors";
 @import "comments";
+@import "calendar";
 body {
 }
 /* FONTS */
@@ -6,20 +8,7 @@ body {
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,300,800);
 
-/* COLORS */
-$postcodeblue: #86CBD9;
-$darkgray: #58585B;
-$mediumgray: #bcbcbc;
-$lightgray: #E6E7E8;
-$promptlyblue: #789FD3;
-$recordtracred: #EC916F;
-$green: #86CDB2;
-$orange: #EEA758;
-$yellow: #EDD364;
 
-/* Element Colors */
-$typography: #58585B;
-$btntext: #FFF;
 
 /* TYPOGRAPHY */
 
@@ -165,8 +154,9 @@ legend{
 }
 
 .day-op {
-  .landing-dropdown {
+  .dropdown.button.landing-dropdown, button.dropdown.landing-dropdown {
     padding: 0em;
+    font-size: 1.0em;
   }
 }
 

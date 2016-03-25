@@ -1,0 +1,40 @@
+@import "colors";
+
+.simple-calendar {
+  margin: 1.0em;
+  width: 100%;
+  .day {
+    border: solid 1px $lightgray;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+    background: lightgray;
+  }
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {
+    
+  }
+  .next-month { 
+    
+  }
+  .current-month {}
+
+  .has-events {}
+
+  .month-title {
+    font-weight: bold;
+    font-size: 2em;
+  }
+}
