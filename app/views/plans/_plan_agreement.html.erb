@@ -62,18 +62,9 @@
         <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
         <div class="row">
           <div class="large-4 columns">
-            <p> 
-            <label><i class="fi-torso"></i> Name
-              <input type="text" placeholder="" />
-            </label></p>
-            <p> 
-            <label><i class="fi-mail"></i> Email
-              <input type="text" placeholder="" />
-            </label></p>
-            <p> 
-            <label><i class="fi-telephone"></i> Phone
-              <input type="text" placeholder="" />
-            </label></p>
+            <%= f.input :post_event_name, required: true %>
+            <%= f.input :post_event_email, required: true %>
+            <%= f.input :post_event_phone, required: true %>
           </div>  
         </div>     
       </fieldset>   
