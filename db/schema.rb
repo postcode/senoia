@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323125120) do
+ActiveRecord::Schema.define(version: 20160325002711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20160323125120) do
     t.string   "post_event_phone"
     t.integer  "creator_id"
     t.integer  "venue_id"
+    t.string   "communication_phone"
   end
 
   create_table "post_event_treatment_reports", force: :cascade do |t|

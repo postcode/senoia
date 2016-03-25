@@ -222,6 +222,7 @@ class PlansController < ApplicationController
               :responsibility,
               :cpr,
               :communication,
+              :communication_phone,
               :event_contact,
               :venue_ids,
               venue_attributes: [
