@@ -24,8 +24,6 @@
         <%= render 'plans/operation_period', count: 0 %>
       </div>
     <% end %>
-    <% if can? :edit, @plan %>
-      <%= render 'actions', f: f, plan: @plan %>
-    <% end %>
+    
   </div>
 </div>

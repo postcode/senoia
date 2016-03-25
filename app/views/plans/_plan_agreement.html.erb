@@ -1,3 +1,4 @@
+  <%= simple_form_for @plan do |f| %>
   <div id="planAgreement" class="row">
       <fieldset>
         <legend>RESPONSIBILITY</legend>
@@ -76,7 +77,11 @@
           </div>  
         </div>     
       </fieldset>   
-  </div> 
+      <% if can? :edit, @plan %>
+        <%= render 'actions', f: f, plan: @plan %>
+      <% end %>
+    </div> 
+  <% end %>
 
 <script type="text/javascript">
   $('.accept').click(function() {
