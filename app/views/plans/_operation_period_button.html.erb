@@ -1,5 +1,8 @@
 <h3>
-  Operational Periods
+  Operational Periods 
+  <span data-tooltip aria-haspopup="true" class="has-tip" title="The Operational Period begins 30 minutes prior to the event opening and ends 30 minutes after event end time unless otherwise noted (e.g. sobering requirement, family reunification, etc.). Unless required by the producer's insurance, medical assets will not be required for setup or breakdown of an event unless there are more than 2500 staff members onsite.">
+    <i class="fi-info"></i>
+  </span>
   <% if can? :edit, plan %>
     <span class="add_operation_period_button">
       <%= link_to [ :new, plan, :operation_period ], remote: true, class: "button primary tiny radius right", id: "new_operation_period" do %> 
