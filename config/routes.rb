@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   get "/add_operation_period/:count" => 'plans#add_operation_period', as: 'add_operation_period'
   post "/add_user_plan" => 'plans#add_user', as: 'add_user_plan'
   post "/update_user_plan" => 'plans#update_plan_user', as: 'update_user_plan'
+  get "/learn_more" => 'home#learn_more', as: 'learn_more'
 
   get 'admin', to: 'admin#index'
   
