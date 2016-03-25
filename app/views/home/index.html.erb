@@ -1,33 +1,38 @@
 <div class="landing">
-  <div id="homepage-hero">
-  <div class="row">
-    <div class="large-4 columns">
-      <%= link_to new_plan_path do %>
-        <div class="main-section">
-          <i class="fi-plus"></i>
-          <h2>New Plan</h2> 
-        </div>         
-      <% end %>        
-    </div>      
-    <div class="large-4 columns">
-      <%= link_to plans_path do %>
-        <div class="main-section">     
-          <i class="fi-magnifying-glass"></i>
-          <h2>Browse Plans</h2>
-        </div>  
-      <% end %> 
-    </div> 
-    <div class="large-4 columns">
-      <div class="main-section">
-        <i class="fi-info"></i>                  
-        <h2>Learn More</h2>
+  <div class="large-12 columns">
+    <div id="homepage-hero">
+      <div class="row">
+        <div class="large-4 columns">
+          <%= link_to new_plan_path do %>
+            <div class="main-section">
+              <i class="fi-plus"></i>
+              <h2>New Plan</h2> 
+            </div>         
+          <% end %>        
+        </div>      
+        <div class="large-4 columns">
+          <%= link_to plans_path do %>
+            <div class="main-section">     
+              <i class="fi-magnifying-glass"></i>
+              <h2>Browse Plans</h2>
+            </div>  
+          <% end %> 
+        </div> 
+        <div class="large-4 columns">
+        <%= link_to learn_more_path do %>
+          <div class="main-section">
+            <i class="fi-info"></i>                  
+            <h2>Learn More</h2>
+          </div>
+        <% end %>
+        </div>               
       </div>
-    </div>               
-  </div>
+    </div>
   </div>
   <div class="row secondary-section">
-    <div class="large-7 medium-8 small-12 columns">
-        <h4>Zombie ipsum brains reversus ab cerebellum viral inferno, brein nam rick mend grimes malum cerveau cerebro. De carne cerebro lumbering animata cervello corpora quaeritis. Summus thalamus brains sit​​, morbo basal ganglia vel maleficia? De braaaiiiins apocalypsi gorger omero prefrontal cortex undead survivor fornix dictum mauris. Hi brains mindless mortuis limbic cortex soulless creaturas optic nerve, imo evil braaiinns stalking monstra. </h4>
+    <div class="large-7 medium-8 small-12 columns welcome-text">
+      <h2>Welcome</h2>
+      <h4>Welcome to the Special Event Medical Planning page for the SF Department of Emergency Management!  This site will guide you through the complete medical planning process, for Special Events and Mass Gatherings within the City and County of San Francisco.  From this platform, you will be able to create comprehensive plans that will ensure a safer environment for your attendees and participants.  It includes resources such as event calendars, Policy references, previously approved medical plans, as well as contact numbers for the Permitting Agencies and Service Providers for San Francisco.  Through this platform, all approved medical plans will be available for public review, and a searchable database will be created, to assist with planning of future events.</h4>
     </div>
     <div class="large-5 columns">
       <%= month_calendar attribute: :start_date, td: {class: "day"}, events: @operation_period do |date, op| %>
@@ -35,6 +40,7 @@
           <%= date.day %>
           <% if op.count > 0 %>
           <% plan_names = [] %>
+          <% unique_id = SecureRandom.hex(16) %>
           <% op.map{ |p| 
               if p.plan.present? 
                 plan_names << p.plan.name 
@@ -42,11 +48,10 @@
                 }
             %>
             <div class="day-op <%= op.count >= 5 ? 'day-alert' : 'day-normal' %>">
-              <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= p plan_names %>"><%= op.count %></span>
-            </div>
-          <% else %>
-            <div>
-              <span data-tooltip aria-haspopup="true" class="has-tip" title="This is a tooltip">&nbsp;</span>
+              <button href="#" data-dropdown="drop_<%= unique_id %>" aria-controls="drop1" aria-expanded="false" class="button dropdown small landing-dropdown"><%= op.count %></button><br>
+                <ul id="drop_<%= unique_id %>" data-dropdown-content class="f-dropdown" aria-hidden="true">
+                <li><%= link_to op.first.plan.name, plan_path(op.first.plan) %></li>
+                </ul>
             </div>
           <% end %>
         <% end %>
