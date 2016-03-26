@@ -21,4 +21,6 @@
 
 class MobileTeam < ActiveRecord::Base
   include MedicalAsset
+  has_many :asset_communications
+  has_many :communications, through: :asset_communications
 end

@@ -26,6 +26,7 @@
       <div id="service_area_map_dispatch_<%= unique_id %>">
         <%= a.input :service_area, input_html: { id: 'service_area' }, as: :hidden %>
       </div>
+      <%= render 'asset_communications', a: a %>
     <% end %>
   </div>
   <div class="modal-footer">

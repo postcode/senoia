@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325002711) do
+ActiveRecord::Schema.define(version: 20160325195037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "asset_communications", force: :cascade do |t|
+    t.integer "asset_id"
+    t.integer "communication_id"
+    t.text    "description"
+    t.integer "dispatch_id"
+    t.integer "first_aid_station_id"
+    t.integer "mobile_team_id"
+    t.integer "transport_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id"
@@ -34,6 +44,12 @@ ActiveRecord::Schema.define(version: 20160325002711) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "communications", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "dispatches", force: :cascade do |t|
     t.string   "name"
