@@ -5,6 +5,10 @@ class MobileTeamsController < ApplicationController
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @mobile_team = @operation_period.mobile_teams.create(mobile_team_params)
+    @mobile_team.communications = Communication.where(id: params[:mobile_team][:communications])
+    @mobile_team.asset_communications.last.update_attributes(description: params[:mobile_team][:communication_description])
+    @mobile_team.asset_communications.last.save!
+    @mobile_team.save!
   end
 
   private

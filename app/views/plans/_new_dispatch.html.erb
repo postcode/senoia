@@ -14,6 +14,7 @@
       include_blank: false,
       prompt: "Select a provider",
       label: "Provider", required: false %>
+      <%= render 'asset_communications', a: a %>
       <%= a.input :contact_name, required: false %>
       <%= a.input :contact_phone, required: false %>
       <div id='map_dispatch_<%= unique_id %>' class="asset_map"></div>
@@ -26,7 +27,6 @@
       <div id="service_area_map_dispatch_<%= unique_id %>">
         <%= a.input :service_area, input_html: { id: 'service_area' }, as: :hidden %>
       </div>
-      <%= render 'asset_communications', a: a %>
     <% end %>
   </div>
   <div class="modal-footer">
