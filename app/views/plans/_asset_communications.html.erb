@@ -1,12 +1,15 @@
+<% unique_id = SecureRandom.hex(16) %>
+
 <div>
-  <%= a.input :communications, 
+  <%= a.input "communications[#{unique_id}]", 
   collection: Communication.all,
   label_method: :name,
   value_method: :id,
   include_blank: false,
   prompt: "Select a communications type",
+  multiple: true,
   label: "Communications", required: false %>
 </div>
 <div>
-  <%= a.input :communication_description, required: false, label: 'Enter the radio frequency or phone number' %>
+  <%= a.input "communication_description[#{unique_id}]", required: false, label: 'Enter the radio frequency or phone number', multiple: true %>
 </div>

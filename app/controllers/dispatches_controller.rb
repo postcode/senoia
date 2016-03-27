@@ -5,9 +5,10 @@ class DispatchesController < ApplicationController
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @dispatch = @operation_period.dispatchs.create(dispatch_params)
-    @dispatch.communications = Communication.where(id: params[:dispatch][:communications])
-    @dispatch.asset_communications.last.update_attributes(description: params[:dispatch][:communication_description])
-    @dispatch.asset_communications.last.save!
+    params[:dispatch][:communications].each do |communication|
+      @dispatch.communications << Communication.where(id: communication[1])
+      @dispatch.asset_communications.create(communication_id: communication[1], dispatch_id: @dispatch.id, description: params[:dispatch][:communication_description][communication[0]])
+    end
     @dispatch.save!
   end
 

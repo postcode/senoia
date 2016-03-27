@@ -14,7 +14,11 @@
       include_blank: false,
       prompt: "Select a provider",
       label: "Provider", required: false %>
-      <%= render 'asset_communications', a: a %>
+      <div class="communications">
+        <%= render 'asset_communications', a: a %>
+        <%= render 'another_communication', a: a %>
+        <a href="javascript:void(0);" class="button tiny new-communication">Add Another</a>
+      </div>
       <%= a.input :contact_name, required: false %>
       <%= a.input :contact_phone, required: false %>
       <div id='map_dispatch_<%= unique_id %>' class="asset_map"></div>

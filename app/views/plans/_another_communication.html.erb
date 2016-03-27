@@ -1,0 +1,5 @@
+<script type="text/javascript">
+  $(".new-communication").click( function() {
+    $(".communications").append("<%= j render(partial: 'plans/asset_communications', locals: {a: a} )%>")
+  })
+</script>

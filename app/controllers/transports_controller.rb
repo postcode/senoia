@@ -5,9 +5,10 @@ class TransportsController < ApplicationController
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @transport = @operation_period.transports.create(transport_params)
-    @transport.communications = Communication.where(id: params[:transport][:communications])
-    @transport.asset_communications.last.update_attributes(description: params[:transport][:communication_description])
-    @transport.asset_communications.last.save!
+    params[:transport][:communications].each do |communication|
+      @transport.communications << Communication.where(id: communication[1])
+      @transport.asset_communications.create(communication_id: communication[1], transport_id: @transport.id, description: params[:transport][:communication_description][communication[0]])
+    end
     @transport.save!
   end
 
