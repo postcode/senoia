@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325002711) do
+ActiveRecord::Schema.define(version: 20160327191145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "asset_communications", force: :cascade do |t|
+    t.integer "asset_id"
+    t.integer "communication_id"
+    t.text    "description"
+    t.integer "dispatch_id"
+    t.integer "first_aid_station_id"
+    t.integer "mobile_team_id"
+    t.integer "transport_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id"
@@ -34,6 +44,46 @@ ActiveRecord::Schema.define(version: 20160325002711) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "communication_plans", force: :cascade do |t|
+    t.string   "event_coordinator_name"
+    t.string   "event_coordinator_phone"
+    t.string   "event_coordinator_email"
+    t.string   "event_coordinator_organization"
+    t.string   "event_supervisor_name"
+    t.string   "event_supervisor_phone"
+    t.string   "event_supervisor_email"
+    t.string   "event_supervisor_organization"
+    t.string   "dispatch_supervisor_name"
+    t.string   "dispatch_supervisor_phone"
+    t.string   "dispatch_supervisor_email"
+    t.string   "dispatch_supervisor_organization"
+    t.string   "medical_group_supervisor_name"
+    t.string   "medical_group_supervisor_phone"
+    t.string   "medical_group_supervisor_email"
+    t.string   "medical_group_supervisor_organization"
+    t.string   "triage_supervisor_name"
+    t.string   "triage_supervisor_phone"
+    t.string   "triage_supervisor_email"
+    t.string   "triage_supervisor_organization"
+    t.string   "transport_supervisor_name"
+    t.string   "transport_supervisor_email"
+    t.string   "transport_supervisor_phone"
+    t.string   "transport_supervisor_organization"
+    t.string   "non_transport_supervisor_name"
+    t.string   "non_transport_supervisor_email"
+    t.string   "non_transport_supervisor_phone"
+    t.string   "non_transport_supervisor_organization"
+    t.integer  "plan_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  create_table "communications", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "dispatches", force: :cascade do |t|
     t.string   "name"

@@ -13,6 +13,7 @@
 #  patients_transported_count :integer
 #  start_time                 :datetime
 #  end_time                   :datetime
+#  service_area               :text
 #
 
 require 'rails_helper'
