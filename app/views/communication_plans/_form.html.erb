@@ -1,0 +1,27 @@
+<%= simple_form_for [ @plan, @communication_plan ] do |f| %>
+  <div class="row">
+    <div class="small-12 columns">
+      <% if @communication_plan.errors.any? %>
+        <div id="error_explanation" class="panel callout">
+          <h2><%= pluralize(@communication_plan.errors.count, "error") %> prohibited this department from being saved:</h2>
+          <ul>
+            <% @communication_plan.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-7 columns">
+    </div>
+  </div>
+      
+  <div class="row">
+    <div class="small-12 columns buttons">
+      <%= f.submit "Save", class: "button" %>
+    </div>
+  </div>
+<% end %>

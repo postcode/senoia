@@ -42,6 +42,7 @@ class Plan < ActiveRecord::Base
   has_many :transports, -> { uniq }, through: :operation_periods
 
   has_one :post_event_treatment_report
+  has_one :communication_plan
   has_many :plan_venues
   has_many :venues, through: :plan_venues
 
