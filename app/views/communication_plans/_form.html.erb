@@ -13,9 +13,90 @@
       <% end %>
     </div>
   </div>
-
   <div class="row">
-    <div class="small-7 columns">
+    <div class="small-12 columns input_label">
+      <%= f.input :event_coordinator_name %>
+      <%= f.input :event_coordinator_phone %>
+      <%= f.input :event_coordinator_email %>
+      <%= f.input :event_coordinator_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.input :event_supervisor_name %>
+      <%= f.input :event_supervisor_phone %>
+      <%= f.input :event_supervisor_email %>
+      <%= f.input :event_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.input :dispatch_supervisor_name %>
+      <%= f.input :dispatch_supervisor_phone %>
+      <%= f.input :dispatch_supervisor_email %>
+      <%= f.input :dispatch_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.input :medical_group_supervisor_name %>
+      <%= f.input :medical_group_supervisor_phone %>
+      <%= f.input :medical_group_supervisor_email %>
+      <%= f.input :medical_group_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.input :triage_supervisor_name %>
+      <%= f.input :triage_supervisor_phone %>
+      <%= f.input :triage_supervisor_email %>
+      <%= f.input :triage_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.input :transport_supervisor_name %>
+      <%= f.input :transport_supervisor_phone %>
+      <%= f.input :transport_supervisor_email %>
+      <%= f.input :transport_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns input_label">
+      <%= f.input :non_transport_supervisor_name %>
+      <%= f.input :non_transport_supervisor_phone %>
+      <%= f.input :non_transport_supervisor_email %>
+      <%= f.input :non_transport_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
     </div>
   </div>
       

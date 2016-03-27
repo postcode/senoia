@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160327191145) do
     t.string   "event_supervisor_name"
     t.string   "event_supervisor_phone"
     t.string   "event_supervisor_email"
+    t.string   "event_supervisor_organization"
     t.string   "dispatch_supervisor_name"
     t.string   "dispatch_supervisor_phone"
     t.string   "dispatch_supervisor_email"
