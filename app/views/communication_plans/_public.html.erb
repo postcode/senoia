@@ -1,52 +1,206 @@
   <% if @plan.communication_plan.present? %>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= @plan.communication_plan.event_coordinator_name %>
-      <%= @plan.communication_plan.event_coordinator_phone %>
-      <%= @plan.communication_plan.event_coordinator_email %>
-      <%= @plan.communication_plan.event_coordinator_organization %>
+      <dl class="contact-list">
+        <dt>
+          Event Coordinator Name:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.event_coordinator_name %>
+        </dd>
+        <dt>
+          Event Coordinator Phone Number:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.event_coordinator_phone %>
+        </dd>
+        <dt>
+          Event Coordinator Email:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.event_coordinator_email %>
+        </dd>
+        <dt>
+          Event Coordinator Organization:
+        </dt>
+        <dd>
+          <%= Organization.where(id: @plan.communication_plan.event_coordinator_organization).name %>
+        </dd>
+      </dl>
     </div>
     <div class="small-6 columns input_label">
-      <%= @plan.communication_plan.event_supervisor_name %>
-      <%= @plan.communication_plan.event_supervisor_phone %>
-      <%= @plan.communication_plan.event_supervisor_email %>
-      <%= @plan.communication_plan.event_supervisor_organization %>
+      <dl class="contact-list">
+        <dt>
+          Event Supervisor Name:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.event_supervisor_name %>
+        </dd>
+        <dt>
+          Event Supervisor Phone Number:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.event_supervisor_phone %>
+        </dd>
+        <dt>
+          Event Supervisor Email:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.event_supervisor_email %>
+        </dd>
+        <dt>
+          Event Supervisor Organization:
+        </dt>
+        <dd>
+          <%= Organization.where(id: @plan.communication_plan.event_supervisor_organization).name %>
+        </dd>
+      </dl>
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= @plan.communication_plan.dispatch_supervisor_name %>
-      <%= @plan.communication_plan.dispatch_supervisor_phone %>
-      <%= @plan.communication_plan.dispatch_supervisor_email %>
-      <%= @plan.communication_plan.dispatch_supervisor_organization %>
+      <dl class="contact-list">
+        <dt>
+          Dispatch Supervisor Name:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.dispatch_supervisor_name %>
+        </dd>
+        <dt>
+          Dispatch Supervisor Phone Number:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.dispatch_supervisor_phone %>
+        </dd>
+        <dt>
+          Dispatch Supervisor Email:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.dispatch_supervisor_email %>
+        </dd>
+        <dt>
+          Dispatch Supervisor Organization:
+        </dt>
+        <dd>
+          <%= Organization.where(id: @plan.communication_plan.dispatch_supervisor_organization).name %>
+        </dd>
+      </dl>
     </div>
     <div class="small-6 columns input_label">
-      <%= @plan.communication_plan.medical_group_supervisor_name %>
-      <%= @plan.communication_plan.medical_group_supervisor_phone %>
-      <%= @plan.communication_plan.medical_group_supervisor_email %>
-      <%= @plan.communication_plan.medical_group_supervisor_organization %>
+      <dl class="contact-list">
+        <dt>
+          Medical Group Supervisor Name:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.medical_group_supervisor_name %>
+        </dd>
+        <dt>
+          Medical Group Supervisor Phone Number:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.medical_group_supervisor_phone %>
+        </dd>
+        <dt>
+          Medical Group Supervisor Email:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.medical_group_supervisor_email %>
+        </dd>
+        <dt>
+          Medical Group Supervisor Organization:
+        </dt>
+        <dd>
+          <%= Organization.where(id: @plan.communication_plan.medical_group_supervisor_organization).name %>
+        </dd>
+      </dl>
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= @plan.communication_plan.triage_supervisor_name %>
-      <%= @plan.communication_plan.triage_supervisor_phone %>
-      <%= @plan.communication_plan.triage_supervisor_email %>
-      <%= @plan.communication_plan.triage_supervisor_organization %>
+      <dl class="contact-list">
+        <dt>
+          Triage Supervisor Name:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.triage_supervisor_name %>
+        </dd>
+        <dt>
+          Triage Supervisor Phone Number:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.triage_supervisor_phone %>
+        </dd>
+        <dt>
+          Triage Supervisor Email:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.triage_supervisor_email %>
+        </dd>
+        <dt>
+          Triage Supervisor Organization:
+        </dt>
+        <dd>
+          <%= Organization.where(id: @plan.communication_plan.triage_supervisor_organization).name %>
+        </dd>
+      </dl>
     </div>
     <div class="small-6 columns input_label">
-      <%= @plan.communication_plan.transport_supervisor_name %>
-      <%= @plan.communication_plan.transport_supervisor_phone %>
-      <%= @plan.communication_plan.transport_supervisor_email %>
-      <%= @plan.communication_plan.transport_supervisor_organization %>
+      <dl class="contact-list">
+        <dt>
+          Transport Supervisor Name:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.transport_supervisor_name %>
+        </dd>
+        <dt>
+          Transport Supervisor Phone Number:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.transport_supervisor_phone %>
+        </dd>
+        <dt>
+          Transport Supervisor Email:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.transport_supervisor_email %>
+        </dd>
+        <dt>
+          Transport Supervisor Organization:
+        </dt>
+        <dd>
+          <%= Organization.where(id: @plan.communication_plan.transport_supervisor_organization).name %>
+        </dd>
+      </dl>
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= @plan.communication_plan.non_transport_supervisor_name %>
-      <%= @plan.communication_plan.non_transport_supervisor_phone %>
-      <%= @plan.communication_plan.non_transport_supervisor_email %>
-      <%= @plan.communication_plan.non_transport_supervisor_organization %>
+      <dl class="contact-list">
+        <dt>
+          Non-Transport Supervisor Name:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.non_transport_supervisor_name %>
+        </dd>
+        <dt>
+          Non-Transport Supervisor Phone Number:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.non_transport_supervisor_phone %>
+        </dd>
+        <dt>
+          Non-Transport Supervisor Email:
+        </dt>
+        <dd>
+          <%= @plan.communication_plan.non_transport_supervisor_email %>
+        </dd>
+        <dt>
+          Non-Transport Supervisor Organization:
+        </dt>
+        <dd>
+          <%= Organization.where(id: @plan.communication_plan.non_transport_supervisor_organization).name %>
+        </dd>
+      </dl>
     </div>
   </div>
 <% end %>
