@@ -1,82 +1,55 @@
+  <% if @plan.communication_plan.present? %>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= :event_coordinator_name %>
-      <%= :event_coordinator_phone %>
-      <%= :event_coordinator_email %>
-      <%= :event_coordinator_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+      <%= @plan.communication_plan.event_coordinator_name %>
+      <%= @plan.communication_plan.event_coordinator_phone %>
+      <%= @plan.communication_plan.event_coordinator_email %>
+      <%= @plan.communication_plan.event_coordinator_organization %>
     </div>
     <div class="small-6 columns input_label">
-      <%= :event_supervisor_name %>
-      <%= :event_supervisor_phone %>
-      <%= :event_supervisor_email %>
-      <%= :event_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+      <%= @plan.communication_plan.event_supervisor_name %>
+      <%= @plan.communication_plan.event_supervisor_phone %>
+      <%= @plan.communication_plan.event_supervisor_email %>
+      <%= @plan.communication_plan.event_supervisor_organization %>
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= :dispatch_supervisor_name %>
-      <%= :dispatch_supervisor_phone %>
-      <%= :dispatch_supervisor_email %>
-      <%= :dispatch_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+      <%= @plan.communication_plan.dispatch_supervisor_name %>
+      <%= @plan.communication_plan.dispatch_supervisor_phone %>
+      <%= @plan.communication_plan.dispatch_supervisor_email %>
+      <%= @plan.communication_plan.dispatch_supervisor_organization %>
     </div>
     <div class="small-6 columns input_label">
-      <%= :medical_group_supervisor_name %>
-      <%= :medical_group_supervisor_phone %>
-      <%= :medical_group_supervisor_email %>
-      <%= :medical_group_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+      <%= @plan.communication_plan.medical_group_supervisor_name %>
+      <%= @plan.communication_plan.medical_group_supervisor_phone %>
+      <%= @plan.communication_plan.medical_group_supervisor_email %>
+      <%= @plan.communication_plan.medical_group_supervisor_organization %>
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= :triage_supervisor_name %>
-      <%= :triage_supervisor_phone %>
-      <%= :triage_supervisor_email %>
-      <%= :triage_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false
-                              %>
+      <%= @plan.communication_plan.triage_supervisor_name %>
+      <%= @plan.communication_plan.triage_supervisor_phone %>
+      <%= @plan.communication_plan.triage_supervisor_email %>
+      <%= @plan.communication_plan.triage_supervisor_organization %>
     </div>
     <div class="small-6 columns input_label">
-      <%= :transport_supervisor_name %>
-      <%= :transport_supervisor_phone %>
-      <%= :transport_supervisor_email %>
-      <%= :transport_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+      <%= @plan.communication_plan.transport_supervisor_name %>
+      <%= @plan.communication_plan.transport_supervisor_phone %>
+      <%= @plan.communication_plan.transport_supervisor_email %>
+      <%= @plan.communication_plan.transport_supervisor_organization %>
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns input_label">
-      <%= :non_transport_supervisor_name %>
-      <%= :non_transport_supervisor_phone %>
-      <%= :non_transport_supervisor_email %>
-      <%= :non_transport_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+      <%= @plan.communication_plan.non_transport_supervisor_name %>
+      <%= @plan.communication_plan.non_transport_supervisor_phone %>
+      <%= @plan.communication_plan.non_transport_supervisor_email %>
+      <%= @plan.communication_plan.non_transport_supervisor_organization %>
     </div>
   </div>
+<% end %>
   <div class="row">
     <div class="small-12 columns">
       <h2>Asset Communication</h2>

@@ -24,6 +24,7 @@ class Ability
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
@@ -36,6 +37,7 @@ class Ability
       cannot :read, Provider
       cannot :read, Permitter
       cannot :read, NotificationGroup
+      can :read, Plan, workflow_state: :approved
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }

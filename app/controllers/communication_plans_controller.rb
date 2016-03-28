@@ -4,9 +4,11 @@ class CommunicationPlansController < ApplicationController
   load_and_authorize_resource :communication_plan, through: :plan, singleton: true
     
   def show
+    @plan = Plan.find(params[:plan_id])
     unless @communication_plan
       @communication_plan = @plan.create_communication_plan
     end
+    render action: :show
   end
   
   def update
