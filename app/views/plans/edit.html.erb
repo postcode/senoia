@@ -144,10 +144,12 @@
   </div>
   <hr/>
 
-
   <%= render 'operation_periods_container', f: f %>
+  <%= render 'plan_agreement', plan: @plan, f: f %>
 
-  <%= render 'plan_agreement', plan: @plan %>
+  <% if can? :edit, @plan %>
+    <%= render 'actions', f: f, plan: @plan %>
+  <% end %>
 <% end %> 
 
 <script>
