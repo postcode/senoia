@@ -50,9 +50,9 @@ class Plan < ActiveRecord::Base
 
   validates :name, presence: true
   validates :event_type, presence: true
-  validates :post_event_name, presence: true
-  validates :post_event_email, presence: true
-  validates :post_event_phone, presence: true
+  # validates :post_event_name, presence: true
+  # validates :post_event_email, presence: true
+  # validates :post_event_phone, presence: true
   
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
   
