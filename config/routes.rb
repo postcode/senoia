@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   resources :supplementary_documents, only: [ :destroy ]
   resources :organizations
 
-  devise_for :users
+  devise_for :users, :path => 'auth', controllers: {confirmations: 'confirmations'}
   resources :users
 
   post "/add_first_aid_station/:operation_period" => 'plans#add_first_aid_station', as: 'add_first_aid_station'
