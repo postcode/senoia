@@ -447,6 +447,13 @@ fieldset{
 input[type="checkbox"]{
   margin: 0rem;
 }
+input[type="file"], input[type="checkbox"], input[type="radio"], select {
+  margin: 0em;
+}
+
+select.provider-dropdown {
+  margin: 1em 0 0;
+}
 
 
 /* BUTTONS */

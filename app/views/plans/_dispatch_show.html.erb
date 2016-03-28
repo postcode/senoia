@@ -2,12 +2,13 @@
 <tr>
   <td><%= a.input :name, required: false, label: false %></td>
   <td><%= a.input :provider_id,
-                    collection: Provider.all,
+                    collection: OrganizationType.find_providers,
                     label_method: :name,
                     value_method: :id,
                     include_blank: false,
                     prompt: "Select a provider",
-                    required: false, label: false %>
+                    required: false, label: false,
+                    input_html: { class: "provider-dropdown" } %>
     <%= a.object.try(:provider_confirmation) %>
   </td>
   <td><%= a.input :contact_name, required: false, label: false %></td>
