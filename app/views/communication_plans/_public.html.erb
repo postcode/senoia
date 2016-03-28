@@ -1,0 +1,124 @@
+  <div class="row">
+    <div class="small-6 columns input_label">
+      <%= :event_coordinator_name %>
+      <%= :event_coordinator_phone %>
+      <%= :event_coordinator_email %>
+      <%= :event_coordinator_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+    <div class="small-6 columns input_label">
+      <%= :event_supervisor_name %>
+      <%= :event_supervisor_phone %>
+      <%= :event_supervisor_email %>
+      <%= :event_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns input_label">
+      <%= :dispatch_supervisor_name %>
+      <%= :dispatch_supervisor_phone %>
+      <%= :dispatch_supervisor_email %>
+      <%= :dispatch_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+    <div class="small-6 columns input_label">
+      <%= :medical_group_supervisor_name %>
+      <%= :medical_group_supervisor_phone %>
+      <%= :medical_group_supervisor_email %>
+      <%= :medical_group_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns input_label">
+      <%= :triage_supervisor_name %>
+      <%= :triage_supervisor_phone %>
+      <%= :triage_supervisor_email %>
+      <%= :triage_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false
+                              %>
+    </div>
+    <div class="small-6 columns input_label">
+      <%= :transport_supervisor_name %>
+      <%= :transport_supervisor_phone %>
+      <%= :transport_supervisor_email %>
+      <%= :transport_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns input_label">
+      <%= :non_transport_supervisor_name %>
+      <%= :non_transport_supervisor_phone %>
+      <%= :non_transport_supervisor_email %>
+      <%= :non_transport_supervisor_organization,
+                              collection: OrganizationType.find_providers,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Asset Communication</h2>
+      <% plan.operation_periods.each do |op| %>
+        <h3>Operation Period:&nbsp;<%= op.formatted_start_date %>&nbsp;<%= op.formatted_start_time %></h3>
+        <h4>First Aid Stations</h4>
+        <% op.first_aid_stations.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+        <h4>Mobile Teams</h4>
+        <% op.mobile_teams.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+        <h4>Dispatch</h4>
+        <% op.dispatchs.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+        <h4>Transports</h4>
+        <% op.transports.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+

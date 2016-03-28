@@ -14,6 +14,8 @@
     <div class="large-12 columns">
         <% if user_signed_in? %>
           <%= render "form" %>
+        <% else %>
+          <%= render "public", plan: @plan %>
         <% end %>
     </div>
   </div>
