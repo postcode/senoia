@@ -22,7 +22,7 @@
 
       <div class="row">
         <div class="small-8 columns end">
-          Permitting Agency: <%= @plan.permitter.name %>
+          Permitting Agency: <%= @plan.permitter.name unless @plan.permitter.blank? %>
         </div>
       </div>
        <div class="row">

@@ -39,7 +39,7 @@ class PlansController < ApplicationController
             render "plans/show_approved"
           end
           format.pdf do
-            render pdf: "test_plan",   # Excluding ".pdf" extension.
+            render pdf: "#{@plan.name}",   # Excluding ".pdf" extension.
             template: "plans/pdf/plan.pdf.erb"
           end
         end
@@ -49,7 +49,7 @@ class PlansController < ApplicationController
             render "plans/show"
           end
           format.pdf do
-            render pdf: "test_plan",   # Excluding ".pdf" extension.
+            render pdf: "#{@plan.name}",   # Excluding ".pdf" extension.
             template: "plans/pdf/plan.pdf.erb"
           end
         end
