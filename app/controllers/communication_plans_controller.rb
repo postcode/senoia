@@ -5,6 +5,7 @@ class CommunicationPlansController < ApplicationController
     
   def show
     @plan = Plan.find(params[:plan_id])
+    authorize! :read, @plan
     unless @communication_plan
       @communication_plan = @plan.create_communication_plan
     end

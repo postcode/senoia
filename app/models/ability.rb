@@ -33,7 +33,7 @@ class Ability
       can :read, :all
       cannot :read, User
       cannot :index, User
-      cannot [:create, :edit, :destroy, :show], Plan
+      cannot [:create, :edit, :destroy], Plan
       cannot :read, Provider
       cannot :read, Permitter
       cannot :read, NotificationGroup
