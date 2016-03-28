@@ -1,6 +1,6 @@
   <% if @plan.communication_plan.present? %>
   <div class="row">
-    <div class="small-6 columns input_label">
+    <div class="large-5 columns input_label">
       <dl class="contact-list">
         <dt>
           Event Coordinator Name:
@@ -28,7 +28,7 @@
         </dd>
       </dl>
     </div>
-    <div class="small-6 columns input_label">
+    <div class="large-5 large-offset-1 end columns input_label">
       <dl class="contact-list">
         <dt>
           Event Supervisor Name:
@@ -58,7 +58,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-6 columns input_label">
+    <div class="large-5 columns input_label">
       <dl class="contact-list">
         <dt>
           Dispatch Supervisor Name:
@@ -86,7 +86,7 @@
         </dd>
       </dl>
     </div>
-    <div class="small-6 columns input_label">
+    <div class="large-5 large-offset-1 end columns input_label">
       <dl class="contact-list">
         <dt>
           Medical Group Supervisor Name:
@@ -116,7 +116,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-6 columns input_label">
+    <div class="large-5 columns input_label">
       <dl class="contact-list">
         <dt>
           Triage Supervisor Name:
@@ -144,7 +144,7 @@
         </dd>
       </dl>
     </div>
-    <div class="small-6 columns input_label">
+    <div class="large-5 large-offset-1 end columns input_label">
       <dl class="contact-list">
         <dt>
           Transport Supervisor Name:
@@ -174,7 +174,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-6 columns input_label">
+    <div class="large-5 columns input_label">
       <dl class="contact-list">
         <dt>
           Non-Transport Supervisor Name:
@@ -208,43 +208,55 @@
     <div class="small-12 columns">
       <h2>Asset Communication</h2>
       <% plan.operation_periods.each do |op| %>
-        <h3>Operation Period:&nbsp;<%= op.formatted_start_date %>&nbsp;<%= op.formatted_start_time %></h3>
-        <h4>First Aid Stations</h4>
-        <% op.first_aid_stations.each do |asset| %>
-          <h5><%= asset.name %></h5>
-          <p>Communications:</p>
-          <% asset.asset_communications.each do |comms| %>
-            <p><%= comms.communication.name %></p>
-            <p>Frequency or Phone Number: <%= comms.description %></p>
-          <% end %>
-        <% end %>
-        <h4>Mobile Teams</h4>
-        <% op.mobile_teams.each do |asset| %>
-          <h5><%= asset.name %></h5>
-          <p>Communications:</p>
-          <% asset.asset_communications.each do |comms| %>
-            <p><%= comms.communication.name %></p>
-            <p>Frequency or Phone Number: <%= comms.description %></p>
-          <% end %>
-        <% end %>
-        <h4>Dispatch</h4>
-        <% op.dispatchs.each do |asset| %>
-          <h5><%= asset.name %></h5>
-          <p>Communications:</p>
-          <% asset.asset_communications.each do |comms| %>
-            <p><%= comms.communication.name %></p>
-            <p>Frequency or Phone Number: <%= comms.description %></p>
-          <% end %>
-        <% end %>
-        <h4>Transports</h4>
-        <% op.transports.each do |asset| %>
-          <h5><%= asset.name %></h5>
-          <p>Communications:</p>
-          <% asset.asset_communications.each do |comms| %>
-            <p><%= comms.communication.name %></p>
-            <p>Frequency or Phone Number: <%= comms.description %></p>
-          <% end %>
-        <% end %>
+        <div class="row">
+          <div class="large-12 columns">      
+            <h3><strong><%= op.formatted_start_date %>&nbsp;<%= op.formatted_start_time %></strong> &nbsp;Operation Period</h3>
+          </div>
+          <div class="large-3 columns">
+            <h4>First Aid Stations</h4>
+            <% op.first_aid_stations.each do |asset| %>
+              <h5><%= asset.name %></h5>
+              <p>Communications:</p>
+              <% asset.asset_communications.each do |comms| %>
+                <p><%= comms.communication.name %></p>
+                <p>Frequency or Phone Number: <%= comms.description %></p>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="large-3 columns">
+            <h4>Mobile Teams</h4>
+            <% op.mobile_teams.each do |asset| %>
+              <h5><%= asset.name %></h5>
+              <p>Communications:</p>
+              <% asset.asset_communications.each do |comms| %>
+                <p><%= comms.communication.name %></p>
+                <p>Frequency or Phone Number: <%= comms.description %></p>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="large-3 columns">
+            <h4>Dispatch</h4>
+            <% op.dispatchs.each do |asset| %>
+              <h5><%= asset.name %></h5>
+              <p>Communications:</p>
+              <% asset.asset_communications.each do |comms| %>
+                <p><%= comms.communication.name %></p>
+                <p>Frequency or Phone Number: <%= comms.description %></p>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="large-3 columns">
+            <h4>Transports</h4>
+            <% op.transports.each do |asset| %>
+              <h5><%= asset.name %></h5>
+              <p>Communications:</p>
+              <% asset.asset_communications.each do |comms| %>
+                <p><%= comms.communication.name %></p>
+                <p>Frequency or Phone Number: <%= comms.description %></p>
+              <% end %>
+            <% end %>
+          </div>
+        </div>  
       <% end %>
     </div>
   </div>

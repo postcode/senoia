@@ -611,3 +611,31 @@ div.input.radio_buttons {
   margin-bottom: 1.5em;
 }
 
+/* Communication Plan */
+#communication-plan{
+  .input_label{
+    margin-bottom: 2em; 
+  }
+  .input_label label {
+      font-weight: normal;
+      text-transform: none;
+  }  
+  .input{
+    margin-bottom: 1em;
+  }
+  h2{
+    margin-bottom: .5em;
+  }
+  .asset-comms{
+    h3{
+      border-top: 1px solid $lightgray;
+      margin-top: .75em;
+      margin-bottom: .75em;
+      padding-top: .75em;
+    }
+    h4{
+      font-weight: bold;
+    }
+  }
+}
+
