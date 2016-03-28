@@ -2,8 +2,9 @@
 <tr>
   <td><%= a.input :name, required: false, label: false %></td>
   <td><%= a.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
-  <td><%= a.input :mobile_team_type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %></td>
+  <!-- <td><%= a.input :mobile_team_type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %></td>
   <td><%= a.input :aed, input_html: {value: 0}, required: false, label: false %></td>
+  -->
   <td><%= a.input :provider_id,
                     collection: Provider.all,
                     label_method: :name,
@@ -13,8 +14,10 @@
                     required: false, label: false %>
     <%= a.object.try(:provider_confirmation) %>
   </td>
-  <td><%= a.input :contact_name, required: false, label: false %></td>
+  <td><span data-tooltip aria-haspopup="true" class="has-tip" title="more info">Info</span></td>  
+  <!-- <td><%= a.input :contact_name, required: false, label: false %></td>
   <td><%= a.input :contact_phone, required: false, label: false %></td>
+  -->
   <td><%= a.input :_destroy, as: :boolean, label: "Remove" %></td>
 </tr>
 <% end %>
