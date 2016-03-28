@@ -1,10 +1,9 @@
 <% if current_user.admin? %>
   <dl class="sub-nav right">
-    <dt><i class="fi-widget"></i> <%= link_to "ADMIN", :admin %></dt>
-    <span class="right">
-        <dd><%= link_to "Manage Users", users_path %>
-        <dd><%= link_to "Manage Venues", venues_path %></dd>
-        <dd><%= link_to "Manage Organizations", organizations_path %></dd>
-    </span>
+  		<dt> <%= link_to '<i class="fi-widget"></i> Admin'.html_safe, :admin %></dt>
+        <dd><%= link_to "Users", users_path %>
+        <dd><%= link_to "Venues", venues_path %></dd>
+        <dd><%= link_to "Organizations", organizations_path %></dd>
+    	        
   </dl>
 <% end %>
