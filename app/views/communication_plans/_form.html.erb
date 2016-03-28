@@ -92,6 +92,19 @@
                               include_blank: false %>
     </div>
   </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <h3>Asset Communication</h3>
+      <% @plan.operation_periods.each do |op| %>
+        <h4>Operation Period:&nbsp;<%= op.formatted_start_date %>&nbsp;<%= op.formatted_start_time %></h4>
+        <% %w(first_aid_stations mobile_teams).each do |attribute| %>
+          <% op.attribute.each do |asset| %>
+            <%= asset.name %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
       
   <div class="row">
     <div class="small-12 columns buttons">
