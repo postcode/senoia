@@ -6,6 +6,7 @@
     </div>
     <div class="large-3 columns text-right pageTitle">
       <p><em>UPDATED: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
+      <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
     </div>
   </div>
 </div>

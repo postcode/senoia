@@ -1,7 +1,10 @@
 <%= simple_form_for [@plan] do |f| %>
 <div class="row">
-  <div class="large-12 columns pageTitle">
+  <div class="large-10 columns pageTitle">
     <h1><%= @plan.name %> </h1>
+  </div>
+  <div class="large-2 columns end">
+    <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
   </div>
   <%= render "plans/plan_state" %>
   <div class="large-12 columns plan_form">
