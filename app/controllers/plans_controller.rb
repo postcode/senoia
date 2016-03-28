@@ -34,9 +34,25 @@ class PlansController < ApplicationController
     
     if @plan.approved?
       if current_user.try(:is_admin?)
-        render "plans/show_approved"
+        respond_to do |format|
+          format.html do
+            render "plans/show_approved"
+          end
+          format.pdf do
+            render pdf: "test_plan",   # Excluding ".pdf" extension.
+            template: "plans/pdf/plan.pdf.erb"
+          end
+        end
       else
-        render "plans/show"
+        respond_to do |format|
+          format.html do
+            render "plans/show"
+          end
+          format.pdf do
+            render pdf: "test_plan",   # Excluding ".pdf" extension.
+            template: "plans/pdf/plan.pdf.erb"
+          end
+        end
       end
     elsif can? :edit, @plan
       render "plans/edit"

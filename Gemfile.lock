@@ -497,6 +497,8 @@ GEM
       activerecord (> 3.2)
       coffee-rails (> 3.2)
       kaminari (~> 0.16)
+    wicked_pdf (1.0.4)
+    wkhtmltopdf-binary (0.9.9.3)
     workflow (1.2.0)
     xml-simple (1.1.5)
     xpath (2.0.0)
@@ -573,6 +575,8 @@ DEPENDENCIES
   unicorn
   unicorn-worker-killer
   wice_grid (= 3.6.0.pre5)
+  wicked_pdf
+  wkhtmltopdf-binary
   workflow
 
 BUNDLED WITH
