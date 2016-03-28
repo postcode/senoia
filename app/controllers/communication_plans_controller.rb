@@ -13,7 +13,6 @@ class CommunicationPlansController < ApplicationController
     if @communication_plan.update(communication_plan_params)
       redirect_to action: :show
     else
-      @communication_plan.submitted = false
       render action: :show
     end
   end

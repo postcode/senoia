@@ -3,7 +3,7 @@
     <div class="small-12 columns">
       <% if @communication_plan.errors.any? %>
         <div id="error_explanation" class="panel callout">
-          <h2><%= pluralize(@communication_plan.errors.count, "error") %> prohibited this department from being saved:</h2>
+          <h2><%= pluralize(@communication_plan.errors.count, "error") %> prohibited this communications plan from being saved:</h2>
           <ul>
             <% @communication_plan.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-6 columns input_label">
       <%= f.input :event_coordinator_name %>
       <%= f.input :event_coordinator_phone %>
       <%= f.input :event_coordinator_email %>
@@ -24,9 +24,7 @@
                               value_method: :id,
                               include_blank: false %>
     </div>
-  </div>
-  <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-6 columns input_label">
       <%= f.input :event_supervisor_name %>
       <%= f.input :event_supervisor_phone %>
       <%= f.input :event_supervisor_email %>
@@ -38,7 +36,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-6 columns input_label">
       <%= f.input :dispatch_supervisor_name %>
       <%= f.input :dispatch_supervisor_phone %>
       <%= f.input :dispatch_supervisor_email %>
@@ -48,9 +46,7 @@
                               value_method: :id,
                               include_blank: false %>
     </div>
-  </div>
-  <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-6 columns input_label">
       <%= f.input :medical_group_supervisor_name %>
       <%= f.input :medical_group_supervisor_phone %>
       <%= f.input :medical_group_supervisor_email %>
@@ -58,12 +54,11 @@
                               collection: OrganizationType.find_providers,
                               label_method: :name,
                               value_method: :id,
-                              include_blank: false,
-                              label: false %>
+                              include_blank: false %>
     </div>
   </div>
   <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-6 columns input_label">
       <%= f.input :triage_supervisor_name %>
       <%= f.input :triage_supervisor_phone %>
       <%= f.input :triage_supervisor_email %>
@@ -71,12 +66,10 @@
                               collection: OrganizationType.find_providers,
                               label_method: :name,
                               value_method: :id,
-                              include_blank: false,
-                              label: false %>
+                              include_blank: false
+                              %>
     </div>
-  </div>
-  <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-6 columns input_label">
       <%= f.input :transport_supervisor_name %>
       <%= f.input :transport_supervisor_phone %>
       <%= f.input :transport_supervisor_email %>
@@ -88,7 +81,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-6 columns input_label">
       <%= f.input :non_transport_supervisor_name %>
       <%= f.input :non_transport_supervisor_phone %>
       <%= f.input :non_transport_supervisor_email %>
@@ -97,6 +90,50 @@
                               label_method: :name,
                               value_method: :id,
                               include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Asset Communication</h2>
+      <% @plan.operation_periods.each do |op| %>
+        <h3>Operation Period:&nbsp;<%= op.formatted_start_date %>&nbsp;<%= op.formatted_start_time %></h3>
+        <h4>First Aid Stations</h4>
+        <% op.first_aid_stations.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+        <h4>Mobile Teams</h4>
+        <% op.mobile_teams.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+        <h4>Dispatch</h4>
+        <% op.dispatchs.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+        <h4>Transports</h4>
+        <% op.transports.each do |asset| %>
+          <h5><%= asset.name %></h5>
+          <p>Communications:</p>
+          <% asset.asset_communications.each do |comms| %>
+            <p><%= comms.communication.name %></p>
+            <p>Frequency or Phone Number: <%= comms.description %></p>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   </div>
       
