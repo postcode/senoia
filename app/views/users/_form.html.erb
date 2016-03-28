@@ -13,7 +13,7 @@
   <li><%= f.input :name %></li>
   <li><%= f.input :email, required: true, input_html: { required: 'required' } %></li>
   <li><%= f.input :phone_number %></li>
-  <li><%= f.input :roles, collection: User.valid_roles, include_blank: false %></li>
+  <li><%= f.input :roles, collection: User.pretty_roles, include_blank: false, value_method: User.pretty_roles[0], label_method: User.pretty_roles[1] %></li>
   <% if params[:action] == 'create' || params[:action] == 'new' %>
   <li><%= f.input :password, required: true, input_html: { required: 'required'} %></li>
   <li><%= f.input :password_confirmation, required: true, input_html: { required: 'required'} %></li>

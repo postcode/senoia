@@ -92,4 +92,8 @@ class User < ActiveRecord::Base
     Plan.affiliated_to(self)
   end
 
+  def self.pretty_roles
+    pretty_roles = { "DEM Admin": :admin, "Event Producer": :promoter, "EMS Provider": :provider, "Event Permitter / Staff": :staff }
+  end
+
 end
