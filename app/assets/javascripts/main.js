@@ -21,6 +21,11 @@ $(function() {
 
   $('.time-input').timepicker();
   $('.command-list').hide()
+  $('.communication-form').hide()
+
+  $('.communication-toggle').click( function(e){
+    $(this).next('.communication-form').toggle()
+  })
 
   $("body").delegate('.dateSelect', 'hide', function(event) {
     if ($("#operation_period_start_date").val().length > 0 && $("#operation_period_start_date").val().length > 0) {

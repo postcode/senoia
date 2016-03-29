@@ -125,7 +125,10 @@
                 <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
-              <div id="update-first-aid-station" class="first-aid-station-form" data-url="<%= url_for([ op, asset ]) %>" >
+              <%= link_to "javascript:void(0)", class: "button tiny radius communication-toggle", label: false do %>
+                <i class="fi-plus"></i> Add Communication Channel
+              <% end %>
+              <div id="update-first-aid-station" class="first-aid-station-form communication-form" data-url="<%= url_for([ op, asset ]) %>" >
                 <%= simple_fields_for "first_aid_station" do |a| %>
                   <div class="communications">
                     <%= render 'plans/asset_communications', a: a %>
@@ -143,7 +146,7 @@
                 <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
-              <div id="update-mobile_team" class="mobile_team-form" data-url="<%= url_for([ op, asset ]) %>" >
+              <div id="update-mobile_team" class="mobile_team-form communication-form" data-url="<%= url_for([ op, asset ]) %>" >
                 <%= simple_fields_for "mobile_team" do |a| %>
                   <div class="communications">
                     <%= render 'plans/asset_communications', a: a %>
@@ -161,7 +164,7 @@
                 <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
-              <div id="update-dispatch" class="dispatch-form" data-url="<%= url_for([ op, asset ]) %>" >
+              <div id="update-dispatch" class="dispatch-form communication-form" data-url="<%= url_for([ op, asset ]) %>" >
                 <%= simple_fields_for "dispatch" do |a| %>
                   <div class="communications">
                     <%= render 'plans/asset_communications', a: a %>
@@ -180,7 +183,7 @@
                 <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
-              <div id="update-transport" class="transport-form" data-url="<%= url_for([ op, asset ]) %>" >
+              <div id="update-transport" class="transport-form communication-form" data-url="<%= url_for([ op, asset ]) %>" >
                 <%= simple_fields_for "transport" do |a| %>
                   <div class="communications">
                     <%= render 'plans/asset_communications', a: a %>
