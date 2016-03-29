@@ -11,8 +11,16 @@
                     input_html: { class: "provider-dropdown" } %>
     <%= a.object.try(:provider_confirmation) %>
   </td>
-  <td><%= a.input :contact_name, required: false, label: false %></td>
-  <td><%= a.input :contact_phone, required: false, label: false %></td>
+  <td><a href="#" data-reveal-id="dispatch_info">More Info</a></td> 
   <td><%= a.input :_destroy, as: :boolean, label: "Remove" %></td>
 </tr>
+    <div id="dispatch_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2 id="modalTitle">More Info</h2>
+       
+      Contact Name
+      <%= a.input :contact_name, required: false, label: false %><br>
+      Contact Phone
+      <%= a.input :contact_phone, required: false, label: false %><br>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>  
 <% end %>
