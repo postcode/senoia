@@ -142,6 +142,12 @@ legend{
   color: $typography;
   font-family: $secondary-font;
 }
+.content-padding{
+  padding: 2.5em 0em 3em 0em;
+}
+.input{
+  margin-bottom: 1em;
+}
 
 /* LANDING PAGE */
 .landing{
@@ -414,7 +420,6 @@ fieldset{
 
 /* PLAN ARCHIVE */
 .plan-archive{
-  margin-top: 2em;
   button, .button{
     margin: 0rem;
   }
