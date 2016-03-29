@@ -21,7 +21,8 @@
       var mobileTeams = <%== json_escape(operation_period.mobile_teams.to_json) %>;
       var transports = <%== json_escape(operation_period.transports.to_json) %>;
       var dispatches = <%== json_escape(operation_period.dispatchs.to_json) %>;
-      var service_area = <%== json_escape(operation_period.service_area.to_json) %>;
+      var service_area = <%== operation_period.service_area.present? ? json_escape(operation_period.service_area.to_json) : []  %>;
+
 
       // to_json produces null values, which are displayed as "null", which is
       // not ideal. This sets a sensible alternative.
@@ -181,8 +182,13 @@
       // fitBoundsToVisibleMarkers();
 
       function addPolygon(polygon) {
+        console.log(polygon)
         var area = [];
-        service_area_array = polygon.split("),")
+        if (polygon.length() > 0) {
+          service_area_array = polygon.split("),")
+        } else {
+          service_area_array =  []
+        }
 
         for (var i = 0; i < service_area_array.length; i++) {
           var obj = service_area_array[i].replace(/\(|\)/g, "").split(",");
@@ -201,7 +207,11 @@
         console.log(area)
         serviceArea.setMap(map);
       }
-          // Construct the polygon.
+        
+     
+      if (service_area.length > 0) {
+        addPolygon(service_area);
+      }
 
       var drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: null,
@@ -221,7 +231,7 @@
         $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
         }
       });
-      addPolygon(service_area);
+ 
       fitBoundsToVisibleMarkers()
     });
     </script>

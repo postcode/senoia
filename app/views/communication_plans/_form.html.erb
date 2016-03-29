@@ -15,7 +15,7 @@
   </div>
   <div class="row">
     <div class="large-5 columns input_label">
-      <h2>Event Coordinator</h2>
+      <h2>Event Coordinator</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :event_coordinator_name %>
       <%= f.input :event_coordinator_phone %>
       <%= f.input :event_coordinator_email %>
@@ -26,7 +26,7 @@
                               include_blank: false %>
     </div>
     <div class="large-5 large-offset-1 end columns input_label">
-      <h2>Event Supervisor</h2>
+      <h2>Event Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :event_supervisor_name %>
       <%= f.input :event_supervisor_phone %>
       <%= f.input :event_supervisor_email %>
@@ -39,7 +39,7 @@
   </div>
   <div class="row">
     <div class="large-5 columns input_label">
-      <h2>Dispatch Supervisor</h2>
+      <h2>Dispatch Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :dispatch_supervisor_name %>
       <%= f.input :dispatch_supervisor_phone %>
       <%= f.input :dispatch_supervisor_email %>
@@ -50,7 +50,7 @@
                               include_blank: false %>
     </div>
     <div class="large-5 large-offset-1 end columns input_label">
-      <h2>Med Group Supervisor</h2>
+      <h2>Med Group Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :medical_group_supervisor_name %>
       <%= f.input :medical_group_supervisor_phone %>
       <%= f.input :medical_group_supervisor_email %>
@@ -63,7 +63,7 @@
   </div>
   <div class="row">
     <div class="large-5 columns input_label">
-      <h2>Triage Supervisor</h2>
+      <h2>Triage Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :triage_supervisor_name %>
       <%= f.input :triage_supervisor_phone %>
       <%= f.input :triage_supervisor_email %>
@@ -75,7 +75,7 @@
                               %>
     </div>
     <div class="large-5 large-offset-1 end columns input_label">
-      <h2>Transport Supervisor</h2>
+      <h2>Transport Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :transport_supervisor_name %>
       <%= f.input :transport_supervisor_phone %>
       <%= f.input :transport_supervisor_email %>
@@ -88,7 +88,7 @@
   </div>
   <div class="row">
     <div class="large-5 columns input_label">
-      <h2>Non-Transport Supervisor</h2>
+      <h2>Non-Transport Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :non_transport_supervisor_name %>
       <%= f.input :non_transport_supervisor_phone %>
       <%= f.input :non_transport_supervisor_email %>
@@ -111,44 +111,73 @@
             <h4>First Aid Stations</h4>
             <% op.first_aid_stations.each do |asset| %>
               <h5><%= asset.name %></h5>
-              <p>Communications:</p>
               <% asset.asset_communications.each do |comms| %>
-                <p><%= comms.communication.name %></p>
+                <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
+              <div id="update-first-aid-station" class="first-aid-station-form" data-url="<%= url_for([ op, asset ]) %>" >
+                <%= simple_fields_for "first_aid_station" do |a| %>
+                  <div class="communications">
+                    <%= render 'plans/asset_communications', a: a %>
+                  </div>
+                <%= link_to "Update", "javascript:void(0)", class: "update-first-aid-station button primary" %>
+                <% end %>
+              </div>
             <% end %>
           </div>
           <div class="large-3 columns">
             <h4>Mobile Teams</h4>
             <% op.mobile_teams.each do |asset| %>
               <h5><%= asset.name %></h5>
-              <p>Communications:</p>
               <% asset.asset_communications.each do |comms| %>
-                <p><%= comms.communication.name %></p>
+                <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
+              <div id="update-mobile_team" class="mobile_team-form" data-url="<%= url_for([ op, asset ]) %>" >
+                <%= simple_fields_for "mobile_team" do |a| %>
+                  <div class="communications">
+                    <%= render 'plans/asset_communications', a: a %>
+                  </div>
+                <%= link_to "Update", "javascript:void(0)", class: "update-mobile_team button primary" %>
+                <% end %>
+              </div>
             <% end %>
           </div>
-          <div class="large-3 columns">
+          <div class="large-3 columns dispatch">
             <h4>Dispatch</h4>
             <% op.dispatchs.each do |asset| %>
               <h5><%= asset.name %></h5>
-              <p>Communications:</p>
               <% asset.asset_communications.each do |comms| %>
-                <p><%= comms.communication.name %></p>
+                <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
+              <div id="update-dispatch" class="dispatch-form" data-url="<%= url_for([ op, asset ]) %>" >
+                <%= simple_fields_for "dispatch" do |a| %>
+                  <div class="communications">
+                    <%= render 'plans/asset_communications', a: a %>
+                  </div>
+                <%= link_to "Update", "javascript:void(0)", class: "update-dispatch button primary" %>
+                <% end %>
+              </div>
             <% end %>
+
           </div>
           <div class="large-3 columns">
             <h4>Transports</h4>
             <% op.transports.each do |asset| %>
               <h5><%= asset.name %></h5>
-              <p>Communications:</p>
               <% asset.asset_communications.each do |comms| %>
-                <p><%= comms.communication.name %></p>
+                <p><%= comms.communication.name unless comms.communication.blank? %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
+              <div id="update-transport" class="transport-form" data-url="<%= url_for([ op, asset ]) %>" >
+                <%= simple_fields_for "transport" do |a| %>
+                  <div class="communications">
+                    <%= render 'plans/asset_communications', a: a %>
+                  </div>
+                <%= link_to "Update", "javascript:void(0)", class: "update-transport button primary" %>
+                <% end %>
+              </div>
             <% end %>
           </div>
         </div>

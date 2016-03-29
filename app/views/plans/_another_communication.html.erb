@@ -1,6 +1,7 @@
 <script type="text/javascript">
-  $(".new-communication").click( function(e) {
-    console.log(e)
-    $(".communications", ".asset-modal.open").append("<%= j render(partial: 'plans/asset_communications', locals: {a: a} )%>")
+  $(document).ready(function(){
+    $(".new-communication").click( function(e) {
+      $(".communications", ".<%= type %>").append("<%= j render(partial: 'plans/asset_communications', locals: {a: a} )%>")
+    })
   })
 </script>
