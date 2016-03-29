@@ -7,9 +7,6 @@
     <div class="small-4 columns">
       <p><%= l(operation_period.start_date) %></p>
     </div>
-    <div class="large-4 columns">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_start_date" %>
-    </div>
   </div>
   <div class="row">
     <div class="small-2 columns input_label">
@@ -18,9 +15,6 @@
     <div class="small-4 columns">
       <p><%= l(operation_period.end_date) %></p>
     </div>
-    <div class="large-4 columns">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_end_date" %>
-    </div>
   </div>
   <div class="row">
     <div class="small-2 columns input_label">
@@ -28,9 +22,6 @@
     </div>
     <div class="small-4 columns">
       <p><%= @plan.attendance %></p>
-    </div>
-    <div class="large-4 columns">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_attendance" %>
     </div>
   </div>
 
@@ -41,26 +32,18 @@
       <fieldset>
         <legend>FIRST AID STATIONS</legend>
         <div class="row">
-          <table class="first_aid_table">
+          <table id="first_aid_table">
             <thead>
               <th>Name</th>
-              <th>Location</th>
               <th width="75">Level</th>
-              <th>MDs</th>
-              <th>RNs</th>
-              <th>EMTs</th>
-              <th>AEDs</th>
               <th>Provider</th>
             </thead>
             <tbody>
-              <%= render 'plans/first_aid_stations_show', op: operation_period %>
+              <%= render 'plans/first_aid_station', op: operation_period %>
             </tbody>
           </table>
         </div>
       </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_first_aid_stations" %>
     </div>
   </div>
   <div class="row">
@@ -71,21 +54,16 @@
           <table id="mobile_team_table">
             <thead>
               <th>Name</th>
-              <th>Location</th>
               <th width="75">Level</th>
               <th width="75">Type</th>
-              <th>AEDs</th>
               <th>Provider</th>
             </thead>
             <tbody>
-              <%= render 'plans/mobile_team_show', op: operation_period %>
+              <%= render 'plans/mobile_team', op: operation_period %>
             </tbody>
           </table>
         </div>
       </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_mobile_teams" %>
     </div>
   </div>
 
@@ -98,19 +76,15 @@
             <table id="transport_table">
               <thead>
                 <th>Name</th>
-                <th>Location</th>
                 <th>Provider</th>
               </thead>
               <tbody>
-                <%= render 'plans/transport_show', op: operation_period %>
+                <% render 'plans/transport', op: operation_period %>
               </tbody>
             </table>
           <% end %>
         </div>
       </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_transport" %>
     </div>
   </div>
   <div class="row">
@@ -124,14 +98,11 @@
               <th>Provider</th>
             </thead>
             <tbody>
-              <%= render 'plans/dispatch_show', op: operation_period %>
+              <%= render 'plans/dispatch', op: operation_period %>
             </tbody>
           </table>
         </div>
       </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_dispatch" %>
     </div>
   </div>
 </div>

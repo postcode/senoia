@@ -1,12 +1,22 @@
-<tr>
-
-  <% %w(name level md rn emt aed provider contact_name contact_phone).each do |attribute| %>
-  
-  <td>
-    <span><%= first_aid_station[attribute] %></span>
-    <%= hidden_field_tag "plan[operation_periods_attributes][#{operation_period_index}][first_aid_stations_attributes][#{first_aid_station_id}][#{attribute}]", first_aid_station[attribute] %>
-  </td>
-
-  <% end %>
-
-</tr>
+  <% op.first_aid_stations.each do |first_aid_station| %>
+  <tr>
+    <td><%= first_aid_station.name %></td>
+    <td><%= first_aid_station.level %></td>
+    <td><%= first_aid_station.provider %>
+    </td>
+    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>  
+  </tr>
+    <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2 id="modalTitle">More Info</h2>
+      MD <%= first_aid_station.md %><br>
+      RN <%= first_aid_station.rn %><br>
+      EMT <%= first_aid_station.emt %><br>
+      AED <%= first_aid_station.aed %><br>
+       
+      Contact Name
+      <%= first_aid_station.contact_name %><br>
+      Contact Phone
+      <%= first_aid_station.contact_phone %><br>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>  
+<% end %>

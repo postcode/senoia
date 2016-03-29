@@ -1,0 +1,17 @@
+  <% op.dispatchs.each do |dispatch| %>
+  <tr>
+    <td><%= dispatch.name %></td>
+    <td><%= dispatch.level %></td>
+    <td><%= dispatch.provider %>
+    </td>
+    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>  
+  </tr>
+    <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2 id="modalTitle">More Info</h2>
+      Contact Name
+      <%= dispatch.contact_name %><br>
+      Contact Phone
+      <%= dispatch.contact_phone %><br>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>  
+<% end %>
