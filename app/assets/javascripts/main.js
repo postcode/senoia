@@ -20,6 +20,7 @@ $(function() {
   });
 
   $('.time-input').timepicker();
+  $('.command-list').hide()
 
   $("body").delegate('.dateSelect', 'hide', function(event) {
     if ($("#operation_period_start_date").val().length > 0 && $("#operation_period_start_date").val().length > 0) {
@@ -144,6 +145,15 @@ $(function() {
       $(this).siblings().children("input").prop("disabled", true)
     } else {
       $(this).siblings().children("input").prop("disabled", false)
+    }
+  })
+
+  $('.command-radio').click( function(e) {
+    console.log($(this))
+    if($(this).val() == "yes") {
+      $('.command-list').show()
+    } else {
+      $('.command-list').hide()
     }
   })
   

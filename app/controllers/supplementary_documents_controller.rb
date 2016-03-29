@@ -28,6 +28,8 @@ class SupplementaryDocumentsController < ApplicationController
       Plan.find(params[:plan_id])
     elsif params[:post_event_treatment_report_id]
       PostEventTreatmentReport.find(params[:post_event_treatment_report_id])
+    elsif params[:communication_plan_id]
+      CommunicationPlan.find(params[:communication_plan_id])
     end
   end
 

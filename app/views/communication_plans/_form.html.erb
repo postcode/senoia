@@ -14,6 +14,16 @@
     </div>
   </div>
   <div class="row">
+  <div class="row">
+    <div class="small-5 columns command-select">
+      <h5>Will there be a unified command?</h5>
+      <%= radio_button_tag 'command', 'yes', false, class: 'command-radio' %>&nbsp;Yes</br>
+      <%= radio_button_tag 'command', 'no', false, class: 'command-radio' %>&nbsp;No
+    </div>
+    <div class="small-5 columns command-list">
+      <%= render "supplementary_documents/contact_list", parent: @communication_plan %>
+    </div>
+  </div>
     <div class="large-5 columns input_label">
       <h2>Event Coordinator</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
       <%= f.input :event_coordinator_name %>

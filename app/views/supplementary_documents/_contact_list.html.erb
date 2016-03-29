@@ -1,0 +1,17 @@
+<fieldset id="supplementary-document-container">
+  <legend>Upload Unified Command List</legend>
+  <div class="large-7 columns">
+    <%= render partial: "supplementary_documents/supplementary_document", collection: parent.supplementary_documents, spacer_template: "supplementary_documents/spacer" %>
+    <% if can? :edit, parent %>
+      <%= link_to [ :new, parent, :supplementary_document ], class: "button tiny radius", remote: true do %>
+        <i class="fi-plus"></i> ADD DOCUMENT</a>
+      <% end %>
+    <% end %>
+    <div id="supplementary-document-modal"></div>
+  </div>
+  <% if parent.is_a?(Plan) %>
+    <div class="large-4 columns end">
+      <%= render 'plans/comment_form', plan: parent, title: "documents" %>
+    </div>
+  <% end %>
+</fieldset>               

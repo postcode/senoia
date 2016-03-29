@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     end
     post '/update_acceptance/', to: 'plans#update_acceptance', as: :update_acceptance
     resource :communication_plan, only: [ :create, :update, :show ]
+
+  end
+   resources :communication_plans, only: :none do
+    resources :supplementary_documents, only: [ :new, :create ]
   end
   resources :post_event_treatment_reports, only: :none do
     resources :supplementary_documents, only: [ :new, :create ]

@@ -37,4 +37,6 @@
 
 class CommunicationPlan < ActiveRecord::Base
   belongs_to :plan
+  has_many :supplementary_documents, as: :parent
+  
 end
