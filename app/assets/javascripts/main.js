@@ -98,6 +98,22 @@ $(function() {
     });
   })
 
+  $.each(assets, function(index, asset) {
+    var button = ".update-" + asset
+    $("body").on("click", button, function(event) {
+      var formElement = "." + asset + "-form"
+      var form = $(this).closest(formElement);
+      var data = form.find(":input").serialize();
+      var url = form.data().url
+      console.log(data)
+      $.ajax({
+        method: "PUT",
+        url: url,
+        data: data
+      });
+    });
+  })
+
   $("body").on("click", ".save-operation-period", function(event) {
     if ($(this).hasClass("disabled")) {
         event.preventDefault();

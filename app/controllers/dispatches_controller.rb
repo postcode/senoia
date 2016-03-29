@@ -15,10 +15,11 @@ class DispatchesController < ApplicationController
   def update
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @dispatch = Dispatch.find(params[:id])
-    binding.pry
     params[:dispatch][:communications].each do |communication|
-      @dispatch.communications << Communication.where(id: communication[1])
-      @dispatch.asset_communications.create(communication_id: communication[1], dispatch_id: @dispatch.id, description: params[:dispatch][:communication_description][communication[0]])
+      if communication[1].present?
+        @dispatch.communications << Communication.where(id: communication[1])
+        @dispatch.asset_communications.create(communication_id: communication[1], dispatch_id: @dispatch.id, description: params[:dispatch][:communication_description][communication[0]])
+      end
     end
     @dispatch.save!
   end
