@@ -51,11 +51,9 @@
               <th>EMTs</th>
               <th>AEDs</th>
               <th>Provider</th>
-              <th>Contact Name</th>
-              <th>Contact Phone</th>
             </thead>
             <tbody>
-              <%= render partial: "first_aid_stations/row", collection: operation_period.first_aid_stations, as: :first_aid_station %>
+              <%= render 'plans/first_aid_stations_show', op: op %>
             </tbody>
           </table>
         </div>
@@ -78,11 +76,9 @@
               <th width="75">Type</th>
               <th>AEDs</th>
               <th>Provider</th>
-              <th>Contact Name</th>
-              <th>Contact Phone</th>
             </thead>
             <tbody>
-              <%= render partial: "mobile_teams/row", collection: operation_period.mobile_teams, as: :mobile_team %>
+              <%= render 'plans/mobile_team_show', op: op %>
             </tbody>
           </table>
         </div>
@@ -104,11 +100,9 @@
                 <th>Name</th>
                 <th>Location</th>
                 <th>Provider</th>
-                <th>Contact Name</th>
-                <th>Contact Phone</th>
               </thead>
               <tbody>
-                <%= render partial: "transports/row", collection: operation_period.transports, as: :transport %>
+                <%= render 'plans/transport_show', op: op %>
               </tbody>
             </table>
           <% end %>
@@ -128,11 +122,9 @@
             <thead>
               <th>Name</th>
               <th>Provider</th>
-              <th>Contact Name</th>
-              <th>Contact Phone</th>
             </thead>
             <tbody>
-              <%= render partial: "dispatches/row", collection: operation_period.dispatchs, as: :dispatch %>
+              <%= render 'plans/dispatch_show', op: op %>
             </tbody>
           </table>
         </div>
