@@ -40,6 +40,7 @@ class Ability
       cannot :read, Permitter
       cannot :read, NotificationGroup
       can :read, Plan, workflow_state: :approved
+      can :create, Plan
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
