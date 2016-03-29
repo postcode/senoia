@@ -105,11 +105,11 @@ $(function() {
       var form = $(this).closest(formElement);
       var data = form.find(":input").serialize();
       var url = form.data().url
-      console.log(data)
       $.ajax({
         method: "PUT",
         url: url,
-        data: data
+        data: data,
+        success: document.location.reload(true)
       });
     });
   })
