@@ -19,6 +19,8 @@ class Ability
     elsif user.has_role? :permitter
       can [:edit, :update, :read], Plan
       can [:create, :edit, :update, :read], Comment
+    elsif user.has_role? :user
+      can :create, Plan
     else
       can :manage, Plan, :creator_id => user.id
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
@@ -38,7 +40,6 @@ class Ability
       cannot :read, Permitter
       cannot :read, NotificationGroup
       can :read, Plan, workflow_state: :approved
-      can :create, Plan
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
