@@ -114,6 +114,13 @@ $(function() {
     });
   })
 
+  $.each(assets, function(index, asset) {
+    var select = "#"+asset+"_provider_id"
+    $(select).change( function(event) {
+      console.log($(select+" option:selected" ).val())
+    });
+  })
+
   $("body").on("click", ".save-operation-period", function(event) {
     if ($(this).hasClass("disabled")) {
         event.preventDefault();
