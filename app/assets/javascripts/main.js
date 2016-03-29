@@ -137,6 +137,15 @@ $(function() {
     event.preventDefault()
     $(this).closest('tr').empty()
   })
+
+  $('.na-check').click( function(e) {
+    console.log($(this))
+    if($(this, "input:checked")) {
+      $(this).siblings().children("input").prop("disabled", true)
+    } else {
+      $(this).siblings().children("input").prop("disabled", false)
+    }
+  })
   
 
   var updatePermitterContactInfo = function() {
