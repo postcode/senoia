@@ -65,6 +65,7 @@ en:
       plan:
         submitted: "New medical plan submitted: %{subject}"
         revision_requested: "Medical plan %{subject} needs revision"
+        review_requested: "Medical plan %{subject} needs review"
         approved: "Your medical plan %{subject} has been approved"
         rejected: "Your medical plan %{subject} has been rejected"
       invitation:
