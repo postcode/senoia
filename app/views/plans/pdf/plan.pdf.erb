@@ -74,7 +74,12 @@
                                 <%= first_aid_station.send(attribute) %>
                               </td>
                             <% end %>
-                            <% end %>
+                              <% first_aid_station.asset_communications.each do |comms| %>
+                                <td>
+                                  <%= comms.communication.name %>:&nbsp;<%= comms.description %>
+                                </td>
+                              <% end %>
+                          <% end %>
                           </tr>
                         </tbody>
                       </div>
@@ -102,6 +107,11 @@
                             <% %w(name level mobile_team_type provider).each do |attribute| %>
                               <td>
                                 <%= mobile_team.send(attribute) %>
+                              </td>
+                            <% end %>
+                            <% mobile_team.asset_communications.each do |comms| %>
+                              <td>
+                                <%= comms.communication.name %>:&nbsp;<%= comms.description %>
                               </td>
                             <% end %>
                           </tr>
@@ -133,6 +143,11 @@
                                   <%= transport.send(attribute) %>
                                 </td>
                               <% end %>
+                              <% transport.asset_communications.each do |comms| %>
+                                <td>
+                                  <%= comms.communication.name %>:&nbsp;<%= comms.description %>
+                                </td>
+                            <% end %>
                             </tr>
                           <% end %>
                           </tbody>
@@ -160,6 +175,11 @@
                                   <%= dispatch.send(attribute) %>
                                 </td>
                               <% end %>
+                              <% dispatch.asset_communications.each do |comms| %>
+                              <td>
+                                <%= comms.communication.name %>:&nbsp;<%= comms.description %>
+                              </td>
+                            <% end %>
                             </tr>
                           <% end %>
                         </tbody>
