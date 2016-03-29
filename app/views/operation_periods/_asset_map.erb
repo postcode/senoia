@@ -182,8 +182,9 @@
       // fitBoundsToVisibleMarkers();
 
       function addPolygon(polygon) {
+        console.log(polygon)
         var area = [];
-        if polygon.length() > 0 {
+        if (polygon.length() > 0) {
           service_area_array = polygon.split("),")
         } else {
           service_area_array =  []
@@ -208,7 +209,7 @@
       }
         
      
-      if service_area.length > 0 {
+      if (service_area.length > 0) {
         addPolygon(service_area);
       }
 
