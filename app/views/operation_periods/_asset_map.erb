@@ -182,7 +182,11 @@
 
       function addPolygon(polygon) {
         var area = [];
-        service_area_array = polygon.split("),")
+        if polygon.length > 0 {
+          service_area_array = polygon.split("),")
+        } else {
+          service_area_array =  []
+        }
 
         for (var i = 0; i < service_area_array.length; i++) {
           var obj = service_area_array[i].replace(/\(|\)/g, "").split(",");

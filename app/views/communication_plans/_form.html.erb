@@ -129,7 +129,7 @@
               <% end %>
             <% end %>
           </div>
-          <div class="large-3 columns">
+          <div class="large-3 columns dispatch">
             <h4>Dispatch</h4>
             <% op.dispatchs.each do |asset| %>
               <h5><%= asset.name %></h5>
@@ -138,7 +138,16 @@
                 <p><%= comms.communication.name %></p>
                 <p>Frequency or Phone Number: <%= comms.description %></p>
               <% end %>
+              <%= simple_form_for "dispatch" do |a| %>
+                <div class="communications">
+                  <%= render 'plans/asset_communications', a: a %>
+                  <%= render 'plans/another_communication', a: a, type: :dispatch %>
+                  <a href="javascript:void(0);" class="button tiny new-communication">Add Another</a>
+                </div>
+                <%= link_to "Update", [ op, asset ], method: "PUT" %>
+              <% end %>
             <% end %>
+
           </div>
           <div class="large-3 columns">
             <h4>Transports</h4>

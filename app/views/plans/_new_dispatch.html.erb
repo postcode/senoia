@@ -16,7 +16,7 @@
       label: "Provider", required: false %>
       <div class="communications">
         <%= render 'asset_communications', a: a %>
-        <%= render 'another_communication', a: a %>
+        <%= render 'another_communication', a: a, type: :dispatch %>
         <a href="javascript:void(0);" class="button tiny new-communication">Add Another</a>
       </div>
       <%= a.input :contact_name, required: false %>
