@@ -19,6 +19,7 @@
       label: "Provider", required: false %>
       <%= a.input :contact_name, required: false %>
       <%= a.input :contact_phone, required: false %>
+      <p>Add the asset (please use the polygon tool to add a coverage zone for mobile teams, if possible)</p>
       <div id='map_mobile_team_<%= unique_id %>' class="asset_map"></div>
       <div id='lat_map_mobile_team_<%= unique_id %>'>
         <%= a.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
