@@ -95,11 +95,19 @@ class Plan < ActiveRecord::Base
   end
 
   def start_date
-    operation_periods.map(&:start_date).compact.min
+    d = operation_periods.map(&:start_date).compact.min
+    t = operation_periods.map(&:start_time).compact.min
+    if d.present? && t.present?
+      DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, t.hour, t.min)
+    end
   end
 
   def end_date
-    operation_periods.map(&:end_date).compact.max
+    d = operation_periods.map(&:end_date).compact.max
+    t = operation_periods.map(&:end_time).compact.max
+    if d.present? && t.present?
+      DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, t.hour, t.min)
+    end
   end
 
   def attendance
