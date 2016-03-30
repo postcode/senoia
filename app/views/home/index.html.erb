@@ -35,7 +35,7 @@
       <h4>Welcome to the Special Event Medical Planning page for the SF Department of Emergency Management!  This site will guide you through the complete medical planning process, for Special Events and Mass Gatherings within the City and County of San Francisco.  From this platform, you will be able to create comprehensive plans that will ensure a safer environment for your attendees and participants.  It includes resources such as event calendars, Policy references, previously approved medical plans, as well as contact numbers for the Permitting Agencies and Service Providers for San Francisco.  Through this platform, all approved medical plans will be available for public review, and a searchable database will be created, to assist with planning of future events.</h4>
     </div>
     <div class="large-5 columns">
-      <%= month_calendar attribute: :start_date, td: {class: "day"}, events: @operation_period do |date, op| %>
+      <%= month_calendar attribute: :start_date_time, td: {class: "day"}, events: @operation_period do |date, op| %>
         <% if date.present? %>
           <%= date.day %>
           <% if op.count > 0 %>

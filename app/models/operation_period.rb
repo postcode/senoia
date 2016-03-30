@@ -57,5 +57,23 @@ class OperationPeriod < ActiveRecord::Base
   def formatted_end_time
     end_time.strftime("%l:%M %p") if end_time
   end
+
+  def start_date_time
+    d = start_date.getutc
+    t = start_time
+    if d.present? && t.present?
+      DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, t.hour, t.min)
+    elsif d.present?
+      DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day)
+    end
+  end
+
+  def end_date_time
+    d = end_date.getutc
+    t = end_time
+    if d.present? && t.present?
+      DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, t.hour, t.min)
+    end
+  end
   
 end
