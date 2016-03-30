@@ -2,7 +2,7 @@
   <% %w(chief_complaint transport destination).each do |attribute| %>
     <td><%= transportation_record.send(attribute) %></td>
   <% end %>
-  <td><%= l transportation_record.transported_at rescue "" %></td>
+  <td><%= l transportation_record.formatted_date rescue "" %></td>
   <% if can? :destroy, transportation_record %>
     <td><%= link_to "Remove", transportation_record, method: "DELETE", remote: true, data: { confirm: "Really remove this record?" } %></td>
   <% end %>

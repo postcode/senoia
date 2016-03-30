@@ -19,4 +19,10 @@ class TransportationRecord < ActiveRecord::Base
   include CustomDateTimeFormat
   use_custom_datetime_format_for :transported_at
 
+  def formatted_date
+    if transported_at.present?
+      DateTime.new(transported_at.getutc.year, transported_at.getutc.month, transported_at.getutc.day, transported_at.hour, transported_at.min)
+    end
+  end
+
 end

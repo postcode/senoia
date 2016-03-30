@@ -16,7 +16,10 @@ class TransportationRecordsController < ApplicationController
   end
   
   def create
+    d = Time.strptime(params[:transportation_record][:transported_at], "%m/%d/%Y %l:%M %P").in_time_zone
     @transportation_record = @post_event_treatment_report.transportation_records.create(transportation_record_params)
+    @transportation_record.transported_at = DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, d.hour, d.min)
+    @transportation_record.save!
   end
   
   def destroy
