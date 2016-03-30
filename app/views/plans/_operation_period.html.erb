@@ -24,7 +24,11 @@
     </div>        
     <div class="row">
       <div class="small-2 columns input_label">
-        <%= op.label :attendance, class: "inline", label: "Crowd Size" %>
+        <%= op.label :attendance, class: "inline" do %>
+          * Crowd Size&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="Number of participants and observers at peak time.">
+          <i class="fi-info"></i>
+          </span>
+        <% end %>
       </div>
       <div class="small-4 columns end">
         <%= op.input :attendance, label: false, as: :text %>
