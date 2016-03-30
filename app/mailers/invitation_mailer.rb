@@ -1,5 +1,5 @@
 class InvitationMailer < ActionMailer::Base
-  default from: "Senioa Admin <andy@postcode.io>"
+  default from: "Aram Bronston <aram.bronston@sfgov.org>"
   layout "mailer"
 
   def invite(options = { email: nil, plan: nil })

@@ -1,6 +1,6 @@
 class ProviderConfirmationMailer < ActionMailer::Base
   
-  default from: "Senioa Admin <andy@postcode.io>"
+  default from: "Aram Bronston <aram.bronston@sfgov.org>"
   layout "mailer"
     
   def confirm_participation(requester:, recipient:, confirmation:)
