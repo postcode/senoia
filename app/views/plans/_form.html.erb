@@ -89,6 +89,17 @@
 
       <%= render 'plan_agreement', plan: @plan %>
 
+       <fieldset>
+        <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
+        <div class="row">
+          <div class="large-4 columns">
+            <%= f.input :post_event_name, required: true %>
+            <%= f.input :post_event_email, required: true %>
+            <%= f.input :post_event_phone, required: true %>
+          </div>  
+        </div>     
+      </fieldset>  
+
     <div class="large-12 columns text-center actions plan-action">
       <a href="#" class="button large warning radius"><i class="fi-check"></i> SAVE DRAFT</a>
       <%= f.submit "SUBMIT PLAN", class: "button large radius" %>

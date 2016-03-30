@@ -38,7 +38,9 @@
         <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
         <div class="row">
           <div class="large-3 columns">
+          <% simple_fields_for @plan do |f| %>
             <%= f.input :communication_phone, input_html: {placeholder: "(123) 456-7890"} %>
+          <% end %>
           </div>
         </div> 
         <% if @plan.communication == true %>
@@ -53,20 +55,34 @@
           <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
         </div>
         <% end %> 
-      </fieldset>                      
-
-      <%= render "supplementary_documents/index", parent: @plan %>
+      </fieldset> 
 
       <fieldset>
-        <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
-        <div class="row">
-          <div class="large-4 columns">
-            <%= f.input :post_event_name, required: true %>
-            <%= f.input :post_event_email, required: true %>
-            <%= f.input :post_event_phone, required: true %>
-          </div>  
-        </div>     
-      </fieldset>   
+        <legend>STAFF RESPONSIBILITY</legend>
+        <p>All contracted medical interventionists will be active, current, and in good-standing at the time of the operational period. The event producer will ensure that a complete staff list is provided no less than one week prior to the first operational period.</p>
+
+        <p>This staff list will include the following information for each contracted medical interventionist:
+          <ul>
+            <li>Full legal name</li>
+            <li>Level of certification/licensure</li>
+            <li>Certification/license expiration</li>       
+          </ul>
+        </p>
+        <% if @plan.staff_responsibility == true %>
+          <div>
+            <% @event = @plan.versions.where(event: "update staff_responsibility").first %>
+            <% if @event.present? %>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+            <% end %>
+          </div>
+        <% else %>
+        <div id="staff_responsibility">
+          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
+        </div>
+        <% end %> 
+      </fieldset>                     
+
+      <%= render "supplementary_documents/index", parent: @plan %>  
     </div> 
 
 <script type="text/javascript">

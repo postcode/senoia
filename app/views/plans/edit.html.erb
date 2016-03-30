@@ -147,6 +147,17 @@
   <%= render 'operation_periods_container', f: f %>
   <%= render 'plan_agreement', plan: @plan, f: f %>
 
+   <fieldset>
+        <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
+        <div class="row">
+          <div class="large-4 columns">
+            <%= f.input :post_event_name, required: true %>
+            <%= f.input :post_event_email, required: true %>
+            <%= f.input :post_event_phone, required: true %>
+          </div>  
+        </div>     
+      </fieldset>  
+
   <% if can? :edit, @plan %>
     <%= render 'actions', f: f, plan: @plan %>
   <% end %>
