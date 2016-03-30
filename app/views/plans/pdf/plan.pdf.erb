@@ -194,11 +194,15 @@
         <% end %>
       </div>
     </div>
-    <dl>
-      <% @plan.communication_plan.attributes.each do |name, value| %>
-        <div><%= name.humanize %>:&nbsp;<%= value %></div>
-      <% end %>
-    </dl>
+    <div>
+    <% if @plan.communication_plan.present? %>
+      <dl>
+        <% @plan.communication_plan.attributes.each do |name, value| %>
+          <div><%= name.humanize %>:&nbsp;<%= value %></div>
+        <% end %>
+      </dl>
+    <% end %>
+    </div>
 
     <% end %> 
   </div>
