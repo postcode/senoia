@@ -4,9 +4,11 @@ feature "Plan" do
   
   let(:plan) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
+  let(:test_user) { FactoryGirl.create(:user, roles: "user") }
+  let(:guest_user) { FactoryGirl.create(:user, roles: "guest") }
   let(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter) }.sort_by(&:name) }
 
-  context "create a new plan" do
+  context "admin create a new plan" do
     
     before do
       @event_type = create(:event_type)
@@ -21,7 +23,38 @@ feature "Plan" do
         click_button "Continue"
       }.to change { Plan.count }.by(1)
     end
-    
+  end
+  
+  context "by a user" do
+    before do
+      @event_type = create(:event_type)
+      sign_in(test_user)
+      visit "/plans/new"
+      fill_in 'plan_name', with: Faker::Lorem.words.join(" ")
+      select @event_type.name, from: "plan_event_type_id"
+    end
+
+    scenario "can create a basic plan" do
+      expect{ 
+        click_button "Continue"
+      }.to change { Plan.count }.by(1)
+    end
+  end
+
+  context "by a guest" do
+    before do
+      @event_type = create(:event_type)
+      sign_in(guest_user)
+      visit "/plans/new"
+      fill_in 'plan_name', with: Faker::Lorem.words.join(" ")
+      select @event_type.name, from: "plan_event_type_id"
+    end
+
+    scenario "can create a basic plan" do
+      expect{ 
+        click_button "Continue"
+      }.to change { Plan.count }.by(1)
+    end
   end
 
   context "deleting medical assets" do
