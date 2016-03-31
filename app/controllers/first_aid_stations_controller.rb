@@ -36,6 +36,7 @@ class FirstAidStationsController < ApplicationController
                :provider_id,
                :contact_name,
                :contact_phone,
+               :planning_contact_email,
                :lat,
                :lng,
                :service_area

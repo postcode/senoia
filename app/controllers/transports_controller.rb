@@ -30,6 +30,7 @@ class TransportsController < ApplicationController
                :provider_id,
                :contact_name,
                :contact_phone,
+               :planning_contact_email,
                :lat,
                :lng,
                :service_area

@@ -25,10 +25,12 @@
   <%= a.input :mobile_team_type, required: false, label: false, collection: ["Foot", "Bike", "Gator/Cart"] %>
   AED <%= a.input :aed, input_html: {value: 0}, required: false, label: false %><br>
    
-  Contact Name
+  Planning Contact Name
   <%= a.input :contact_name, required: false, label: false %><br>
-  Contact Phone
+  Planning Contact Phone
   <%= a.input :contact_phone, required: false, label: false %><br>
+  Planning Contact Email
+  <%= a.input :planning_contact_email, required: false, label: false %><br>
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 <% end %>

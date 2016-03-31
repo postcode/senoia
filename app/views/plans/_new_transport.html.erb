@@ -16,6 +16,7 @@
       label: "Provider", required: false %>
       <%= a.input :contact_name, required: false, label: 'Planning Contact Name' %>
       <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone' %>
+      <%= a.input :planning_contact_email, required: false %>
       <div id='map_transport_<%= unique_id %>' class="asset_map"></div>
       <div id='lat_map_transport_<%= unique_id %>'>
         <%= a.input :lat, input_html: { id: 'lat' }, as: :hidden  %>

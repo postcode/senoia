@@ -292,6 +292,7 @@ class PlansController < ApplicationController
                                                                              :provider_id,
                                                                              :contact_name,
                                                                              :contact_phone,
+                                                                             :planning_contact_email,
                                                                              :id,
                                                                              :location,
                                                                              :_destroy
@@ -303,6 +304,7 @@ class PlansController < ApplicationController
                                                                      :provider_id,
                                                                      :contact_name,
                                                                      :contact_phone,
+                                                                     :planning_contact_email,
                                                                      :location,
                                                                      :_destroy
                                                                     ],
@@ -314,6 +316,7 @@ class PlansController < ApplicationController
                                                                        :provider_id,
                                                                        :contact_name,
                                                                        :contact_phone,
+                                                                       :planning_contact_email,
                                                                        :location,
                                                                        :_destroy
                                                                       ],
@@ -324,6 +327,7 @@ class PlansController < ApplicationController
                                                                     :provider_id,
                                                                     :contact_name,
                                                                     :contact_phone,
+                                                                    :planning_contact_email,
                                                                     :location,
                                                                     :_destroy
                                                                    ]
@@ -352,6 +356,7 @@ class PlansController < ApplicationController
                                                                         :provider_id,
                                                                         :contact_name,
                                                                         :contact_phone,
+                                                                        :planning_contact_email,
                                                                         :location,
                                                                         :id,
                                                                         :lat,
@@ -366,6 +371,7 @@ class PlansController < ApplicationController
                                                                 :provider_id,
                                                                 :contact_name,
                                                                 :contact_phone,
+                                                                :planning_contact_email,
                                                                 :location,
                                                                 :lat,
                                                                 :lng,
@@ -380,6 +386,7 @@ class PlansController < ApplicationController
                                                                    :provider_id,
                                                                    :contact_name,
                                                                    :contact_phone,
+                                                                   :planning_contact_email,
                                                                    :location,
                                                                    :lat,
                                                                    :lng,
@@ -393,6 +400,7 @@ class PlansController < ApplicationController
                                                                :provider_id,
                                                                :contact_name,
                                                                :contact_phone,
+                                                               :planning_contact_email,
                                                                :location,
                                                                :lat,
                                                                :lng,
