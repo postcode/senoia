@@ -1,5 +1,5 @@
 class PostEventTreatmentReportMailer < ActionMailer::Base
-  default from: "Aram Bronston <aram.bronston@sfgov.org>"
+  default from: "Aram Bronston (SF DEM) <aram.bronston@sfgov.org>"
   layout "mailer"
 
   def submit(recipient:, plan:)
