@@ -19,7 +19,7 @@
       label: "Provider", required: false %>
       <%= a.input :contact_name, required: false, label: 'Planning Contact Name' %>
       <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone' %>
-      <%= a.input :planning_contact_email, required: false %>
+      <%= a.input :planning_contact_email, required: false, label: 'Planning Contact Email' %>
       <p>Add the asset (please use the polygon tool to add a coverage zone for mobile teams, if possible)</p>
       <div id='map_mobile_team_<%= unique_id %>' class="asset_map"></div>
       <div id='lat_map_mobile_team_<%= unique_id %>'>
