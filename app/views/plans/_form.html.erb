@@ -88,18 +88,19 @@
       <%= render 'operation_periods_container', f: f %>
 
       <%= render 'plan_agreement', plan: @plan %>
-
-       <fieldset>
-        <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
-        <div class="row">
-          <div class="large-4 columns">
-            <%= f.input :post_event_name, required: true %>
-            <%= f.input :post_event_email, required: true %>
-            <%= f.input :post_event_phone, required: true %>
-          </div>  
-        </div>     
-      </fieldset>  
-
+      
+      <div class="row">
+        <fieldset>
+          <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
+          <div class="row">
+            <div class="large-4 columns">
+              <%= f.input :post_event_name, required: true %>
+              <%= f.input :post_event_email, required: true %>
+              <%= f.input :post_event_phone, required: true %>
+            </div>  
+          </div>     
+        </fieldset>  
+      </div>
     <div class="large-12 columns text-center actions plan-action">
       <div class="accept-warning">
         <p>You must accept all responsibility fields before submitting your plan.</p>
