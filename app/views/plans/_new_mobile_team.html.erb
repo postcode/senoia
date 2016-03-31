@@ -7,8 +7,8 @@
   <div class="modal-body">
     <%= simple_fields_for "mobile_team" do |a| %>
       <%= a.input :name, required: false %>
-      <%= a.input :level, required: false, collection: ["ALS", "BLS"] %>
-      <%= a.input :type, required: false, collection: ["Foot", "Bike", "Gator/Cart"] %>
+      <%= a.input :level, required: false, collection: ["ALS", "BLS", "Non-Medical"] %>
+      <%= a.input :type, required: false, collection: ["Foot", "Bike", "Gator/Cart", "Sag Wagon"] %>
       <%= a.input :aed, input_html: {value: 0}, required: false, label: "Number of AEDs" %>
       <%= a.input :provider_id,
       collection: OrganizationType.find_providers,
