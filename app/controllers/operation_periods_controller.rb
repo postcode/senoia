@@ -35,7 +35,8 @@ class OperationPeriodsController < ApplicationController
               :patients_transported_count,
               :start_time,
               :end_time,
-              :service_area)
+              :service_area,
+              :crowd_estimate)
   end
 
 end

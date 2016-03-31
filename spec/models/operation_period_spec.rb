@@ -14,6 +14,7 @@
 #  start_time                 :datetime
 #  end_time                   :datetime
 #  service_area               :text
+#  crowd_estimate             :integer
 #
 
 require 'rails_helper'

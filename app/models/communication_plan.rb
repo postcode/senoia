@@ -10,6 +10,7 @@
 #  event_supervisor_name                 :string
 #  event_supervisor_phone                :string
 #  event_supervisor_email                :string
+#  event_supervisor_organization         :string
 #  dispatch_supervisor_name              :string
 #  dispatch_supervisor_phone             :string
 #  dispatch_supervisor_email             :string

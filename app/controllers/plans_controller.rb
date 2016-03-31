@@ -282,6 +282,7 @@ class PlansController < ApplicationController
                                              :start_time,
                                              :end_time,
                                              :service_area,
+                                             :crowd_estimate,
                                              first_aid_stations_attributes: [
                                                                              :name,
                                                                              :level,
@@ -345,6 +346,7 @@ class PlansController < ApplicationController
                                                :attendance,
                                                :plan_id,
                                                :service_area,
+                                               :crowd_estimate,
                                                first_aid_stations: [
                                                                     id:[
                                                                         :name,

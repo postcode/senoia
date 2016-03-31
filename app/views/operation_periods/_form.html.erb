@@ -59,6 +59,22 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="small-2 columns input_label">
+        <%= op.label :crowd_estimate, class: "inline" do %>
+          * Crowd Estimate&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="Number of people in attendance over the entire operational period.">
+          <i class="fi-info"></i>
+          </span>
+        <% end %>
+      </div>
+      <div class="small-4 columns">
+        <%= op.input :crowd_estimate, label: false, as: :string, input_html: { id: "#{op.object.id}_crowd_estimate"} %>
+      </div>
+      <div class="large-4 columns">
+        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_crowd_estimate" %>
+      </div>
+    </div>
+
     <%= render 'operation_periods/asset_map', operation_period: op.object, f: f %>
 
     <div class="row">
