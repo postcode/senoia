@@ -95,6 +95,9 @@
         },
       type: 'post',
       url: '<%= j plan_update_acceptance_path(plan_id: @plan.id) %>'
-    });
+    })
+    .done( function() {
+      acceptCheck()
+    })
   });
 </script> 

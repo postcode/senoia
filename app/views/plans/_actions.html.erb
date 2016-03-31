@@ -1,11 +1,14 @@
 <div class="large-12 columns text-center actions plan-action">
+  <div class="accept-warning">
+    <p>You must accept all responsibility fields before submitting your plan.</p>
+  </div>
   <%= f.button :button, class: "button large radius warning", label: false do %>
     <i class="fi-check"></i> SAVE DRAFT
   <% end %>
 
   <% case plan.workflow_state %>
   <% when "draft" %>
-    <%= link_to "SUBMIT PLAN", [ plan, :events, event: "submit" ], method: "POST", class: "button large radius" %>
+    <%= link_to "SUBMIT PLAN", [ plan, :events, event: "submit" ], method: "POST", class: "button large radius plan-submit" %>
   <% when "under_review" %>
     <% if current_user.admin? %>
       <%= render "plans/request_revision", plan: plan %>
