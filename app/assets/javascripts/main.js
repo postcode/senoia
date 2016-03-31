@@ -22,7 +22,6 @@ $(function() {
 
   $('.tabs').on('toggled', function (event, tab) {
     var map = $(tab).closest(".asset_map")
-    console.log($(tab));
     reloadMap($(tab).find(".asset_map").attr("id"))
   });
 
@@ -99,11 +98,9 @@ $(function() {
 
   $.each(assets, function(index, asset) {
     var button = ".save-" + asset
-    console.log(button)
     $(button).prop("disabled", true)
     $("body").on("click", button, function(event) {
       var formElement = "." + asset + "-form"
-      console.log(formElement)
       var form = $(this).closest(formElement);
       var data = form.find(":input").serialize();
       var url = form.data().url
@@ -130,7 +127,6 @@ $(function() {
   $.each(assets, function(index, asset) {
     var select = "#"+asset+"_provider_id"
     $(select).change( function(event) {
-      console.log($(select+" option:selected" ).val())
     });
   })
 
@@ -152,7 +148,6 @@ $(function() {
   })
 
   $('.na-check').click( function(e) {
-    console.log($(this))
     if($(this, "input:checked")) {
       $(this).siblings().children("input").prop("disabled", true)
     } else {
@@ -161,7 +156,6 @@ $(function() {
   })
 
   $('.command-radio').click( function(e) {
-    console.log($(this))
     if($(this).val() == "yes") {
       $('.command-list').show()
     } else {

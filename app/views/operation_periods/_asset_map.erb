@@ -81,7 +81,6 @@
       function addMarkers(collection, options) {
         for (var i = 0; i < collection.length; i++) {
           var obj = collection[i];
-          console.log("Adding", collection[i]);
           var latlng = {lat: Number(obj.lat), lng: Number(obj.lng)};
 
           var infowindow = new google.maps.InfoWindow({
@@ -182,7 +181,6 @@
       // fitBoundsToVisibleMarkers();
 
       function addPolygon(polygon) {
-        console.log(polygon)
         var area = [];
         if (polygon.length > 0) {
           service_area_array = polygon.split("),")
@@ -203,8 +201,6 @@
           fillColor: '#FF0000',
           fillOpacity: 0.35
         });
-        console.log(map)
-        console.log(area)
         serviceArea.setMap(map);
       }
         

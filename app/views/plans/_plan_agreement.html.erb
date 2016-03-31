@@ -86,7 +86,6 @@
 <script type="text/javascript">
   $('.accept').click(function() {
     var category = $(this).parent().attr('id')
-    console.log(category)
     var newAccept = $.ajax({
       data: { 
             'category': category
