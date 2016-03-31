@@ -114,6 +114,7 @@ $(function() {
       var formElement = "." + asset + "-form"
       var form = $(this).closest(formElement);
       var data = form.find(":input").serialize();
+      console.log(data)
       var url = form.data().url
       $.ajax({
         method: "PUT",
