@@ -30,6 +30,7 @@ class Ability
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
       can :view, Plan, :plan_users => { role: "view", user_id: user.id }
     else
+      cannot [:create, :edit, :destroy], Plan
       can :manage, Plan, :creator_id => user.id
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
@@ -44,10 +45,10 @@ class Ability
       can :read, Plan, workflow_state: :approved
       cannot :read, User
       cannot :index, User
-      cannot [:create, :edit, :destroy], Plan
       cannot :read, Provider
       cannot :read, Permitter
       cannot :read, NotificationGroup
+      can :create, Plan
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
