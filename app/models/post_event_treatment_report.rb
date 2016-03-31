@@ -33,5 +33,11 @@ class PostEventTreatmentReport < ActiveRecord::Base
   end
   
   delegate :event_type, :start_date, :end_date, :attendance, to: :plan
+
+  def submit_email!
+    self.plan.users.each do |contact|
+      PostEventTreatmentReportMailer.submit(recipient: contact, plan: self.plan).deliver_later
+    end
+  end
   
 end

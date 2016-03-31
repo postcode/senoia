@@ -11,6 +11,7 @@ class PostEventTreatmentReportsController < ApplicationController
   
   def update
     if @post_event_treatment_report.update(post_event_treatment_report_params)
+      @post_event_treatment_report.submit_email!
       redirect_to action: :show
     else
       @post_event_treatment_report.submitted = false
