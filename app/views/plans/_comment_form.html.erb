@@ -10,11 +10,9 @@
         </div>
       <% end %>
     </div>
+      <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
     <div class="existing-comments">
       <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
-    </div>
-    <div>
-      <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
     </div>
   <% end %>
 <% end %>
