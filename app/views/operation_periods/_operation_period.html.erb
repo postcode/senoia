@@ -25,6 +25,15 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="small-2 columns input_label">
+      <label>Total Crowd Estimate</label>
+    </div>
+    <div class="small-4 columns">
+      <p><%= @plan.crowd_estimate %></p>
+    </div>
+  </div>
+
   <%= render 'operation_periods/asset_map', operation_period: operation_period, f: f %>
 
   <div class="row">

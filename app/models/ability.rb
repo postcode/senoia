@@ -21,6 +21,14 @@ class Ability
       can [:create, :edit, :update, :read], Comment
     elsif user.has_role? :user
       can :create, Plan
+      can :manage, Plan, :creator_id => user.id
+      can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
+      can :view, Plan, :plan_users => { role: "view", user_id: user.id }
+    elsif user.has_role? :guest
+      can :create, Plan
+      can :manage, Plan, :creator_id => user.id
+      can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
+      can :view, Plan, :plan_users => { role: "view", user_id: user.id }
     else
       can :manage, Plan, :creator_id => user.id
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
