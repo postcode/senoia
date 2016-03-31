@@ -1,6 +1,6 @@
 <% if can? :manage, plan %>
   <% threads = plan.root_comments.element("#{title}_comment_text") %>
-  <% if (plan.persisted? && can?(:create, plan.comments.build)) || threads.any? %>
+  <% if (plan.persisted? && can?(:create, plan.comments.build) && !plan.approved?) || threads.any? %>
     <div id="<%= title %>_comment" class="comment-section">
       <% if can? :create, plan.comments.build %>
         <a href="javascript:void(0);" class="comment"><i class="fi-plus"></i> COMMENT</a>
@@ -9,12 +9,15 @@
           <%= link_to "SUBMIT", "javascript:void(0);", class: "new-comment button warning tiny radius" %>
         </div>
       <% end %>
-      <div class="existing-comments">
-        <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
-        <div>
-          <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
+        <div class="existing-comments">
+          <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
+        <% if plan.root_comments.any? { |comment| comment.open == false } %>
+          
+        <% end %>
         </div>
-      </div>
+    </div>
+    <div class="existing-comments">
+      <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
     </div>
   <% end %>
 <% end %>

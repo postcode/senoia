@@ -22,12 +22,6 @@ class Ability
     elsif user.has_role? :user
       can :create, Plan
     else
-      cannot :read, User
-      cannot :index, User
-      cannot [:create, :edit, :destroy], Plan
-      cannot :read, Provider
-      cannot :read, Permitter
-      cannot :read, NotificationGroup
       can :manage, Plan, :creator_id => user.id
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
@@ -40,7 +34,12 @@ class Ability
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
       can :read, :all
       can :read, Plan, workflow_state: :approved
-      can :create, Plan
+      cannot :read, User
+      cannot :index, User
+      cannot [:create, :edit, :destroy], Plan
+      cannot :read, Provider
+      cannot :read, Permitter
+      cannot :read, NotificationGroup
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
