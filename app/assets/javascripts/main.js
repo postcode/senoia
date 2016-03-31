@@ -9,6 +9,7 @@ window.senoia.initDatepickers = function() {
   $('.dateSelect').fdatepicker({
     format: 'mm/dd/yyyy'
   });
+  $('.time-input').timepicker();
 }
 
 $(function() {

@@ -6,4 +6,5 @@ $(".tabs").append('<li class="tab-title"><a href="#panel<%= @count %>">Operation
 $('.dateSelect').fdatepicker({
     format: 'mm/dd/yyyy'
   });
+window.senoia.initDatepickers()
 $(".tab-title:last a").trigger("click");
