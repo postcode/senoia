@@ -22,7 +22,9 @@
           </fieldset>          
         </div>
         <div class="large-4 columns end">
+        <% if can? :manage, @plan %>
           <%= render 'comment_form', plan: @plan, title: "contact" %>
+        <% end %>
         </div>
       </div>
       <div class="row">
@@ -65,7 +67,7 @@
           <%= f.label :permitter, class: "inline", label: "Permitting Agency" %>
         </div>
         <div class="small-5 columns">
-          <%= @plan.permitter %>
+          <%= @plan.permitter.present? ? @plan.permitter.name : "No Permitter" %>
         </div>
         <div class="large-4 columns end">
           <%= render 'comment_form', plan: @plan, title: "permitter" %>

@@ -4,8 +4,11 @@
     <div class="small-2 columns input_label">
       <label>Start</label>
     </div>
-    <div class="small-4 columns">
+    <div class="small-4 columns end">
       <p><%= l(operation_period.start_date) %></p>
+    </div>
+    <div class="large-4 columns end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_start_date" %>
     </div>
   </div>
   <div class="row">
@@ -15,6 +18,9 @@
     <div class="small-4 columns">
       <p><%= l(operation_period.end_date) %></p>
     </div>
+    <div class="large-4 columns">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_end_date" %>
+    </div>
   </div>
   <div class="row">
     <div class="small-2 columns input_label">
@@ -22,6 +28,9 @@
     </div>
     <div class="small-4 columns">
       <p><%= @plan.attendance %></p>
+    </div>
+    <div class="large-4 columns">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_attendance" %>
     </div>
   </div>
 
@@ -31,6 +40,9 @@
     </div>
     <div class="small-4 columns">
       <p><%= operation_period.crowd_estimate %></p>
+    </div>
+    <div class="large-4 columns">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_crowd_estimate" %>
     </div>
   </div>
 
@@ -54,6 +66,9 @@
         </div>
       </fieldset>
     </div>
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_first_aid_stations" %>
+    </div>
   </div>
   <div class="row">
     <div class="large-9 columns">
@@ -73,6 +88,9 @@
           </table>
         </div>
       </fieldset>
+    </div>
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_mobile_teams" %>
     </div>
   </div>
 
@@ -95,6 +113,9 @@
         </div>
       </fieldset>
     </div>
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_transport" %>
+    </div>
   </div>
   <div class="row">
     <div class="large-9 columns">
@@ -112,6 +133,9 @@
           </table>
         </div>
       </fieldset>
+    </div>
+    <div class="large-3 columns right end">
+      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_dispatch" %>
     </div>
   </div>
 </div>
