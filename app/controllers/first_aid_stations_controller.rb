@@ -4,9 +4,13 @@ class FirstAidStationsController < ApplicationController
 
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
+    @provider =  Organization.find(params[:first_aid_station][:provider_id])
     @first_aid_station = @operation_period.first_aid_stations.create(first_aid_station_params)
-    @first_aid_station.contact_name = @first_aid_station.provider.name unless @first_aid_station.provider.blank?
-    @first_aid_station.contact_phone = @first_aid_station.provider.phone_number unless @first_aid_station.provider.blank?
+    if @provider.present? && @provider.name != "Other"
+      @first_aid_station.contact_name = @provider.name
+      @first_aid_station.contact_phone = @provider.phone_number
+      @first_aid_station.planning_contact_email = @provider.email
+    end
     @first_aid_station.save!
   end
 

@@ -4,7 +4,13 @@ class MobileTeamsController < ApplicationController
 
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
+    @provider =  Organization.find(params[:mobile_team][:provider_id])
     @mobile_team = @operation_period.mobile_teams.create(mobile_team_params)
+    if @provider.present? && @provider.name != "Other"
+      @mobile_team.contact_name = @provider.name
+      @mobile_team.contact_phone = @provider.phone_number
+      @mobile_team.planning_contact_email = @provider.email
+    end
     @mobile_team.save!
   end
 

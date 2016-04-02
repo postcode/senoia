@@ -14,9 +14,9 @@
       include_blank: false,
       prompt: "Select a provider",
       label: "Provider", required: false %>
-      <%= a.input :contact_name, required: false, label: 'Planning Contact Name' %>
-      <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone' %>
-      <%= a.input :planning_contact_email, required: false, label: 'Planning Contact Email' %>
+      <%= a.input :contact_name, required: false, label: 'Planning Contact Name', wrapper_html: { class: "provider-information" } %>
+      <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone', wrapper_html: { class: "provider-information" } %>
+      <%= a.input :planning_contact_email, required: false, label: 'Planning Contact Email', wrapper_html: { class: "provider-information" } %>
       <div id='map_transport_<%= unique_id %>' class="asset_map"></div>
       <div id='lat_map_transport_<%= unique_id %>'>
         <%= a.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
