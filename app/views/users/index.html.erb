@@ -12,10 +12,10 @@
       User.pretty_roles.invert[u.roles.first]
     end
     g.column name: '' do |u|
-      link_to 'Edit', edit_user_path(u.id), class: 'button secondary tiny'
+      link_to 'Edit', edit_users_admin_path(u.id), class: 'button secondary tiny'
     end
     g.column name: '' do |u|
-      link_to 'Delete', user_path(u.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button tiny alert'
+      link_to 'Delete', users_admin_path(u.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button tiny alert'
     end
   end -%>
   </div>

@@ -9,12 +9,24 @@ class UsersController < ApplicationController
   end
  
   def new
+    @user = User.new
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 
   def show
+    @user = User.new
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 
   def edit
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
   end
  
   def destroy
@@ -29,6 +41,9 @@ class UsersController < ApplicationController
   end
 
   def create
+    if params[:user][:password].blank?
+      [ :password, :password_confirmation ].collect{|p| params[:user].delete(p) }
+    end
     @user = User.new(user_params)
     @user.roles << :user
     if @user.save

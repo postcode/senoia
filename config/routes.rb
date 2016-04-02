@@ -48,7 +48,8 @@ Rails.application.routes.draw do
   resources :organizations
 
   devise_for :users
-  resources :users
+  resources :users_admin, :controller => 'users'
+
 
   post "/add_first_aid_station/:operation_period" => 'plans#add_first_aid_station', as: 'add_first_aid_station'
   post "/update_first_aid_station/:operation_period" => 'plans#update_first_aid_station', as: 'update_first_aid_station'
