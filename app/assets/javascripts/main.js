@@ -28,6 +28,7 @@ $(function() {
   $('.time-input').timepicker();
   $('.command-list').hide()
   $('.communication-form').hide()
+  $(".provider-information").hide()
 
   $('.communication-toggle').click( function(e){
     $(this).next('.communication-form').toggle()
@@ -161,6 +162,14 @@ $(function() {
       $('.command-list').show()
     } else {
       $('.command-list').hide()
+    }
+  })
+
+  $('.provider-select').change( function() {
+    if ( $("option:selected", this ).text() == "Other" ) {
+      $(".provider-information").show()
+    } else {
+      $(".provider-information").hide()
     }
   })
   
