@@ -55,6 +55,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
     if params[:user][:password].blank?
       [ :password, :password_confirmation ].collect{|p| params[:user].delete(p) }
     end
