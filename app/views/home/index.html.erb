@@ -43,7 +43,7 @@
           <% unique_id = SecureRandom.hex(16) %>
           <% op.map{ |p| 
               if p.plan.present? 
-                plan_names << p.plan.name 
+                plan_names << p.plan.name unless p.plan.name.blank?
               end
                 }
             %>
