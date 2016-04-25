@@ -31,31 +31,35 @@ class PlansController < ApplicationController
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
     @count = 0
     @permitters = Permitter.order("name ASC")
-    
-    if @plan.present? && @plan.approved?
-      if current_user.try(:is_admin?)
-        respond_to do |format|
-          format.html do
-            render "plans/show_approved"
+      
+    if @plan.present?
+      if @plan.approved?
+        if current_user.try(:is_admin?)
+          respond_to do |format|
+            format.html do
+              render "plans/show_approved"
+            end
+            format.pdf do
+              render pdf: "#{@plan.name}",   # Excluding ".pdf" extension.
+              template: "plans/pdf/plan.pdf.erb"
+            end
           end
-          format.pdf do
-            render pdf: "#{@plan.name}",   # Excluding ".pdf" extension.
-            template: "plans/pdf/plan.pdf.erb"
+        else
+          respond_to do |format|
+            format.html do
+              render "plans/show"
+            end
+            format.pdf do
+              render pdf: "#{@plan.name}",   # Excluding ".pdf" extension.
+              template: "plans/pdf/plan.pdf.erb"
+            end
           end
         end
+      elsif can? :edit, @plan
+        render "plans/edit"
       else
-        respond_to do |format|
-          format.html do
-            render "plans/show"
-          end
-          format.pdf do
-            render pdf: "#{@plan.name}",   # Excluding ".pdf" extension.
-            template: "plans/pdf/plan.pdf.erb"
-          end
-        end
+        redirect_to plans_path
       end
-    elsif can? :edit, @plan
-      render "plans/edit"
     else
       redirect_to plans_path
     end
