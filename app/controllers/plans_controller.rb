@@ -29,11 +29,10 @@ class PlansController < ApplicationController
   def show
     authorize! :view, Plan
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
-    return unless @plan.present?
     @count = 0
     @permitters = Permitter.order("name ASC")
     
-    if @plan.approved?
+    if @plan.approved? && @plan.present?
       if current_user.try(:is_admin?)
         respond_to do |format|
           format.html do
