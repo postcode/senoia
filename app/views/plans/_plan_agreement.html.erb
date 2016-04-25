@@ -6,7 +6,7 @@
           <div>
             <% @event = @plan.versions.where(event: "update responsibility").first %>
             <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em> by: <%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em> by: <%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
             <% end %>
           </div>
         <% else %>
@@ -23,7 +23,7 @@
           <div>
             <% @event = @plan.versions.where(event: "update cpr").first %>
             <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em>by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em>by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
             <% end %>
           </div>
         <% else %>
@@ -45,7 +45,7 @@
           <div>
             <% @event = @plan.versions.where(event: "update communication").first %>
             <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
             <% end %>
           </div>
         <% else %>
@@ -70,7 +70,7 @@
           <div>
             <% @event = @plan.versions.where(event: "update staff_responsibility").first %>
             <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= User.find(@event.whodunnit).to_s %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
             <% end %>
           </div>
         <% else %>
