@@ -5,6 +5,7 @@ gem 'rails', '~> 4.2.0'
 
 # Keep alphabetically sorted please. Use `pbpaste | sort | pbcopy` on OSX.
 gem 'acts_as_commentable_with_threading'
+gem 'airbrake'
 gem 'annotate'
 gem 'aws-sdk', '< 2.0'
 gem 'cancancan', '~> 1.10'

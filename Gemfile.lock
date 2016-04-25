@@ -42,6 +42,9 @@ GEM
       activesupport (>= 4.0)
       awesome_nested_set (>= 3.0)
     addressable (2.3.8)
+    airbrake (4.2.0)
+      builder
+      multi_json
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -515,6 +518,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_commentable_with_threading
+  airbrake
   annotate
   aws-sdk (< 2.0)
   better_errors
