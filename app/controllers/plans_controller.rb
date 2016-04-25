@@ -32,7 +32,7 @@ class PlansController < ApplicationController
     @count = 0
     @permitters = Permitter.order("name ASC")
     
-    if @plan.approved? && @plan.present?
+    if @plan.present? && @plan.approved?
       if current_user.try(:is_admin?)
         respond_to do |format|
           format.html do
