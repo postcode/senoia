@@ -21,6 +21,7 @@ feature "Plan Permissions" do
     end
 
     scenario "cannot be viewed" do
+      save_and_open_page
       expect(page.body).to_not match %r{#{plan.name}}i
     end
 

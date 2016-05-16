@@ -1,8 +1,9 @@
 class HomeController < ApplicationController
   def index
-    @plans = Plan.all
-    @operation_period = OperationPeriod.all
-    
+
+    @plans = Plan.with_approved_state
+    @operation_period = @plans.map { |p| p.operation_periods }
+
     respond_to do |format|
       format.html
       format.json { render json: @plans }

@@ -90,7 +90,7 @@ FactoryGirl.define do
   end
 
   factory :provider do
-    name { Faker::Lorem.words(3).join(" ") } 
+    name { Faker::Lorem.words(3).join(" ") }
   end
 
   factory :supplementary_document do
