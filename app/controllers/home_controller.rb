@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
 
     @plans = Plan.with_approved_state
-    @operation_period = @plans.map { |p| p.operation_periods }
+    @operation_period = OperationPeriod.all_approved
 
     respond_to do |format|
       format.html

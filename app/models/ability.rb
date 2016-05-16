@@ -1,8 +1,6 @@
 class Ability
   include CanCan::Ability
 
-  require 'pry'
-
   def initialize(user)
     user ||= User.new # guest user (not logged in)
     if user.has_role? :admin
@@ -33,14 +31,15 @@ class Ability
       can :view, Plan, :plan_users => { role: "view", user_id: user.id }
     else
       cannot [:create, :edit, :destroy, :manage], Plan
-      if user.id.present?
-        can [:edit, :manage], Plan, :creator_id => user.id
-        # p.creator_id == user.id
-        # p.plan_users.where(user_id: user.id).first.role == "edit"
-        can [:edit, :manage], Plan, :plan_users => { role: "edit", user_id: user.id }
+
+      can [:edit, :manage], Plan, :creator_id => user.id
+      can [:edit, :manage], Plan, :plan_users => { role: "edit", user_id: user.id }
+      cannot [:edit, :manage], Plan do |p|
+        user.id.blank?
+        p.creator_id.blank?
       end
 
-      p can? :read, Plan
+      p can? :manage, Plan
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }

@@ -15,11 +15,11 @@
             <% if @plan.creator.present? %>
               <p><i class="fi-torso"></i> <%= @plan.creator.name %></p>
               <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
-              <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
+              <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>
             <% else %>
-              <p>Contact information is missing!</p>  
-            <% end %> 
-          </fieldset>          
+              <p>Contact information is missing!</p>
+            <% end %>
+          </fieldset>
         </div>
         <div class="large-4 columns end">
         <% if can? :manage, @plan %>
@@ -33,13 +33,13 @@
             <legend>COLLABORATORS</legend>
              <% @plan.users.each do |u| %>
               <div class="row">
-                <div class="small-9 columns">                
+                <div class="small-9 columns">
                   <div class="row">
                     <div class="small-8 columns">
                       Email: <%= u.email %>
                     </div>
                   </div>
-                </div>  
+                </div>
               </div>
             <% end %>
           </fieldset>
@@ -104,6 +104,6 @@
 
     <%= render 'plan_agreement', f: f, plan: @plan %>
 
-    <% end %> 
+    <% end %>
   </div>
 </div>
