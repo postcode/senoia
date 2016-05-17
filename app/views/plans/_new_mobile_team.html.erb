@@ -39,11 +39,17 @@
     <%= link_to "Confirm This Asset", "javascript:void(0)", class: "save-mobile-team button primary save-modal" %>
   </div>
   <script>
-   $(document).ready(function(){
-     $(document).on('opened.fndtn.reveal', '.new-mobile-team[data-reveal]', function () {
-       map_initialize('map_mobile_team_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
-     });
-   })
+  $(document).ready(function(){
+    $(document).on('opened.fndtn.reveal', '#new-mobile-team-<%= operation_period_index %>[data-reveal]', function (e) {
+      // Workaround to prevent event firing twice
+      // https://github.com/zurb/foundation-sites/issues/5482
+      if (e.namespace !== 'fndtn.reveal') {
+        return;
+      }
+
+      map_initialize('map_mobile_team_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
+    });
+  })
   </script>
 </div>
 
