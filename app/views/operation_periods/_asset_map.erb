@@ -23,12 +23,11 @@
       var dispatches = <%== json_escape(operation_period.dispatchs.to_json) %>;
       var service_area = <%== operation_period.service_area.present? ? json_escape(operation_period.service_area.to_json) : []  %>;
 
-
-      // to_json produces null values, which are displayed as "null", which is
-      // not ideal. This sets a sensible alternative.
+      // Data cleanup
+      // to_json produces null values, which are displayed as "null" in popups,
+      // which is not ideal. This sets a sensible alternative.
       var i, j, property;
       var datasets = [firstAidStations, mobileTeams, transports, dispatches];
-
       for (i = 0; i < datasets.length; i++) {
         for (j = 0; j < datasets[i].length; j++) {
           for (property in datasets[i][j]) {
@@ -41,6 +40,7 @@
         }
       }
 
+      // Set up the map
       var mapOptions = {
         center: new google.maps.LatLng(37.773972, -122.431297),
         zoom: 12,
@@ -51,184 +51,197 @@
         overviewMapControl: true
       };
 
-      map = new google.maps.Map(document.getElementById('<%= operation_period.id %>_asset_map'), mapOptions);
-      var markers = [];
+      function setupMap() {
+        map = new google.maps.Map(document.getElementById('<%= operation_period.id %>_asset_map'), mapOptions);
+        var markers = [];
 
-      function fitBoundsToVisibleMarkers() {
-        if (markers.length === 0) {
-          return;
-        }
+        function fitBoundsToVisibleMarkers() {
+          if (markers.length === 0) {
+            return;
+          }
 
-        var bounds = new google.maps.LatLngBounds();
-        for (var i=0; i<markers.length; i++) {
-          if(markers[i].getVisible()) {
-            if(markers[i].getPosition().lat() > 0) {
-              bounds.extend( markers[i].getPosition() );
+          var bounds = new google.maps.LatLngBounds();
+          for (var i=0; i<markers.length; i++) {
+            if(markers[i].getVisible()) {
+              if(markers[i].getPosition().lat() > 0) {
+                bounds.extend( markers[i].getPosition() );
+              }
             }
           }
-        }
-        if(!bounds.isEmpty()) {
-          map.fitBounds(bounds);
-        }
-      }
-
-      function makeInfoWindowListener(infowindow, map, marker) {
-        return function() {
-          infowindow.open(map, marker);
-        }
-      }
-
-      function addMarkers(collection, options) {
-        for (var i = 0; i < collection.length; i++) {
-          var obj = collection[i];
-          var latlng = {lat: Number(obj.lat), lng: Number(obj.lng)};
-
-          var infowindow = new google.maps.InfoWindow({
-            content: options.content(obj)
-          });
-
-          var marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            icon: options.icon
-          });
-
-          marker.addListener('click', makeInfoWindowListener(infowindow, map, marker));
-
-          markers.push(marker);
-        }
-      }
-
-      addMarkers(firstAidStations, {
-        icon: {
-          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-          scale: 5,
-          fillColor: '#ca0020',
-          fillOpacity: 1.0,
-          strokeColor:  '#ca0020',
-          strokeWeight: 2
-        },
-        content: function(obj) {
-          var content = '<div><strong>First Aid Station</strong></div>';
-          content += '<div>' + obj.name + '</div>';
-          content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
-          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
-          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
-          content += '<div><strong>EMTs</strong>: ' + obj.emt + '</div>';
-          content += '<div><strong>RNs</strong>: ' + obj.rn + '</div>';
-          content += '<div><strong>MDs</strong>: ' + obj.md + '</div>';
-          return content;
-        }
-      });
-      addMarkers(mobileTeams, {
-        icon: {
-          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-          scale: 5,
-          fillColor: '#0571b0',
-          fillOpacity: 1.0,
-          strokeColor:  '#0571b0',
-          strokeWeight: 2
-        },
-        content: function(obj) {
-          var content = '<div><strong>Mobile Team</strong></div>';
-          content += '<div>' + obj.name + '</div>';
-          content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
-          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
-          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
-          content += '<div><strong>Level</strong>: ' + obj.level + '</div>';
-          content += '<div><strong>Type</strong>: ' + obj.mobile_team_type + '</div>';
-          content += '<div><strong>AEDs</strong>: ' + obj.aed + '</div>';
-          return content;
-        }
-      });
-      addMarkers(transports, {
-        icon: {
-          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-          scale: 5,
-          fillColor: '#85048a',
-          fillOpacity: 1.0,
-          strokeColor:  '#85048a',
-          strokeWeight: 2
-        },
-        content: function(obj) {
-          var content = '<div><strong>Transport</strong></div>';
-          content += '<div>' + obj.name + '</div>';
-          content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
-          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
-          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
-          content += '<div><strong>Level</strong>: ' + obj.level + '</div>';
-          return content;
-        }
-      });
-      addMarkers(dispatches, {
-        icon: {
-          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-          scale: 5,
-          fillColor: '#45403e',
-          fillOpacity: 1.0,
-          strokeColor:  '#45403e',
-          strokeWeight: 2
-        },
-        content: function(obj) {
-          var content = '<div><strong>Dispatcher</strong></div>';
-          content += '<div>' + obj.name + '</div>';
-          content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
-          content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
-          return content;
-        }
-      });
-
-      // fitBoundsToVisibleMarkers();
-
-      function addPolygon(polygon) {
-        var area = [];
-        if (polygon.length > 0) {
-          service_area_array = polygon.split("),")
-        } else {
-          service_area_array =  []
+          if(!bounds.isEmpty()) {
+            console.log("Got bounds", bounds, markers);
+            map.fitBounds(bounds);
+          }
         }
 
-        for (var i = 0; i < service_area_array.length; i++) {
-          var obj = service_area_array[i].replace(/\(|\)/g, "").split(",");
-          area.push( {lat: Number(obj[0]), lng: Number(obj[1])} );
+        function makeInfoWindowListener(infowindow, map, marker) {
+          return function() {
+            infowindow.open(map, marker);
+          }
         }
-        
-        var serviceArea = new google.maps.Polygon({
-          paths: area,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
+
+        function addMarkers(collection, options) {
+          for (var i = 0; i < collection.length; i++) {
+            var obj = collection[i];
+            var latlng = {lat: Number(obj.lat), lng: Number(obj.lng)};
+
+            var infowindow = new google.maps.InfoWindow({
+              content: options.content(obj)
+            });
+
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map,
+              icon: options.icon
+            });
+
+            marker.addListener('click', makeInfoWindowListener(infowindow, map, marker));
+
+            markers.push(marker);
+          }
+        }
+
+        addMarkers(firstAidStations, {
+          icon: {
+            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+            scale: 5,
+            fillColor: '#ca0020',
+            fillOpacity: 1.0,
+            strokeColor:  '#ca0020',
+            strokeWeight: 2
+          },
+          content: function(obj) {
+            var content = '<div><strong>First Aid Station</strong></div>';
+            content += '<div>' + obj.name + '</div>';
+            content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
+            content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+            content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+            content += '<div><strong>EMTs</strong>: ' + obj.emt + '</div>';
+            content += '<div><strong>RNs</strong>: ' + obj.rn + '</div>';
+            content += '<div><strong>MDs</strong>: ' + obj.md + '</div>';
+            return content;
+          }
         });
-        serviceArea.setMap(map);
-      }
-        
-     
-      if (service_area.length > 0) {
-        addPolygon(service_area);
+        addMarkers(mobileTeams, {
+          icon: {
+            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+            scale: 5,
+            fillColor: '#0571b0',
+            fillOpacity: 1.0,
+            strokeColor:  '#0571b0',
+            strokeWeight: 2
+          },
+          content: function(obj) {
+            var content = '<div><strong>Mobile Team</strong></div>';
+            content += '<div>' + obj.name + '</div>';
+            content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
+            content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+            content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+            content += '<div><strong>Level</strong>: ' + obj.level + '</div>';
+            content += '<div><strong>Type</strong>: ' + obj.mobile_team_type + '</div>';
+            content += '<div><strong>AEDs</strong>: ' + obj.aed + '</div>';
+            return content;
+          }
+        });
+        addMarkers(transports, {
+          icon: {
+            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+            scale: 5,
+            fillColor: '#85048a',
+            fillOpacity: 1.0,
+            strokeColor:  '#85048a',
+            strokeWeight: 2
+          },
+          content: function(obj) {
+            var content = '<div><strong>Transport</strong></div>';
+            content += '<div>' + obj.name + '</div>';
+            content += '<div><strong>Location</strong>: ' + obj.location + '</div>';
+            content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+            content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+            content += '<div><strong>Level</strong>: ' + obj.level + '</div>';
+            return content;
+          }
+        });
+        addMarkers(dispatches, {
+          icon: {
+            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+            scale: 5,
+            fillColor: '#45403e',
+            fillOpacity: 1.0,
+            strokeColor:  '#45403e',
+            strokeWeight: 2
+          },
+          content: function(obj) {
+            var content = '<div><strong>Dispatcher</strong></div>';
+            content += '<div>' + obj.name + '</div>';
+            content += '<div><strong>Contact Name</strong>: ' + obj.contact_name + '</div>';
+            content += '<div><strong>Phone</strong>: ' + obj.contact_phone + '</div>';
+            return content;
+          }
+        });
+
+        // fitBoundsToVisibleMarkers();
+
+        function addPolygon(polygon) {
+          var area = [];
+          if (polygon.length > 0) {
+            service_area_array = polygon.split("),")
+          } else {
+            service_area_array =  []
+          }
+
+          for (var i = 0; i < service_area_array.length; i++) {
+            var obj = service_area_array[i].replace(/\(|\)/g, "").split(",");
+            area.push( {lat: Number(obj[0]), lng: Number(obj[1])} );
+          }
+
+          var serviceArea = new google.maps.Polygon({
+            paths: area,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35
+          });
+          serviceArea.setMap(map);
+        }
+
+        if (service_area.length > 0) {
+          addPolygon(service_area);
+        }
+
+        var drawingManager = new google.maps.drawing.DrawingManager({
+          drawingMode: null,
+          drawingControl: true,
+          drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [
+              google.maps.drawing.OverlayType.MARKER,
+              google.maps.drawing.OverlayType.POLYGON,
+            ]
+          }
+        });
+        drawingManager.setMap(map);
+
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+          if (event.type == google.maps.drawing.OverlayType.POLYGON) {
+          $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
+          }
+        });
+
+        fitBoundsToVisibleMarkers();
       }
 
-      var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: null,
-        drawingControl: true,
-        drawingControlOptions: {
-          position: google.maps.ControlPosition.TOP_CENTER,
-          drawingModes: [
-            google.maps.drawing.OverlayType.MARKER,
-            google.maps.drawing.OverlayType.POLYGON,
-          ]
-        }
-      });
-      drawingManager.setMap(map);
+      setupMap();
 
-      google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-        if (event.type == google.maps.drawing.OverlayType.POLYGON) {
-        $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
+      // Listen for tab changes
+      // When this tab becomes visible, reload the map.
+      $('.tabs').on('toggled', function (event, tab) {
+        var selectedID = $(tab).find(".asset_map").attr("id");
+        if (selectedID === map_id) {
+          setupMap();
         }
       });
- 
-      fitBoundsToVisibleMarkers()
     });
     </script>
   </div>
