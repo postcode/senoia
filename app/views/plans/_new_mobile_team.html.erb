@@ -1,5 +1,3 @@
-
-
 <div id="new-mobile-team-<%= operation_period_index %>" class="new-mobile-team reveal-modal medium asset-modal mobile-team-form" data-url="<%= url_for([ operation_period, :mobile_teams ]) %>" data-reveal>
   <a class="close-reveal-modal">&#215;</a>
   <% unique_id = SecureRandom.hex(16) %>
@@ -36,6 +34,7 @@
   </div>
   <div class="modal-footer">
     <p class="location_warning">You must add a location to the map before you can add the asset</p>
+    <a class="button secondary right close-reveal-modal" style="position: relative; font-weight: normal; font-size: inherit;">Close</a>
     <%= link_to "Confirm This Asset", "javascript:void(0)", class: "save-mobile-team button primary save-modal" %>
   </div>
   <script>
