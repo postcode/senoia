@@ -2,7 +2,7 @@
 <% if @count == 1 %>
   $(".operation-period-container").prepend("<%= j render(partial: 'plans/operation_period_button', locals: { plan: @plan } ) %>")
 <% end %>
-$(".tabs-content").html("<%= j render(partial: 'operation_periods/form', locals: { f: f, operation_period: @operation_period, count: @count } )%>")
+$(".tabs-content .active").replaceWith("<%= j render(partial: 'operation_periods/form', locals: { f: f, operation_period: @operation_period, count: @count } )%>")
 $(".tabs .active").replaceWith('<li class="tab-title"><a href="#panel<%= @count %>">Operational Period <%= @count %></a></li>')
 $('.dateSelect').fdatepicker({
     format: 'mm/dd/yyyy'
