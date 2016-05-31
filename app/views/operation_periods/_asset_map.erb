@@ -51,6 +51,28 @@
         overviewMapControl: true
       };
 
+      // Turn a string in the format ((lat, lng), (lat, lng)...) into an array
+      // of points Google likes.
+      function stringToPoints(polygon) {
+        var area = [];
+        var service_area_array;
+        if (polygon.length > 0) {
+          service_area_array = polygon.split("),")
+        } else {
+          service_area_array =  []
+        }
+
+        for (var i = 0; i < service_area_array.length; i++) {
+          var obj = service_area_array[i].replace(/\(|\)/g, "").split(",");
+          area.push({
+            lat: Number(obj[0]),
+            lng: Number(obj[1])
+          });
+        }
+
+        return area;
+      }
+
       function setupMap() {
         map = new google.maps.Map(document.getElementById('<%= operation_period.id %>_asset_map'), mapOptions);
         var markers = [];
@@ -59,8 +81,19 @@
           if (markers.length === 0) {
             return;
           }
-
           var bounds = new google.maps.LatLngBounds();
+
+          // If there's a service area on the map, include it in the bounds
+          // calculations. The only way to extend a LatLngBounds is by adding
+          // points individually.
+          if (service_area) {
+            polygon = stringToPoints(service_area);
+            for (var i=0; i < polygon.length; i++) {
+              bounds.extend(new google.maps.LatLng(polygon[i]));
+            }
+          }
+
+          // Go through all markers and extend the bounds by each marker.
           for (var i=0; i<markers.length; i++) {
             if(markers[i].getVisible()) {
               if(markers[i].getPosition().lat() > 0) {
@@ -68,8 +101,8 @@
               }
             }
           }
+
           if(!bounds.isEmpty()) {
-            console.log("Got bounds", bounds, markers);
             map.fitBounds(bounds);
           }
         }
@@ -180,21 +213,8 @@
           }
         });
 
-        // fitBoundsToVisibleMarkers();
-
         function addPolygon(polygon) {
-          var area = [];
-          if (polygon.length > 0) {
-            service_area_array = polygon.split("),")
-          } else {
-            service_area_array =  []
-          }
-
-          for (var i = 0; i < service_area_array.length; i++) {
-            var obj = service_area_array[i].replace(/\(|\)/g, "").split(",");
-            area.push( {lat: Number(obj[0]), lng: Number(obj[1])} );
-          }
-
+          var area = stringToPoints(polygon);
           var serviceArea = new google.maps.Polygon({
             paths: area,
             strokeColor: '#FF0000',
