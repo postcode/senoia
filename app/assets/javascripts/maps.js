@@ -1,10 +1,16 @@
-
 var map;
 
+// We need to keep track of the map center
+// http://stackoverflow.com/questions/8792676/center-google-maps-v3-on-browser-resize-responsive
+var center = new google.maps.LatLng(37.773972, -122.431297);
+function calculateCenter() {
+  center = map.getCenter();
+}
+
 function map_initialize(map_id) {
-        
+
   var mapOptions = {
-    center: new google.maps.LatLng(37.773972, -122.431297),
+    center: center,
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.NORMAL,
     panControl: true,
@@ -14,6 +20,10 @@ function map_initialize(map_id) {
   };
   // initializing map
   map = new google.maps.Map(document.getElementById(map_id),mapOptions);
+
+  google.maps.event.addDomListener(map, 'idle', function() {
+    calculateCenter();
+  });
 
   var drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: null,
@@ -37,20 +47,21 @@ function map_initialize(map_id) {
   if (event.type == google.maps.drawing.OverlayType.MARKER) {
     $('#lng_'+map_id).parents(".reveal-modal").find(".save-modal",".modal-footer")
                                               .prop("disabled", false)
-                                              .removeClass("disabled")
-    $('#lng_'+map_id).parents(".reveal-modal").find(".location_warning",".modal-footer").hide()
+                                              .removeClass("disabled");
+    $('#lng_'+map_id).parents(".reveal-modal").find(".location_warning",".modal-footer").hide();
     $('#lat', '#lat_'+map_id).val(event.overlay.position.lat());
     $('#lng', '#lng_'+map_id).val(event.overlay.position.lng());
   } else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
     $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
   }
 });
-        
+
 }
 
 function reloadMap(map_id) {
-  var test = document.getElementById(map_id)
+  var test = document.getElementById(map_id);
   google.maps.event.trigger(test, 'resize');
+  map.setCenter(center);
 }
 
 
