@@ -23,9 +23,6 @@ en:
   hello: "Hello world"
 
   activerecord:
-    attributes:
-      operation_period:
-        attendance: "Operational Period Attendance"
     errors:
       models:
         operation_period:
