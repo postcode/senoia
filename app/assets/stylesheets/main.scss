@@ -150,6 +150,14 @@ legend{
   margin-bottom: 1em;
 }
 
+/* Error handling */
+#error_explanation {
+  h4,
+  ul {
+    color: $alert-color;
+  }
+}
+
 /* LANDING PAGE */
 .landing{
   h1 {
@@ -627,12 +635,12 @@ div.input.radio_buttons {
 /* Communication Plan */
 #communication-plan{
   .input_label{
-    margin-bottom: 2em; 
+    margin-bottom: 2em;
   }
   .input_label label {
       font-weight: normal;
       text-transform: none;
-  }  
+  }
   .input{
     margin-bottom: 1em;
   }
