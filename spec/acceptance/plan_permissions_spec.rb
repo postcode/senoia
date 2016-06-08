@@ -45,6 +45,7 @@ feature "Plan Permissions" do
     end
 
     scenario "cannot be edited" do
+      save_and_open_page
       expect(page).to_not have_selector("input")
     end
 

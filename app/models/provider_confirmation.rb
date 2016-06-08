@@ -14,14 +14,14 @@
 
 class ProviderConfirmation < ActiveRecord::Base
 
-  belongs_to :provider
+  belongs_to :organization
   belongs_to :medical_asset, polymorphic: true
   belongs_to :requester, class_name: "User"
 
-  validates :provider, presence: true
+  validates :organization, presence: true
   validates :medical_asset, presence: true
   validates :provider_id, uniqueness: { scope: [ :medical_asset_id, :medical_asset_type ] }
-  
+
   include Workflow
   workflow do
     state :requested do

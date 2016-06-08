@@ -19,9 +19,6 @@ FactoryGirl.define do
       roles "admin"
     end
 
-    factory :promoter do
-      roles "promoter"
-    end
   end
 
   factory :operation_period do
@@ -62,13 +59,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :permitter do
-    name { Faker::Lorem.words(3).join(" ") }
-    phone_number { Faker::PhoneNumber.phone_number }
-    address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
-    email { Faker::Internet.email }
-  end
-
   factory :first_aid_station do
     name Faker::Lorem.words(3).join(" ")
   end
@@ -89,10 +79,6 @@ FactoryGirl.define do
     name { Faker::Lorem.words(3).join(" ") }
   end
 
-  factory :provider do
-    name { Faker::Lorem.words(3).join(" ") }
-  end
-
   factory :supplementary_document do
     parent { plan }
     name { Faker::Lorem.words(3).join(" ") }
@@ -102,5 +88,40 @@ FactoryGirl.define do
   factory :notification_group do
     name { Faker::Lorem.words(3).join(" ") }
     notification_type "plan.approved"
+  end
+
+  factory :organization_type do
+    description { Faker::Lorem.paragraph }
+
+    factory :permitter_type do
+      name "Event Permitter"
+    end
+
+    factory :promoter_type do
+      name "Event Producer"
+    end
+
+    factory :provider_type do
+      name "EMS Provider"
+    end
+  end
+
+  factory :organization do
+    name { Faker::Lorem.words(3).join(" ") }
+    phone_number { Faker::PhoneNumber.phone_number }
+    address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
+    email { Faker::Internet.email }
+
+    factory :permitter do
+      organization_type_id { FactoryGirl.create(:permitter_type).id }
+    end
+
+    factory :promoter do
+      organization_type_id { FactoryGirl.create(:promoter_type).id }
+    end
+
+    factory :provider do
+      organization_type_id { FactoryGirl.create(:provider_type).id }
+    end
   end
 end

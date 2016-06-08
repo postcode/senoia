@@ -6,9 +6,10 @@ feature "Medical Provider Confirmation" do
   let(:plan) { create(:plan_under_review, operation_periods: [ create(:operation_period) ]) }
   let(:operation_period) { plan.operation_periods.first }
   let(:contact) { create(:medical_contact) }
-  let(:provider) { contact.providers.first }
-  
-  context "Mecidal Provider Contact" do
+  let(:provider) { create(:provider) }
+  let(:permitter) { create(:permitter) }
+
+  context "Medical Provider Contact" do
 
     context "when a medical asset is added to a plan", js: true do
 
@@ -16,12 +17,14 @@ feature "Medical Provider Confirmation" do
         plan
         operation_period
         provider
-        
+        contact
+        permitter
+
         sign_in(admin)
         visit "/plans/#{plan.id}"
         click_link 'new_first_aid_station'
         sleep 0.5 #FIXME Waiting for modal
-        
+
         within '.first_aid_station_name' do
           fill_in 'Name', with: Faker::Lorem.word
         end
@@ -30,7 +33,7 @@ feature "Medical Provider Confirmation" do
         sign_out
         @email = find_email(contact.email)
       end
-      
+
       scenario "gets a confirmation email" do
         expect(@email).to_not be_nil
         expect(@email).to have_body_text("#{admin} of #{plan} has indicated that")
@@ -58,11 +61,11 @@ feature "Medical Provider Confirmation" do
             visit_in_email("Yes")
             expect(page).to have_content "Confirmed"
           end
-          
+
         end
 
       end
-      
+
       context "when clicking no on the confirmation email" do
 
         before do
@@ -85,7 +88,7 @@ feature "Medical Provider Confirmation" do
             visit_in_email("No")
             expect(page).to have_content "Rejected"
           end
-          
+
         end
 
       end
@@ -96,7 +99,7 @@ feature "Medical Provider Confirmation" do
       before do
         operation_period.first_aid_stations << create(:first_aid_station)
         provider
-        
+
         sign_in(admin)
         visit "/plans/#{plan.id}"
 
@@ -107,12 +110,12 @@ feature "Medical Provider Confirmation" do
         sign_out
         @email = find_email(contact.email)
       end
-      
+
       scenario "gets a confirmation email" do
         expect(@email).to_not be_nil
         expect(@email).to have_body_text("confirm your participation")
       end
     end
   end
-  
+
 end
