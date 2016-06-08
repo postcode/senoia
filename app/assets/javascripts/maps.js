@@ -43,7 +43,6 @@ function map_initialize(map_id) {
     $('#lng', '#lng_'+map_id).val(event.latLng.lng());
   });
 
-
   function enableSave() {
     $('#lng_'+map_id).parents(".reveal-modal").find(".save-modal",".modal-footer")
                                               .prop("disabled", false)
@@ -51,8 +50,15 @@ function map_initialize(map_id) {
     $('#lng_'+map_id).parents(".reveal-modal").find(".location_warning",".modal-footer").hide();
   }
 
+  var marker;
+
   google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
   if (event.type == google.maps.drawing.OverlayType.MARKER) {
+    if (marker) {
+      // Remove the first marker, if any
+      marker.setMap(null);
+    }
+    marker = event.overlay;
     $('#lat', '#lat_'+map_id).val(event.overlay.position.lat());
     $('#lng', '#lng_'+map_id).val(event.overlay.position.lng());
     enableSave();
