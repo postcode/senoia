@@ -195,6 +195,7 @@
             return content;
           }
         });
+
         addMarkers(dispatches, {
           icon: {
             path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
@@ -213,9 +214,34 @@
           }
         });
 
+        /* Service areas ---------------------------------------------------- */
+        var serviceArea;
+        var serviceAreaInfoWindow = new google.maps.InfoWindow;
+
+        /* Handle deleting the event footprint */
+        function deleteEventFootprint(event) {
+          event.preventDefault();
+          if (serviceArea) {
+            if (window.confirm("Are you sure you want to remove the event footprint?")) {
+              serviceAreaInfoWindow.close();
+              serviceArea.setMap(null);
+              $('#service_area', '#service_area_'+map_id).val('');
+            }
+          }
+        }
+
+        /* Handle interaction with the service area */
+        function handleServiceAreaClick(event) {
+          serviceAreaInfoWindow.setContent("<a class='delete-event-footprint'><i class='fa fa-trash'></i> <strong>Remove event footprint</strong></a>");
+          serviceAreaInfoWindow.setPosition(event.latLng);
+          serviceAreaInfoWindow.open(map);
+          $('.delete-event-footprint').click(deleteEventFootprint);
+        }
+
+        /* Add the service area */
         function addPolygon(polygon) {
           var area = stringToPoints(polygon);
-          var serviceArea = new google.maps.Polygon({
+          serviceArea = new google.maps.Polygon({
             paths: area,
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
@@ -224,12 +250,16 @@
             fillOpacity: 0.35
           });
           serviceArea.setMap(map);
+
+          google.maps.event.addListener(serviceArea, 'click', handleServiceAreaClick);
         }
 
         if (service_area.length > 0) {
           addPolygon(service_area);
         }
 
+
+        /* Set up the drawing manager --------------------------------------- */
         var drawingManager = new google.maps.drawing.DrawingManager({
           drawingMode: null,
           drawingControl: true,
@@ -245,7 +275,7 @@
 
         google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
           if (event.type == google.maps.drawing.OverlayType.POLYGON) {
-          $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
+            $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
           }
         });
 
