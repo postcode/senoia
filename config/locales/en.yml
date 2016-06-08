@@ -22,6 +22,18 @@
 en:
   hello: "Hello world"
 
+  activerecord:
+    errors:
+      models:
+        operation_period:
+          attributes:
+            attendance:
+              not_a_number: "should be a number without commas or letters"
+              not_an_integer: "should be a number without commas or letters"
+            crowd_estimate:
+              not_a_number: "should be a number without commas or letters"
+              not_an_integer: "should be a number without commas or letters"
+
   simple_form:
     labels:
       plan: &PlanAttributes
@@ -32,7 +44,6 @@ en:
   plans:
     show: *PlanAttributes
 
-  
   time:
     formats:
       default: "%m/%d/%Y %l:%M %P"
@@ -57,7 +68,6 @@ en:
     form: *PostEventTreatmentReportAttributes
     post_event_treatment_report: *PostEventTreatmentReportAttributes
 
-      
   notification_mailer:
     subject:
       comment:

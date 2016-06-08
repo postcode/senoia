@@ -43,16 +43,28 @@ function map_initialize(map_id) {
     $('#lng', '#lng_'+map_id).val(event.latLng.lng());
   });
 
-  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-  if (event.type == google.maps.drawing.OverlayType.MARKER) {
+  function enableSave() {
     $('#lng_'+map_id).parents(".reveal-modal").find(".save-modal",".modal-footer")
                                               .prop("disabled", false)
                                               .removeClass("disabled");
     $('#lng_'+map_id).parents(".reveal-modal").find(".location_warning",".modal-footer").hide();
+  }
+
+  var marker;
+
+  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+  if (event.type == google.maps.drawing.OverlayType.MARKER) {
+    if (marker) {
+      // Remove the first marker, if any
+      marker.setMap(null);
+    }
+    marker = event.overlay;
     $('#lat', '#lat_'+map_id).val(event.overlay.position.lat());
     $('#lng', '#lng_'+map_id).val(event.overlay.position.lng());
+    enableSave();
   } else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
     $('#service_area', '#service_area_'+map_id).val(event.overlay.getPath().getArray());
+    enableSave();
   }
 });
 
