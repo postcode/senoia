@@ -168,6 +168,7 @@
 
   <% if can? :edit, @plan %>
     <%= render 'actions', f: f, plan: @plan %>
+    <%= render 'floating_save', f: f, plan: @plan %>
   <% end %>
 <% end %>
 

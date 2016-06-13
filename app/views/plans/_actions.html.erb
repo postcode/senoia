@@ -1,8 +1,5 @@
 <% if current_user.present? %>
 <div class="large-12 columns text-center actions plan-action">
-  <div class="accept-warning">
-    <p>You must accept all responsibility fields before submitting your plan.</p>
-  </div>
   <%= f.button :button, class: "button large radius warning", label: false do %>
     <i class="fi-check"></i> SAVE DRAFT
   <% end %>
