@@ -1,5 +1,5 @@
 <tr>
-  <% %w(name provider contact_name contact_phone planning_contact_email).each do |attribute| %>
+  <% %w(name contact_name contact_phone planning_contact_email).each do |attribute| %>
     <td>
       <%= transport.send(attribute) %>
     </td>

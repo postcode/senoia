@@ -4,7 +4,7 @@ class FirstAidStationsController < ApplicationController
 
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
-    @provider =  Organization.find(params[:first_aid_station][:provider_id])
+    @provider =  Organization.find(params[:first_aid_station][:organization_id])
     @first_aid_station = @operation_period.first_aid_stations.create(first_aid_station_params)
     if @provider.present? && @provider.name != "Other"
       @first_aid_station.contact_name = @provider.name
@@ -37,7 +37,7 @@ class FirstAidStationsController < ApplicationController
                :rn,
                :emt,
                :aed,
-               :provider_id,
+               :organization_id,
                :contact_name,
                :contact_phone,
                :planning_contact_email,

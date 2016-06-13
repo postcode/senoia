@@ -17,7 +17,7 @@ class Organization < ActiveRecord::Base
   has_many :users, through: :organization_users
   has_many :contact_users, -> { where("organization_users.contact" => true) }, source: :user, through: :organization_users
 
-  has_one :organization_type
+  belongs_to :organization_type
 
   validates :name, presence: true
 

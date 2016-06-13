@@ -14,19 +14,19 @@ class OrganizationType < ActiveRecord::Base
 
   def self.find_organizations(name)
     type = OrganizationType.find_by_name(name)
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id) : organizations =[ NullOrganization.new]
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
     organizations.empty? ? organizations =[ NullOrganization.new] : organizations
   end
 
   def self.find_permitters
     type = OrganizationType.find_by_name("Event Permitter")
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id) : organizations =[ NullOrganization.new]
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
     organizations.empty? ? organizations =[ NullOrganization.new] : organizations
   end
-  
+
   def self.find_promoters
     type = OrganizationType.find_by_name("Event Producer")
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id) : organizations =[ NullOrganization.new]
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
     organizations.empty? ? organizations =[ NullOrganization.new] : organizations
   end
 
@@ -35,12 +35,12 @@ class OrganizationType < ActiveRecord::Base
     type.present? ? organizations = Organization.all.where(organization_type_id: type.id) : organizations =[ NullOrganization.new]
     organizations.empty? ? organizations =[ NullOrganization.new] : organizations
   end
-  
+
   class NullOrganization
     def id
       0
     end
-    
+
     def name
       'N/A'
     end

@@ -4,7 +4,7 @@ class DispatchesController < ApplicationController
 
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
-    @provider =  Organization.find(params[:dispatch][:provider_id])
+    @provider =  Organization.find(params[:dispatch][:organization_id])
     @dispatch = @operation_period.dispatchs.create(dispatch_params)
     if @provider.present? && @provider.name != "Other"
       @dispatch.contact_name = @provider.name
@@ -35,7 +35,7 @@ class DispatchesController < ApplicationController
                :name,
                :level,
                :aed,
-               :provider_id,
+               :organization_id,
                :contact_name,
                :contact_phone,
                :planning_contact_email,

@@ -4,7 +4,7 @@ window.senoia = {};
 window.senoia.initDatepickers = function() {
   $('.dateTimeSelect').fdatetimepicker({
     format: 'mm/dd/yyyy H:ii p'
-  }); 
+  });
 
   $('.dateSelect').fdatepicker({
     format: 'mm/dd/yyyy'
@@ -13,11 +13,11 @@ window.senoia.initDatepickers = function() {
 }
 
 $(function() {
-  
-  acceptCheck();
+
+  // acceptCheck();
 
   $('.accept').on("click",  function() {
-    acceptCheck();
+    // acceptCheck();
   })
 
   $('.tabs').on('toggled', function (event, tab) {
@@ -50,11 +50,11 @@ $(function() {
     event.preventDefault();
     $(this).next(".existing-comments").find(".resolved-comments").toggle()
   })
-  
+
   $('#all_plans tbody tr').css('cursor', 'pointer')
   $('#all_plans tbody tr').click(function() {
     window.location = $('a', $(this)).attr('href')
-  }) 
+  })
 
   // Handler adding form fields
   $('form .add_fields').on('click', function(event) {
@@ -99,7 +99,6 @@ $(function() {
 
   $.each(assets, function(index, asset) {
     var button = ".save-" + asset
-    $(button).prop("disabled", true)
     $("body").on("click", button, function(event) {
       var formElement = "." + asset + "-form"
       var form = $(this).closest(formElement);
@@ -172,23 +171,23 @@ $(function() {
       $(".provider-information").hide()
     }
   })
-  
+
 
   var updatePermitterContactInfo = function() {
-    var activePermitterId = $("#plan_permitter_id").val();
+    var activePermitterId = $("#plan_organization_id").val();
     $(".permitter.hidden").hide();
     if(activePermitterId) {
       $("[data-permitter-id=" + activePermitterId + "]").show();
     }
   };
 
-  $("body").on("change", "#plan_permitter_id", updatePermitterContactInfo);
+  $("body").on("change", "#plan_organization_id", updatePermitterContactInfo);
 
   updatePermitterContactInfo();
 
   // Highlight anchored comment
   if (window.location.hash.indexOf("comment-") != -1) {
-    $(window.location.hash).effect("highlight", {}, 5000);       
+    $(window.location.hash).effect("highlight", {}, 5000);
   }
 
   $("body").on("click", "#invite", function() {
@@ -216,17 +215,17 @@ $(function() {
   $("body").on("blur", ".js-form .js-submit-on-blur", function() {
     senoia.submitForm.apply(this);
   });
-  
+
 });
 
 function acceptCheck() {
-  if($('.accept').length > 0) {
-    $('button:submit').prop('disabled', true)
-    $('.plan-submit').addClass('disabled')
-    $('.accept-warning').show()
-  } else {
-    $('button:submit').prop('disabled', false)
-    $('.plan-submit').removeClass('disabled')
-    $('.accept-warning').hide()
-  }
+  // if($('.accept').length > 0) {
+  //   $('button:submit').prop('disabled', true)
+  //   $('.plan-submit').addClass('disabled')
+  //   $('.accept-warning').show()
+  // } else {
+  //   $('button:submit').prop('disabled', false)
+  //   $('.plan-submit').removeClass('disabled')
+  //   $('.accept-warning').hide()
+  // }
 }

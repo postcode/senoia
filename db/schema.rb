@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519134327) do
+ActiveRecord::Schema.define(version: 20160609190330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20160519134327) do
   create_table "dispatches", force: :cascade do |t|
     t.string   "name"
     t.string   "level"
-    t.integer  "provider_id"
+    t.integer  "organization_id"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.integer  "operation_period_id"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20160519134327) do
     t.integer  "emt"
     t.integer  "aed"
     t.string   "level"
-    t.integer  "provider_id"
+    t.integer  "organization_id"
     t.decimal  "lat",                    precision: 10, scale: 6
     t.decimal  "lng",                    precision: 10, scale: 6
     t.datetime "created_at",                                      null: false
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20160519134327) do
   create_table "mobile_teams", force: :cascade do |t|
     t.string   "level"
     t.integer  "aed"
-    t.integer  "provider_id"
+    t.integer  "organization_id"
     t.string   "name"
     t.decimal  "lat",                    precision: 10, scale: 6
     t.decimal  "lng",                    precision: 10, scale: 6
@@ -283,7 +283,7 @@ ActiveRecord::Schema.define(version: 20160519134327) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "event_type_id"
-    t.integer  "permitter_id"
+    t.integer  "organization_id"
     t.string   "workflow_state"
     t.text     "event_contact"
     t.boolean  "responsibility"
@@ -314,7 +314,7 @@ ActiveRecord::Schema.define(version: 20160519134327) do
   add_index "post_event_treatment_reports", ["plan_id"], name: "index_post_event_treatment_reports_on_plan_id", using: :btree
 
   create_table "provider_confirmations", force: :cascade do |t|
-    t.integer  "provider_id"
+    t.integer  "organization_id"
     t.integer  "medical_asset_id"
     t.string   "medical_asset_type"
     t.integer  "requester_id"
@@ -363,7 +363,7 @@ ActiveRecord::Schema.define(version: 20160519134327) do
   create_table "transports", force: :cascade do |t|
     t.string   "name"
     t.string   "level"
-    t.integer  "provider_id"
+    t.integer  "organization_id"
     t.decimal  "lat",                    precision: 10, scale: 6
     t.decimal  "lng",                    precision: 10, scale: 6
     t.datetime "created_at",                                      null: false

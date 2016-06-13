@@ -25,7 +25,7 @@ module HelperMethods
   def post_comment(body)
     expect(page).to have_selector("a.comment")
     first("a.comment").click
-    
+
     within ".new-comment-area" do
       find("textarea").set body
       click_on "SUBMIT"
@@ -45,7 +45,34 @@ module HelperMethods
     script = "$(\"input[type=file]\").replaceWith('#{input}');"
     page.evaluate_script script
   end
-  
+
+  def select_from_chosen(item_text, options)
+    field = find("##{options[:from]}", visible: false)
+    menu = nil
+    count = 0
+    until menu.present? || count > 5
+      begin
+        menu = find("##{field[:id]}_chosen")
+      rescue Capybara::ElementNotFound => e
+        p e
+        count = count + 1
+      end
+    end
+    menu.click
+    menu_item = nil
+    count = 0
+    until menu_item.present? || count > 5
+      begin
+        menu_item = find("##{field[:id]}_chosen ul.chosen-results li", text: item_text)
+      rescue Capybara::ElementNotFound => e
+        p e
+        count = count + 1
+        menu.click
+      end
+    end
+    menu_item.click
+  end
+
 end
 
 RSpec.configuration.include HelperMethods, :type => :acceptance

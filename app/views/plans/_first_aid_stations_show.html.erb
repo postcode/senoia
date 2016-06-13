@@ -2,17 +2,17 @@
   <tr>
     <td><%= a.input :name, required: false, label: false %></td>
     <td><%= a.input :level, required: false, label: false, collection: ["ALS", "BLS"] %></td>
-    <td><%= a.input :provider_id,
+    <td><%= a.input :organization_id,
         collection: OrganizationType.find_providers,
         label_method: :name,
         value_method: :id,
         include_blank: false,
         prompt: "Select a provider",
-        required: false, label: false, 
+        required: false, label: false,
         input_html: { class: "provider-dropdown" } %>
       <%= a.object.try(:provider_confirmation) %>
     </td>
-    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>  
+    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
     <td><%= a.input :_destroy, as: :boolean, label: "Remove" %></td>
   </tr>
     <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
@@ -21,7 +21,7 @@
       RN <%= a.input :rn, required: false, label: false %><br>
       EMT <%= a.input :emt, required: false, label: false %><br>
       AED <%= a.input :aed, required: false, label: false %><br>
-       
+
       Planning Contact Name
       <%= a.input :contact_name, required: false, label: false %><br>
       Planning Contact Phone
@@ -29,6 +29,6 @@
       Planning Contact Email
       <%= a.input :planning_contact_email, required: false, label: false %><br>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    </div>  
+    </div>
 <% end %>
 

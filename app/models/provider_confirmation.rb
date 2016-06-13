@@ -20,7 +20,7 @@ class ProviderConfirmation < ActiveRecord::Base
 
   validates :organization, presence: true
   validates :medical_asset, presence: true
-  validates :provider_id, uniqueness: { scope: [ :medical_asset_id, :medical_asset_type ] }
+  validates :organization_id, uniqueness: { scope: [ :medical_asset_id, :medical_asset_type ] }
 
   include Workflow
   workflow do
@@ -33,7 +33,7 @@ class ProviderConfirmation < ActiveRecord::Base
   end
 
   def deliver_email!
-    provider.contact_users.each do |contact|
+    organization.contact_users.each do |contact|
       ProviderConfirmationMailer.confirm_participation(requester: requester, recipient: contact, confirmation: self).deliver_later
     end
   end

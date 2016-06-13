@@ -2,9 +2,9 @@
   <tr>
     <td><%= dispatch.name %></td>
     <td><%= dispatch.level %></td>
-    <td><%= dispatch.provider %>
+    <td><%= dispatch.organization.name %>
     </td>
-    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>  
+    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
   </tr>
     <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2 id="modalTitle">More Info</h2>
@@ -15,5 +15,5 @@
       Planning Contact Email
       <%= dispatch.planning_contact_email %><br>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    </div>  
+    </div>
 <% end %>

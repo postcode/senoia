@@ -1,5 +1,5 @@
 <tr>
-  <% %w(name level mobile_team_type provider contact_name contact_phone planning_contact_email).each do |attribute| %>
+  <% %w(name level mobile_team_type contact_name contact_phone planning_contact_email).each do |attribute| %>
     <td>
       <%= mobile_team.send(attribute) %>
     </td>

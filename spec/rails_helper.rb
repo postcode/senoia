@@ -43,7 +43,7 @@ RSpec.configure do |config|
   config.extend ControllerMacros, :type => :controller
   Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, {
-      js_errors: true,
+      js_errors: false,
       phantomjs_options: ['--ignore-ssl-errors=yes']
     })
   end
@@ -87,10 +87,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each, js: true) do
-    page.driver.browser.url_blacklist = [
-                                         "http://maps.google.com",
-                                         "http://*.googlecode.com"
-                                        ]
+    # page.driver.browser.url_blacklist = [
+    #                                      "http://maps.google.com",
+    #                                      "http://*.googlecode.com"
+    #                                     ]
   end
 
 end

@@ -31,6 +31,7 @@ FactoryGirl.define do
     name { Faker::Lorem.words(3).join }
     event_type
     operation_periods { [FactoryGirl.create(:operation_period)] }
+    organization { FactoryGirl.create(:permitter) }
 
     factory :plan_under_review do
       workflow_state :under_review
@@ -113,15 +114,15 @@ FactoryGirl.define do
     email { Faker::Internet.email }
 
     factory :permitter do
-      organization_type_id { FactoryGirl.create(:permitter_type).id }
+      organization_type_id { OrganizationType.first_or_create(name: "Event Permitter").id }
     end
 
     factory :promoter do
-      organization_type_id { FactoryGirl.create(:promoter_type).id }
+      organization_type_id { OrganizationType.first_or_create(name: "Event Producer").id }
     end
 
     factory :provider do
-      organization_type_id { FactoryGirl.create(:provider_type).id }
+      organization_type_id { OrganizationType.first_or_create(name: "EMS Provider").id }
     end
   end
 end

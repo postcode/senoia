@@ -4,7 +4,7 @@ class MobileTeamsController < ApplicationController
 
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
-    @provider =  Organization.find(params[:mobile_team][:provider_id])
+    @provider =  Organization.find(params[:mobile_team][:organization_id])
     @mobile_team = @operation_period.mobile_teams.create(mobile_team_params)
     if @provider.present? && @provider.name != "Other"
       @mobile_team.contact_name = @provider.name
@@ -35,7 +35,7 @@ class MobileTeamsController < ApplicationController
                :level,
                :mobile_team_type,
                :aed,
-               :provider_id,
+               :organization_id,
                :contact_name,
                :contact_phone,
                :planning_contact_email,

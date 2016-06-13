@@ -6,10 +6,6 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "Senoia" %></title>
 
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnDsM_6JrXW5Y-LW1CjOZU2JWDpflU_oU&libraries=geometry&language=&hl=&region=&libraries=drawing"
-    async defer></script>
-
     <!-- Foundation 3 for IE 8 and earlier -->
     <!--[if lt IE 9]>
       <%= stylesheet_link_tag 'ie8', :media => 'all' %>
@@ -20,6 +16,7 @@
       <%= stylesheet_link_tag 'ie/css/foundation4/normalize.css' %>
       <%= stylesheet_link_tag 'ie/css/foundation4/foundation.min.css' %>
     <![endif]-->
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBnDsM_6JrXW5Y-LW1CjOZU2JWDpflU_oU&libraries=geometry&language=&hl=&region=&libraries=drawing" %>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>

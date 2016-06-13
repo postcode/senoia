@@ -27,7 +27,7 @@ class TransportsController < ApplicationController
       .permit([
                :name,
                :level,
-               :provider_id,
+               :organziation_id,
                :contact_name,
                :contact_phone,
                :planning_contact_email,

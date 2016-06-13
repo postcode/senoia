@@ -1,5 +1,5 @@
 <tr>
-  <% %w(name level md rn emt aed provider contact_name contact_phone planning_contact_email).each do |attribute| %>
+  <% %w(name level md rn emt aed contact_name contact_phone planning_contact_email).each do |attribute| %>
     <td>
       <%= first_aid_station.send(attribute) %>
     </td>

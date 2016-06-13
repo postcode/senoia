@@ -1,12 +1,12 @@
 class ProviderConfirmationsController < ApplicationController
 
   before_action :authenticate_user!
-  
+
   def show
     @provider_confirmation = ProviderConfirmation.find(params[:id])
     authorize! :manage, @provider_confirmation
 
-    @provider = @provider_confirmation.provider
+    @provider = @provider_confirmation.organization
     @medical_asset = @provider_confirmation.medical_asset
     @operation_period = @medical_asset.operation_period
     @plan = @operation_period.plan

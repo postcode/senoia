@@ -1,7 +1,7 @@
 <p>
   <%= @requester %> of <%= @plan %>
   has indicated that
-  <%= @provider %> will be providing
+  <%= @provider.name %> will be providing
   a <%= @medical_asset.class.name.underscore.humanize %> on
   <%= l @operation_period.start_date %>
   to

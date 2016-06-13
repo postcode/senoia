@@ -29,7 +29,6 @@ class Plan < ActiveRecord::Base
   acts_as_commentable
   belongs_to :owner, class_name: User
   belongs_to :event_type
-  belongs_to :permitter
   has_many :plan_users
   has_many :users, through: :plan_users
   has_many :users_who_can_edit, -> { where(plan_users: { role: "edit" }) }, through: :plan_users, source: :user
@@ -47,6 +46,8 @@ class Plan < ActiveRecord::Base
   has_many :plan_venues
   has_many :venues, through: :plan_venues
 
+  belongs_to :organization
+
   accepts_nested_attributes_for :event_type, :operation_periods, :owner
 
   validates :name, presence: true
@@ -54,9 +55,9 @@ class Plan < ActiveRecord::Base
   # validates :post_event_name, presence: true
   # validates :post_event_email, presence: true
   # validates :post_event_phone, presence: true
-  
+
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
-  
+
   include Workflow
   workflow do
     state :draft do
@@ -123,6 +124,10 @@ class Plan < ActiveRecord::Base
     ! comment_threads.open.exists?
   end
 
+  def permitter
+    organization if organization.present? && organization.organization_type.name == "Event Permitter"
+  end
+
   concerning :Search do
 
     included do
@@ -134,7 +139,7 @@ class Plan < ActiveRecord::Base
       scope :alcohol, -> { where("alcohol = ?", true) }
       scope :owner, -> (search) { where("creator_id = ?", search) }
 
-      scope :event_type, lambda { |*args| 
+      scope :event_type, lambda { |*args|
         event_type = args[0][:event_type]
         if event_type.empty?
           Plan.all
@@ -155,7 +160,7 @@ class Plan < ActiveRecord::Base
           scope = scope.calculating_end_date
           scope = scope.where("end_date >= ?", options[:start_date])
         end
-          
+
         if options[:end_date].present?
           scope = scope.calculating_start_date
           scope = scope.where("start_date <= ?", options[:end_date])
@@ -164,7 +169,7 @@ class Plan < ActiveRecord::Base
         if options[:state]
           scope = scope.filter_by_state(options[:state])
         end
-        
+
         if options[:attendance]
           scope = scope.filter_by_attendance(options[:attendance])
         end
@@ -223,9 +228,9 @@ class Plan < ActiveRecord::Base
       end
     end
   end
-  
+
   concerning :Notifications do
-    
+
     def send_notifications_on_new_comment(comment)
       stakeholders.reject{ |x| x == comment.user }.each do |stakeholder|
         stakeholder.notifications.create(subject: comment, key: "created")
@@ -253,19 +258,19 @@ class Plan < ActiveRecord::Base
     def send_notifications_on_reject
       notify_stakeholders("rejected")
     end
-    
+
     def stakeholders
       [ users, owner, creator ].flatten.compact.uniq
     end
 
     def notify_stakeholders(key)
       users_to_notify = (stakeholders + User.to_notify_on("plan.#{key}")).uniq
-      
+
       users_to_notify.each do |stakeholder|
         stakeholder.notifications.create(subject: self, key: key)
       end
     end
 
   end
-  
+
 end

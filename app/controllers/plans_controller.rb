@@ -3,18 +3,18 @@ class PlansController < ApplicationController
   helper  SmartListing::Helper
 
   helper_method :view_own_plans?
-  
+
   def index
     plans_scope = Plan.includes(:operation_periods, :event_type).calculating_total_attendance
 
     if view_own_plans?
-      plans_scope = plans_scope.affiliated_to(current_user) 
+      plans_scope = plans_scope.affiliated_to(current_user)
     elsif !current_user.try(:admin?)
       plans_scope = plans_scope.with_approved_state
     end
-    
+
     plans_scope = plans_scope.search(params[:query] || { })
-    
+
     @plans = smart_listing_create(:plans,
                                   plans_scope,
                                   partial: 'plans/listing',
@@ -31,7 +31,7 @@ class PlansController < ApplicationController
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
     @count = 0
     @permitters = Permitter.order("name ASC")
-      
+
     if @plan.present?
       if @plan.approved?
         if current_user.try(:is_admin?)
@@ -68,12 +68,12 @@ class PlansController < ApplicationController
   def new
     authorize! :create, Plan, message: "Sorry, you are not authorized to create a new plan."
     @plan = Plan.new
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @plan }
     end
-  end  
+  end
 
   def create
     authorize! :create, Plan, message: "Sorry, you are not authorized to create a new plan."
@@ -90,7 +90,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
 
     @plan.update(plan_params)
-    
+
     plan_params[:operation_periods_attributes].try(:each) do |op|
       next unless op[1][:id]
       @operation_period = @plan.operation_periods.find(op[1][:id])
@@ -220,7 +220,7 @@ class PlansController < ApplicationController
     end
   end
 
-  private 
+  private
 
   # Using a private method to encapsulate the permissible parameters is
   # just a good pattern since you'll be able to reuse the same permit
@@ -294,7 +294,7 @@ class PlansController < ApplicationController
                                                                              :rn,
                                                                              :emt,
                                                                              :aed,
-                                                                             :provider_id,
+                                                                             :organization_id,
                                                                              :contact_name,
                                                                              :contact_phone,
                                                                              :planning_contact_email,
@@ -306,7 +306,7 @@ class PlansController < ApplicationController
                                                                      :id,
                                                                      :name,
                                                                      :level,
-                                                                     :provider_id,
+                                                                     :organization_id,
                                                                      :contact_name,
                                                                      :contact_phone,
                                                                      :planning_contact_email,
@@ -318,7 +318,7 @@ class PlansController < ApplicationController
                                                                        :name,
                                                                        :level,
                                                                        :aed,
-                                                                       :provider_id,
+                                                                       :organization_id,
                                                                        :contact_name,
                                                                        :contact_phone,
                                                                        :planning_contact_email,
@@ -329,7 +329,7 @@ class PlansController < ApplicationController
                                                                     :id,
                                                                     :name,
                                                                     :level,
-                                                                    :provider_id,
+                                                                    :organization_id,
                                                                     :contact_name,
                                                                     :contact_phone,
                                                                     :planning_contact_email,
@@ -339,7 +339,7 @@ class PlansController < ApplicationController
                                             ]
               )
   end
-  
+
   def operation_periods_params
     params.require(:operation_periods).permit(id:
                                               [
@@ -359,7 +359,7 @@ class PlansController < ApplicationController
                                                                         :rn,
                                                                         :emt,
                                                                         :aed,
-                                                                        :provider_id,
+                                                                        :organization_id,
                                                                         :contact_name,
                                                                         :contact_phone,
                                                                         :planning_contact_email,
@@ -374,7 +374,7 @@ class PlansController < ApplicationController
                                                            id: [
                                                                 :name,
                                                                 :level,
-                                                                :provider_id,
+                                                                :organization_id,
                                                                 :contact_name,
                                                                 :contact_phone,
                                                                 :planning_contact_email,
@@ -389,7 +389,7 @@ class PlansController < ApplicationController
                                                                    :name,
                                                                    :level,
                                                                    :aed,
-                                                                   :provider_id,
+                                                                   :organization_id,
                                                                    :contact_name,
                                                                    :contact_phone,
                                                                    :planning_contact_email,
@@ -403,7 +403,7 @@ class PlansController < ApplicationController
                                                           id: [
                                                                :name,
                                                                :level,
-                                                               :provider_id,
+                                                               :organization_id,
                                                                :contact_name,
                                                                :contact_phone,
                                                                :planning_contact_email,
