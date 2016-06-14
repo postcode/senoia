@@ -6,18 +6,21 @@ feature "Plan" do
   let(:admin) { FactoryGirl.create(:admin) }
   let(:test_user) { FactoryGirl.create(:user, roles: "user") }
   let(:guest_user) { FactoryGirl.create(:user, roles: "guest") }
-  let!(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter) }.sort_by(&:name) }
-  let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider) }.sort_by(&:name) }
+  let(:permitter_type) { FactoryGirl.create(:permitter_type) }
+  let!(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter, organization_type: permitter_type) }.sort_by(&:name) }
+  let(:provider_type) { FactoryGirl.create(:provider_type) }
+  let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider, organization_type: provider_type) }.sort_by(&:name) }
 
 
-  context "admin create a new plan" do
+  context "admin create a new plan", js: true do
 
     before do
       @event_type = create(:event_type)
       sign_in(admin)
       visit "/plans/new"
       fill_in 'plan_name', with: Faker::Lorem.words.join(" ")
-      select @event_type.name, from: "plan_event_type_id"
+      select_from_chosen(@event_type.name, from: "plan_event_type_id")
+      select_from_chosen(@event_type.name, from: "plan_event_type_id")
     end
 
     scenario "admin can create a basic plan" do
@@ -27,13 +30,13 @@ feature "Plan" do
     end
   end
 
-  context "by a user" do
+  context "by a user", js: true do
     before do
       @event_type = create(:event_type)
       sign_in(test_user)
       visit "/plans/new"
       fill_in 'plan_name', with: Faker::Lorem.words.join(" ")
-      select @event_type.name, from: "plan_event_type_id"
+      select_from_chosen(@event_type.name, from: "plan_event_type_id")
     end
 
     scenario "can create a basic plan" do
@@ -43,13 +46,13 @@ feature "Plan" do
     end
   end
 
-  context "by a guest" do
+  context "by a guest", js: true do
     before do
       @event_type = create(:event_type)
       sign_in(guest_user)
       visit "/plans/new"
       fill_in 'plan_name', with: Faker::Lorem.words.join(" ")
-      select @event_type.name, from: "plan_event_type_id"
+      select_from_chosen(@event_type.name, from: "plan_event_type_id")
     end
 
     scenario "can create a basic plan" do
@@ -60,8 +63,6 @@ feature "Plan" do
   end
 
   context "deleting medical assets" do
-
-    let(:plan) { FactoryGirl.create(:plan) }
     let(:operation_period) { FactoryGirl.create(:operation_period) }
     let(:first_aid_station) { FactoryGirl.create(:first_aid_station) }
     let(:mobile_team) { FactoryGirl.create(:mobile_team) }
@@ -69,23 +70,24 @@ feature "Plan" do
     let(:dispatch) { FactoryGirl.create(:dispatch) }
 
     before do
-      plan.operation_periods << operation_period
       operation_period.first_aid_stations << first_aid_station
       operation_period.mobile_teams << mobile_team
       operation_period.transports << transport
       operation_period.dispatchs << dispatch
+      operation_period.save!
+      plan.operation_periods << operation_period
+      plan.save!
     end
 
     %w(first_aid_station mobile_team transport dispatch).each do |asset_type|
 
-      scenario "admin can delete a #{asset_type.humanize.downcase}", js: true do
+      scenario "admin can delete a #{asset_type.humanize.downcase}" do
 
         sign_in(admin)
         visit "/plans/#{plan.id}"
 
         asset = send(asset_type)
         asset_selector = "input[value='#{asset.name}']"
-
         expect(page).to have_selector(asset_selector)
 
         asset_row = find(asset_selector).find(:xpath, "../../..")
@@ -101,9 +103,7 @@ feature "Plan" do
     end
   end
 
-  context "viewing an existing plan" do
-    let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider) }.sort_by(&:name) }
-    let(:provider) { FactoryGirl.create(:provider) }
+  context "viewing an existing plan", js: true do
     let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review", organization: permitters[1]) }
 
     before do
@@ -115,12 +115,12 @@ feature "Plan" do
       expect(page).to have_content plan.permitter.phone_number
     end
 
-    scenario "changing permitting agencies shows their contact info", js: true do
+    scenario "changing permitting agencies shows their contact info" do
       select_from_chosen(permitters.first.name, from: "plan_organization_id")
       expect(page).to have_content permitters.first.phone_number
     end
 
-    scenario "admin can add an operation period", js: true do
+    scenario "admin can add an operation period" do
       click_on "ADD OPERATIONAL PERIOD"
       expect(page).to have_content("OPERATIONAL PERIOD 2")
       click_on "Operational Period 2"
@@ -133,19 +133,19 @@ feature "Plan" do
       }.to change { OperationPeriod.count }.by(1)
     end
 
-    scenario "admin can remove an operation period", js: true do
+    scenario "admin can remove an operation period" do
       click_on "Remove"
       expect(page).to_not have_selector(".operation-period-container .content")
     end
 
-    scenario "admin can add a dispatch", js: true  do
+    scenario "admin can add a dispatch"  do
       click_on "ADD DISPATCH"
       dispatch_name = "Dispatch One"
       within '.dispatch_name' do
         fill_in "dispatch_name", with: dispatch_name
       end
       within ".dispatch_organization_id" do
-        select providers.first.name, from: "dispatch_organization_id"
+        select_from_chosen(providers.first.name, from: "dispatch_organization_id")
       end
 
       expect {
@@ -154,7 +154,7 @@ feature "Plan" do
       }.to change{ Dispatch.count }.by(1)
     end
 
-    scenario "admin can add a first aid station", js: true  do
+    scenario "admin can add a first aid station"  do
       click_link 'new_first_aid_station'
       first_aid_station_name = "2nd Aid Station"
       within '.new-first-aid-station' do
@@ -162,7 +162,7 @@ feature "Plan" do
       end
 
       within ".first_aid_station_organization_id" do
-        select providers.first.name, from: "first_aid_station_organization_id"
+        select_from_chosen(providers.first.name, from: "first_aid_station_organization_id")
       end
 
       click_on "Confirm This Asset"
@@ -171,7 +171,7 @@ feature "Plan" do
       }.to change{ FirstAidStation.count }.by(1)
     end
 
-    scenario "admin can add a mobile team", js: true  do
+    scenario "admin can add a mobile team"  do
       click_on "ADD MOBILE TEAM"
 
       mobile_team_name = "Mobility One"
@@ -180,7 +180,7 @@ feature "Plan" do
       end
 
       within ".mobile_team_organization_id" do
-        select providers.first.name, from: "mobile_team_organization_id"
+        select_from_chosen(providers.first.name, from: "mobile_team_organization_id")
       end
 
       click_on "Confirm This Asset"
@@ -190,7 +190,7 @@ feature "Plan" do
       }.to change{ MobileTeam.count }.by(1)
     end
 
-    scenario "admin can add a transport", js: true  do
+    scenario "admin can add a transport"  do
       click_on "ADD TRANSPORT"
 
       transport_name = "Transport One"
@@ -199,7 +199,7 @@ feature "Plan" do
       end
 
       within ".transport_organization_id" do
-        select providers.first.name, from: "transport_organization_id"
+        select_from_chosen(providers.first.name, from: "transport_organization_id")
       end
       click_on "Confirm This Asset"
 
@@ -210,7 +210,7 @@ feature "Plan" do
 
   end
 
-  context "request revision" do
+  context "request revision", js: true do
 
     let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review") }
     let(:creator) { FactoryGirl.create(:user) }
@@ -267,6 +267,7 @@ feature "Plan" do
 
       scenario "admin can resolve the comments and then approve the plan", js: true do
         click_on "RESOLVE"
+        expect(page).to_not have_content("RESOLVE")
         expect(page).to have_content("APPROVE PLAN")
 
         expect {
@@ -277,7 +278,7 @@ feature "Plan" do
     end
   end
 
-  context "clone an operation period" do
+  context "clone an operation period", js: true do
 
     let(:plan) { create(:plan_under_review) }
 

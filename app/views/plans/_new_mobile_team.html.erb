@@ -9,7 +9,7 @@
       <%= a.input :type, required: false, collection: ["Foot", "Bike", "Gator/Cart", "Sag Wagon"] %>
       <%= a.input :aed, input_html: {value: 0}, required: false, label: "Number of AEDs" %>
       <%= a.input :organization_id,
-      collection: OrganizationType.find_providers,
+      collection: OrganizationType.find_providers.order(:name),
       label_method: :name,
       value_method: :id,
       include_blank: false,
@@ -47,6 +47,11 @@
       }
 
       map_initialize('map_mobile_team_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
+    });
+    $('#mobile_team_organization_id').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
     });
   })
   </script>

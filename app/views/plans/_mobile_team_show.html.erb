@@ -5,7 +5,7 @@
   <!--
   -->
   <td><%= a.input :organization_id,
-                    collection: OrganizationType.find_providers,
+                    collection: OrganizationType.find_providers.order(:name),
                     label_method: :name,
                     value_method: :id,
                     include_blank: false,

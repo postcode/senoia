@@ -118,15 +118,15 @@ FactoryGirl.define do
     email { Faker::Internet.email }
 
     factory :permitter do
-      organization_type_id { OrganizationType.first_or_create(name: "Event Permitter").id }
+      organization_type { FactoryGirl.create(:permitter_type) }
     end
 
     factory :promoter do
-      organization_type_id { OrganizationType.first_or_create(name: "Event Producer").id }
+      organization_type { FactoryGirl.create(:promoter_type) }
     end
 
     factory :provider do
-      organization_type_id { OrganizationType.first_or_create(name: "EMS Provider").id }
+      organization_type { FactoryGirl.create(:provider_type) }
     end
   end
 end

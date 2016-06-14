@@ -167,7 +167,9 @@
     </div>
 
   <% if can? :edit, @plan %>
+  <div class="plan_action_container">
     <%= render 'actions', f: f, plan: @plan %>
+  </div>
     <%= render 'floating_save', f: f, plan: @plan %>
   <% end %>
 <% end %>
