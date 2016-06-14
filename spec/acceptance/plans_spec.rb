@@ -85,7 +85,6 @@ feature "Plan" do
 
         asset = send(asset_type)
         asset_selector = "input[value='#{asset.name}']"
-        save_and_open_page
 
         expect(page).to have_selector(asset_selector)
 
@@ -141,7 +140,6 @@ feature "Plan" do
 
     scenario "admin can add a dispatch", js: true  do
       click_on "ADD DISPATCH"
-      save_and_open_page
       dispatch_name = "Dispatch One"
       within '.dispatch_name' do
         fill_in "dispatch_name", with: dispatch_name
@@ -158,7 +156,6 @@ feature "Plan" do
 
     scenario "admin can add a first aid station", js: true  do
       click_link 'new_first_aid_station'
-
       first_aid_station_name = "2nd Aid Station"
       within '.new-first-aid-station' do
         fill_in 'first_aid_station_name', with: first_aid_station_name
@@ -170,7 +167,6 @@ feature "Plan" do
 
       click_on "Confirm This Asset"
       expect {
-
         visit "/plans/#{plan.id}"
       }.to change{ FirstAidStation.count }.by(1)
     end
