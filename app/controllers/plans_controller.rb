@@ -234,7 +234,7 @@ class PlansController < ApplicationController
               :owner,
               :alcohol,
               :event_type_id,
-              :permitter_id,
+              :organization_id,
               :owner_id,
               :post_event_name,
               :post_event_email,

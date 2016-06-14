@@ -6,7 +6,7 @@ feature "Plan" do
   let(:admin) { FactoryGirl.create(:admin) }
   let(:test_user) { FactoryGirl.create(:user, roles: "user") }
   let(:guest_user) { FactoryGirl.create(:user, roles: "guest") }
-  let(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter) }.sort_by(&:name) }
+  let!(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter) }.sort_by(&:name) }
   let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider) }.sort_by(&:name) }
 
 
@@ -103,7 +103,7 @@ feature "Plan" do
   end
 
   context "viewing an existing plan" do
-
+    let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider) }.sort_by(&:name) }
     let(:provider) { FactoryGirl.create(:provider) }
     let(:plan) { FactoryGirl.create(:plan, workflow_state: "under_review", organization: permitters[1]) }
 
@@ -141,6 +141,7 @@ feature "Plan" do
 
     scenario "admin can add a dispatch", js: true  do
       click_on "ADD DISPATCH"
+      save_and_open_page
       dispatch_name = "Dispatch One"
       within '.dispatch_name' do
         fill_in "dispatch_name", with: dispatch_name
