@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
+ruby '2.3.1'
 
 gem 'rails', '~> 4.2.0'
 
@@ -22,7 +22,7 @@ gem 'fog', require: 'fog/aws'
 gem 'font-awesome-sass', '~> 4.5.0'
 gem 'foundation-icons-sass-rails'
 gem 'foundation-datetimepicker-rails'
-gem 'foundation-rails','5.5.1'
+gem 'foundation-rails','~> 5.5.0'
 gem 'gmaps4rails'
 gem 'google-analytics-rails'
 gem 'impressionist'
@@ -72,7 +72,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
 end
-  
+
 group :test do
   gem 'capybara'
   gem 'email_spec'

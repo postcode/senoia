@@ -542,7 +542,7 @@ DEPENDENCIES
   font-awesome-sass (~> 4.5.0)
   foundation-datetimepicker-rails
   foundation-icons-sass-rails
-  foundation-rails (= 5.5.1)
+  foundation-rails (~> 5.5.0)
   gmaps4rails
   google-analytics-rails
   guard-rspec
@@ -590,5 +590,8 @@ DEPENDENCIES
   wkhtmltopdf-binary
   workflow
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.10.6
+   1.12.5

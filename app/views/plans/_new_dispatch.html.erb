@@ -15,7 +15,7 @@
       prompt: "Select a provider",
       label: "Provider", required: false,
       input_html: {class: "provider-select"} %>
-      <%= a.input :contact_name, required: false, label: 'Planning Contact Name', wrapper_html: { class: "provider-information" } %>
+      <%= a.input :contact_name, required: false, label: 'Plannin pg Contact Name', wrapper_html: { class: "provider-information" } %>
       <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone', wrapper_html: { class: "provider-information" } %>
       <%= a.input :planning_contact_email, required: false, label: 'Planning Contact Email', wrapper_html: { class: "provider-information" } %>
       <div id='map_dispatch_<%= unique_id %>' class="asset_map"></div>
@@ -45,7 +45,12 @@
 
       map_initialize('map_dispatch_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
     });
-  })
+    $('#dispatch_organization_id').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+  });
   </script>
 </div>
 
