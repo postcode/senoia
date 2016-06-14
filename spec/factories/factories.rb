@@ -48,6 +48,10 @@ FactoryGirl.define do
     factory :approved_plan do
       workflow_state :approved
     end
+
+    factory :no_operation_period do
+      operation_periods []
+    end
   end
 
   factory :comment do
