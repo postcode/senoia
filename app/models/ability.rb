@@ -51,6 +51,7 @@ class Ability
       can :read, Plan do |plan|
        plan.approved?
      end
+      can :view, Plan, :plan_users => { role: "view", user_id: user.id }
       cannot :read, User
       cannot :index, User
       cannot :read, Provider
