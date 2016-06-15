@@ -32,7 +32,7 @@ class OrganizationType < ActiveRecord::Base
 
   def self.find_providers
     type = OrganizationType.find_by_name("EMS Provider")
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id) : organizations =[ NullOrganization.new]
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
     organizations.empty? ? organizations =[ NullOrganization.new] : organizations
   end
 

@@ -2,9 +2,9 @@ require_relative "./acceptance_helper"
 
 feature "OperationPeriod" do
 
-  let(:plan) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
-  let(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter) }.sort_by(&:name) }
+  let(:permitter_type) { FactoryGirl.create(:permitter_type) }
+  let(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter, organization_type: permitter_type) }.sort_by(&:name) }
   let(:plan) { FactoryGirl.create(:no_operation_period, workflow_state: "draft", organization: permitters[1]) }
 
 

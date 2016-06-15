@@ -1,2 +1,2 @@
 $("#comment-<%= @comment.id %>").replaceWith("<%= j render partial: "comments/thread", locals: { root_comment: @comment  }%>");
-$(".plan-action").replaceWith('<%= j render "plans/actions", f: form_builder_for(@comment.commentable), plan: @comment.commentable %>');
+$(".plan_action_container").replaceWith('<%= j render "plans/actions", f: form_builder_for(@comment.commentable), plan: @comment.commentable %>');

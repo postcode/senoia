@@ -5,6 +5,7 @@ feature "Plan Permissions" do
   shared_examples "can view" do
 
     background do
+      p plan.users_who_can_view
       visit "/plans/#{plan.id}"
     end
 
@@ -45,7 +46,6 @@ feature "Plan Permissions" do
     end
 
     scenario "cannot be edited" do
-      save_and_open_page
       expect(page).to_not have_selector("input")
     end
 
@@ -132,7 +132,11 @@ feature "Plan Permissions" do
     context "a plan in state" do
       ALL_STATES.each do |state|
         context state do
-          let(:plan) { create(:plan, workflow_state: state, users_who_can_view: [ viewer ]) }
+          let(:plan) { create(:plan, workflow_state: state) }
+          before do
+            plan.users_who_can_view << viewer
+            plan.save!
+          end
           include_examples "can view"
           include_examples "cannot edit"
           include_examples "cannot comment"
@@ -143,7 +147,7 @@ feature "Plan Permissions" do
 
   context "as an editor" do
 
-    let(:editor) { create(:promoter) }
+    let(:editor) { create(:user) }
 
     background do
       sign_in editor

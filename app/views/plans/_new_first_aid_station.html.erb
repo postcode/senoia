@@ -50,6 +50,11 @@
 
       map_initialize('map_first_aid_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
     });
+    $('#first_aid_station_organization_id').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
   })
   </script>
 </div>

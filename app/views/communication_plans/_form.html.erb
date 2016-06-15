@@ -206,7 +206,7 @@
       <% end %>
     </div>
   </div>
-      
+
   <div class="row">
     <div class="small-12 columns buttons">
       <br><br>
@@ -214,3 +214,43 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#communication_plan_event_coordinator_organization').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+    $('#communication_plan_event_supervisor_organization').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+    $('#communication_plan_dispatch_supervisor_organization').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+    $('#communication_plan_medical_group_supervisor_organization').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+    $('#communication_plan_triage_supervisor_organization').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+    $('#communication_plan_transport_supervisor_organization').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+    $('#communication_plan_non_transport_supervisor_organization').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+  })
+</script>
