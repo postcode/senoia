@@ -1,7 +1,8 @@
 <tr>
-  <% %w(name level md rn emt aed contact_name contact_phone planning_contact_email).each do |attribute| %>
+  <% %w(name level contact_name).each do |attribute| %>
     <td>
       <%= first_aid_station.send(attribute) %>
     </td>
   <% end %>
+  <td><i>Don't forget to save your progress!</i></td>
 </tr>

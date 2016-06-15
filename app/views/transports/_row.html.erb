@@ -1,7 +1,8 @@
 <tr>
-  <% %w(name contact_name contact_phone planning_contact_email).each do |attribute| %>
+  <% %w(name contact_name).each do |attribute| %>
     <td>
       <%= transport.send(attribute) %>
     </td>
   <% end %>
+  <td><i>Don't forget to save your progress!</i></td>
 </tr>
