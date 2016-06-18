@@ -4,21 +4,20 @@
     <td><%= first_aid_station.level %></td>
     <td><%= first_aid_station.provider %>
     </td>
-    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>  
+    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
   </tr>
-    <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <div id="first_aid_stations_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" class="new-first_aid_stations reveal-modal medium asset-modal first_aid_stations-form" data-url="<%= url_for([ operation_period, :first_aid_stations ]) %>">
       <h2 id="modalTitle">More Info</h2>
       MD <%= first_aid_station.md %><br>
       RN <%= first_aid_station.rn %><br>
       EMT <%= first_aid_station.emt %><br>
       AED <%= first_aid_station.aed %><br>
-       
+
       Planning Contact Name
       <%= first_aid_station.contact_name %><br>
       Planning Contact Phone
       <%= first_aid_station.contact_phone %><br>
       Planning Contact Email
       <%= first_aid_station.planning_contact_email %><br>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    </div>  
+    </div>
 <% end %>

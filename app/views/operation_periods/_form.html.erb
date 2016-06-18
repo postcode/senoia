@@ -74,9 +74,6 @@
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_crowd_estimate" %>
       </div>
     </div>
-    <p>Use the polygon tool to draw the event footprint for this operational period</p>
-    <%= render 'operation_periods/asset_map', operation_period: op.object, f: f %>
-
     <div class="row">
       <div class="large-9 columns">
         <fieldset>
@@ -95,7 +92,7 @@
                 <th>Contact Phone</th> -->
               </thead>
               <tbody>
-                <%= render 'plans/first_aid_stations_show', op: op %>
+                <%= render 'plans/first_aid_stations_show', op: op, operation_period: op.object %>
               </tbody>
             </table>
 
@@ -126,7 +123,7 @@
                 <th>Contact Phone</th> -->
               </thead>
               <tbody>
-                <%= render 'plans/mobile_team_show', op: op %>
+                <%= render 'plans/mobile_team_show', op: op, operation_period: op.object %>
               </tbody>
             </table>
             <div class="large-12 columns">
@@ -153,7 +150,7 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
-                  <%= render 'plans/transport_show', op: op %>
+                  <%= render 'plans/transport_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>
               <div class="large-12 columns">
@@ -180,7 +177,7 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
-                  <%= render 'plans/dispatch_show', op: op %>
+                  <%= render 'plans/dispatch_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>
               <div class="large-12 columns">

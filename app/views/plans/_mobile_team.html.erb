@@ -5,18 +5,17 @@
     <td><%= mobile_team.mobile_team_type %></td>
     <td><%= mobile_team.provider %>
     </td>
-    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>  
+    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
   </tr>
     <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2 id="modalTitle">More Info</h2>
       AED <%= mobile_team.aed %><br>
-       
+
       Planning Contact Name
       <%= mobile_team.contact_name %><br>
       Planning Contact Phone
       <%= mobile_team.contact_phone %><br>
       Planning Contact Email
       <%= mobile_team.planning_contact_email %><br>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    </div>  
+    </div>
 <% end %>

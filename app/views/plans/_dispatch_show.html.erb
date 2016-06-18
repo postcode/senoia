@@ -14,15 +14,19 @@
   <td><a href="#" data-reveal-id="dispatch_info">More Info</a></td>
   <td><%= a.input :_destroy, as: :boolean, label: "Remove" %></td>
 </tr>
-    <div id="dispatch_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <div id="dispatch_info" class="update-dispatch reveal-modal medium asset-modal dispatch-form" data-url="<%= url_for([ operation_period, :dispatches ]) %>" data-reveal>
       <h2 id="modalTitle">More Info</h2>
-
-      Planning Contact Name
-      <%= a.input :contact_name, required: false, label: false %><br>
-      Planning Contact Phone
-      <%= a.input :contact_phone, required: false, label: false %><br>
-      Planning Contact Email
-      <%= a.input :planning_contact_email, required: false, label: false %><br>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      <div>
+        Planning Contact Name
+        <%= a.input :contact_name, required: false, label: false %><br>
+        Planning Contact Phone
+        <%= a.input :contact_phone, required: false, label: false %><br>
+        Planning Contact Email
+        <%= a.input :planning_contact_email, required: false, label: false %><br>
+      </div>
+      <div class="modal-footer">
+        <a class="button secondary right close-reveal-modal" style="position: relative; font-weight: normal; font-size: inherit;">Close</a>
+        <%= link_to "Confirm This Asset", "javascript:void(0)", class: "save-dispatch button primary save-modal" %>
+      </div>
     </div>
 <% end %>

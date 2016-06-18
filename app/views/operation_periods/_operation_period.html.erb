@@ -46,8 +46,6 @@
     </div>
   </div>
 
-  <%= render 'operation_periods/asset_map', operation_period: operation_period, f: f %>
-
   <div class="row">
     <div class="large-9 columns">
       <fieldset>
@@ -60,7 +58,7 @@
               <th>Provider</th>
             </thead>
             <tbody>
-              <%= render 'plans/first_aid_station', op: operation_period %>
+              <%= render 'plans/first_aid_station', op: operation_period, operation_period: operation_period %>
             </tbody>
           </table>
         </div>
@@ -83,7 +81,7 @@
               <th>Provider</th>
             </thead>
             <tbody>
-              <%= render 'plans/mobile_team', op: operation_period %>
+              <%= render 'plans/mobile_team', op: operation_period, operation_period: operation_period %>
             </tbody>
           </table>
         </div>
@@ -106,7 +104,7 @@
                 <th>Provider</th>
               </thead>
               <tbody>
-                <% render 'plans/transport', op: operation_period %>
+                <% render 'plans/transport', op: operation_period, operation_period: operation_period %>
               </tbody>
             </table>
           <% end %>
@@ -128,7 +126,7 @@
               <th>Provider</th>
             </thead>
             <tbody>
-              <%= render 'plans/dispatch', op: operation_period %>
+              <%= render 'plans/dispatch', op: operation_period, operation_period: operation_period %>
             </tbody>
           </table>
         </div>
