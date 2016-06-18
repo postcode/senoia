@@ -27,6 +27,5 @@
 //= require asset_update
 //= require cocoon
 //= require chosen-jquery
-//= require maps
 
 $(function(){ $(document).foundation(); });

@@ -8,6 +8,7 @@
       <%= a.input :level, required: false, collection: ["ALS", "BLS", "Non-Medical"] %>
       <%= a.input :type, required: false, collection: ["Foot", "Bike", "Gator/Cart", "Sag Wagon"] %>
       <%= a.input :aed, input_html: {value: 0}, required: false, label: "Number of AEDs" %>
+      <%= a.input :location, required: false %>
       <%= a.input :organization_id,
       collection: OrganizationType.find_providers,
       label_method: :name,
@@ -19,35 +20,14 @@
       <%= a.input :contact_name, required: false, label: 'Planning Contact Name', wrapper_html: { class: "provider-information" } %>
       <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone', wrapper_html: { class: "provider-information" } %>
       <%= a.input :planning_contact_email, required: false, label: 'Planning Contact Email', wrapper_html: { class: "provider-information" } %>
-      <p>Add the asset (please use the polygon tool to add a coverage zone for mobile teams, if possible)</p>
-      <div id='map_mobile_team_<%= unique_id %>' class="asset_map"></div>
-      <div id='lat_map_mobile_team_<%= unique_id %>'>
-        <%= a.input :lat, input_html: { id: 'lat' }, as: :hidden  %>
-      </div>
-      <div id="lng_map_mobile_team_<%= unique_id %>">
-        <%= a.input :lng, input_html: { id: 'lng' }, as: :hidden %>
-      </div>
-      <div id="service_area_map_mobile_team_<%= unique_id %>">
-        <%= a.input :service_area, input_html: { id: 'service_area' }, as: :hidden %>
-      </div>
     <% end %>
   </div>
   <div class="modal-footer">
-    <p class="location_warning">You must add a location to the map before you can add the asset</p>
     <a class="button secondary right close-reveal-modal" style="position: relative; font-weight: normal; font-size: inherit;">Close</a>
     <%= link_to "Confirm This Asset", "javascript:void(0)", class: "save-mobile-team button primary save-modal" %>
   </div>
   <script>
   $(document).ready(function(){
-    $(document).on('opened.fndtn.reveal', '#new-mobile-team-<%= operation_period_index %>[data-reveal]', function (e) {
-      // Workaround to prevent event firing twice
-      // https://github.com/zurb/foundation-sites/issues/5482
-      if (e.namespace !== 'fndtn.reveal') {
-        return;
-      }
-
-      map_initialize('map_mobile_team_<%= unique_id %>');    // form map for new view (print nothing with possibility of put marker)
-    });
     $('#mobile_team_organization_id').chosen({
       width: "100%",
       enable_split_word_search: true,
