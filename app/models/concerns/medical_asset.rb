@@ -26,6 +26,10 @@ module MedicalAsset
       end
     end
 
+    def provider
+      organization if organization.present? && organization.organization_type.name == "Event Producer"
+    end
+
     def to_s
       name
     end
