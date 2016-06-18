@@ -23,7 +23,10 @@
       <%= a.input :contact_phone, required: false, label: false %><br>
       Planning Contact Email
       <%= a.input :planning_contact_email, required: false, label: false %><br>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      <div class="modal-footer">
+        <a class="button secondary right close-reveal-modal" style="position: relative; font-weight: normal; font-size: inherit;">Close</a>
+        <%= link_to "Confirm This Asset", "javascript:void(0)", class: "save-transport button primary save-modal" %>
+      </div>
     </div>
 </tr>
 <% end %>

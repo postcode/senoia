@@ -95,7 +95,7 @@
                 <th>Contact Phone</th> -->
               </thead>
               <tbody>
-                <%= render 'plans/first_aid_stations_show', op: op %>
+                <%= render 'plans/first_aid_stations_show', op: op, operation_period: op.object %>
               </tbody>
             </table>
 
@@ -126,7 +126,7 @@
                 <th>Contact Phone</th> -->
               </thead>
               <tbody>
-                <%= render 'plans/mobile_team_show', op: op %>
+                <%= render 'plans/mobile_team_show', op: op, operation_period: op.object %>
               </tbody>
             </table>
             <div class="large-12 columns">
@@ -153,7 +153,7 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
-                  <%= render 'plans/transport_show', op: op %>
+                  <%= render 'plans/transport_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>
               <div class="large-12 columns">
@@ -180,7 +180,7 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
-                  <%= render 'plans/dispatch_show', op: op %>
+                  <%= render 'plans/dispatch_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>
               <div class="large-12 columns">
