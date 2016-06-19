@@ -351,6 +351,7 @@ feature "Plan" do
     let(:approved_plan) { FactoryGirl.create(:approved_plan, creator: test_user) }
     let(:group_member) { create(:user) }
     let(:notification_group) { create(:notification_group, notification_type: "plan.approved") }
+    let(:document) { create(:supplementary_document, email: true, parent: approved_plan, file: "https://github.com/postcode/senoia/blob/master/README.rdoc") }
 
     before do
       notification_group.members << group_member
@@ -375,5 +376,6 @@ feature "Plan" do
       expect(email).to_not be_nil
       expect(email.attachments.map(&:filename).select{ |name| name == "#{approved_plan.name}.pdf"}.include?("#{approved_plan.name}.pdf")).to eq true
     end
+
   end
 end

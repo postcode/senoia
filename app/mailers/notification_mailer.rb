@@ -11,11 +11,6 @@ class NotificationMailer < ActionMailer::Base
       attachments["#{@plan.name}.pdf"] = WickedPdf.new.pdf_from_string(
       render_to_string(pdf: 'todo', template: 'plans/pdf/plan.pdf.erb', locals: { plan: @plan})
     )
-      if @plan.supplementary_documents.to_be_emailed.present?
-        @plan.supplementary_documents.to_be_emailed.each do |doc|
-          attachments["#{doc.name}"] = File.read('#{doc.file}')
-        end
-      end
     end
 
     mail(to: @recipient.email,

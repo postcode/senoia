@@ -1,4 +1,4 @@
-<% @plan = plan unless plan.blank? %>
+<% @plan.nil? ? @plan = plan : @plan %>
 <div class="row">
   <div class="large-12 columns pageTitle">
     <h1><%= @plan.name %></h1>
@@ -192,6 +192,13 @@
       </div>
     </div>
     <div>
+    <div>
+    <h3>Supplemental Documents</h3>
+    <p>To download, right-click and select "Save Link As..."</p>
+      <% @plan.supplementary_documents.to_be_emailed.each do |doc|  %>
+        <%= link_to "#{doc.name}", doc.file.url, target: "_blank" %>
+      <% end %>
+    </div>
     <% if @plan.communication_plan.present? %>
       <dl>
         <% @plan.communication_plan.attributes.each do |name, value| %>
