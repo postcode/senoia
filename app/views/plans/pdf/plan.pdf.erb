@@ -1,4 +1,4 @@
-<%= simple_form_for [@plan] do |f| %>
+<% @plan = plan unless plan.blank? %>
 <div class="row">
   <div class="large-12 columns pageTitle">
     <h1><%= @plan.name %></h1>
@@ -44,7 +44,7 @@
               <div class="small-8 columns end">
                 End: <%= period.formatted_end_date %>&nbsp;<%= period.formatted_end_time %>
               </div>
-            </div>        
+            </div>
             <div class="row">
               <div class="small-4 columns end">
                 Attendance: <%= period.attendance %>
@@ -200,7 +200,5 @@
       </dl>
     <% end %>
     </div>
-
-    <% end %> 
   </div>
 </div>

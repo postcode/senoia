@@ -90,6 +90,9 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
 
     @plan.update(plan_params)
+    params[:supplementary_document].try(:each) do |doc|
+      @plan.supplementary_documents.find(doc[0]).update_attribute(:email, doc[1][:email])
+    end
 
     plan_params[:operation_periods_attributes].try(:each) do |op|
       next unless op[1][:id]
@@ -197,6 +200,12 @@ class PlansController < ApplicationController
     end
   end
 
+  def send_approved_plan
+    @plan = Plan.find(params[:id])
+    @plan.email_approved
+    redirect_to @plan, notice: 'Request for contact sent.'
+  end
+
   def update_plan_user
     respond_to do |format|
       format.js
@@ -245,6 +254,10 @@ class PlansController < ApplicationController
               :communication_phone,
               :event_contact,
               :venue_ids,
+              supplementary_documents_attributes: [
+                :id,
+                :name,
+                :email],
               venue_attributes: [
                 :id,
                 :name],

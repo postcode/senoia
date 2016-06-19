@@ -10,6 +10,8 @@
     <% if can? :edit, supplementary_document.parent %>
       &middot;
       <%= link_to "Remove", supplementary_document, method: "DELETE", remote: true, data: { confirm: "Are you sure you want to remove this document?" } %>
+      <%= label_tag "supplementary_document[#{supplementary_document.id}][email]", "Send to Approval List" %>
+      <%= check_box "supplementary_document[#{supplementary_document.id}]", "email", {}, 'true', 'false' %>
     <% end %>
   </p>
 </div>

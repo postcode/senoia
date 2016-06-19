@@ -8,7 +8,7 @@ class SupplementaryDocumentsController < ApplicationController
                       success_action_status: 201,
                       acl: :public_read)
   end
-  
+
   def create
     @parent = parent
     authorize! :edit, @parent
@@ -34,7 +34,7 @@ class SupplementaryDocumentsController < ApplicationController
   end
 
   def supplementary_document_params
-    params.require(:supplementary_document).permit(:name, :description, :file)
+    params.require(:supplementary_document).permit(:name, :description, :file, :email)
   end
 
 end

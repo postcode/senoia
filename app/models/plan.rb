@@ -96,6 +96,10 @@ class Plan < ActiveRecord::Base
     send_notifications_on_reject
   end
 
+  def email_approved
+    send_notifications_on_approve
+  end
+
   def start_date
     d = operation_periods.map(&:start_date).compact.min
     t = operation_periods.map(&:start_time).compact.min
@@ -230,6 +234,7 @@ class Plan < ActiveRecord::Base
   end
 
   concerning :Notifications do
+    require 'pry'
 
     def send_notifications_on_new_comment(comment)
       stakeholders.reject{ |x| x == comment.user }.each do |stakeholder|
@@ -265,7 +270,6 @@ class Plan < ActiveRecord::Base
 
     def notify_stakeholders(key)
       users_to_notify = (stakeholders + User.to_notify_on("plan.#{key}")).uniq
-
       users_to_notify.each do |stakeholder|
         stakeholder.notifications.create(subject: self, key: key)
       end

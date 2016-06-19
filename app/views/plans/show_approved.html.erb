@@ -3,8 +3,11 @@
   <div class="large-10 columns pageTitle">
     <h1><%= @plan.name %> </h1>
   </div>
-  <div class="large-2 columns end">
+  <div class="large-2 columns">
     <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
+  </div>
+  <div class="large-2 columns end">
+    <%= link_to "Email Approved Plan", send_approved_plan_plan_path(@plan), class: "button tiny", method: :post %>
   </div>
   <%= render "plans/plan_state" %>
   <div class="large-12 columns plan_form">

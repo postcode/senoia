@@ -347,5 +347,33 @@ feature "Plan" do
     end
   end
 
+  context "when a plan is approved" do
+    let(:approved_plan) { FactoryGirl.create(:approved_plan, creator: test_user) }
+    let(:group_member) { create(:user) }
+    let(:notification_group) { create(:notification_group, notification_type: "plan.approved") }
 
+    before do
+      notification_group.members << group_member
+      sign_in(admin)
+      visit "/plans/#{approved_plan.id}"
+    end
+
+    scenario "an admin can see the 'email approved plan' button" do
+      expect(page).to have_content 'Email Approved Plan'
+    end
+
+    scenario "an admin can send an email to the plan approval group" do
+      click_link 'Email Approved Plan'
+      email = find_email(group_member.email)
+      expect(email).to_not be_nil
+      expect(email).to have_body_text("approved")
+    end
+
+    scenario "an admin can send an email to the plan approval group and it will contain a pdf of the plan" do
+      click_link 'Email Approved Plan'
+      email = find_email(group_member.email)
+      expect(email).to_not be_nil
+      expect(email.attachments.map(&:filename).select{ |name| name == "#{approved_plan.name}.pdf"}.include?("#{approved_plan.name}.pdf")).to eq true
+    end
+  end
 end
