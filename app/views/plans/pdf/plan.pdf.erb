@@ -2,7 +2,7 @@
 <div class="row">
   <div class="large-12 columns pageTitle">
     <h1><%= @plan.name %></h1>
-    <p>Last updated: <%= @plan.updated_at %></p>
+    <p>Last updated: <%= @plan.updated_at.strftime("%B %e, %Y") %></p>
     <p>Created by: <%= @plan.creator.name %>&nbsp;<%= @plan.creator.email %>&nbsp;<%= @plan.creator.phone_number %></p>
   </div>
   <div class="large-12 columns plan_form">
