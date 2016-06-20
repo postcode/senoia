@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post :request_revision
       post :approve
       delete 'remove_user(/:plan_id/:user_id)', :to => 'plans#remove_user', :as => :remove_user
+      post :send_approved_plan
     end
     resources :comments, only: :create
     resources :invitations, only: :create
@@ -62,5 +63,5 @@ Rails.application.routes.draw do
   get "/learn_more" => 'home#learn_more', as: 'learn_more'
 
   get 'admin', to: 'admin#index'
-  
+
 end

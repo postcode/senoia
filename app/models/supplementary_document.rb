@@ -18,8 +18,10 @@ class SupplementaryDocument < ActiveRecord::Base
   validates :parent, presence: true
   validates :name, presence: true
   validates :file, presence: true
-  
+
   mount_uploader :file, DocumentUploader
+
+  scope :to_be_emailed, -> { where(email: true) }
 
   def file=(f)
     # The test environment will send an UploadedFile

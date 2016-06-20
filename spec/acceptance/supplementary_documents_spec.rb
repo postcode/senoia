@@ -4,9 +4,10 @@ feature "Supplementary Documents" do
 
   let(:plan) { create(:plan, creator: create(:user)) }
   let(:creator) { plan.creator }
+  let(:admin) { create(:admin) }
 
   context "Creator", js: true do
-    
+
     background do
       @document = create(:supplementary_document, parent: plan)
       sign_in(creator)
@@ -14,7 +15,7 @@ feature "Supplementary Documents" do
     end
 
     let(:document_name) { Faker::Lorem.words(3).join }
-    
+
     scenario "adds a document" do
       click_on "ADD DOCUMENT"
       fill_in "supplementary_document_name", with: document_name
@@ -31,5 +32,23 @@ feature "Supplementary Documents" do
       expect(page).to_not have_content @document.name
     end
 
+  end
+
+  context "Administrator", js: true do
+    background do
+      @document = create(:supplementary_document, parent: plan)
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+    end
+
+    let(:document_name) { Faker::Lorem.words(3).join }
+
+    scenario "mark a document for email" do
+      within("#supplementary-document-#{@document.id}") { check "Send to Approval List" }
+      save_screenshot
+      click_on "SAVE DRAFT"
+
+      expect(plan.supplementary_documents.first.email?).to eq true
+    end
   end
 end

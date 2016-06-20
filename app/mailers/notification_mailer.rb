@@ -7,7 +7,12 @@ class NotificationMailer < ActionMailer::Base
     @notification = options[:notification]
     @recipient = @notification.owner
     instance_variable_set("@" + @notification.subject_type.underscore, @notification.subject)
-    
+    if @plan.approved?
+      attachments["#{@plan.name}.pdf"] = WickedPdf.new.pdf_from_string(
+      render_to_string(pdf: 'todo', template: 'plans/pdf/plan.pdf.erb', locals: { plan: @plan})
+    )
+    end
+
     mail(to: @recipient.email,
          subject: t(@notification.translation_key,
                     scope: "notification_mailer.subject",

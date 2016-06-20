@@ -88,6 +88,7 @@ FactoryGirl.define do
     parent { plan }
     name { Faker::Lorem.words(3).join(" ") }
     file { Rack::Test::UploadedFile.new(File.join(Rails.root, 'README.rdoc')) }
+    email true
   end
 
   factory :notification_group do

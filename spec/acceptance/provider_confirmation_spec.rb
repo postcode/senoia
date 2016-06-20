@@ -5,9 +5,10 @@ feature "Medical Provider Confirmation" do
   let(:admin) { create(:admin) }
   let(:plan) { create(:plan_under_review, operation_periods: [ create(:operation_period) ]) }
   let(:operation_period) { plan.operation_periods.first }
-  let(:contact) { create(:medical_contact) }
-  let(:provider) { create(:provider) }
-  let(:permitter) { create(:permitter) }
+  let(:permitter_type) { FactoryGirl.create(:permitter_type) }
+  let!(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter, organization_type: permitter_type) }.sort_by(&:name) }
+  let(:provider_type) { FactoryGirl.create(:provider_type) }
+  let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider, organization_type: provider_type) }.sort_by(&:name) }
 
   context "Medical Provider Contact" do
 
@@ -16,9 +17,6 @@ feature "Medical Provider Confirmation" do
       before do
         plan
         operation_period
-        provider
-        contact
-        permitter
 
         sign_in(admin)
         visit "/plans/#{plan.id}"
@@ -28,10 +26,14 @@ feature "Medical Provider Confirmation" do
         within '.first_aid_station_name' do
           fill_in 'Name', with: Faker::Lorem.word
         end
-        select provider.name, from: "Provider"
+
+         within ".first_aid_station_organization_id" do
+          select_from_chosen(providers.first.name, from: "first_aid_station_organization_id")
+        end
+
         click_on "Confirm This Asset"
         sign_out
-        @email = find_email(contact.email)
+        @email = find_email(providers.first.email)
       end
 
       scenario "gets a confirmation email" do
@@ -42,7 +44,7 @@ feature "Medical Provider Confirmation" do
       context "when clicking yes on the confirmation email" do
 
         before do
-          open_email(contact.email)
+          open_email(providers.first.email)
           visit_in_email("Yes")
         end
 
@@ -53,7 +55,7 @@ feature "Medical Provider Confirmation" do
         context "after they log in" do
 
           before do
-            fill_in_login_information(contact)
+            fill_in_login_information(provders.first)
           end
 
           scenario "the request is confirmed" do
@@ -69,7 +71,7 @@ feature "Medical Provider Confirmation" do
       context "when clicking no on the confirmation email" do
 
         before do
-          open_email(contact.email)
+          open_email(providers.first.email)
           visit_in_email("No")
         end
 
@@ -80,7 +82,7 @@ feature "Medical Provider Confirmation" do
         context "after they log in" do
 
           before do
-            fill_in_login_information(contact)
+            fill_in_login_information(providers.first)
           end
 
           scenario "the request is rejected" do
@@ -98,17 +100,16 @@ feature "Medical Provider Confirmation" do
 
       before do
         operation_period.first_aid_stations << create(:first_aid_station)
-        provider
 
         sign_in(admin)
         visit "/plans/#{plan.id}"
-
-        within ".plan_operation_periods_first_aid_stations_provider_id" do
-          select provider.name
+        within ".first_aid_station_organization_id" do
+          select_from_chosen(providers.first.name, from: "first_aid_station_organization_id")
         end
+
         click_on "SAVE DRAFT"
         sign_out
-        @email = find_email(contact.email)
+        @email = find_email(providers.first.email)
       end
 
       scenario "gets a confirmation email" do

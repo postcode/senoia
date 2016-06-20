@@ -238,12 +238,11 @@ feature "Plan" do
 
     before do
       plan.update(creator: creator)
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
     end
 
     scenario "admin can approve a plan" do
-      sign_in(admin)
-      visit "/plans/#{plan.id}"
-
       expect {
         click_link "APPROVE PLAN"
       }.to change{ Plan.with_approved_state.count }.by(1)
@@ -252,6 +251,17 @@ feature "Plan" do
       expect(email).to_not be_nil
       expect(email).to have_body_text("has been approved")
     end
+
+    scenario "the approval date is updated" do
+      expect {
+        click_link "APPROVE PLAN"
+      }.to change{ Plan.with_approved_state.count }.by(1)
+      visit "/plans/#{plan.id}"
+      p plan.reload
+      expect(page).to have_content "Plan approved on: #{plan.reload.approval_date}"
+      expect(plan.reload.approval_date).to_not eq nil
+    end
+
 
     context "with outstanding comments" do
 
@@ -347,5 +357,34 @@ feature "Plan" do
     end
   end
 
+  context "when a plan is approved" do
+    let(:approved_plan) { FactoryGirl.create(:approved_plan, creator: test_user) }
+    let(:group_member) { create(:user) }
+    let(:notification_group) { create(:notification_group, notification_type: "plan.approved") }
+    let(:document) { create(:supplementary_document, email: true, parent: approved_plan, file: "https://github.com/postcode/senoia/blob/master/README.rdoc") }
 
+    before do
+      notification_group.members << group_member
+      sign_in(admin)
+      visit "/plans/#{approved_plan.id}"
+    end
+
+    scenario "an admin can see the 'email approved plan' button" do
+      expect(page).to have_content 'Email Approved Plan'
+    end
+
+    scenario "an admin can send an email to the plan approval group" do
+      click_link 'Email Approved Plan'
+      email = find_email(group_member.email)
+      expect(email).to_not be_nil
+      expect(email).to have_body_text("approved")
+    end
+
+    scenario "an admin can send an email to the plan approval group and it will contain a pdf of the plan" do
+      click_link 'Email Approved Plan'
+      email = find_email(group_member.email)
+      expect(email).to_not be_nil
+      expect(email.attachments.map(&:filename).select{ |name| name == "#{approved_plan.name}.pdf"}.include?("#{approved_plan.name}.pdf")).to eq true
+    end
+  end
 end

@@ -71,8 +71,14 @@ class Plan < ActiveRecord::Base
       event :approve, :transitions_to => :approved, :if => Proc.new(&:all_comments_resolved?)
       event :request_review, :transitions_to => :under_review
       event :reject, :transitions_to => :rejected
+
     end
-    state :approved
+    state :approved do
+      on_entry do
+        update_attributes(approval_date: Time.current)
+        self
+      end
+    end
     state :rejected
   end
 
@@ -94,6 +100,10 @@ class Plan < ActiveRecord::Base
 
   def reject
     send_notifications_on_reject
+  end
+
+  def email_approved
+    send_notifications_on_approve
   end
 
   def start_date
@@ -230,7 +240,6 @@ class Plan < ActiveRecord::Base
   end
 
   concerning :Notifications do
-
     def send_notifications_on_new_comment(comment)
       stakeholders.reject{ |x| x == comment.user }.each do |stakeholder|
         stakeholder.notifications.create(subject: comment, key: "created")
@@ -265,7 +274,6 @@ class Plan < ActiveRecord::Base
 
     def notify_stakeholders(key)
       users_to_notify = (stakeholders + User.to_notify_on("plan.#{key}")).uniq
-
       users_to_notify.each do |stakeholder|
         stakeholder.notifications.create(subject: self, key: key)
       end
