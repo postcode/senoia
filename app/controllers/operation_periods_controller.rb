@@ -9,6 +9,8 @@ class OperationPeriodsController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     @operation_period = @plan.operation_periods.create(operation_period_params)
     @count = @plan.operation_periods.count
+    # @asset_text = AssetAllocationService.new(@plan.event_type, @operation_period.attendance).asset_text
+    # p @asset_text
   end
 
   def destroy

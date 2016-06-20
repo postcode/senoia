@@ -30,4 +30,19 @@ feature "OperationPeriod" do
       }.to change { OperationPeriod.count }.by(1)
     end
   end
+
+  context "asset text is updated when an operation period is created" do
+    before do
+      sign_in(admin)
+      visit "/plans/#{plan.id}"
+    end
+
+    scenario "admin can create a basic operation period", js: true do
+      plan.operation_periods << create(:operation_period, attendance: 1000)
+      plan.event_type = create(:concert)
+      plan.save
+      visit "/plans/#{plan.id}"
+      expect(page).to have_content "You will need at least 1 First Aid Station."
+    end
+  end
 end

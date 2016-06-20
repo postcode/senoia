@@ -82,6 +82,10 @@ FactoryGirl.define do
 
   factory :event_type do
     name { Faker::Lorem.words(3).join(" ") }
+
+    factory :concert do
+      name "Concert or Music Festival"
+    end
   end
 
   factory :supplementary_document do
