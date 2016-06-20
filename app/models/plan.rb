@@ -234,8 +234,6 @@ class Plan < ActiveRecord::Base
   end
 
   concerning :Notifications do
-    require 'pry'
-
     def send_notifications_on_new_comment(comment)
       stakeholders.reject{ |x| x == comment.user }.each do |stakeholder|
         stakeholder.notifications.create(subject: comment, key: "created")
