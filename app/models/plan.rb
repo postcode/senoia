@@ -122,6 +122,14 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  def total_plan_period
+    if start_date = end_date
+      start_date
+    else
+      "#{start_date} - #{end_date}"
+    end
+  end
+
   def attendance
     operation_periods.map(&:attendance).compact.sum
   end
