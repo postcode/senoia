@@ -254,6 +254,7 @@ class PlansController < ApplicationController
               :communication_phone,
               :event_contact,
               :venue_ids,
+              :approval_date,
               supplementary_documents_attributes: [
                 :id,
                 :name,

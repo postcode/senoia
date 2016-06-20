@@ -2,7 +2,7 @@
 <div class="row">
   <div class="large-12 columns pageTitle">
     <h1><%= @plan.name %></h1>
-    <p>Last updated: <%= @plan.updated_at.strftime("%B %e, %Y") %></p>
+    <p>Plan approved on: <%= @plan.approval_date.strftime("%B %e, %Y") unless @plan.approval_date.nil? %></p>
     <p>Created by: <%= @plan.creator.name %>&nbsp;<%= @plan.creator.email %>&nbsp;<%= @plan.creator.phone_number %></p>
   </div>
   <div class="large-12 columns plan_form">
@@ -193,12 +193,14 @@
     </div>
     <div>
     <div>
-    <h3>Supplemental Documents</h3>
-    <p>To download, right-click and select "Save Link As..."</p>
-      <% @plan.supplementary_documents.to_be_emailed.each do |doc|  %>
-        <%= link_to "#{doc.name}", doc.file.url, target: "_blank" %>
-      <% end %>
-    </div>
+    <% if @plan.supplementary_documents.to_be_emailed.present? %>
+      <h3>Supplemental Documents</h3>
+      <p>To download, right-click and select "Save Link As..."</p>
+        <% @plan.supplementary_documents.to_be_emailed.each do |doc|  %>
+          <%= link_to "#{doc.name}", doc.file.url, target: "_blank" %>
+        <% end %>
+      </div>
+    <% end %>
     <% if @plan.communication_plan.present? %>
       <dl>
         <% @plan.communication_plan.attributes.each do |name, value| %>

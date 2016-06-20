@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619174702) do
+ActiveRecord::Schema.define(version: 20160620124918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(version: 20160619174702) do
     t.string   "communication_phone"
     t.boolean  "staff_responsibility"
     t.boolean  "mci",                  default: false
+    t.datetime "approval_date"
   end
 
   create_table "post_event_treatment_reports", force: :cascade do |t|

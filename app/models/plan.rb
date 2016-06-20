@@ -71,8 +71,14 @@ class Plan < ActiveRecord::Base
       event :approve, :transitions_to => :approved, :if => Proc.new(&:all_comments_resolved?)
       event :request_review, :transitions_to => :under_review
       event :reject, :transitions_to => :rejected
+
     end
-    state :approved
+    state :approved do
+      on_entry do
+        update_attributes(approval_date: Time.current)
+        self
+      end
+    end
     state :rejected
   end
 
