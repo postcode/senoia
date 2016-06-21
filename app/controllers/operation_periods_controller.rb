@@ -9,6 +9,7 @@ class OperationPeriodsController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     @operation_period = @plan.operation_periods.create(operation_period_params)
     @count = @plan.operation_periods.count
+    @asset_text = AssetAllocationService.new(type: @plan.event_type, crowd_size: @operation_period.attendance).asset_text
   end
 
   def destroy
@@ -22,6 +23,7 @@ class OperationPeriodsController < ApplicationController
     authorize! :manage, @operation_period.plan
     @operation_period.update(operation_period_params)
     render nothing: true
+    @asset_text = AssetAllocationService.new(type: @plan.event_type, crowd_size: @operation_period.attendance).asset_text
   end
 
   private

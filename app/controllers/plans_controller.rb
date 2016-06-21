@@ -125,6 +125,8 @@ class PlansController < ApplicationController
       end
 
       @operation_period.save
+      @asset_text = AssetAllocationService.new(type: @plan.event_type, crowd_size: @operation_period.attendance).asset_text
+      p @asset_text
     end
 
     if params[:user].present?
