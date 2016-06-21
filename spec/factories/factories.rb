@@ -86,6 +86,10 @@ FactoryGirl.define do
     factory :concert do
       name "Concert or Music Festival"
     end
+
+    factory :sports do
+      name "Athletic or Sporting Event"
+    end
   end
 
   factory :supplementary_document do

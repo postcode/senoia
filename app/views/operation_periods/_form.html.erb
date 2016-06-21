@@ -151,6 +151,7 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
+                  <%= @asset_text[:mobile_team] unless @asset_text.blank? %>
                   <%= render 'plans/transport_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>

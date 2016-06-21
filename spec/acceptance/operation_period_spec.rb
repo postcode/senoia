@@ -41,6 +41,7 @@ feature "OperationPeriod" do
     scenario "admin can create a basic operation period" do
       create_operation_period(1000)
       expect(page).to have_content "You will need at least 1 First Aid Station."
+      expect(page).to have_content "It is recommended that you have 1 or more Mobile Teams."
     end
   end
 
