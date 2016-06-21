@@ -2,9 +2,72 @@
 <html>
   <head>
     <meta charset='utf-8' />
-    <%= wicked_pdf_stylesheet_link_tag "application" -%>
+    <%= stylesheet_link_tag wicked_pdf_asset_base64 "application" %>
+    <%= stylesheet_link_tag wicked_pdf_asset_base64 "main" %>
+    <%= stylesheet_link_tag wicked_pdf_asset_base64 "foundation_and_overrides" %>
     <%= wicked_pdf_javascript_include_tag "application" %>
   </head>
+  <style type="text/css">
+    div.alwaysbreak { page-break-before: always; }
+    div.nobreak:before { clear:both; }
+    div.nobreak { page-break-inside: avoid; }
+    /* The Grid ---------------------- */
+    .row { width: 940px; max-width: 100%; min-width: 768px; margin: 0 auto; }
+    .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
+    .row.large-collapse .column,
+    .row.large-collapse .columns { padding: 0; }
+    .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
+    .row .row.large-collapse { margin: 0; }
+
+    .column, .columns { float: left; min-height: 1px; padding: 0 15px; position: relative; }
+    .column.large-centered, .columns.large-centered { float: none; margin: 0 auto; }
+
+    [class*="column"] + [class*="column"]:last-child { float: right; }
+    [class*="column"] + [class*="column"].end { float: left; }
+
+    .large-1,
+    .row .large-1 { width: 8.33333%; }
+
+    .large-2,
+    .row .large-2 { width: 16.66667%; }
+
+    .large-3,
+    .row .large-3 { width: 25%; }
+
+    .large-4,
+    .row .large-4 { width: 33.33333%; }
+
+    .large-5,
+    .row .large-5 { width: 41.66667%; }
+
+    .large-6,
+    .row .large-6 { width: 50%; }
+
+    .large-7,
+    .row .large-7 { width: 58.33333%; }
+
+    .large-8,
+    .row .large-8 { width: 66.66667%; }
+
+    .large-9,
+    .row .large-9 { width: 75%; }
+
+    .large-10,
+    .row .large-10 { width: 83.33333%; }
+
+    .large-11,
+    .row .large-11 { width: 91.66667%; }
+
+    .large-12,
+    .row .large-12 { width: 100%; }
+
+    .center { text-align: center; }
+
+    .asset_container {
+
+    }
+
+  </style>
   <body>
     <div id="content">
       <% @plan.nil? ? @plan = plan : @plan %>
@@ -12,16 +75,21 @@
       <div class="row">
         <div class="large-12 columns pageTitle">
           <h1><%= @plan.name %></h1>
-          <p>Plan approved on: <%= @plan.approval_date.strftime("%B %e, %Y") unless @plan.approval_date.nil? %></p>
-          <p>Created by: <%= @plan.creator.name %>&nbsp;<%= @plan.creator.email %>&nbsp;<%= @plan.creator.phone_number %></p>
+          <% @plan.operation_periods.each do |op| %>
+            <h4>Operational Period  <%= op.formatted_start_date %>&nbsp;<%= op.formatted_start_time %></h4>
+          <% end %>
+          <span>Created by: <%= @plan.creator.name %>&nbsp;<%= @plan.creator.email %>&nbsp;<%= @plan.creator.phone_number %></span>
+          <span>Plan approved on: <%= @plan.approval_date.strftime("%B %e, %Y") unless @plan.approval_date.nil? %></span>
         </div>
         <div class="large-12 columns plan_form">
             <div class="row">
               <div class="large-8 columns">
-              <h3>Collaborators</h3>
+              <% if @plan.users.present? %>
+                <h3>Collaborators</h3>
                 <% @plan.users.each do |user| %>
                   <p><%= user.name %></p>
                 <% end %>
+              <% end %>
               </div>
             </div>
             <div class="row">
@@ -43,7 +111,7 @@
             <hr/>
             <div class="tabs-content">
               <% @plan.operation_periods.each.with_index do |period, index| %>
-               <h3>Operational Period  <%= period.formatted_start_date %>&nbsp;<%= period.formatted_start_time %></h3>
+               <h2>Operational Period  <%= period.formatted_start_date %>&nbsp;<%= period.formatted_start_time %></h2>
                 <div class="content operation-period-form active" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
                   <div class="row">
                     <div class="small-8 columns">
@@ -62,74 +130,54 @@
                   </div>
                     <div class="row">
                       <div class="large-12 columns">
-                        <fieldset>
-                          <legend>FIRST AID STATIONS</legend>
-                          <div class="row">
-                            <table class="first_aid_table">
-                              <thead>
-                                <th width="125">Name</th>
-                                <th width="75">Level</th>
-                                <th>MDs</th>
-                                <th>RNs</th>
-                                <th>EMTs</th>
-                                <th>AEDs</th>
-                                <th>Provider</th>
-                              </thead>
-                              <tbody>
-                                <% period.first_aid_stations.each do |first_aid_station| %>
-                                <tr>
-                                  <% %w(name location level md rn emt aed provider).each do |attribute| %>
-                                    <td>
-                                      <%= first_aid_station.send(attribute) %>
-                                    </td>
-                                  <% end %>
-                                    <% first_aid_station.asset_communications.each do |comms| %>
-                                      <td>
-                                        <%= comms.communication.name %>:&nbsp;<%= comms.description %>
-                                      </td>
-                                    <% end %>
-                                </tr>
-                                <% end %>
-                              </tbody>
-                            </div>
-                            </table>
-                        </fieldset>
+                      <h3>First Aid Stations</h3>
+                      <% period.first_aid_stations.each do |first_aid_station| %>
+                      <div class="asset_container">
+                        <h4><%= first_aid_station.name %></h4>
+                        <div>Level: <%= first_aid_station.level %></div>
+                        <div>MDs: <%= first_aid_station.md %></div>
+                        <div>RNs: <%= first_aid_station.rn %></div>
+                        <div>EMTs: <%= first_aid_station.emt %></div>
+                        <div>AEDs: <%= first_aid_station.aed %></div>
+                      </div>
+                        <% first_aid_station.asset_communications.each do |comms| %>
+                          <%= comms.communication.name %>:&nbsp;<%= comms.description %>
+                        <% end %>
+                      <% end %>
                       </div>
                     </div>
                     <div class="row">
                       <div class="large-12 columns">
-                        <fieldset>
-                          <legend>MOBILE TEAMS</legend>
-                          <div class="row">
-                            <table id="mobile_team_table">
-                              <thead>
-                                <th width="125">Name</th>
-                                <th width="75">Level</th>
-                                <th width="75">Type</th>
-                                <th>AEDs</th>
-                                <th>Provider</th>
-                              </thead>
-                              <tbody>
-                              <% period.mobile_teams.each do |mobile_team| %>
-                                <tr>
-                                  <% %w(name level mobile_team_type provider).each do |attribute| %>
-                                    <td>
-                                      <%= mobile_team.send(attribute) %>
-                                    </td>
-                                  <% end %>
-                                  <% mobile_team.asset_communications.each do |comms| %>
-                                    <td>
-                                      <%= comms.communication.name %>:&nbsp;<%= comms.description %>
-                                    </td>
-                                  <% end %>
-                                </tr>
-                                <% end %>
-                              </tbody>
-                            </table>
-                          </div>
-                        </fieldset>
+                      <h3>MOBILE TEAMS</h3>
+                      <div class="row">
+                        <table id="mobile_team_table">
+                          <thead>
+                            <th width="125">Name</th>
+                            <th width="75">Level</th>
+                            <th width="75">Type</th>
+                            <th>AEDs</th>
+                            <th>Provider</th>
+                          </thead>
+                          <tbody>
+                          <% period.mobile_teams.each do |mobile_team| %>
+                            <tr>
+                              <% %w(name level mobile_team_type provider).each do |attribute| %>
+                                <td>
+                                  <%= mobile_team.send(attribute) %>
+                                </td>
+                              <% end %>
+                              <% mobile_team.asset_communications.each do |comms| %>
+                                <td>
+                                  <%= comms.communication.name %>:&nbsp;<%= comms.description %>
+                                </td>
+                              <% end %>
+                            </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
+                  </div>
 
                     <div class="row">
                       <div class="large-12 columns">
