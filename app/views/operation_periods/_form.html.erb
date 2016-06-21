@@ -92,6 +92,7 @@
                 <th>Contact Phone</th> -->
               </thead>
               <tbody>
+                <%= @asset_text[:first_aid_station] unless @asset_text.blank? %>
                 <%= render 'plans/first_aid_stations_show', op: op, operation_period: op.object %>
               </tbody>
             </table>

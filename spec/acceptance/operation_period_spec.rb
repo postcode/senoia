@@ -31,18 +31,30 @@ feature "OperationPeriod" do
     end
   end
 
-  context "asset text is updated when an operation period is created" do
+  context "asset text is updated when an operation period is created", js: true do
     before do
       sign_in(admin)
-      visit "/plans/#{plan.id}"
-    end
-
-    scenario "admin can create a basic operation period", js: true do
-      plan.operation_periods << create(:operation_period, attendance: 1000)
       plan.event_type = create(:concert)
       plan.save
-      visit "/plans/#{plan.id}"
+     end
+
+    scenario "admin can create a basic operation period" do
+      create_operation_period(1000)
       expect(page).to have_content "You will need at least 1 First Aid Station."
     end
+  end
+
+  def create_operation_period(attendance)
+    visit "/plans/#{plan.id}"
+    within "#panel0" do
+      fill_in 'operation_period_start_date', with: '01/01/2020'
+      fill_in 'operation_period_start_time', with: '8:00am'
+      fill_in 'operation_period_end_date', with: '01/07/2020'
+      fill_in 'operation_period_end_time', with: '8:00pm'
+      fill_in 'operation_period_attendance', with: attendance
+    end
+
+    page.find('body').click
+    find('.save-operation-period', text: 'Save').trigger('click')
   end
 end
