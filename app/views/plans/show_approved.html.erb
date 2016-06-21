@@ -12,7 +12,7 @@
     <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
   </div>
   <div class="large-4 columns end">
-    <%= link_to "Email Approved Plan", send_approved_plan_plan_path(@plan), class: "button tiny", method: :post %>
+    <%= link_to "Email Approval Notification", send_approved_plan_plan_path(@plan), class: "button tiny", method: :post %>
   </div>
 </div>
   <%= render "plans/plan_state" %>

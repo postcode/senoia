@@ -370,18 +370,18 @@ feature "Plan" do
     end
 
     scenario "an admin can see the 'email approved plan' button" do
-      expect(page).to have_content 'Email Approved Plan'
+      expect(page).to have_content 'Email Approval Notification'
     end
 
     scenario "an admin can send an email to the plan approval group" do
-      click_link 'Email Approved Plan'
+      click_link 'Email Approval Notification'
       email = find_email(group_member.email)
       expect(email).to_not be_nil
       expect(email).to have_body_text("approved")
     end
 
     scenario "an admin can send an email to the plan approval group and it will contain a pdf of the plan" do
-      click_link 'Email Approved Plan'
+      click_link 'Email Approval Notification'
       email = find_email(group_member.email)
       expect(email).to_not be_nil
       expect(email.attachments.map(&:filename).select{ |name| name == "#{approved_plan.name}.pdf"}.include?("#{approved_plan.name}.pdf")).to eq true
