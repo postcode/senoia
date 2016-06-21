@@ -28,7 +28,9 @@
 //= require asset_update
 //= require cocoon
 //= require chosen-jquery
+//= require jquery.are-you-sure.js
 
 $(function(){
   $(document).foundation();
+  $('form.edit_plan').areYouSure();
 });
