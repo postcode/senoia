@@ -125,6 +125,8 @@ class PlansController < ApplicationController
       end
 
       @operation_period.save
+      @asset_text = AssetAllocationService.new(type: @plan.event_type, crowd_size: @operation_period.attendance).asset_text
+      p @asset_text
     end
 
     if params[:user].present?
@@ -301,6 +303,7 @@ class PlansController < ApplicationController
                                              :end_time,
                                              :service_area,
                                              :crowd_estimate,
+                                             :location,
                                              first_aid_stations_attributes: [
                                                                              :name,
                                                                              :level,
@@ -365,6 +368,7 @@ class PlansController < ApplicationController
                                                :plan_id,
                                                :service_area,
                                                :crowd_estimate,
+                                               :location,
                                                first_aid_stations: [
                                                                     id:[
                                                                         :name,

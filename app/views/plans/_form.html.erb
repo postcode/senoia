@@ -15,7 +15,8 @@
         </div>
       <% end %>
       <div class="row">
-        <div class="small-3 columns input_label">
+       <h1 data-step="1" data-intro="This is a tooltip!">Basic Usage</h1>
+        <div class="small-3 columns input_label" data-intro='Hello step one!'>
           <%= f.label :name, class: "inline", label: "Event Name" %>
         </div>
         <div class="small-5 columns end">
@@ -111,3 +112,6 @@
 
     <% end %>
 </div>
+<script type="text/javascript">
+  introJs().start();
+</script>

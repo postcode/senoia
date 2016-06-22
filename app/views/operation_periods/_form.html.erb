@@ -75,6 +75,21 @@
       </div>
     </div>
     <div class="row">
+      <div class="small-2 columns input_label">
+        <%= op.label :location, class: "inline" do %>
+          Event Footprint&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="The overall footprint for the operational period.">
+          <i class="fi-info"></i>
+          </span>
+        <% end %>
+      </div>
+      <div class="small-4 columns">
+        <%= op.input :location, label: false, as: :text, input_html: { id: "#{op.object.id}_location"} %>
+      </div>
+      <div class="large-4 columns">
+        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_location" %>
+      </div>
+    </div>
+    <div class="row">
       <div class="large-9 columns">
         <fieldset>
           <legend>FIRST AID STATIONS</legend>
@@ -92,6 +107,7 @@
                 <th>Contact Phone</th> -->
               </thead>
               <tbody>
+                <%= @asset_text[:first_aid_station] unless @asset_text.blank? %>
                 <%= render 'plans/first_aid_stations_show', op: op, operation_period: op.object %>
               </tbody>
             </table>
@@ -150,6 +166,7 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
+                  <%= @asset_text[:mobile_team] unless @asset_text.blank? %>
                   <%= render 'plans/transport_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>

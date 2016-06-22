@@ -15,7 +15,7 @@
     </div>
   </div>
   <% end %>
-  <div class="large-12 columns">
+  <div class="large-12 columns"  id="firstStop">
     <div class="row">
       <div class="large-8 columns pageTitle">
         <h1><%= f.input :name, label: false %></h1>
@@ -174,8 +174,13 @@
   <% end %>
 <% end %>
 
+<% if @plan.draft? %>
+   <%= render 'shared/joyride' %>
+<% end %>
+
 <script>
 $(document).ready(function() {
+  $(document).foundation().foundation('joyride', 'start');
   $('#plan_organization_id').chosen({
     width: "100%",
     enable_split_word_search: true,

@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require jquery.fileupload
 //= require foundation
+//= require foundation
 //= require wice_grid
 //= require foundation-datetimepicker
 //= require foundation-datepicker
@@ -27,5 +28,9 @@
 //= require asset_update
 //= require cocoon
 //= require chosen-jquery
+//= require jquery.are-you-sure.js
 
-$(function(){ $(document).foundation(); });
+$(function(){
+  $(document).foundation();
+  $('form.edit_plan').areYouSure();
+});
