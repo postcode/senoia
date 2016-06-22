@@ -38,7 +38,8 @@ class OperationPeriodsController < ApplicationController
               :start_time,
               :end_time,
               :service_area,
-              :crowd_estimate)
+              :crowd_estimate,
+              :location)
   end
 
 end
