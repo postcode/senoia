@@ -76,10 +76,15 @@
         <div class="large-12 columns pageTitle">
           <h1><%= @plan.name %></h1>
           <% @plan.operation_periods.each do |op| %>
-            <h4>Operational Period  <%= op.formatted_start_date %>&nbsp;<%= op.formatted_start_time %></h4>
+            <h4>Event Period:  <br/><%= @plan.total_plan_period %></h4>
           <% end %>
-          <span>Created by: <%= @plan.creator.name %>&nbsp;<%= @plan.creator.email %>&nbsp;<%= @plan.creator.phone_number %></span>
-          <span>Plan approved on: <%= @plan.approval_date.strftime("%B %e, %Y") unless @plan.approval_date.nil? %></span>
+          <div>Created by: </div>
+          <ul class="no-bullet">
+            <li class="fn"><%= @plan.creator.name %></li>
+            <li><%= @plan.creator.phone_number %></li>
+            <li class="email"><a href="#"><%= @plan.creator.email %></a></li>
+          </ul>
+          <div>Plan approved on: <%= @plan.approval_date.strftime("%B %e, %Y") unless @plan.approval_date.nil? %></div>
         </div>
         <div class="large-12 columns plan_form">
             <div class="row">
@@ -144,6 +149,14 @@
                         <div>RNs: <%= first_aid_station.rn %></div>
                         <div>EMTs: <%= first_aid_station.emt %></div>
                         <div>AEDs: <%= first_aid_station.aed %></div>
+                        <% if first_aid_station.provider.present? %>
+                        <div>Provider: </div>
+                        <ul class="vcard">
+                          <li class="fn"><%= first_aid_station.provider.name %></li>
+                          <li><%= first_aid_station.provider.phone_number %></li>
+                          <li class="email"><a href="#"><%= first_aid_station.provider.email %></a></li>
+                        </ul>
+                        <% end %>
                       </div>
                         <% first_aid_station.asset_communications.each do |comms| %>
                           <%= comms.communication.name %>:&nbsp;<%= comms.description %>

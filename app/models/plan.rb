@@ -123,10 +123,10 @@ class Plan < ActiveRecord::Base
   end
 
   def total_plan_period
-    if start_date = end_date
-      start_date
+    if start_date == end_date
+      "#{start_date.strftime('%l:%M%p on %A %B %e, %Y')}"
     else
-      "#{start_date} - #{end_date}"
+      "#{start_date.strftime('%l:%M%p on %A %B %e, %Y')} to #{end_date.strftime('%l:%M%p on %A %B %e, %Y')}"
     end
   end
 
