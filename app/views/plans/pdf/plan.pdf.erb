@@ -75,9 +75,7 @@
       <div class="row">
         <div class="large-12 columns pageTitle">
           <h1><%= @plan.name %></h1>
-          <% @plan.operation_periods.each do |op| %>
-            <h4>Event Period:  <br/><%= @plan.total_plan_period %></h4>
-          <% end %>
+          <h4>Event Period:  <br/><%= @plan.total_plan_period %></h4>
           <div>Created by: </div>
           <ul class="no-bullet">
             <li class="fn"><%= @plan.creator.name %></li>
@@ -92,7 +90,11 @@
               <% if @plan.users.present? %>
                 <h3>Collaborators</h3>
                 <% @plan.users.each do |user| %>
-                  <p><%= user.name %></p>
+                  <ul class="no-bullet">
+                    <li class="fn"><%= user.name %></li>
+                    <li><%= user.phone_number %></li>
+                    <li class="email"><a href="#"><%= user.email %></a></li>
+                  </ul>
                 <% end %>
               <% end %>
               </div>
@@ -114,9 +116,14 @@
               </div>
             </div>
             <hr/>
-            <div class="tabs-content">
+            <div>
               <% @plan.operation_periods.each.with_index do |period, index| %>
-               <h2>Operational Period  <%= period.formatted_start_date %>&nbsp;<%= period.formatted_start_time %></h2>
+              <% if index > 0 %>
+                <div class="alwaysbreak">
+                  <p>&nbsp;</p>
+                </div>
+              <% end %>
+               <h2>Operational Period  <%= index + 1 %></h2>
                 <div class="content operation-period-form active" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
                   <div class="row">
                     <div class="small-8 columns">
@@ -151,7 +158,7 @@
                         <div>AEDs: <%= first_aid_station.aed %></div>
                         <% if first_aid_station.provider.present? %>
                         <div>Provider: </div>
-                        <ul class="vcard">
+                        <ul class="no-bullet">
                           <li class="fn"><%= first_aid_station.provider.name %></li>
                           <li><%= first_aid_station.provider.phone_number %></li>
                           <li class="email"><a href="#"><%= first_aid_station.provider.email %></a></li>
@@ -179,11 +186,14 @@
                           <tbody>
                           <% period.mobile_teams.each do |mobile_team| %>
                             <tr>
-                              <% %w(name level mobile_team_type provider).each do |attribute| %>
+                              <% %w(name level mobile_team_type aed).each do |attribute| %>
                                 <td>
                                   <%= mobile_team.send(attribute) %>
                                 </td>
                               <% end %>
+                              <td>
+                                <%= mobile_team.provider.name unless mobile_team.provider.blank? %>
+                              </td>
                               <% mobile_team.asset_communications.each do |comms| %>
                                 <td>
                                   <%= comms.communication.name %>:&nbsp;<%= comms.description %>
@@ -211,11 +221,14 @@
                                 <tbody>
                                 <% period.transports.each do |transport| %>
                                   <tr>
-                                    <% %w(name location provider).each do |attribute| %>
+                                    <% %w(name location).each do |attribute| %>
                                       <td>
                                         <%= transport.send(attribute) %>
                                       </td>
                                     <% end %>
+                                    <td>
+                                      <%= transport.provider.name unless transport.provider.blank? %>
+                                    </td>
                                     <% transport.asset_communications.each do |comms| %>
                                       <td>
                                         <%= comms.communication.name %>:&nbsp;<%= comms.description %>
@@ -233,7 +246,7 @@
                     <div class="row">
                       <div class="large-12 columns">
                         <fieldset>
-                          <legend>DISPATCHES</legend>
+                          <legend>DISPATCHs</legend>
                           <div class="row">
                             <table id="dispatch_table">
                               <thead>
@@ -248,6 +261,9 @@
                                         <%= dispatch.send(attribute) %>
                                       </td>
                                     <% end %>
+                                      <td>
+                                        <%= dispatch.provider.name unless dispatch.provider.blank? %>
+                                      </td>
                                     <% dispatch.asset_communications.each do |comms| %>
                                     <td>
                                       <%= comms.communication.name %>:&nbsp;<%= comms.description %>

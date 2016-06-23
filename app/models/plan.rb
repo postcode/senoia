@@ -126,7 +126,7 @@ class Plan < ActiveRecord::Base
     if start_date == end_date
       "#{start_date.strftime('%l:%M%p on %A %B %e, %Y')}"
     else
-      "#{start_date.strftime('%l:%M%p on %A %B %e, %Y')} to #{end_date.strftime('%l:%M%p on %A %B %e, %Y')}"
+      "#{start_date.strftime('%l:%M%p on %A %B %e, %Y')} until #{end_date.strftime('%l:%M%p on %A %B %e, %Y')}"
     end
   end
 
