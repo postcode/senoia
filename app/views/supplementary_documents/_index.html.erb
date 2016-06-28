@@ -4,7 +4,7 @@
     <p>Use this section to add any additional supporting documents, e.g. maps, additional staff/contact lists, crisis plans, etc.</p>
   </div>
   <div class="large-7 columns">
-    <%= render partial: "supplementary_documents/supplementary_document", collection: parent.supplementary_documents, spacer_template: "supplementary_documents/spacer" %>
+    <%= render partial: "supplementary_documents/supplementary_document", collection: parent.supplementary_documents, spacer_template: "supplementary_documents/spacer", locals: { f: f } %>
     <% if can? :edit, parent %>
       <%= link_to [ :new, parent, :supplementary_document ], class: "button tiny radius", remote: true do %>
         <i class="fi-plus"></i> ADD DOCUMENT</a>

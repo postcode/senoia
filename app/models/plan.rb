@@ -48,7 +48,7 @@ class Plan < ActiveRecord::Base
 
   belongs_to :organization
 
-  accepts_nested_attributes_for :event_type, :operation_periods, :owner
+  accepts_nested_attributes_for :event_type, :operation_periods, :owner, :supplementary_documents
 
   validates :name, presence: true
   validates :event_type, presence: true

@@ -90,8 +90,8 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
 
     @plan.update(plan_params)
-    params[:supplementary_document].try(:each) do |doc|
-      @plan.supplementary_documents.find(doc[0]).update_attribute(:email, doc[1][:email])
+    plan_params[:supplementary_documents_attributes].try(:each) do |doc|
+      @plan.supplementary_documents.find_by_id(doc[1][:id]).update_attribute(:email, doc[1][:email])
     end
 
     plan_params[:operation_periods_attributes].try(:each) do |op|
@@ -340,6 +340,7 @@ class PlansController < ApplicationController
                                                                        :contact_phone,
                                                                        :planning_contact_email,
                                                                        :location,
+                                                                       :mobile_team_type,
                                                                        :_destroy
                                                                       ],
                                              dispatchs_attributes: [
