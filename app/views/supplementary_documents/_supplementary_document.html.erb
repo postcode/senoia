@@ -15,7 +15,7 @@
   </p>
     <% if current_user.admin? && f.present? %>
       <%= f.simple_fields_for :supplementary_documents, @doc do |d| %>
-        <%= d.input :email, as: :boolean, checked_value: true, unchecked_value: false %>
+        <%= d.input :email, as: :boolean, checked_value: true, unchecked_value: false, label: "Email with plan approval" %>
       <% end %>
     <% end %>
 </div>
