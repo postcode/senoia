@@ -13,7 +13,7 @@
       <%= link_to "Remove", supplementary_document, method: "DELETE", remote: true, data: { confirm: "Are you sure you want to remove this document?" } %>
     <% end %>
   </p>
-    <% if current_user.admin? %>
+    <% if current_user.admin? && f.present? %>
       <%= f.simple_fields_for :supplementary_documents, @doc do |d| %>
         <%= d.input :email, as: :boolean, checked_value: true, unchecked_value: false %>
       <% end %>

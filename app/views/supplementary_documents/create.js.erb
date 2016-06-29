@@ -1,6 +1,6 @@
 <% if @supplementary_document.valid? %>
 
-  $("#supplementary-document-container").replaceWith('<%= j render "index", parent: @parent %>');
+  $("#supplementary-document-container").replaceWith('<%= j render "index", parent: @parent, locals: { f: nil } %>');
   $("#supplementary-document-<%= @supplementary_document.id %>").effect("highlight", {}, 5000);
   $("[data-reveal]").foundation("reveal", "close");
 
