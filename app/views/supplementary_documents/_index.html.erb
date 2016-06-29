@@ -1,4 +1,4 @@
-<% defined?(f) ? @f == f : @f == nil %>
+<% defined?(f) == "local-variable" ? @f = f : @f = nil %>
 <fieldset id="supplementary-document-container">
   <legend>SUPPLEMENTARY DOCUMENTS</legend>
   <div class="large-12 columns end">
