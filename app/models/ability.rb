@@ -32,13 +32,16 @@ class Ability
     else
       cannot [:create, :edit, :destroy, :manage], Plan
 
-      can [:edit, :manage], Plan, :creator_id => user.id
-      can [:edit, :manage], Plan, :plan_users => { role: "edit", user_id: user.id }
+      can [:edit, :manage], Plan do |p|
+        p.creator_id == user.id
+        can [:create, :edit, :update, :read], Comment
+      end
       cannot [:edit, :manage], Plan do |p|
         user.id.blank?
         p.creator_id.blank?
       end
 
+      can [:edit, :manage], Plan, :plan_users => { role: "edit", user_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }

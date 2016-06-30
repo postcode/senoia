@@ -181,7 +181,7 @@ feature "Plan Permissions" do
         context state do
           let(:plan) { create(:plan, workflow_state: state) }
           include_examples "can view"
-          include_examples "can edit"
+          include_examples "can edit" unless state == :approved
           include_examples "can comment" unless state == :approved
         end
       end
