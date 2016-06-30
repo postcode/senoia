@@ -9,7 +9,7 @@
 #  created_at           :datetime
 #  updated_at           :datetime
 #  event_type_id        :integer
-#  permitter_id         :integer
+#  organization_id      :integer
 #  workflow_state       :string
 #  event_contact        :text
 #  responsibility       :boolean
@@ -22,6 +22,8 @@
 #  venue_id             :integer
 #  communication_phone  :string
 #  staff_responsibility :boolean
+#  mci                  :boolean          default(FALSE)
+#  approval_date        :datetime
 #
 
 require 'rails_helper'

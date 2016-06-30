@@ -9,7 +9,7 @@
 #  emt                    :integer
 #  aed                    :integer
 #  level                  :string
-#  provider_id            :integer
+#  organization_id        :integer
 #  lat                    :decimal(10, 6)
 #  lng                    :decimal(10, 6)
 #  created_at             :datetime         not null

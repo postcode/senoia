@@ -1,4 +1,3 @@
-
 window.senoia = {};
 
 window.senoia.initDatepickers = function() {

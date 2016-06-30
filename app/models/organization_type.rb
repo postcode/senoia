@@ -34,7 +34,7 @@ class OrganizationType < ActiveRecord::Base
     type = OrganizationType.find_by_name("EMS Provider")
     type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
     organizations.empty? ? organizations =[ NullOrganization.new] : organizations
-    type.add_other(organizations) unless organizations = [NullOrganization]
+    # type.add_other(organizations) unless organizations = [NullOrganization]
   end
 
   def add_other(list)
@@ -43,6 +43,7 @@ class OrganizationType < ActiveRecord::Base
       list.delete(other)
       list.push(other)
     end
+    list
   end
 
   class NullOrganization

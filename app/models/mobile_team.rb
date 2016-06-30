@@ -5,7 +5,7 @@
 #  id                     :integer          not null, primary key
 #  level                  :string
 #  aed                    :integer
-#  provider_id            :integer
+#  organization_id        :integer
 #  name                   :string
 #  lat                    :decimal(10, 6)
 #  lng                    :decimal(10, 6)

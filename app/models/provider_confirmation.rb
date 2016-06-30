@@ -3,7 +3,7 @@
 # Table name: provider_confirmations
 #
 #  id                 :integer          not null, primary key
-#  provider_id        :integer
+#  organization_id    :integer
 #  medical_asset_id   :integer
 #  medical_asset_type :string
 #  requester_id       :integer

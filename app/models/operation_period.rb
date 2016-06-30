@@ -15,6 +15,7 @@
 #  end_time                   :datetime
 #  service_area               :text
 #  crowd_estimate             :string
+#  location                   :text
 #
 
 class OperationPeriod < ActiveRecord::Base
