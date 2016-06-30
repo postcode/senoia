@@ -1,4 +1,3 @@
-<%= simple_form_for [@plan] do |f| %>
 <div class="large-12 columns">
   <div class="row">
     <div class="large-7 columns pageTitle">
@@ -15,12 +14,12 @@
   <div class="row">
     <div class="large-8 columns">
       <fieldset>
-        <legend>EVENT PLAN CREATOR</legend>   
+        <legend>EVENT PLAN CREATOR</legend>
         <% if @plan.creator.present? %>
           <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
-          <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>   
-        <% end %> 
-      </fieldset>   
+          <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>
+        <% end %>
+      </fieldset>
     </div>
     <div class="large-4 columns end">
       <%= render 'comment_form', plan: @plan, title: "contact" %>
@@ -46,14 +45,14 @@
                 <% end %>
               </tbody>
             </table>
-          </div>  
+          </div>
         </div>
       </fieldset>
     </div>
     <div class="large-4 columns end">
       <%= render 'comment_form', plan: @plan, title: "collaborators" %>
     </div>
-  </div>          
+  </div>
 </div>
 
 <div class="row">
@@ -107,8 +106,5 @@
 </div>
 
 <hr/>
-<%= simple_form_for @plan do |f| %>
-  <%= render "operation_periods_container", f: f %>
-<% end %>
-<% end %>
+<%= render "operation_periods_container" %>
 

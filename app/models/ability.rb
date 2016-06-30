@@ -39,7 +39,6 @@ class Ability
         p.creator_id.blank?
       end
 
-      p can? :manage, Plan
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
@@ -48,15 +47,15 @@ class Ability
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
-      can :read, Plan do |plan|
-       plan.approved?
-     end
       can :view, Plan, :plan_users => { role: "view", user_id: user.id }
       cannot :read, User
       cannot :index, User
       cannot :read, Provider
       cannot :read, Permitter
       cannot :read, NotificationGroup
+      can :read, Plan do |plan|
+       plan.approved?
+      end
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }

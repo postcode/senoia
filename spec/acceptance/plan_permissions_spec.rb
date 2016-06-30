@@ -5,7 +5,6 @@ feature "Plan Permissions" do
   shared_examples "can view" do
 
     background do
-      p plan.users_who_can_view
       visit "/plans/#{plan.id}"
     end
 
@@ -34,7 +33,7 @@ feature "Plan Permissions" do
     end
 
     scenario "can be edited" do
-      expect(page).to have_selector("input")
+      expect(page).to have_selector("input[value='#{plan.name}']")
     end
 
   end
@@ -46,7 +45,7 @@ feature "Plan Permissions" do
     end
 
     scenario "cannot be edited" do
-      expect(page).to_not have_selector("input")
+      expect(page).to_not have_selector("plan_event_type_id")
     end
 
   end
