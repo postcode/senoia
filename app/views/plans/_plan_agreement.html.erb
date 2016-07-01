@@ -78,7 +78,7 @@
           <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
         </div>
         <% end %>
-        <% if @plan.operation_periods.present? %>
+        <% if @plan.start_date.present? %>
           <% if @plan.supplementary_documents.staff_contact.empty? %>
             <p>Don't forget to upload your contact list by <%= (@plan.start_date - 1.week).strftime("%B %e, %Y") %></p>
           <% else %>
