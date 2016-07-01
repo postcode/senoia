@@ -15,7 +15,7 @@
     </div>
   </div>
   <% end %>
-  <div class="large-12 columns"  id="firstStop">
+  <div class="large-12 columns">
     <div class="row">
       <div class="large-8 columns pageTitle">
         <h1><%= f.input :name, label: false %></h1>
@@ -89,7 +89,7 @@
     <div class="small-3 columns input_label">
       <%= f.label :event_type %>
     </div>
-    <div class="small-5 columns">
+    <div id="stepThree" class="small-5 columns">
       <% if can? :edit, @plan %>
         <%= f.association :event_type,
         collection: EventType.all,
@@ -112,7 +112,7 @@
     <div class="small-3 columns input_label">
       <%= f.label :organization, class: "inline", required: true, label: "Permitting Agency" %>
     </div>
-    <div class="small-5 columns">
+    <div id="stepFour" class="small-5 columns">
       <%= f.association :organization,
                         collection: OrganizationType.find_permitters,
                         label_method: :name,
@@ -130,7 +130,7 @@
     <div class="small-3 columns input_label">
       <%= f.label :alcohol, class: "inline", required: true %>
     </div>
-    <div class="small-5 columns">
+    <div id="stepFive" class="small-5 columns">
       <%= f.input :alcohol, as: :radio_buttons, label: false %>
     </div>
     <div class="large-4 columns end">
@@ -141,7 +141,7 @@
     <div class="small-3 columns input_label">
       <%= f.label :venue_id, class: "inline", required: false %>
     </div>
-    <div class="small-5 columns input_label">
+    <div id="stepSix" class="small-5 columns input_label">
       <%= f.association :venues, input_html: {class: "chosen-input", placeholder: "Type a venue name", multiple: false}, label: false %>
     </div>
     <div class="large-4 columns end">
