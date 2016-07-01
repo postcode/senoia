@@ -13,6 +13,10 @@ class SupplementaryDocumentsController < ApplicationController
     @parent = parent
     authorize! :edit, @parent
     @supplementary_document = @parent.supplementary_documents.create(supplementary_document_params)
+    if @supplementary_document.staff_contact == true
+      @supplementary_document.email = false
+      @supplementary_document.save
+    end
   end
 
   def destroy
