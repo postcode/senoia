@@ -1,0 +1,20 @@
+<% unique_id = SecureRandom.hex(16) %>
+
+<div id="new-first-aid-station-<%= operation_period_index %>" class="new new-first-aid-station reveal-modal medium asset-modal first-aid-station-form" data-url="<%= url_for([ operation_period, :first_aid_stations ]) %>" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add First Aid Station</h3>
+  <%= render partial: "plans/first_aid_station/first_aid_station_form", locals: { operation_period: operation_period, asset: "first_aid_station" } %>
+
+  <script>
+  $(document).ready(function(){
+    $('#first_aid_station_organization_id').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+  })
+  </script>
+</div>
+
+
+

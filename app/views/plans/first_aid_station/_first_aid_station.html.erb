@@ -2,8 +2,7 @@
   <tr>
     <td><%= first_aid_station.name %></td>
     <td><%= first_aid_station.level %></td>
-    <td><%= first_aid_station.provider %>
-    </td>
+    <td><%= first_aid_station.provider.name %></td>
     <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
   </tr>
     <div id="first_aid_stations_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" class="new-first_aid_stations reveal-modal medium asset-modal first_aid_stations-form" data-url="<%= url_for([ operation_period, :first_aid_stations ]) %>">

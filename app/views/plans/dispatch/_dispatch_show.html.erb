@@ -1,0 +1,18 @@
+<% operation_period.dispatchs.each do |asset| %>
+<tr>
+  <td><%= asset.name %></td>
+  <td><%= asset.organization.name %></td>
+  <td>
+    <a href="#" data-reveal-id="dispatch-info-<%= asset.id %>">More Info</a>
+    <div id="dispatch-info-<%= asset.id %>" class="update-dispatch reveal-modal medium asset-modal dispatch-form" data-url="<%= url_for([ operation_period, asset ]) %>" data-reveal>
+      <h3>Dispatch Details</h3>
+      <%= render partial: "plans/dispatch/dispatch_form", locals: { operation_period: operation_period, asset: asset} %>
+    </div>
+  </td>
+  <td>
+    <%= op.simple_fields_for asset do |a| %>
+      <%= a.input :_destroy, as: :boolean, label: "Remove" %>
+    <% end %>
+  </td>
+</tr>
+<% end %>

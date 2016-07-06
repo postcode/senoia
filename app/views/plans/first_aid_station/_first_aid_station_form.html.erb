@@ -1,0 +1,27 @@
+<div class="modal-body">
+  <%= simple_fields_for asset do |a| %>
+    <%= a.input :name, required: false %>
+    <%= a.input :level, required: false, collection: FirstAidStation::LEVELS %>
+    <%= a.input :md, input_html: {value: 0}, required: false, label: "Number of MDs" %>
+    <%= a.input :rn, input_html: {value: 0}, required: false, label: "Number of RNs" %>
+    <%= a.input :emt, input_html: {value: 0}, required: false, label: "Number of EMTs" %>
+    <%= a.input :aed, input_html: {value: 0}, required: false, label: "Number of AEDs" %>
+    <%= a.input :location, required: false %>
+    <%= a.input :organization_id,
+    collection: OrganizationType.find_providers,
+    label_method: :name,
+    value_method: :id,
+    include_blank: false,
+    prompt: "Select a provider",
+    label: "Provider", required: false,
+    input_html: {class: "provider-select"} %>
+    <%= a.input :contact_name, required: false, label: 'Planning Contact Name', wrapper_html: { class: "provider-information" } %>
+    <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone', wrapper_html: { class: "provider-information" } %>
+    <%= a.input :planning_contact_email, required: false, label: 'Planning Contact Email', wrapper_html: { class: "provider-information" } %>
+  <% end %>
+</div>
+
+<div class="modal-footer">
+  <a class="button secondary right close-reveal-modal" style="position: relative; font-weight: normal; font-size: inherit;  top: 0;">Close</a>
+  <%= link_to "Confirm This Asset", "javascript:void(0)", class: "save-first-aid-station button primary save-modal" %>
+</div>
