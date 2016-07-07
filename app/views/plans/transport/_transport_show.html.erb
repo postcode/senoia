@@ -3,7 +3,7 @@
 <tr>
   <td><%= asset.name %></td>
   <td>
-    <%= asset.organization.name %>
+    <%= asset.organization.try :name %>
     <%= asset.try(:provider_confirmation) %>
   </td>
   <td>

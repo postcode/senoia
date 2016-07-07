@@ -87,10 +87,8 @@ feature "Plan" do
         visit "/plans/#{plan.id}"
 
         asset = send(asset_type)
-        asset_selector = "input[value='#{asset.name}']"
-        expect(page).to have_selector(asset_selector)
-
-        asset_row = find(asset_selector).find(:xpath, "../../..")
+        expect(page).to have_content(asset.name)
+        asset_row = find('td', :text => asset.name).find(:xpath, "..")
 
         within(asset_row) {
           check "Remove"
@@ -98,7 +96,7 @@ feature "Plan" do
 
         click_on "SAVE DRAFT"
 
-        expect(page).to_not have_selector(asset_selector)
+        expect(page).to_not have_content(asset.name)
       end
     end
   end
@@ -311,17 +309,10 @@ feature "Plan" do
       cloned_attendance = find(".plan_operation_periods_attendance input").value
       expect(cloned_attendance).to eq plan.operation_periods.first.attendance.to_s
 
-      cloned_first_aid_station_name = find(".plan_operation_periods_first_aid_stations_name input").value
-      expect(cloned_first_aid_station_name).to eq @operation_period.first_aid_stations.first.name
-
-      cloned_mobile_team_name = find(".plan_operation_periods_mobile_teams_name input").value
-      expect(cloned_mobile_team_name).to eq @operation_period.mobile_teams.first.name
-
-      cloned_transport_name = find(".plan_operation_periods_transports_name input").value
-      expect(cloned_transport_name).to eq @operation_period.transports.first.name
-
-      cloned_dispatch_name = find(".plan_operation_periods_dispatchs_name input").value
-      expect(cloned_dispatch_name).to eq @operation_period.dispatchs.first.name
+      expect(page).to have_content(@operation_period.first_aid_stations.first.name)
+      expect(page).to have_content(@operation_period.mobile_teams.first.name)
+      expect(page).to have_content(@operation_period.transports.first.name)
+      expect(page).to have_content(@operation_period.dispatchs.first.name)
     end
 
   end
@@ -353,7 +344,7 @@ feature "Plan" do
 
       visit "/plans/#{plan.id}"
       find("a[href='#panel2']").click
-      expect(page).to have_selector("#panel2 input[value='#{first_aid_station_name}']")
+      expect(page).to have_content(first_aid_station_name)
     end
   end
 

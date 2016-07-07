@@ -66,18 +66,22 @@ FactoryGirl.define do
 
   factory :first_aid_station do
     name Faker::Lorem.words(3).join(" ")
+    organization { FactoryGirl.create(:organization) }
   end
 
   factory :mobile_team do
     name Faker::Lorem.words(3).join(" ")
+    organization { FactoryGirl.create(:organization) }
   end
 
   factory :transport do
     name Faker::Lorem.words(3).join(" ")
+    organization { FactoryGirl.create(:organization) }
   end
 
   factory :dispatch do
     name Faker::Lorem.words(3).join(" ")
+    organization { FactoryGirl.create(:organization) }
   end
 
   factory :event_type do

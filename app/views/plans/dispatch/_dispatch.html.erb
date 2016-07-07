@@ -2,7 +2,7 @@
   <tr>
     <td><%= dispatch.name %></td>
     <td><%= dispatch.level %></td>
-    <td><%= dispatch.organization.name %>
+    <td><%= dispatch.organization.try :name %>
     </td>
     <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
   </tr>

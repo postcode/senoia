@@ -3,7 +3,7 @@
   <tr>
     <td><%= asset.name %></td>
     <td><%= asset.level %></td>
-    <td><%= asset.organization.name %></td>
+    <td><%= asset.organization.try :name %></td>
     <td>
       <a href="#" data-reveal-id="first-aid-info-<%= asset.id %>">More Info</a>
       <div id="first-aid-info-<%= asset.id %>" class="reveal-modal small first-aid-station-form" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" data-url="<%= url_for([ operation_period, asset ]) %>">

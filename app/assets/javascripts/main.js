@@ -101,18 +101,25 @@ $(function() {
     $("body").on("click", button, function(event) {
       var formElement = "." + asset + "-form";
       var $form = $(this).closest(formElement);
-      console.log("Found form", formElement, $form);
+      $form.find('.error').fadeOut();
       var data = $form.find(":input").serialize();
       var url = $form.data().url;
 
+      function error() {
+        console.log("Error detected", $form, $form.find('.error'));
+        $form.find('.error').removeClass('hide').fadeIn();
+      }
+
       if ($form.hasClass('new')) {
-        $.post(url, data);
+        $.post(url, data)
+          .fail(error);
       } else {
         $.ajax({
           method: "PUT",
           url: url,
           data: data,
-          success: document.location.reload(true)
+          success: document.location.reload(true),
+          error: error
         });
       }
     });
