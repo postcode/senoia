@@ -1,4 +1,5 @@
-<% operation_period.transports.each do |asset| %>
+<%= op.simple_fields_for :transports do |a| %>
+<% asset = a.object %>
 <tr>
   <td><%= asset.name %></td>
   <td>
@@ -9,14 +10,12 @@
     <a href="#" data-reveal-id="transport-info-<%= asset.id %>">More Info</a>
     <div id="transport-info-<%= asset.id %>" class="save transport-form reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" data-url="<%= url_for([ operation_period, asset ]) %>">
         <h3>Transport Details</h3>
-        <%= render partial: "plans/transport/transport_form", locals: { operation_period: operation_period, asset: asset} %>
+        <%= render partial: "plans/transport/transport_form", locals: { asset: asset} %>
         </div>
       </div>
   </td>
   <td>
-    <%= op.simple_fields_for asset do |a| %>
-      <%= a.input :_destroy, as: :boolean, label: "Remove" %>
-    <% end %>
+    <%= a.input :_destroy, as: :boolean, label: "Remove" %>
   </td>
 </tr>
 <% end %>

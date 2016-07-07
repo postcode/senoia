@@ -624,6 +624,17 @@ select.provider-dropdown {
     border-top: none;
   }
 
+  table {
+    width: 100%;
+  }
+
+  table tbody tr > td > div.input {
+    // Nix the margin on the first inputs in each row
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-align: right;
+  }
+
 }
 
 div.input.radio_buttons {
