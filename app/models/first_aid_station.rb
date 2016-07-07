@@ -27,5 +27,5 @@ class FirstAidStation < ActiveRecord::Base
   has_many :asset_communications
   has_many :communications, through: :asset_communications
 
-  LEVELS = [['ALS', 'ALS'], ['BLS', 'BLS'], ['Sobering', 'Sobering']]
+  LEVELS = ["ALS", "BLS", "Sobering"]
 end

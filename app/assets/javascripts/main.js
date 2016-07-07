@@ -106,7 +106,6 @@ $(function() {
       var url = $form.data().url;
 
       function error() {
-        console.log("Error detected", $form, $form.find('.error'));
         $form.find('.error').removeClass('hide').fadeIn();
       }
 
