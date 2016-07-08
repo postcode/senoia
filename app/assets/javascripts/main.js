@@ -33,8 +33,10 @@ $(function() {
     $(this).next('.communication-form').toggle()
   })
 
+  // Enable the save button after an operational period date is set
   $("body").delegate('.dateSelect', 'hide', function(event) {
-    if ($("#operation_period_start_date").val().length > 0 && $("#operation_period_start_date").val().length > 0) {
+    var $this = $(this);
+    if ($this.val().length > 0) {
       $(".save-operation-period").prop("disabled", false)
                                  .removeClass("disabled");
     } else {

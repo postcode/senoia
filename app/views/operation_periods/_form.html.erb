@@ -1,5 +1,5 @@
 <%= f.simple_fields_for :operation_periods, operation_period do |op| %>
-  <div class="content <%= "active" if count == 1 %> <%= "operation-period-#{op.object.id}" %>" id="panel<%= count %>">
+  <div class="content operation-period <%= "active" if count == 1 %> <%= "operation-period-#{op.object.id}" %>" id="panel<%= count %>">
 
     <% if op.object.persisted? %>
       <div class="row">
@@ -20,7 +20,7 @@
         <%= op.label :start_date, class: "inline", label: "START" %>
       </div>
       <div class="small-2 columns">
-        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: op.object.formatted_start_date %>
+        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect startDate", value: op.object.formatted_start_date %>
       </div>
       <div class="small-2 columns">
         <%= op.input_field :start_time, label: false, placeholder: "Time", as: "string", class: "time-input", value: op.object.formatted_start_time %>
@@ -34,7 +34,7 @@
         <%= op.label :end_date, class: "inline", label: "END" %>
       </div>
       <div class="small-2 columns">
-        <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect", value: op.object.formatted_end_date %>
+        <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect endDate", value: op.object.formatted_end_date %>
       </div>
       <div class="small-2 columns">
         <%= op.input_field :end_time, label: false, placeholder: "Time", as: "string", class: "time-input", value: op.object.formatted_end_time %>

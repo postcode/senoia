@@ -4,7 +4,19 @@
 $(".tabs-content").append("<%= j render(partial: 'plans/operation_period', locals: { plan_form: plan_form, count: @count } )%>")
 $(".tabs").append('<li class="tab-title"><a href="#panel<%= @count %>">Operational Period <%= @count %></a></li>')
 $('.dateSelect').fdatepicker({
-    format: 'mm/dd/yyyy'
-  });
+  format: 'mm/dd/yyyy'
+});
+
+// When the start date is changed, update the end date.
+$('.operation-period-form.active #operation_period_start_date').change(function() {
+  var $this = $(this);
+  var $endDate = $('.operation-period-form.active #operation_period_end_date');
+  console.log($this, $endDate);
+  if ($endDate.val() === '') {
+    $endDate.val($this.val());
+  }
+  console.log("End date", $endDate);
+});
+
 window.senoia.initDatepickers()
 $(".tab-title:last a").trigger("click");
