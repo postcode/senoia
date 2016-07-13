@@ -108,13 +108,13 @@
               </thead>
               <tbody>
                 <%= @asset_text[:first_aid_station] unless @asset_text.blank? %>
-                <%= render 'plans/first_aid_stations_show', op: op, operation_period: op.object %>
+                <%= render 'plans/first_aid_station/first_aid_stations_show', op: op, operation_period: op.object %>
               </tbody>
             </table>
 
             <div class="large-12 columns">
               <a id="new_first_aid_station" class="button primary tiny radius" href="#" data-reveal-id="new-first-aid-station-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD FIRST AID STATION</a>
-              <%= render partial: 'plans/new_first_aid_station', :locals => { :operation_period => op.object, :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
+              <%= render partial: 'plans/first_aid_station/new_first_aid_station', :locals => { :operation_period => op.object, :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
             </div>
           </div>
         </fieldset>
@@ -140,12 +140,12 @@
               </thead>
               <tbody>
                 <%= @asset_text[:mobile_team] unless @asset_text.blank? %>
-                <%= render 'plans/mobile_team_show', op: op, operation_period: op.object %>
+                <%= render 'plans/mobile_team/mobile_team_show', op: op, operation_period: op.object %>
               </tbody>
             </table>
             <div class="large-12 columns">
               <a id="new_mobile_team" class="button primary tiny radius" href="#" data-reveal-id="new-mobile-team-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD MOBILE TEAM</a>
-              <%= render partial: 'plans/new_mobile_team', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
+              <%= render partial: 'plans/mobile_team/new_mobile_team', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
             </div>
           </div>
         </fieldset>
@@ -167,12 +167,12 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
-                  <%= render 'plans/transport_show', op: op, operation_period: op.object %>
+                  <%= render 'plans/transport/transport_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>
               <div class="large-12 columns">
                 <a id="new_transport" class="button primary tiny radius" href="#" data-reveal-id="new-transport-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD TRANSPORT</a>
-                <%= render partial: 'plans/new_transport', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
+                <%= render partial: 'plans/transport/new_transport', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
               </div>
             <% end %>
           </div>
@@ -194,12 +194,12 @@
                   <th>Provider</th>
                 </thead>
                 <tbody>
-                  <%= render 'plans/dispatch_show', op: op, operation_period: op.object %>
+                  <%= render 'plans/dispatch/dispatch_show', op: op, operation_period: op.object %>
                 </tbody>
               </table>
               <div class="large-12 columns">
                 <a id="new_dispatch" class="button primary tiny radius" href="#" data-reveal-id="new-dispatch-<%= count - 1 %>"><i class="fi-plus"></i>&nbsp;ADD DISPATCH</a>
-                <%= render partial: 'plans/new_dispatch', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
+                <%= render partial: 'plans/dispatch/new_dispatch', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
               </div>
             <% end %>
           </div>

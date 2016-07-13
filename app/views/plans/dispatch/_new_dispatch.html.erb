@@ -1,0 +1,18 @@
+<% unique_id = SecureRandom.hex(16) %>
+
+<div id="new-dispatch-<%= operation_period_index %>" class="new new-dispatch reveal-modal medium asset-modal dispatch-form" data-url="<%= url_for([ operation_period, :dispatches ]) %>" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add Dispatch</h3>
+  <%= render partial: "plans/dispatch/dispatch_form", locals: { operation_period: operation_period, asset: "dispatch" } %>
+
+  <script>
+  $(document).ready(function(){
+    $('#dispatch_organization_id').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+  });
+  </script>
+</div>
+

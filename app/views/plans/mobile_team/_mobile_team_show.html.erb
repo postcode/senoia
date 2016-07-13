@@ -1,0 +1,22 @@
+<%= op.simple_fields_for :mobile_teams do |a| %>
+<% asset = a.object %>
+<tr>
+  <td><%= asset.name %></td>
+  <td><%= asset.level %></td>
+  <td>
+    <%= asset.organization.try :name %>
+    <%= asset.try(:provider_confirmation) %>
+  </td>
+  <td>
+    <a href="#" data-reveal-id="mobile-info-<%= asset.id %>">More Info</a>
+    <div id="mobile-info-<%= asset.id %>" class="save reveal-modal small mobile-team-form" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" data-url="<%= url_for([ operation_period, asset ]) %>">
+      <h3>Mobile Team Details</h3>
+      <%= render partial: "plans/mobile_team/mobile_team_form", locals: { asset: asset} %>
+    </div>
+  </td>
+  <td>
+    <%= a.input :_destroy, as: :boolean, label: "Remove" %>
+  </td>
+</tr>
+<% end %>
+

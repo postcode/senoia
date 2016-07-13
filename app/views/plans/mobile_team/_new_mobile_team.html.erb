@@ -1,0 +1,18 @@
+<% unique_id = SecureRandom.hex(16) %>
+
+<div id="new-mobile-team-<%= operation_period_index %>" class="new new-mobile-team reveal-modal medium asset-modal mobile-team-form" data-url="<%= url_for([ operation_period, :mobile_teams ]) %>" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add Mobile Team</h3>
+  <%= render partial: "plans/mobile_team/mobile_team_form", locals: { operation_period: operation_period, asset: "mobile_team" } %>
+
+  <script>
+  $(document).ready(function(){
+    $('#mobile_team_organization_id').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+  })
+  </script>
+</div>
+

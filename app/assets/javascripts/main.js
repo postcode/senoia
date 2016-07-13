@@ -9,7 +9,7 @@ window.senoia.initDatepickers = function() {
     format: 'mm/dd/yyyy'
   });
   $('.time-input').timepicker();
-}
+};
 
 $(function() {
 
@@ -99,28 +99,28 @@ $(function() {
   $.each(assets, function(index, asset) {
     var button = ".save-" + asset
     $("body").on("click", button, function(event) {
-      var formElement = "." + asset + "-form"
-      var form = $(this).closest(formElement);
-      var data = form.find(":input").serialize();
-      var url = form.data().url
-      $.post(url, data);
-    });
-  })
+      var formElement = "." + asset + "-form";
+      var $form = $(this).closest(formElement);
+      $form.find('.error').fadeOut();
+      var data = $form.find(":input").serialize();
+      var url = $form.data().url;
 
-  $.each(assets, function(index, asset) {
-    var button = ".update-" + asset
-    $("body").on("click", button, function(event) {
-      var formElement = "." + asset + "-form"
-      var form = $(this).closest(formElement);
-      var data = form.find(":input").serialize();
-      console.log(data)
-      var url = form.data().url
-      $.ajax({
-        method: "PUT",
-        url: url,
-        data: data,
-        success: document.location.reload(true)
-      });
+      function error() {
+        $form.find('.error').removeClass('hide').fadeIn();
+      }
+
+      if ($form.hasClass('new')) {
+        $.post(url, data)
+          .fail(error);
+      } else {
+        $.ajax({
+          method: "PUT",
+          url: url,
+          data: data,
+          success: document.location.reload(true),
+          error: error
+        });
+      }
     });
   })
 

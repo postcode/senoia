@@ -1,0 +1,17 @@
+<% unique_id = SecureRandom.hex(16) %>
+
+<div id="new-transport-<%= operation_period_index %>" class="new new-transport reveal-modal medium asset-modal transport-form" data-url="<%= url_for([ operation_period, :transports ]) %>" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Add Transport</h3>
+  <%= render partial: "plans/transport/transport_form", locals: { operation_period: operation_period, asset: "transport" } %>
+
+  <script>
+  $(document).ready(function(){
+    $('#transport_organization_id').chosen({
+      width: "100%",
+      enable_split_word_search: true,
+      search_contains: true
+    });
+  })
+  </script>
+</div>

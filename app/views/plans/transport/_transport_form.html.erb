@@ -1,0 +1,22 @@
+<div class="modal-body">
+  <%= simple_fields_for asset do |a| %>
+    <%= a.input :name, required: false %>
+    <%= a.input :location, required: false %>
+    <%= a.input :organization_id,
+    collection: OrganizationType.find_providers,
+    label_method: :name,
+    value_method: :id,
+    include_blank: false,
+    prompt: "Select a provider",
+    label: "Provider", required: false %>
+    <%= a.input :contact_name, required: false, label: 'Planning Contact Name', wrapper_html: { class: "provider-information" } %>
+    <%= a.input :contact_phone, required: false, label: 'Planning Contact Phone', wrapper_html: { class: "provider-information" } %>
+    <%= a.input :planning_contact_email, required: false, label: 'Planning Contact Email', wrapper_html: { class: "provider-information" } %>
+  <% end %>
+</div>
+<div class="modal-footer">
+  <a class="button secondary right close-reveal-modal" style="position: relative; font-weight: normal; font-size: inherit; top: 0;">Close</a>
+  <%= link_to "Confirm This Asset", "javascript:void(0)", class: "save-transport button primary save-modal disabled" %>
+  <div class="error hide">There was a problem adding this asset. Please make sure
+  you've filled in all the fields.</div>
+</div>

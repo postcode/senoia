@@ -1,0 +1,17 @@
+<%= op.simple_fields_for :dispatchs do |a| %>
+<% asset = a.object %>
+<tr>
+  <td><%= asset.name %></td>
+  <td><%= asset.organization.name %></td>
+  <td>
+    <a href="#" data-reveal-id="dispatch-info-<%= asset.id %>">More Info</a>
+    <div id="dispatch-info-<%= asset.id %>" class="update-dispatch reveal-modal medium asset-modal dispatch-form" data-url="<%= url_for([ operation_period, asset ]) %>" data-reveal>
+      <h3>Dispatch Details</h3>
+      <%= render partial: "plans/dispatch/dispatch_form", locals: { asset: asset} %>
+    </div>
+  </td>
+  <td>
+    <%= a.input :_destroy, as: :boolean, label: "Remove" %>
+  </td>
+</tr>
+<% end %>

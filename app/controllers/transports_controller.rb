@@ -11,11 +11,12 @@ class TransportsController < ApplicationController
   def update
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @transport = Transport.find(params[:id])
-    params[:transport][:communications].each do |communication|
-      if params[:transport][:communication_description][communication[0]].present?
-        @transport.asset_communications.create(communication_id: communication[1], transport_id: @transport.id, description: params[:transport][:communication_description][communication[0]])
-      end
-    end
+    @transport.update(transport_params)
+    # params[:transport][:communications].each do |communication|
+    #   if params[:transport][:communication_description][communication[0]].present?
+    #     @transport.asset_communications.create(communication_id: communication[1], transport_id: @transport.id, description: params[:transport][:communication_description][communication[0]])
+    #   end
+    # end
     @transport.save!
   end
 
@@ -27,7 +28,7 @@ class TransportsController < ApplicationController
       .permit([
                :name,
                :level,
-               :organziation_id,
+               :organization_id,
                :contact_name,
                :contact_phone,
                :planning_contact_email,

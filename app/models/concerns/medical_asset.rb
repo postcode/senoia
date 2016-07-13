@@ -7,6 +7,8 @@ module MedicalAsset
     has_one :plan, through: :operation_period
     has_one :provider_confirmation, as: :medical_asset, dependent: :destroy
 
+    default_scope { order('created_at ASC') }
+
     def create_provider_confirmation
       super(organization: self.organization, requester: Current.user)
     end

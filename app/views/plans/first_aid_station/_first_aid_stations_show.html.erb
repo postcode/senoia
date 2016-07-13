@@ -1,0 +1,18 @@
+<%= op.simple_fields_for :first_aid_stations do |a| %>
+<% asset = a.object %>
+  <tr>
+    <td><%= asset.name %></td>
+    <td><%= asset.level %></td>
+    <td><%= asset.organization.try :name %></td>
+    <td>
+      <a href="#" data-reveal-id="first-aid-info-<%= asset.id %>">More Info</a>
+      <div id="first-aid-info-<%= asset.id %>" class="reveal-modal small first-aid-station-form" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" data-url="<%= url_for([ operation_period, asset ]) %>">
+        <h3>First Aid Station Details</h3>
+        <%= render partial: "plans/first_aid_station/first_aid_station_form", locals: { asset: asset} %>
+      </div>
+    </td>
+    <td>
+      <%= a.input :_destroy, as: :boolean, label: "Remove" %>
+    </td>
+<% end %>
+
