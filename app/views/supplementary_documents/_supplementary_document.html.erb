@@ -1,6 +1,6 @@
 <% @doc = supplementary_document %>
 <% if !supplementary_document.staff_contact || (can? :manage, supplementary_document.parent) %>
-  <div class="supplementary-document" id="supplementary-document-<%= supplementary_document.id %>">
+  <div class="supplementary-document row" id="supplementary-document-<%= supplementary_document.id %>">
     <h4>
       <%= supplementary_document.name %>
     </h4>

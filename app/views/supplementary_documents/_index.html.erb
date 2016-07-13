@@ -1,21 +1,23 @@
-<% defined?(f) == "local-variable" ? @f = f : @f = nil %>
-<fieldset id="supplementary-document-container">
-  <legend>SUPPLEMENTARY DOCUMENTS</legend>
-  <div class="large-12 columns end">
-    <p>Use this section to add any additional supporting documents, e.g. maps, additional staff/contact lists, crisis plans, etc.</p>
-  </div>
-  <div class="large-7 columns">
-    <%= render partial: "supplementary_documents/supplementary_document", collection: parent.supplementary_documents, spacer_template: "supplementary_documents/spacer", locals: { f: @f } %>
-    <% if can? :edit, parent %>
-      <%= link_to [ :new, parent, :supplementary_document ], class: "button tiny radius", remote: true do %>
-        <i class="fi-plus"></i> ADD DOCUMENT</a>
-      <% end %>
-    <% end %>
-    <div id="supplementary-document-modal"></div>
-  </div>
-  <% if parent.is_a?(Plan) %>
-    <div class="large-4 columns end">
-      <%= render 'plans/comment_form', plan: parent, title: "documents" %>
+<div class="row">
+  <% defined?(f) == "local-variable" ? @f = f : @f = nil %>
+  <fieldset id="supplementary-document-container">
+    <legend>SUPPLEMENTARY DOCUMENTS</legend>
+    <div class="large-12 columns end">
+      <p>Use this section to add any additional supporting documents, e.g. maps, additional staff/contact lists, crisis plans, etc.</p>
     </div>
-  <% end %>
-</fieldset>
+    <div class="large-7 columns">
+      <%= render partial: "supplementary_documents/supplementary_document", collection: parent.supplementary_documents.not_staff_contact, spacer_template: "supplementary_documents/spacer", locals: { f: @f } %>
+      <% if can? :edit, parent %>
+        <%= link_to [ :new, parent, :supplementary_document ], class: "button tiny radius", remote: true do %>
+          <i class="fi-plus"></i> ADD DOCUMENT</a>
+        <% end %>
+      <% end %>
+      <div id="supplementary-document-modal"></div>
+    </div>
+    <% if parent.is_a?(Plan) %>
+      <div class="large-4 columns end">
+        <%= render 'plans/comment_form', plan: parent, title: "documents" %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>

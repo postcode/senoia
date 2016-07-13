@@ -152,6 +152,7 @@
 
   <%= render 'operation_periods_container', f: f %>
   <%= render 'plan_agreement', plan: @plan, f: f %>
+  <%= render "supplementary_documents/index", parent: @plan, f: f %>
 
    <div class="row">
       <fieldset>

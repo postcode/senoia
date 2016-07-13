@@ -1,0 +1,23 @@
+<% if can? :edit, parent %>
+  <% if parent.supplementary_documents.staff_contact.present? %>
+    <div class="supplementary-document row" id="supplementary-document-<%= supplementary_documents.staff_contact.first.id %>">
+      <h4>
+        <%= supplementary_documents.staff_contact.first.name %>
+      </h4>
+      <p>
+        <%= simple_format supplementary_documents.staff_contact.first.description %>
+      </p>
+      <p>
+        <%= link_to "View", supplementary_documents.staff_contact.first.file.url, target: "_blank" %>
+        <% if can? :edit, supplementary_documents.staff_contact.first.parent %>
+          &middot;
+          <%= link_to "Remove", supplementary_documents.staff_contact.first, method: "DELETE", remote: true, data: { confirm: "Are you sure you want to remove this document?" } %>
+        <% end %>
+      </p>
+    </div>
+  <% else %>
+    <%= link_to [ :new, parent, :supplementary_document, staff: true ], class: "button tiny radius", remote: true do %>
+      <i class="fi-plus"></i> ADD DOCUMENT</a>
+    <% end %>
+  <% end %>
+<% end %>

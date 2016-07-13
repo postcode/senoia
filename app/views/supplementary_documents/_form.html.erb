@@ -7,9 +7,7 @@
         <%= f.input :name, as: :string %>
         <%= f.input :description %>
         <%= f.input :file, as: :file, label: "File", required: true %>
-        <% if parent.supplementary_documents.staff_contact.empty? %>
-          <%= f.input :staff_contact, as: :boolean, label: "Staff Contact List" %>
-        <% end %>
+        <%= f.input :staff_contact, as: :hidden, input_html: { value: staff_file } %>
         <%= link_to "Save", "javascript:void(0);", class: "js-submit button tiny radius" %>
       <% end %>
     </div>

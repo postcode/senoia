@@ -1,6 +1,7 @@
 class SupplementaryDocumentsController < ApplicationController
   def new
     @parent = parent
+    @staff_contact = true if params[:staff] == "true"
     authorize! :edit, @parent
     @s3_direct_post =
       AWS::S3.new.buckets[ENV["S3_BUCKET"]]

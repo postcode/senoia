@@ -25,6 +25,7 @@ class SupplementaryDocument < ActiveRecord::Base
 
   scope :to_be_emailed, -> { where(email: true) }
   scope :staff_contact, -> { where(staff_contact: true) }
+  scope :not_staff_contact, -> { where(staff_contact: false) }
 
   def file=(f)
     # The test environment will send an UploadedFile

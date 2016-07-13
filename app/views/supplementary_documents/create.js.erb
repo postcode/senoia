@@ -2,6 +2,7 @@
 
   $("#supplementary-document-container").replaceWith('<%= j render "index", parent: @parent, locals: { f: nil } %>');
   $("#supplementary-document-<%= @supplementary_document.id %>").effect("highlight", {}, 5000);
+  $('#planAgreement').html('<%= j render "plans/plan_agreement", plan: @parent %>')
   $("[data-reveal]").foundation("reveal", "close");
 
 <% else %>
