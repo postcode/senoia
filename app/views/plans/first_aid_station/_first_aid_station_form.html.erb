@@ -2,10 +2,10 @@
   <%= simple_fields_for asset do |a| %>
     <%= a.input :name, required: false %>
     <%= a.input :level, required: false, collection: FirstAidStation::LEVELS %>
-    <%= a.input :md, input_html: {value: 0}, required: false, label: "Number of MDs" %>
-    <%= a.input :rn, input_html: {value: 0}, required: false, label: "Number of RNs" %>
-    <%= a.input :emt, input_html: {value: 0}, required: false, label: "Number of EMTs" %>
-    <%= a.input :aed, input_html: {value: 0}, required: false, label: "Number of AEDs" %>
+    <%= a.input :md, required: false, label: "Number of MDs" %>
+    <%= a.input :rn, required: false, label: "Number of RNs" %>
+    <%= a.input :emt, required: false, label: "Number of EMTs" %>
+    <%= a.input :aed, required: false, label: "Number of AEDs" %>
     <%= a.input :location, required: false %>
     <%= a.input :organization_id,
     collection: OrganizationType.find_providers,
