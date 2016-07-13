@@ -112,6 +112,9 @@
     </div>
 
     <%= render 'plan_agreement', f: f, plan: @plan %>
+    <% if can? :manage, @plan %>
+      <%= render "supplementary_documents/index", parent: @plan %>
+    <% end %>
 
     <% end %>
   </div>

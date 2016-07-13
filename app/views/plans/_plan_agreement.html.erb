@@ -79,7 +79,7 @@
           <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
         </div>
         <% end %>
-        <% if @plan.start_date.present? %>
+        <% if @plan.start_date.present? && (can? :manage, @plan) %>
           <% if @plan.supplementary_documents.staff_contact.empty? %>
             <p>Don't forget to upload your staff list by <%= (@plan.start_date - 1.week).strftime("%B %e, %Y") %></p>
             <%= render 'staff_list', parent: @plan %>
@@ -121,9 +121,6 @@
         },
       type: 'post',
       url: '<%= j plan_update_acceptance_path(plan_id: @plan.id) %>'
-    })
-    .done( function() {
-      acceptCheck()
     })
   });
 </script>
