@@ -12,13 +12,6 @@ window.senoia.initDatepickers = function() {
 };
 
 $(function() {
-
-  // acceptCheck();
-
-  $('.accept').on("click",  function() {
-    // acceptCheck();
-  })
-
   $('.tabs').on('toggled', function (event, tab) {
     var map = $(tab).closest(".asset_map")
     reloadMap($(tab).find(".asset_map").attr("id"))
@@ -218,15 +211,3 @@ $(function() {
   });
 
 });
-
-function acceptCheck() {
-  // if($('.accept').length > 0) {
-  //   $('button:submit').prop('disabled', true)
-  //   $('.plan-submit').addClass('disabled')
-  //   $('.accept-warning').show()
-  // } else {
-  //   $('button:submit').prop('disabled', false)
-  //   $('.plan-submit').removeClass('disabled')
-  //   $('.accept-warning').hide()
-  // }
-}

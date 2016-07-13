@@ -224,6 +224,10 @@ class PlansController < ApplicationController
   def update_acceptance
     @category = params[:category]
     @plan = Plan.find(params[:plan_id])
+    if params[:communication_phone].present?
+      @communication_phone = params[:communication_phone]
+      @plan.communication_phone = @communication_phone
+    end
     @plan.paper_trail_event = "update #{@category}"
     @plan.update_attribute("#{@category}", true)
     respond_to do |format|

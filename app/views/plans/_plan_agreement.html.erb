@@ -111,9 +111,11 @@
 <script type="text/javascript">
   $('.accept').click(function() {
     var category = $(this).parent().attr('id')
+    var communication_phone = $('#plan_communication_phone').val()
     var newAccept = $.ajax({
       data: {
-            'category': category
+            'category': category,
+            'communication_phone': communication_phone
         },
       type: 'post',
       url: '<%= j plan_update_acceptance_path(plan_id: @plan.id) %>'
