@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.new
+    @user = User.find(params[:id])
     respond_to do |format|
       format.html # new.html.erb
     end
