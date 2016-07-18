@@ -4,7 +4,7 @@
   <div class="modal-body">
     <div class="document-form js-form", data-url="<%= url_for [ parent, :supplementary_documents ] %>">
       <%= simple_fields_for :supplementary_document, SupplementaryDocument.new do |f| %>
-        <%= f.input :name, as: :string %>
+        <%= f.input :name, as: :string, label: "Document Name" %>
         <%= f.input :description %>
         <%= f.input :file, as: :file, label: "File", required: true %>
         <%= f.input :staff_contact, as: :hidden, input_html: { value: staff_file } %>

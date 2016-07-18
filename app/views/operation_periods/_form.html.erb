@@ -15,7 +15,7 @@
 
     <%= op.input_field :id, as: :hidden %>
 
-    <div class="row">
+    <div id="stepSeven" class="row">
       <div class="small-2 columns input_label">
         <%= op.label :start_date, class: "inline", label: "START" %>
       </div>
@@ -43,7 +43,7 @@
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_end_date" %>
       </div>
     </div>
-    <div class="row">
+    <div id="stepEight" class="row">
       <div class="small-2 columns input_label">
         <%= op.label :attendance, class: "inline" do %>
           * Crowd Size&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="Number of participants and observers at peak time.">
@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div id="stepNine" class="row">
       <div class="small-2 columns input_label">
         <%= op.label :crowd_estimate, class: "inline" do %>
           * Total Crowd Estimate&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="Number of people in attendance over the entire operational period.">
@@ -74,7 +74,7 @@
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_crowd_estimate" %>
       </div>
     </div>
-    <div class="row">
+    <div id="stepTen" class="row">
       <div class="small-2 columns input_label">
         <%= op.label :location, class: "inline" do %>
           Event Footprint&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="The overall footprint for the operational period.">
@@ -89,7 +89,7 @@
         <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_location" %>
       </div>
     </div>
-    <div class="row">
+    <div id="stepEleven" class="row">
       <div class="large-9 columns">
         <fieldset>
           <legend>FIRST AID STATIONS</legend>
