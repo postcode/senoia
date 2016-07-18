@@ -23,7 +23,9 @@ FactoryGirl.define do
 
   factory :operation_period do
     start_date DateTime.now
+    start_time Time.current
     end_date   DateTime.now + 1.day
+    end_time   Time.current
     attendance Faker::Number.number(5)
   end
 

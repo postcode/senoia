@@ -16,11 +16,11 @@ feature "Plan Index" do
     before do
       visit "/plans"
     end
-    
+
     scenario "views approved plans" do
       expect(page).to have_content approved_plan.name
     end
-    
+
     scenario "can't see unapproved plans" do
       expect(page).to have_no_content plan.name
     end
@@ -28,18 +28,18 @@ feature "Plan Index" do
 
   context "Admin" do
 
-    let(:high_attendance_plan) { create(:plan, operation_periods: [ create(:operation_period, attendance: 45000) ]) }
+    let!(:high_attendance_plan) { create(:plan, operation_periods: [ create(:operation_period, attendance: 45000) ]) }
 
     before do
       high_attendance_plan
       sign_in(admin)
       visit "/plans"
     end
-    
+
     scenario "views approved plans" do
       expect(page).to have_content approved_plan.name
     end
-    
+
     scenario "views unapproved plans" do
       expect(page).to have_content plan.name
     end
@@ -93,7 +93,7 @@ feature "Plan Index" do
       before do
         created_plan.update(creator: user)
         viewable_plan.users_who_can_view << user
-        
+
         sign_in(user)
         visit "/plans"
       end
@@ -128,7 +128,7 @@ feature "Plan Index" do
       scenario "views approved plans" do
         expect(page).to have_content approved_plan.name
       end
-      
+
       scenario "can't see unapproved plans" do
         expect(page).to have_no_content plan.name
       end
@@ -139,5 +139,5 @@ feature "Plan Index" do
 
     end
   end
-  
+
 end
