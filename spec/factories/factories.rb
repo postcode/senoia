@@ -19,6 +19,10 @@ FactoryGirl.define do
       roles "admin"
     end
 
+    factory :promoter_user do
+      roles "promoter"
+    end
+
   end
 
   factory :operation_period do
@@ -128,9 +132,10 @@ FactoryGirl.define do
 
   factory :organization do
     name { Faker::Lorem.words(3).join(" ") }
-    phone_number { Faker::PhoneNumber.phone_number }
+    phone_number { PhonyRails.normalize_number(Faker::PhoneNumber.phone_number) }
     address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
     email { Faker::Internet.email }
+    organization_type
 
     factory :permitter do
       organization_type { FactoryGirl.create(:permitter_type) }

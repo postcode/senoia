@@ -20,7 +20,7 @@
 
     <span class="phone-number">
       <i class="fi-telephone"></i>
-      <%= organization.phone_number || "(phone number missing)" %>
+      <%= organization.phone_number.phony_formatted(format: :national, spaces: ' ') || "(phone number missing)" %>
     </span>
   </p>
 </div>

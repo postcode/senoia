@@ -110,12 +110,12 @@ feature "Plan" do
     end
 
     scenario "show permitting agencies contact info" do
-      expect(page).to have_content plan.permitter.phone_number
+      expect(page).to have_content plan.permitter.phone_number.phony_formatted(format: :national, spaces: ' ')
     end
 
     scenario "changing permitting agencies shows their contact info" do
       select_from_chosen(permitters.first.name, from: "plan_organization_id")
-      expect(page).to have_content permitters.first.phone_number
+      expect(page).to have_content permitters.first.phone_number.phony_formatted(format: :national, spaces: ' ')
     end
 
     scenario "admin can add an operation period" do
@@ -265,7 +265,6 @@ feature "Plan" do
 
       before do
         create(:comment_on_event_type, commentable: plan)
-        sign_in(admin)
         visit "/plans/#{plan.id}"
       end
 

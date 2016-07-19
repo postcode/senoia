@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     authorize! :read, @comment
     redirect_to [ @comment.commentable, anchor: "comment-#{@comment.id}" ]
   end
-  
+
   def index
     authorize! :manage, Comment
     @plans_with_outstanding_comments = Plan
@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
     @comment.update(comment_params)
     if @comment.open == false
       @comment.children.each do |child|
-        child.open = false 
+        child.open = false
         child.save!
       end
     end
@@ -30,13 +30,11 @@ class CommentsController < ApplicationController
       format.js
     end
   end
-  
+
   def create
     @plan = Plan.find(params[:plan_id])
     authorize! :manage, @plan
     @comment = @plan.comments.create(comment_params.merge(user: current_user, element_id: params[:element_id]))
-    @comment.send_notifications!
-    
     respond_to do |format|
       format.js
     end
@@ -52,5 +50,5 @@ class CommentsController < ApplicationController
       params.require(:comment).permit(:body)
     end
   end
-  
+
 end

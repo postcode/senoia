@@ -102,7 +102,7 @@ feature "Post Event Treatment Report" do
       plan.users_who_can_edit << editor
       sign_in editor
       visit "/plans/#{plan.id}"
-      click_on "Post Event Treatment Report"
+      click_link "Post Event Treatment Report"
     end
 
     include_examples "editable post event treatment report"

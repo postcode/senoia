@@ -56,7 +56,7 @@ feature "Supplementary Documents" do
     let(:document_name) { Faker::Lorem.words(3).join }
 
     scenario "mark a document for email" do
-      within("#supplementary-document-#{@document.id}") { check "Send to Approval List" }
+      within("#supplementary-document-#{@document.id}") { check "Email with plan approval" }
       save_screenshot
       click_on "SAVE DRAFT"
 

@@ -20,7 +20,6 @@ class Organization < ActiveRecord::Base
   belongs_to :organization_type
 
   validates :name, presence: true
-  validates :phone_number, phony_plausible: true
   phony_normalize :phone_number, default_country_code: 'US'
 
   def save_organization_users(ids)
