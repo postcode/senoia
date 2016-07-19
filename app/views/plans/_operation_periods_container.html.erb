@@ -9,7 +9,7 @@
       </ul>
       <div class="tabs-content">
           <% @plan.operation_periods.each.with_index do |operation_period, index| %>
-            <% if can? :edit, @plan %>
+            <% if can? :edit, @plan and !@plan.approved? %>
               <%= render 'operation_periods/form', operation_period: operation_period, count: index+1, f: f %>
             <% else %>
               <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1 %>
