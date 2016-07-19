@@ -1,5 +1,4 @@
 <% @doc = supplementary_document %>
-<% binding.pry %>
 <% if !supplementary_document.staff_contact || (can? :manage, supplementary_document.parent) %>
   <div class="supplementary-document row" id="supplementary-document-<%= supplementary_document.id %>">
     <h4>
