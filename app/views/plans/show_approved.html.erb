@@ -95,10 +95,6 @@
       </div>
       <hr/>
 
-      <div class="row">
-        <h3>Operational Period <a href="#" class="button tiny radius right"><i class="fi-plus"></i> Add Operational Period</a></h3>
-      </div>
-
       <ul class="tabs" data-tab>
         <% @plan.operation_periods.each_with_index do |operation_period, index| %>
           <%= render 'operation_period_tabs', count: index+1, period: operation_period, f: f %>
