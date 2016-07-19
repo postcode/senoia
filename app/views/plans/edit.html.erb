@@ -34,7 +34,7 @@
           <legend>EVENT PLAN CREATOR</legend>
           <% if @plan.creator.present? %>
             <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
-            <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></p>
+            <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number.phony_formatted(format: :national, spaces: ' ') %></p>
           <% else %>
             <%= f.association :creator,
                               collection: User.all,
