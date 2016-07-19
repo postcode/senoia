@@ -12,7 +12,9 @@
       g.column name: 'Name', attribute: 'name'
       g.column name: 'Address', attribute: 'address'
       g.column name: 'Email', attribute: 'email'
-      g.column name: 'Phone Number', attribute: 'phone_number'
+      g.column name: 'Phone Number', attribute: 'phone_number' do |phone|
+        phone.phone_number.phony_formatted(format: :national, spaces: ' ')
+      end
       g.column name: '' do |u|
         link_to 'Edit', edit_organization_path(u.id), class: 'button secondary tiny'
       end

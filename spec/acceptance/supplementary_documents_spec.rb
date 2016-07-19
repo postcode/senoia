@@ -14,7 +14,7 @@ feature "Supplementary Documents" do
       visit "/plans/#{plan.id}"
     end
 
-    let(:document_name) { Faker::Lorem.words(3).join }
+    let!(:document_name) { Faker::Lorem.words(3).join }
 
     scenario "adds a document" do
       click_on "ADD DOCUMENT"
@@ -23,7 +23,8 @@ feature "Supplementary Documents" do
 
       fake_direct_upload
       click_on "Save"
-
+      visit "/plans/#{plan.id}"
+      p document_name
       expect(page).to have_content document_name
     end
 

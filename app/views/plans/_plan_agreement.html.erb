@@ -82,7 +82,7 @@
         <% if @plan.start_date.present? && (can? :manage, @plan) %>
           <% if @plan.supplementary_documents.staff_contact.empty? %>
             <p>Don't forget to upload your staff list by <%= (@plan.start_date - 1.week).strftime("%B %e, %Y") %></p>
-            <%= render 'staff_list', parent: @plan %>
+            <%= render 'plans/staff_list', parent: @plan %>
           <% else %>
             <p>Staff List added: <%= @plan.supplementary_documents.staff_contact.first.created_at.strftime("%B %e, %Y") %></p>
             <% if can? :manage, Plan %>
