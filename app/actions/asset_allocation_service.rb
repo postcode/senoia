@@ -2,7 +2,7 @@ class AssetAllocationService
 
   def initialize(args)
     @type = args[:type]
-    @crowd_size = args[:crowd_size]
+    args[:crowd_size].present? ? @crowd_size = args[:crowd_size] : @crowd_size = 0
     @text = {}
   end
 
