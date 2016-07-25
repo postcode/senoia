@@ -21,7 +21,7 @@
       <div class="small-2 columns end">
         <%= op.input_field :end_time, label: false, class: "time-input", placeholder: "Time", as: "string" %>
       </div>
-    </div>        
+    </div>
     <div class="row">
       <div class="small-2 columns input_label">
         <%= op.label :attendance, class: "inline" do %>
@@ -37,6 +37,8 @@
     <div class="row">
       <div class="small-4 columns small-offset-2">
         <%= link_to "Save", "javascript:void(0);", class: "button tiny radius save-operation-period disabled" %>
+        <p class="error hidden">There was a problem submitting the operational
+        period. Have you filled in all the fields?</p>
       </div>
     </div>
   </div>
