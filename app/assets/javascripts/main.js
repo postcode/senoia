@@ -131,9 +131,15 @@ $(function() {
         return;
     } else {
       var form = $(this).closest(".operation-period-form");
+      form.find('.error').fadeOut();
+
       var data = form.find(":input").serialize();
       var url = form.data().url
-      $.post(url, data);
+      var req = $.post(url, data);
+      req.error(function() {
+        console.log("Erorr submitting operation period");
+        form.find('.error').fadeIn();
+      });
     }
   });
 
