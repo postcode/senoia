@@ -18,14 +18,14 @@ feature "Supplementary Documents" do
 
     scenario "adds a document" do
       click_on "ADD DOCUMENT"
-      fill_in "supplementary_document_name", with: document_name
+      fill_in "supplementary_document_name", with: @document.name
       fill_in "Description", with: Faker::Lorem.paragraph
 
       fake_direct_upload
       click_on "Save"
       visit "/plans/#{plan.id}"
-      p document_name
-      expect(page).to have_content document_name
+      p @document.name
+      expect(page).to have_content @document.name
     end
 
     scenario "removes a document" do
@@ -35,13 +35,13 @@ feature "Supplementary Documents" do
 
     scenario "can add a staff contact list" do
       click_on "ADD STAFF CONTACT LIST"
-      fill_in "supplementary_document_name", with: document_name
+      fill_in "supplementary_document_name", with: @document.name
       fill_in "Description", with: Faker::Lorem.paragraph
 
       fake_direct_upload
       click_on "Save"
 
-      expect(page).to have_content document_name
+      expect(page).to have_content @document.name
     end
 
   end

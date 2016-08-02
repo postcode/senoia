@@ -1,7 +1,6 @@
 require_relative "./acceptance_helper"
 
 feature "Plan" do
-
   let(:plan) { FactoryGirl.create(:plan) }
   let(:admin) { FactoryGirl.create(:admin) }
   let(:test_user) { FactoryGirl.create(:user, roles: "user") }
@@ -10,7 +9,6 @@ feature "Plan" do
   let!(:permitters) { 1.upto(3).map{ |i| FactoryGirl.create(:permitter, organization_type: permitter_type) }.sort_by(&:name) }
   let(:provider_type) { FactoryGirl.create(:provider_type) }
   let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider, organization_type: provider_type) }.sort_by(&:name) }
-
 
   context "admin create a new plan", js: true do
 

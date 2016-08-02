@@ -7,7 +7,7 @@ feature "Collaborators" do
   let(:invite_email_address) { Faker::Internet.email }
 
   context "Admin", js: true do
-    
+
     background do
       @collaborator = plan.plan_users.create(user: FactoryGirl.create(:user), role: "view").user
       @user = FactoryGirl.create(:user)
@@ -18,12 +18,12 @@ feature "Collaborators" do
 
     scenario "adds a collaborator" do
       click_on "ADD USERS"
-      
+
       find("#plan_view_id_#{@user.id}").set(true)
       find("#new-plan-user-submit").click
 
-      expect(page).to have_css("input[value='#{@user.email}']") 
-      
+      expect(page).to have_css("input[value='#{@user.email}']")
+
       click_on "SAVE DRAFT"
 
       expect(find("fieldset", text: "COLLABORATORS")).to have_content(@user.email)
@@ -63,9 +63,11 @@ feature "Collaborators" do
 
       password = Faker::Internet.password
       fill_in "Email", with: invite_email_address
+      fill_in "user_name", with: @collaborator.name
+      fill_in "user_phone_number", with: Faker::PhoneNumber.phone_number
       fill_in "user_password", with: password
       fill_in "user_password_confirmation", with: password
-      click_on "Sign Up"
+      click_button "Sign Up"
 
       expect(page).to have_content("confirmation link")
 

@@ -27,8 +27,8 @@ class PlansController < ApplicationController
   end
 
   def show
-    authorize! :view, Plan
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
+    authorize! :view, @plan
     @count = 0
     @permitters = Permitter.order("name ASC")
 
