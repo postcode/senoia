@@ -103,7 +103,8 @@ feature "Medical Provider Confirmation" do
 
         sign_in(admin)
         visit "/plans/#{plan.id}"
-        within ".first_aid_station_organization_id" do
+        click_link "new_first_aid_station"
+        within "#new-first-aid-station-0" do
           select_from_chosen(providers.first.name, from: "first_aid_station_organization_id")
         end
 

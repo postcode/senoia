@@ -34,6 +34,8 @@ feature "OperationPeriod" do
 
   context "promoter create a new operation period" do
     before do
+      plan.plan_users << FactoryGirl.create(:plan_user, user: promoter, plan: plan, role: "edit")
+      plan.save
       sign_in(promoter)
       visit "/plans/#{plan.id}"
     end

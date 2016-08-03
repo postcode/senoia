@@ -60,6 +60,12 @@ FactoryGirl.define do
     end
   end
 
+  factory :plan_user do
+    plan
+    user
+    role "view"
+  end
+
   factory :comment do
     body { Faker::Lorem.paragraph }
     commentable { FactoryGirl.create(:plan) }
