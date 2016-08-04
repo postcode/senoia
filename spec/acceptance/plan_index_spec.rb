@@ -53,7 +53,7 @@ feature "Plan Index" do
     end
 
     scenario "filters by attendance", js: true do
-      check "15,500 - 50,000"
+      check "> 50,000"
       expect(page).to have_content high_attendance_plan.name
       expect(page).to_not have_content plan.name
     end
