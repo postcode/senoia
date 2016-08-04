@@ -57,7 +57,6 @@ feature "Supplementary Documents" do
 
     scenario "mark a document for email" do
       within("#supplementary-document-#{@document.id}") { check "Email with plan approval" }
-      save_screenshot
       click_on "SAVE DRAFT"
 
       expect(plan.supplementary_documents.first.email?).to eq true

@@ -20,6 +20,7 @@ class OperationPeriodsController < ApplicationController
 
   def update
     @operation_period = OperationPeriod.find(params[:id])
+    @plan = @operation_period.plan
     authorize! :manage, @operation_period.plan
     @operation_period.update(operation_period_params)
     render nothing: true

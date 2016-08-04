@@ -16,8 +16,10 @@ class SupplementaryDocumentsController < ApplicationController
     @supplementary_document = @parent.supplementary_documents.create(supplementary_document_params)
     if @supplementary_document.staff_contact == true
       @supplementary_document.email = false
-      @supplementary_document.save
+    else
+      @supplementary_document.staff_contact = false
     end
+    @supplementary_document.save
   end
 
   def destroy

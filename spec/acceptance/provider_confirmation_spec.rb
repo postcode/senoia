@@ -120,7 +120,6 @@ feature "Medical Provider Confirmation" do
         end
         expect(page).to have_no_content("Don't forget to save your progress!")
         sign_out
-        save_screenshot
         wait_for_ajax
         @email = find_email!(providers.first.email)
       end
