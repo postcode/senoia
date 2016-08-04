@@ -28,7 +28,7 @@ feature "Plan Index" do
 
   context "Admin" do
 
-    let!(:high_attendance_plan) { create(:plan, operation_periods: [ create(:operation_period, attendance: 45000) ]) }
+    let!(:high_attendance_plan) { create(:plan, operation_periods: [ create(:operation_period, attendance: 450000) ]) }
 
     before do
       high_attendance_plan
