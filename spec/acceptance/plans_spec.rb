@@ -334,7 +334,7 @@ feature "Plan" do
       end
 
       within ".first_aid_station_organization_id" do
-        select providers.first.name, from: "first_aid_station_organization_id"
+        select_from_chosen(providers.first.name, from: "first_aid_station_organization_id")
       end
 
       click_on "Confirm This Asset"
