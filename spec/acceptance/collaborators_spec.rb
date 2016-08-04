@@ -16,19 +16,6 @@ feature "Collaborators" do
       visit "/plans/#{plan.id}"
     end
 
-    scenario "adds a collaborator" do
-      click_on "ADD USERS"
-
-      find("#plan_view_id_#{@user.id}").set(true)
-      find("#new-plan-user-submit").click
-
-      expect(page).to have_css("input[value='#{@user.email}']")
-
-      click_on "SAVE DRAFT"
-
-      expect(find("fieldset", text: "COLLABORATORS")).to have_content(@user.email)
-    end
-
     scenario "removes a collaborator" do
       within find("fieldset", text: "COLLABORATORS") do
         within find("tr", text: @collaborator.email) do
@@ -46,24 +33,26 @@ feature "Collaborators" do
       expect(page).to have_content("Email is invalid")
     end
 
-    scenario "invites a collaborator" do
+    scenario "invites a collaborator", js: true do
+      @user_email = Faker::Internet.email
+      @user_name = Faker::Name.name
 
       click_on "ADD USERS"
 
-      find("#invitation-email").set(invite_email_address)
+      find("#invitation-email").set(@user_email)
       click_on "Invite"
 
       expect(page).to have_content("Invitation sent")
       sign_out
 
-      open_email(invite_email_address)
+      open_email(@user_email)
       click_email_link_matching(/sign_up/)
 
       reset_mailer
 
       password = Faker::Internet.password
-      fill_in "Email", with: invite_email_address
-      fill_in "user_name", with: @collaborator.name
+      fill_in "Email", with: @user_email
+      fill_in "user_name", with: @user_name
       fill_in "user_phone_number", with: Faker::PhoneNumber.phone_number
       fill_in "user_password", with: password
       fill_in "user_password_confirmation", with: password
@@ -71,25 +60,30 @@ feature "Collaborators" do
 
       expect(page).to have_content("confirmation link")
 
-      open_email(invite_email_address)
+      open_email(@user_email)
       click_email_link_matching(/confirm/)
 
-      visit "/users/sign_in"
+      # visit "/users/sign_in"
 
-      fill_in "Email", with: invite_email_address
+      fill_in "Email", with: @user_email
       fill_in "Password", with: password
 
       within ".form-actions" do
         click_on "Login"
       end
+      # @new_user = User.find_by_email("#{@user_email}")
+      # p @new_user
+      # sign_in(@new_user)
 
       visit "/plans/#{plan.id}"
-      save_and_open_page
-
-      p User.find_by_email("#{invite_email_address}")
+      save_screenshot
+      expect(page).to have_css "a", text: "#{plan.name}"
+      click_on "#{plan.name}"
+      wait_for_ajax
+      sleep 5
+      p User.find_by_email("#{@user_email}")
       p plan.plan_users
-      click_link plan.name
-      expect(find("fieldset", text: "COLLABORATORS")).to have_content(invite_email_address)
+      expect(find("fieldset", text: "COLLABORATORS")).to have_content(@user_email)
     end
   end
 

@@ -28,7 +28,7 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.all.includes(:operation_periods).where(id: params[:id]).first
-    authorize! :view, @plan
+    authorize! :view, @plan, message: "Sorry, you are not authorized to view this plan."
     @count = 0
     @permitters = Permitter.order("name ASC")
 

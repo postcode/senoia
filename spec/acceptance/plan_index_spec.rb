@@ -67,9 +67,7 @@ feature "Plan Index" do
     scenario "sorts by attendance", js: true do
       click_on "Attendance"
       expect(page).to_not have_selector(".loading")
-      expect(first("#plans tr td.name", visible: true)).to have_content high_attendance_plan.name
-      expect(page).to_not have_selector(".loading")
-      expect(all("#plans tr td.attendance").last).to have_content ""
+      expect(all("#plans tr td.name", visible: true).last).to have_content high_attendance_plan.name
     end
 
     scenario "filters by start date", js: true do
