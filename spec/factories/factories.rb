@@ -136,6 +136,7 @@ FactoryGirl.define do
     end
   end
 
+
   factory :organization do
     name { Faker::Lorem.words(3).join(" ") }
     phone_number { PhonyRails.normalize_number(Faker::PhoneNumber.phone_number) }
@@ -154,5 +155,10 @@ FactoryGirl.define do
     factory :provider do
       organization_type { FactoryGirl.create(:provider_type) }
     end
+  end
+
+  factory :organization_user do
+    user
+    organization
   end
 end

@@ -4,8 +4,6 @@ class ProviderConfirmationsController < ApplicationController
 
   def show
     @provider_confirmation = ProviderConfirmation.find(params[:id])
-    authorize! :manage, @provider_confirmation
-
     @provider = @provider_confirmation.organization
     @medical_asset = @provider_confirmation.medical_asset
     @operation_period = @medical_asset.operation_period
@@ -14,7 +12,6 @@ class ProviderConfirmationsController < ApplicationController
 
   def update
     @provider_confirmation = ProviderConfirmation.find(params[:id])
-    authorize! :manage, @provider_confirmation
     if @provider_confirmation.requested?
       if params[:confirm]
         @provider_confirmation.confirm!

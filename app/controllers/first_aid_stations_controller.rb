@@ -44,7 +44,8 @@ class FirstAidStationsController < ApplicationController
                :planning_contact_email,
                :lat,
                :lng,
-               :service_area
+               :service_area,
+               :location
               ])
   end
 end
