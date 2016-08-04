@@ -33,6 +33,13 @@ feature "Collaborators" do
       expect(page).to have_content("Email is invalid")
     end
 
+    scenario "collaborator can view a plan" do
+      sign_out
+      sign_in(@collaborator)
+      visit "/plans/#{plan.id}"
+      expect(find("fieldset", text: "COLLABORATORS")).to have_content(@user_email)
+    end
+
     scenario "invites a collaborator", js: true do
       @user_email = Faker::Internet.email
       @user_name = Faker::Name.name
@@ -63,26 +70,15 @@ feature "Collaborators" do
       open_email(@user_email)
       click_email_link_matching(/confirm/)
 
-      # visit "/users/sign_in"
-
       fill_in "Email", with: @user_email
       fill_in "Password", with: password
 
       within ".form-actions" do
         click_on "Login"
       end
-      # @new_user = User.find_by_email("#{@user_email}")
-      # p @new_user
-      # sign_in(@new_user)
 
-      visit "/plans/#{plan.id}"
-      save_screenshot
-      expect(page).to have_css "a", text: "#{plan.name}"
+      visit "/plans"
       click_on "#{plan.name}"
-      wait_for_ajax
-      sleep 5
-      p User.find_by_email("#{@user_email}")
-      p plan.plan_users
       expect(find("fieldset", text: "COLLABORATORS")).to have_content(@user_email)
     end
   end

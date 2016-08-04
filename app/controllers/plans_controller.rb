@@ -58,7 +58,7 @@ class PlansController < ApplicationController
       elsif can? :edit, @plan
         render "plans/edit"
       else
-        redirect_to plans_path
+        render "plans/show"
       end
     else
       redirect_to plans_path

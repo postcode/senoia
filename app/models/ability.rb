@@ -41,7 +41,8 @@ class Ability
         p.creator_id.blank?
       end
 
-      can [:edit, :manage], Plan, :plan_users => { role: "edit", user_id: user.id }
+      can :view, Plan, plan_users: { role: "view", user_id: user.id }
+      can [:edit, :manage], Plan, plan_users: { role: "edit", user_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
@@ -58,7 +59,6 @@ class Ability
       can :view, Plan do |plan|
        plan.approved?
       end
-      can :view, Plan, plan_users: { role: "view", user_id: user.id }
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
