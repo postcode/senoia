@@ -7,6 +7,7 @@ FactoryGirl.define do
     confirmed_at Date.today
     name { Faker::Name.name }
     phone_number { Faker::PhoneNumber.phone_number }
+    roles "guest"
 
     factory :medical_contact do
       after(:create) do |user, evaluator|
