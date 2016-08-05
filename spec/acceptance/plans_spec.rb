@@ -60,6 +60,21 @@ feature "Plan" do
     end
   end
 
+  context "by an anonymous user", js: true do
+    scenario "cannot create a basic plan" do
+      @event_type = create(:event_type)
+      visit "/plans/new"
+      expect(page).to have_content "Sorry, you are not authorized to create a new plan."
+    end
+
+    scenario "can view an approved plan" do
+      plan.workflow_state = "approved"
+      plan.save
+      visit "/plans/#{plan.id}"
+      expect(page).to have_content "#{plan.name.upcase}"
+    end
+  end
+
   context "deleting medical assets" do
     let(:operation_period) { FactoryGirl.create(:operation_period) }
     let(:first_aid_station) { FactoryGirl.create(:first_aid_station) }

@@ -25,13 +25,7 @@ class Ability
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
       can :view, Plan, :plan_users => { role: "view", user_id: user.id }
     elsif user.has_role? :guest
-      can :create, Plan
-      can :manage, Plan, :creator_id => user.id
-      can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
-      can :view, Plan, :plan_users => { role: "view", user_id: user.id }
-    else
       cannot [:create, :edit, :destroy, :manage], Plan
-
       can [:edit, :manage], Plan do |p|
         p.creator_id == user.id
         can [:create, :edit, :update, :read], Comment
@@ -56,6 +50,11 @@ class Ability
       cannot :read, Provider
       cannot :read, Permitter
       cannot :read, NotificationGroup
+      can :view, Plan do |plan|
+       plan.approved?
+      end
+    else
+      cannot [:create, :edit, :destroy, :manage], Plan
       can :view, Plan do |plan|
        plan.approved?
       end
