@@ -40,23 +40,14 @@ class Ability
       end
       can :manage, Plan, creator_id: user.id
     else
-      can :manage, Plan, :creator_id => user.id
-      cannot [:create, :edit, :destroy, :manage], Plan
+      cannot :read, User
+      cannot :index, User
+      cannot [:create, :view, :edit, :destroy], Plan
+      can :view, Plan, plan_users: { role: "view", user_id: user.id }
+      can [:edit, :view], Plan, plan_users: { role: "edit", user_id: user.id }
       can :view, Plan do |plan|
        plan.approved?
       end
-      can :view, Plan, plan_users: { role: "view", user_id: user.id }
-      can [:edit, :manage], Plan, plan_users: { role: "edit", user_id: user.id }
-      can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
-      can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
-      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
-      can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
-      can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
-      can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
-      cannot :read, User
-      cannot :index, User
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
     cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }

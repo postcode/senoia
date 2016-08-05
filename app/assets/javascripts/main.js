@@ -137,7 +137,6 @@ $(function() {
       var url = form.data().url
       var req = $.post(url, data);
       req.error(function() {
-        console.log("Erorr submitting operation period");
         form.find('.error').fadeIn();
       });
     }
