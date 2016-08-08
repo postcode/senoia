@@ -1,11 +1,11 @@
 <div class="row">
   <div class="large-6 end columns">
     <%= simple_form_for @organization do |f| %>
-      <%= f.input :name %>  
+      <%= f.input :name %>
       <%= f.input :address %>
       <%= f.input :email, as: "email" %>
       <%= f.input :phone_number %>
-      <%= f.collection_select :organization_type_id, OrganizationType.order(:name).all, :id, :name, {:prompt => 'Choose a type'} %>
+      <%= f.input :organization_type_id, collection: OrganizationType.order(:name).all, value_method: :id, label_method: :name, label: "Type", prompt: 'Choose a type' %>
   </div>
   <div class="large-10 end columns">
       <table class="table table-hover datatable small-12 twelve" id="organization-users">
@@ -34,9 +34,9 @@
         <% end %>
       </tbody>
     </table>
-      
+
       <%= f.submit class: "button" %>
 
-    <% end %> 
+    <% end %>
   </div>
 </div>
