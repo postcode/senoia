@@ -22,11 +22,12 @@ class Organization < ActiveRecord::Base
   validates :name, presence: true
   phony_normalize :phone_number, default_country_code: 'US'
 
-  def save_organization_users(ids)
+  def save_organization_users(ids, contact)
     ids.each do |user_id|
       if user_id[1] == "1"
         @organization_user = OrganizationUser.where(:organization_id => id, :user_id => user_id[0]).first_or_create
         @user = User.find(user_id[0])
+        @organization_user.contact = contact[user_id[0]]
         @organization_user.save!
       else
         if OrganizationUser.exists?(:organization_id => id, :user_id => user_id[0])

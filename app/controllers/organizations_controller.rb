@@ -33,7 +33,7 @@ class OrganizationsController < ApplicationController
       render action: :new
     else
       if params[:organizations_user].present?
-        @organization.save_organization_users(params[:organizations_user][:user_ids])
+        @organization.save_organization_users(params[:organizations_user][:user_ids], params[:organizations_user][:contact])
       end
       redirect_to action: :index
     end
@@ -44,7 +44,7 @@ class OrganizationsController < ApplicationController
       render action: :edit
     else
       if params[:organizations_user].present?
-        @organization.save_organization_users(params[:organizations_user][:user_ids])
+        @organization.save_organization_users(params[:organizations_user][:user_ids], params[:organizations_user][:contact])
       end
       redirect_to action: :index
     end
@@ -61,7 +61,8 @@ class OrganizationsController < ApplicationController
             :organization_type_id,
             organization_users_attributes: [
               :id,
-              :name],
+              :name,
+              :contact],
             users_attributes:
               [:id,
               :name,

@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th width="80">Add to Organization</th>
-
+          <th width="250">Organization Contact</th>
           <th width="200">Name</th>
           <th width="250">Email</th>
           <th width="100">Role</th>
@@ -21,10 +21,12 @@
       <tbody>
       <% User.all.each do |user| %>
         <tr>
-          <% if OrganizationUser.exists?(:organization_id => @organization.id, :user_id => user.id) %>
-            <td><%= check_box "organizations_user[user_ids]", user.id, :class => 'table-row-checkbox member', data: { "userid": user.id }, checked: true %></td>
+          <% if OrganizationUser.exists?(organization_id: @organization.id, user_id: user.id) %>
+            <td><%= check_box "organizations_user[user_ids]", user.id, class: 'table-row-checkbox member', data: { "userid": user.id }, checked: true %></td>
+            <td><%= check_box "organizations_user[contact]", user.id, class: 'table-row-checkbox member', data: { "contact": user.id }, checked: true unless OrganizationUser.where(organization_id: @organization.id, user_id: user.id).first.contact == false %></td>
           <% else %>
-            <td><%= check_box "organizations_user[user_ids]", user.id, :class => 'table-row-checkbox member', data: { "userid": user.id } %></td>
+            <td><%= check_box "organizations_user[user_ids]", user.id, class: 'table-row-checkbox member', data: { "userid": user.id } %></td>
+            <td><%= check_box "organizations_user[contact]", user.id, class: 'table-row-checkbox member', data: { "contact": user.id } %></td>
           <% end %>
 
           <td><%= user.name %></td>
