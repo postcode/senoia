@@ -1,16 +1,13 @@
 require_relative "./acceptance_helper"
 
 feature "Notifications", js: true do
-
   let(:admin) { FactoryGirl.create(:admin) }
   let(:creator) { create(:user) }
 
   context "Creator" do
-
     let(:plan) { create(:plan_under_review, creator: creator) }
 
     context "when their plan is reviewed" do
-
       before do
         sign_in(admin)
         visit "/plans/#{plan.id}"
@@ -30,11 +27,9 @@ feature "Notifications", js: true do
         notification = find(".alert-box", text: plan.name)
         expect(notification).to have_content("needs revision")
       end
-
     end
 
     context "when their plan is approved" do
-
       before do
         sign_in(admin)
         visit "/plans/#{plan.id}"
@@ -54,15 +49,11 @@ feature "Notifications", js: true do
         notification = find(".alert-box", text: plan.name)
         expect(notification).to have_content("approved")
       end
-
     end
-
   end
 
   context "Admin" do
-
     context "when a new plan is submitted" do
-
       let(:plan) { create(:plan, workflow_state: "draft", creator: creator) }
 
       before do
@@ -87,15 +78,11 @@ feature "Notifications", js: true do
         notification = find(".alert-box", text: plan.name)
         expect(notification).to have_content("New plan")
       end
-
     end
-
   end
 
   context "Notification Group Member" do
-
     context "when a plan is approved" do
-
       let(:plan) { create(:plan_under_review) }
       let(:group_member) { create(:user) }
       let(:notification_group) { create(:notification_group, notification_type: "plan.approved") }
@@ -120,9 +107,6 @@ feature "Notifications", js: true do
         notification = find(".alert-box", text: plan.name)
         expect(notification).to have_content("approved")
       end
-
     end
-
   end
-
 end

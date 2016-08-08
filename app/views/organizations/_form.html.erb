@@ -23,7 +23,7 @@
         <tr>
           <% if OrganizationUser.exists?(organization_id: @organization.id, user_id: user.id) %>
             <td><%= check_box "organizations_user[user_ids]", user.id, class: 'table-row-checkbox member', data: { "userid": user.id }, checked: true %></td>
-            <td><%= check_box "organizations_user[contact]", user.id, class: 'table-row-checkbox member', data: { "contact": user.id }, checked: true unless OrganizationUser.where(organization_id: @organization.id, user_id: user.id).first.contact == false %></td>
+            <td><%= check_box "organizations_user[contact]", user.id, class: 'table-row-checkbox member', data: { "contact": user.id }, checked: OrganizationUser.where(organization_id: @organization.id, user_id: user.id).first.contact %></td>
           <% else %>
             <td><%= check_box "organizations_user[user_ids]", user.id, class: 'table-row-checkbox member', data: { "userid": user.id } %></td>
             <td><%= check_box "organizations_user[contact]", user.id, class: 'table-row-checkbox member', data: { "contact": user.id } %></td>

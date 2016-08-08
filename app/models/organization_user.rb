@@ -16,4 +16,6 @@ class OrganizationUser < ActiveRecord::Base
 
   validates :user, presence: true
   validates :organization, presence: true
+
+  scope :default_contact, -> { where(contact: true) }
 end

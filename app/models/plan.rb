@@ -63,17 +63,16 @@ class Plan < ActiveRecord::Base
   include Workflow
   workflow do
     state :draft do
-      event :submit, :transitions_to => :under_review
+      event :submit, transitions_to: :under_review
     end
     state :under_review do
-      event :request_revision, :transitions_to => :revision_requested
-      event :approve, :transitions_to => :approved
+      event :request_revision, transitions_to: :revision_requested
+      event :approve, transitions_to: :approved
     end
     state :revision_requested do
-      event :approve, :transitions_to => :approved, :if => Proc.new(&:all_comments_resolved?)
-      event :request_review, :transitions_to => :under_review
-      event :reject, :transitions_to => :rejected
-
+      event :approve, transitions_to: :approved, if: Proc.new(&:all_comments_resolved?)
+      event :request_review, transitions_to: :under_review
+      event :reject, transitions_to: :rejected
     end
     state :approved do
       on_entry do
@@ -149,7 +148,6 @@ class Plan < ActiveRecord::Base
   end
 
   concerning :Search do
-
     included do
       scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
       scope :calculating_total_attendance, -> { joins("LEFT JOIN (SELECT plan_id, SUM(attendance) AS total_attendance FROM operation_periods GROUP BY plan_id) join_total_attendance ON join_total_attendance.plan_id = plans.id")}
@@ -170,7 +168,6 @@ class Plan < ActiveRecord::Base
     end
 
     class_methods do
-
       def search(options)
         scope = all
         scope = scope.like(options[:filter]) if options[:filter]
@@ -202,7 +199,7 @@ class Plan < ActiveRecord::Base
       end
 
       def filter_by_event_type(options)
-        event_type_ids = options.map{ |id, selected| id if selected == "1" }.compact
+        event_type_ids = options.map { |id, selected| id if selected == "1" }.compact
         if event_type_ids.any?
           where(event_type_id: event_type_ids)
         else
@@ -240,9 +237,9 @@ class Plan < ActiveRecord::Base
       end
 
       def attendance_query(range)
-        query = sanitize_sql([ "total_attendance >= ?", range.first ])
+        query = sanitize_sql(["total_attendance >= ?", range.first])
         if range.last
-          query = query + sanitize_sql([ " AND total_attendance <= ?", range.last ])
+          query = query + sanitize_sql([" AND total_attendance <= ?", range.last])
         end
         "(#{query})"
       end
@@ -251,7 +248,7 @@ class Plan < ActiveRecord::Base
 
   concerning :Notifications do
     def send_notifications_on_new_comment(comment)
-      stakeholders.reject{ |x| x == comment.user }.each do |stakeholder|
+      stakeholders.reject { |x| x == comment.user }.each do |stakeholder|
         stakeholder.notifications.create(subject: comment, key: "created")
       end
     end
@@ -279,7 +276,7 @@ class Plan < ActiveRecord::Base
     end
 
     def stakeholders
-      [ users, owner, creator ].flatten.compact.uniq
+      [users, owner, creator].flatten.compact.uniq
     end
 
     def notify_stakeholders(key)
@@ -288,7 +285,5 @@ class Plan < ActiveRecord::Base
         stakeholder.notifications.create(subject: self, key: key)
       end
     end
-
   end
-
 end

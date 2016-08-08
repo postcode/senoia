@@ -25,11 +25,10 @@ class Notification < ActiveRecord::Base
   scope :unread, -> { where(read: false) }
 
   def partial
-    [ subject_type.underscore, key ].join("/")
+    [subject_type.underscore, key].join("/")
   end
 
   def translation_key
-    [ subject_type.underscore, key ].join(".")
+    [subject_type.underscore, key].join(".")
   end
-
 end

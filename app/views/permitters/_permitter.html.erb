@@ -1,27 +1,30 @@
 <% hidden = true unless hidden == false %>
 <div class="permitter <%= "hidden" if hidden %>" data-permitter-id="<%= permitter.id %>">
-  <p>
-    <% if !hidden %>
-      <span class="name">
-        <%= permitter.name %>
-        <br/>
-      </span>
-    <% end %>
-
-    <span class="email">
-      <i class="fi-mail"></i>
-      <% if permitter.email %>
-        <%= mail_to(permitter.email, nil, target: "_blank") %>
-      <% else %>
-        <%= "(email missing)" %>
-      <% end %>
+  <% if !hidden %>
+    <span class="name">
+      <%= permitter.name %>
       <br/>
     </span>
+  <% end %>
+  <% permitter.organization_users.default_contact.each do |contact| %>
+    <% @user = User.find(contact.user_id) %>
+    <div class="row">
+      <h5><%= @user.name %></h5>
+      <span class="email">
+        <i class="fi-mail"></i>
+        <% if @user.email %>
+          <%= mail_to(@user.email, nil, target: "_blank") %>
+        <% else %>
+          <%= "(email missing)" %>
+        <% end %>
+        <br/>
+      </span>
 
-    <span class="phone-number">
-      <i class="fi-telephone"></i>
-      <%= permitter.phone_number.phony_formatted(format: :national, spaces: ' ') || "(phone number missing)" %>
-    </span>
-  </p>
+      <span class="phone-number">
+        <i class="fi-telephone"></i>
+        <%= @user.phone_number.phony_formatted(format: :national, spaces: ' ') || "(phone number missing)" %>
+      </span>
+    </div>
+  <% end %>
 </div>
 

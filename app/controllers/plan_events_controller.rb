@@ -1,7 +1,6 @@
 class PlanEventsController < ApplicationController
-
   # TODO authorize admin state changes through cancan
-  
+
   def create
     @plan = Plan.find(params[:plan_id])
     case params[:event]
@@ -23,5 +22,4 @@ class PlanEventsController < ApplicationController
     end
     redirect_to @plan
   end
-
 end

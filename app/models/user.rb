@@ -33,12 +33,12 @@ class User < ActiveRecord::Base
   include RoleModel
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, 
-         :recoverable, 
+  devise :database_authenticatable,
+         :recoverable,
          :registerable,
-         :rememberable, 
-         :trackable, 
-         :validatable, 
+         :rememberable,
+         :trackable,
+         :validatable,
          :confirmable
 
   has_many :collaborated_plans, through: :plan_users, source: :plan
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
     return nil if email.blank?
     User.where("LOWER(email) = ?", email.downcase).first
   end
-  
+
   def to_s
     if name.blank?
       email
@@ -95,5 +95,4 @@ class User < ActiveRecord::Base
   def self.pretty_roles
     pretty_roles = { "DEM Admin": :admin, "Event Producer": :promoter, "EMS Provider": :provider, "Event Permitter / Staff": :staff }
   end
-
 end

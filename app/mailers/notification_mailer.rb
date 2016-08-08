@@ -1,5 +1,4 @@
 class NotificationMailer < ActionMailer::Base
-
   default from: "Aram Bronston (SF DEM) <aram.bronston@sfgov.org>"
   layout "mailer"
 
@@ -10,8 +9,11 @@ class NotificationMailer < ActionMailer::Base
     if @plan.present?
       if @plan.approved?
         attachments["#{@plan.name}.pdf"] = WickedPdf.new.pdf_from_string(
-        render_to_string(pdf: 'todo', template: 'plans/pdf/plan.pdf.erb', locals: { plan: @plan})
-      )
+          render_to_string(
+            pdf: 'todo',
+            template: 'plans/pdf/plan.pdf.erb',
+            locals: { plan: @plan })
+        )
       end
     end
 
@@ -20,5 +22,4 @@ class NotificationMailer < ActionMailer::Base
                     scope: "notification_mailer.subject",
                     subject: @notification.subject))
   end
-
 end
