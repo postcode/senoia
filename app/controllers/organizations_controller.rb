@@ -1,9 +1,9 @@
 class OrganizationsController < ApplicationController
-
   load_and_authorize_resource
-  
+
   def index
-    @organization_grid = initialize_grid(Organization)
+    @organization_grid = initialize_grid(Organization,
+                                         include:  :organization_type)
     respond_to do |format|
       format.html
     end
@@ -25,7 +25,7 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       format.html
     end
-  end  
+  end
 
   def create
     @organization = Organization.new(organization_params)
@@ -50,25 +50,25 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def organization_params
     params.require(:organization)
-    .permit(:name, 
-            :phone_number, 
-            :address, 
+    .permit(:name,
+            :phone_number,
+            :address,
             :email,
             :organization_type_id,
             organization_users_attributes: [
               :id,
               :name],
-            users_attributes: 
-              [:id, 
-              :name, 
-              :email], 
-            organization_types_attributes: 
-              [:id, 
-              :name, 
+            users_attributes:
+              [:id,
+              :name,
+              :email],
+            organization_types_attributes:
+              [:id,
+              :name,
               :description])
   end
 end

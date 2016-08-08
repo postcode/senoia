@@ -15,6 +15,7 @@
       g.column name: 'Phone Number', attribute: 'phone_number' do |phone|
         phone.phone_number.phony_formatted(format: :national, spaces: ' ')
       end
+      g.column name: 'Type', attribute: 'name', assoc: :organization_type
       g.column name: '' do |u|
         link_to 'Edit', edit_organization_path(u.id), class: 'button secondary tiny'
       end
