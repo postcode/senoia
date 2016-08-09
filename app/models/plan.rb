@@ -147,6 +147,11 @@ class Plan < ActiveRecord::Base
     organization if organization.present? && organization.organization_type.name == "Event Permitter"
   end
 
+  def add_permitter_contact
+    return unless permitter.present?
+    permitter.organization_users.default_contact.map { |u| plan_users.create(user: u.user, role: "edit") unless users.include?(u.user) }
+  end
+
   concerning :Search do
     included do
       scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }

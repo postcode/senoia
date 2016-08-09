@@ -135,6 +135,7 @@ class PlansController < ApplicationController
         @plan.users.create(user: user_obj, role: user[1][:role])
       end
     end
+    @plan.add_permitter_contact
 
     respond_to do |format|
       if @plan.valid?

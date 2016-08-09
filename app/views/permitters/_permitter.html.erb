@@ -6,6 +6,9 @@
       <br/>
     </span>
   <% end %>
+  <div class="row">
+    <h4>Permitting Agency <%= "Contact".pluralize(permitter.organization_users.default_contact.count) %></h4>
+  </div>
   <% permitter.organization_users.default_contact.each do |contact| %>
     <% @user = User.find(contact.user_id) %>
     <div class="row">
