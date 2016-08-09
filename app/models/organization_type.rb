@@ -14,27 +14,31 @@ class OrganizationType < ActiveRecord::Base
 
   def self.find_organizations(name)
     type = OrganizationType.find_by_name(name)
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
-    organizations.empty? ? organizations =[ NullOrganization.new] : organizations
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations = [NullOrganization.new]
+    organizations = [NullOrganization.new] unless organizations.present?
+    organizations
   end
 
   def self.find_permitters
     type = OrganizationType.find_by_name("Event Permitter")
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
-    organizations.empty? ? organizations =[ NullOrganization.new] : organizations
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations = [NullOrganization.new]
+    organizations = [NullOrganization.new] unless organizations.present?
+    organizations
   end
 
   def self.find_promoters
     type = OrganizationType.find_by_name("Event Producer")
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
-    organizations.empty? ? organizations =[ NullOrganization.new] : organizations
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations = [NullOrganization.new]
+    organizations = [NullOrganization.new] unless organizations.present?
+    organizations
   end
 
   def self.find_providers
     type = OrganizationType.find_by_name("EMS Provider")
-    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations =[ NullOrganization.new]
-    organizations.empty? ? organizations =[ NullOrganization.new] : organizations
-    # type.add_other(organizations) unless organizations = [NullOrganization]
+    type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations = [NullOrganization.new]
+    organizations = [NullOrganization.new] unless organizations.present?
+    type.add_other(organizations)
+    organizations
   end
 
   def add_other(list)
@@ -67,5 +71,4 @@ class OrganizationType < ActiveRecord::Base
       '123 fake st'
     end
   end
-
 end
