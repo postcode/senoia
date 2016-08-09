@@ -1,6 +1,7 @@
 <div class="modal-body">
   <%= simple_fields_for asset do |a| %>
     <%= a.input :name, required: false %>
+    <%= a.input :level, required: false, collection: Transport::LEVELS %>
     <%= a.input :location, required: false %>
     <%= a.input :organization_id,
     collection: OrganizationType.find_providers,
