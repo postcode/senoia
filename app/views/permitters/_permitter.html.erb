@@ -10,13 +10,13 @@
     <h4>Permitting Agency <%= "Contact".pluralize(permitter.organization_users.default_contact.count) %></h4>
   </div>
   <% permitter.organization_users.default_contact.each do |contact| %>
-    <% @user = User.find(contact.user_id) %>
+    <% next unless @plan.users.include?(contact.user) %>
     <div class="row">
-      <h5><%= @user.name %></h5>
+      <h5><%= contact.user.name %></h5>
       <span class="email">
         <i class="fi-mail"></i>
-        <% if @user.email %>
-          <%= mail_to(@user.email, nil, target: "_blank") %>
+        <% if contact.user.email %>
+          <%= mail_to(contact.user.email, nil, target: "_blank") %>
         <% else %>
           <%= "(email missing)" %>
         <% end %>
@@ -25,7 +25,7 @@
 
       <span class="phone-number">
         <i class="fi-telephone"></i>
-        <%= @user.phone_number.phony_formatted(format: :national, spaces: ' ') || "(phone number missing)" %>
+        <%= contact.user.phone_number.phony_formatted(format: :national, spaces: ' ') || "(phone number missing)" %>
       </span>
     </div>
   <% end %>
