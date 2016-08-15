@@ -1,62 +1,32 @@
 <div class="content <%= "active" if count == 1 %> <%= "operation-period-#{operation_period.id}" %>" id="panel<%= count %>">
-
-  <div class="row">
-    <div class="small-2 columns input_label">
-      <label>Start</label>
-    </div>
-    <div class="small-4 columns end">
-      <p><%= l(operation_period.start_date_time) %></p>
-    </div>
-    <div class="large-4 columns end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_start_date" %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="small-2 columns input_label">
-      <label>End</label>
-    </div>
-    <div class="small-4 columns">
-      <p><%= l(operation_period.end_date_time) %></p>
-    </div>
-    <div class="large-4 columns">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_end_date" %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="small-2 columns input_label">
-      <label>Crowd Size</label>
-    </div>
-    <div class="small-4 columns">
-      <p><%= @plan.attendance %></p>
-    </div>
-    <div class="large-4 columns">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_attendance" %>
+  <div class="large-12 columns card large">
+    <div class="row">
+      <h3>Operation Period <%= count %> Overview</h3>
+      <hr/>
+      <div class="large-4 columns">
+        <h4>Time Period</h4>
+         <div>Start
+          <p><%= operation_period.formatted_start_date %> at <%= operation_period.formatted_start_time %></p>
+         </div>
+         <div>End
+           <p><%= operation_period.formatted_end_date %> at <%= operation_period.formatted_end_time %></p>
+         </div>
+      </div>
+      <div class="large-4 columns">
+        <h4>Crowd</h4>
+        <div>Peak Crowd Size
+          <p><%= @plan.attendance %></p>
+        </div>
+        <div>Total Crowd Estimate
+          <p><%= operation_period.crowd_estimate %></p>
+        </div>
+      </div>
+      <div class="large-4 columns">
+        <h4>Event Footprint</h4>
+          <p><%= operation_period.location %></p>
+      </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="small-2 columns input_label">
-      <label>Total Crowd Estimate</label>
-    </div>
-    <div class="small-4 columns">
-      <p><%= operation_period.crowd_estimate %></p>
-    </div>
-    <div class="large-4 columns">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_crowd_estimate" %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="small-2 columns input_label">
-      <label>Event Footprint</label>
-    </div>
-    <div class="small-4 columns">
-      <p><%= operation_period.location %></p>
-    </div>
-    <div class="large-4 columns">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_location" %>
-    </div>
-  </div>
-
   <div class="row">
     <div class="large-9 columns">
       <fieldset>

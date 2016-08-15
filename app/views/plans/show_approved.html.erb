@@ -12,67 +12,65 @@
     <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
   </div>
 </div>
-<div class="row">
-</div>
-  <% render "plans/plan_state" %>
-  <div class="large-12 columns plan_form">
-    <div class="plan-info">
-      <div class="row">
-        <div class="large-12 columns card end">
-          <div class="row">
-            <h3>Plan Overview</h3>
-            <hr/>
-            <div class="large-4 columns">
-              <h4>Approved</h4>
-              <%= @plan.approval_date.strftime("%D %l:%M %P") %>
-            </div>
-            <div class="large-4 columns">
-              <h4>Event Type</h4>
-              <%= @plan.event_type.name %>
-            </div>
-            <div class="large-4 columns">
-              <h4>Alcohol</h4>
-              <%= @plan.alcohol? ? "yes" : "no" %>
-            </div>
+<div class="large-12 columns plan_form">
+  <div class="plan-info">
+    <div class="row">
+      <div class="large-12 columns card large end">
+        <div class="row">
+          <h3>Plan Overview</h3>
+          <hr/>
+          <div class="large-4 columns">
+            <h4>Approved</h4>
+            <%= @plan.approval_date.strftime("%D %l:%M %P") %>
           </div>
-          <div class="row">
-            <div class="large-12 columns card-actions">
-              <span><%= link_to "Contact List", [@plan, :communication_plan], class: "communication-plan" %></span>
-              <span><%= link_to "Post Event Treatment Report", [@plan, :post_event_treatment_report], class: "post-event-treatment-report" %></span>
-            </div>
+          <div class="large-4 columns">
+            <h4>Event Type</h4>
+            <%= @plan.event_type.name %>
+          </div>
+          <div class="large-4 columns">
+            <h4>Alcohol</h4>
+            <%= @plan.alcohol? ? "yes" : "no" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns card-actions">
+            <span><%= link_to "Contact List", [@plan, :communication_plan], class: "communication-plan" %></span>
+            <span><%= link_to "Post Event Treatment Report", [@plan, :post_event_treatment_report], class: "post-event-treatment-report" %></span>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="large-8 columns card small">
-          <div class="large-12 columns">
-            <h4>Event Plan Creator</h4>
-            <% if @plan.creator.present? %>
-              <div><i class="fi-torso"></i> <%= @plan.creator.name %></div>
-              <div><i class="fi-mail"></i> <%= @plan.creator.email %></div>
-              <div><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></div>
-            <% else %>
-              <div>Contact information is missing!</div>
-            <% end %>
-          </div>
-        </div>
-        <div class="large-8 columns card small" >
-          <div class="large-12 columns">
-            <h4>Collaborators</h4>
-            <% @plan.users.each do |u| %>
-              <div><i class="fi-mail"></i>&nbsp;<%= u.email %></div>
-            <% end %>
-          </div>
-        </div>
-        <div class="large-8 columns card small end">
-          <h4>Permitting Agency</h4>
-          <%= @plan.permitter.present? ? @plan.permitter.name : "No Permitter" %>
-        </div>
-      </div>
-      <hr/>
     </div>
-
+    <div class="row">
+      <div class="large-8 columns card small">
+        <div class="large-12 columns">
+          <h4>Event Plan Creator</h4>
+          <% if @plan.creator.present? %>
+            <div><i class="fi-torso"></i> <%= @plan.creator.name %></div>
+            <div><i class="fi-mail"></i> <%= @plan.creator.email %></div>
+            <div><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></div>
+          <% else %>
+            <div>Contact information is missing!</div>
+          <% end %>
+        </div>
+      </div>
+      <div class="large-8 columns card small" >
+        <div class="large-12 columns">
+          <h4>Collaborators</h4>
+          <% @plan.users.each do |u| %>
+            <div><i class="fi-mail"></i>&nbsp;<%= u.email %></div>
+          <% end %>
+        </div>
+      </div>
+      <div class="large-8 columns card small end">
+        <h4>Permitting Agency</h4>
+        <%= @plan.permitter.present? ? @plan.permitter.name : "No Permitter" %>
+      </div>
+    </div>
+    <hr/>
+  </div>
+  <div class="row">
     <ul class="tabs" data-tab>
+      <h2>Operation <%= "Period".pluralize(@plan.operation_periods.count) %></h2>
       <% @plan.operation_periods.each_with_index do |operation_period, index| %>
         <%= render 'operation_period_tabs', count: index+1, period: operation_period, f: f %>
       <% end %>
@@ -83,6 +81,7 @@
       <% end %>
     </div>
   </div>
+</div>
 
     <%= render 'plan_agreement', f: f, plan: @plan %>
     <% if can? :manage, @plan %>

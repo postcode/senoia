@@ -1,0 +1,36 @@
+@import "colors";
+
+.tabs {
+  background: $promptlyblue;
+  margin-bottom: -2em !important;
+  width: 98%;
+  h2 {
+    color: #fff;
+    padding: 20px;
+    margin-bottom: -20px;
+  }
+  li {
+    border-radius: 0px;
+  }
+  .fi-calendar {
+    font-size: 30px;
+  }
+}
+
+.tabs dd.active a, .tabs .tab-title.active a {
+  background: $promptlyblue;
+  color: #fff;
+  border-bottom: solid 6px $orange;
+}
+.tabs dd > a:hover, .tabs .tab-title > a:hover {
+  background: $promptlyblue;
+  color: #fff;
+  border-bottom: solid 4px $orange;
+}
+.tabs dd > a, .tabs .tab-title > a {
+  background: $promptlyblue;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0em;
+  padding: 0.5rem 2rem;
+}

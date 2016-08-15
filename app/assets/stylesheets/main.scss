@@ -3,6 +3,7 @@
 @import "calendar";
 @import "forms";
 @import "card";
+@import "tabs";
 body {
 }
 /* FONTS */
@@ -403,29 +404,6 @@ fieldset{
   }
 }
 
-.tabs dd.active a, .tabs .tab-title.active a {
-  background-color: #FFF;
-  color: $darkgray;
-  border-bottom: none;
-  border-right: 2px solid $lightgray;
-  border-top: 2px solid $lightgray;
-  border-left: 2px solid $lightgray;
-}
-.tabs dd > a:hover, .tabs .tab-title > a:hover {
-  background-color: #fafafa;
-}
-.tabs dd > a, .tabs .tab-title > a {
-  background-color: #FFF;
-  color: $mediumgray;
-  font-family: $primary-font;
-  border-bottom: 2px solid $lightgray;
-  text-transform: uppercase;
-  margin: 2em 0em 1.5em 0em;
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-}
 #planAgreement{
   .plan-accepted{
     color: #43AC6A;
