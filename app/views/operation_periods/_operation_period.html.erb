@@ -28,93 +28,27 @@
     </div>
   </div>
   <div class="row">
-    <div class="large-9 columns">
-      <fieldset>
-        <legend>FIRST AID STATIONS</legend>
-        <div class="row">
-          <table id="first_aid_table">
-            <thead>
-              <th>Name</th>
-              <th width="75">Level</th>
-              <th>Provider</th>
-            </thead>
-            <tbody>
-              <%= render 'plans/first_aid_station/first_aid_station', op: operation_period, operation_period: operation_period %>
-            </tbody>
-          </table>
-        </div>
-      </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_first_aid_stations" %>
+    <div class="large-12 columns">
+      <div class="large-6 columns card medium">
+        <h3>First Aid Stations&nbsp;<i class="fa fa-plus-square right" aria-hidden="true"></i></h3>
+        <%= render 'plans/first_aid_station/first_aid_station', op: operation_period, operation_period: operation_period %>
+      </div>
+      <div class="large-6 columns card medium end">
+        <h3>Mobile Teams&nbsp;<i class="fa fa-medkit right" aria-hidden="true"></i></h3>
+          <%= render 'plans/mobile_team/mobile_team', op: operation_period, operation_period: operation_period %>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="large-9 columns">
-      <fieldset>
-        <legend>MOBILE TEAMS</legend>
-        <div class="row">
-          <table id="mobile_team_table">
-            <thead>
-              <th>Name</th>
-              <th width="75">Level</th>
-              <th width="75">Type</th>
-              <th>Provider</th>
-            </thead>
-            <tbody>
-              <%= render 'plans/mobile_team/mobile_team', op: operation_period, operation_period: operation_period %>
-            </tbody>
-          </table>
-        </div>
-      </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_mobile_teams" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="large-9 columns">
-      <fieldset>
-        <legend>TRANSPORTs</legend>
-        <div class="row">
-          <%= simple_fields_for :transports do |t| %>
-            <table id="transport_table">
-              <thead>
-                <th>Name</th>
-                <th>Provider</th>
-              </thead>
-              <tbody>
-                <% render 'plans/transport/transport', op: operation_period, operation_period: operation_period %>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
-      </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_transport" %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-9 columns">
-      <fieldset>
-        <legend>DISPATCHES</legend>
-        <div class="row">
-          <table id="dispatch_table">
-            <thead>
-              <th>Name</th>
-              <th>Provider</th>
-            </thead>
-            <tbody>
-              <%= render 'plans/dispatch/dispatch', op: operation_period, operation_period: operation_period %>
-            </tbody>
-          </table>
-        </div>
-      </fieldset>
-    </div>
-    <div class="large-3 columns right end">
-      <%= render 'plans/comment_form', plan: @plan, title: "#{operation_period.id}_dispatch" %>
+    <div class="large-12 columns">
+      <div class="large-6 columns card medium">
+        <h3>Transport&nbsp;<i class="fa fa-ambulance right" aria-hidden="true"></i></h3>
+        <%= render 'plans/transport/transport', op: operation_period, operation_period: operation_period %>
+      </div>
+      <div class="large-6 columns card medium end">
+        <h3>Dispatch&nbsp;<i class="fa fa-medkit right" aria-hidden="true"></i></h3>
+          <%= render 'plans/dispatch/dispatch', op: operation_period, operation_period: operation_period %>
+      </div>
     </div>
   </div>
 </div>

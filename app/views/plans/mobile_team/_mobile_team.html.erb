@@ -1,20 +1,30 @@
-  <% op.mobile_teams.each do |mobile_team| %>
-  <tr>
-    <td><%= mobile_team.name %></td>
-    <td><%= mobile_team.level %></td>
-    <td><%= mobile_team.mobile_team_type %></td>
-    <td><%= mobile_team.provider %></td>
-    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
-  </tr>
-    <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2 id="modalTitle">More Info</h2>
-      AED <%= mobile_team.aed %><br>
-
-      Planning Contact Name
-      <%= mobile_team.contact_name %><br>
-      Planning Contact Phone
-      <%= mobile_team.contact_phone %><br>
-      Planning Contact Email
-      <%= mobile_team.planning_contact_email %><br>
+<% op.mobile_teams.each do |mobile_team| %>
+<div class="row">
+  <div class="large-12 columns">
+    <h4><%= mobile_team.name %></h4>
+    <div class="large-3 columns">Level
+      <p><%= mobile_team.level %></p>
     </div>
+    <div class="large-3 columns">Type
+      <p><%= mobile_team.mobile_team_type %></p>
+    </div>
+    <div class="large-3 columns">Provider
+      <p><%= mobile_team.provider.name %></p>
+    </div>
+    <div class="large-3 columns end">
+      <span><a href="#" data-reveal-id="first_aid_info">More Info</a></span>
+    </div>
+  </div>
+</div>
+<div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">More Info</h2>
+  AED <%= mobile_team.aed %><br>
+
+  Planning Contact Name
+  <%= mobile_team.contact_name %><br>
+  Planning Contact Phone
+  <%= mobile_team.contact_phone %><br>
+  Planning Contact Email
+  <%= mobile_team.planning_contact_email %><br>
+</div>
 <% end %>
