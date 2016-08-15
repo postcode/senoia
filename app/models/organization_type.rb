@@ -37,7 +37,7 @@ class OrganizationType < ActiveRecord::Base
     type = OrganizationType.find_by_name("EMS Provider")
     type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations = [NullOrganization.new]
     organizations = [NullOrganization.new] unless organizations.present?
-    type.add_other(organizations)
+    type.add_other(organizations) if type.present?
     organizations
   end
 

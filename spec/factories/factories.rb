@@ -137,11 +137,10 @@ FactoryGirl.define do
     end
   end
 
-
   factory :organization do
     name { Faker::Lorem.words(3).join(" ") }
     phone_number { PhonyRails.normalize_number(Faker::PhoneNumber.phone_number) }
-    address { [ Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state ].join("\n") }
+    address { [Faker::Address.street_address, Faker::Address.city, Faker::Address.zip, Faker::Address.state].join("\n") }
     email { Faker::Internet.email }
     organization_type
 
@@ -161,5 +160,6 @@ FactoryGirl.define do
   factory :organization_user do
     user
     organization
+    contact true
   end
 end

@@ -2,6 +2,7 @@
 @import "comments";
 @import "calendar";
 @import "forms";
+@import "card";
 body {
 }
 /* FONTS */
@@ -9,7 +10,9 @@ body {
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,300,800);
 
-
+body {
+  background: #fafafa;
+}
 
 /* TYPOGRAPHY */
 
@@ -515,10 +518,13 @@ select.provider-dropdown {
 .plan_form {
   margin: 2em 0.5em 0em 0.5em;
 }
-.plan-state{
-  .button{
+.plan-state {
+  .button {
     background: $mediumgray;
     line-height: 2.7em;
+  }
+  ul {
+    margin-left: 0px;
   }
 }
 .review {
