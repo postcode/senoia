@@ -3,6 +3,9 @@
 @import "calendar";
 @import "forms";
 @import "card";
+@import "tabs";
+@import "list";
+@import "icons";
 body {
 }
 /* FONTS */
@@ -34,23 +37,23 @@ h2{
 }
 h3{
   color: $typography;
-  font-family: $secondary-font;
+  font-family: $primary-font;
     font-size: 26px;
 }
 h4{
   color: $typography;
-  font-family: $secondary-font;
+  font-family: $primary-font;
     font-size: 20px;
 }
 h5{
   color: $typography;
-  font-family: $secondary-font;
+  font-family: $primary-font;
     font-size: 16px;
     text-transform: uppercase;
 }
 h6{
   color: $typography;
-  font-family: $secondary-font;
+  font-family: $primary-font;
     font-size: 14px;
     text-transform: uppercase;
 }
@@ -81,14 +84,14 @@ ol{
 
 /* NAV BAR */
 .top-bar {
-  background: #fff;
+  background: $promptlyblue;
   border-bottom: 1px solid #f5f5f5;
   .name {
       margin: .25em 0em 0em .75em;
     a{
       font-family: $primary-font;
       font-size: 1.5em;
-      color: $promptlyblue;
+      color: #fff;
       text-transform: uppercase;
     }
   }
@@ -97,18 +100,20 @@ ol{
 .top-bar-section {
   font-weight: bold;
   li:not(.has-form) a:not(.button) {
-    background: #fff;
-    color: $promptlyblue;
+    background: $promptlyblue;
+    color: #fff;
+    line-height: 2.0em;
+    padding: 9px 12px;
     &:hover{
-      background: $promptlyblue;
-      color: #fff;
+      background: #fff;
+      color: $promptlyblue;
     }
   }
 }
 
 
 /* FOOTER */
-.footer{
+.footer {
   border-top: 1px solid $lightgray;
   margin-top: 1em;
   margin-bottom: 5em;
@@ -117,40 +122,47 @@ ol{
 
 /* GENERAL */
 
-hr{
+hr {
   margin:0rem;
 }
-.pageTitle{
-  margin-top: 2em;
-  margin-bottom: 2em;
+.pageTitle {
+  margin-top: 1em;
+  margin-bottom: -1em;
+  background: $promptlyblue;
+  color: #fff;
+  width: 98%;
+  height: 100px;
+  h1 {
+    color: #fff;
+  }
   input[type="text"]{
     font-size: 1em;
     height: 4rem;
     box-shadow: none;
     border-color: #fafafa;
   }
-  p{
+  p {
     color: $orange;
     font-size: .75em;
   }
 }
-fieldset{
+fieldset {
   padding-bottom: .3rem;
-  p{
+  p {
     margin-bottom: .25em;
   }
-  i{
+  i {
     margin-right: .5em;
   }
 }
-legend{
+legend {
   color: $typography;
   font-family: $secondary-font;
 }
-.content-padding{
+.content-padding {
   padding: 2.5em 0em 3em 0em;
 }
-.input{
+.input {
   margin-bottom: 1em;
 }
 
@@ -401,29 +413,6 @@ fieldset{
   }
 }
 
-.tabs dd.active a, .tabs .tab-title.active a {
-  background-color: #FFF;
-  color: $darkgray;
-  border-bottom: none;
-  border-right: 2px solid $lightgray;
-  border-top: 2px solid $lightgray;
-  border-left: 2px solid $lightgray;
-}
-.tabs dd > a:hover, .tabs .tab-title > a:hover {
-  background-color: #fafafa;
-}
-.tabs dd > a, .tabs .tab-title > a {
-  background-color: #FFF;
-  color: $mediumgray;
-  font-family: $primary-font;
-  border-bottom: 2px solid $lightgray;
-  text-transform: uppercase;
-  margin: 2em 0em 1.5em 0em;
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-}
 #planAgreement{
   .plan-accepted{
     color: #43AC6A;
@@ -516,7 +505,7 @@ select.provider-dropdown {
 }
 
 .plan_form {
-  margin: 2em 0.5em 0em 0.5em;
+  // margin: 2em 0.5em 0em 0.5em;
 }
 .plan-state {
   .button {
@@ -682,5 +671,8 @@ div.input.radio_buttons {
   p {
     color: #fff;
   }
+}
+.plan-info {
+  margin: 10px;
 }
 

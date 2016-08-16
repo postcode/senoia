@@ -1,22 +1,30 @@
-  <% op.first_aid_stations.each do |first_aid_station| %>
-  <tr>
-    <td><%= first_aid_station.name %></td>
-    <td><%= first_aid_station.level %></td>
-    <td><%= first_aid_station.provider.name %></td>
-    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
-  </tr>
-    <div id="first_aid_stations_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" class="new-first_aid_stations reveal-modal medium asset-modal first_aid_stations-form" data-url="<%= url_for([operation_period, :first_aid_stations ]) %>">
-      <h2 id="modalTitle">More Info</h2>
-      MD <%= first_aid_station.md %><br>
-      RN <%= first_aid_station.rn %><br>
-      EMT <%= first_aid_station.emt %><br>
-      AED <%= first_aid_station.aed %><br>
-
-      Planning Contact Name
-      <%= first_aid_station.contact_name %><br>
-      Planning Contact Phone
-      <%= first_aid_station.contact_phone %><br>
-      Planning Contact Email
-      <%= first_aid_station.planning_contact_email %><br>
+<% op.first_aid_stations.each do |first_aid_station| %>
+<div class="row">
+  <div class="large-12 columns">
+    <h4><%= first_aid_station.name %></h4>
+    <div class="large-4 columns">Level
+      <p><%= first_aid_station.level %></p>
     </div>
+    <div class="large-4 columns">Provider
+      <p><%= first_aid_station.provider.name %></p>
+    </div>
+    <div class="large-4 columns end">
+      <span><a href="#" data-reveal-id="first_aid_info">More Info</a></span>
+    </div>
+  </div>
+</div>
+<div id="first_aid_stations_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" class="new-first_aid_stations reveal-modal medium asset-modal first_aid_stations-form" data-url="<%= url_for([operation_period, :first_aid_stations ]) %>">
+  <h2 id="modalTitle">More Info</h2>
+  MD <%= first_aid_station.md %><br>
+  RN <%= first_aid_station.rn %><br>
+  EMT <%= first_aid_station.emt %><br>
+  AED <%= first_aid_station.aed %><br>
+
+  Planning Contact Name
+  <%= first_aid_station.contact_name %><br>
+  Planning Contact Phone
+  <%= first_aid_station.contact_phone %><br>
+  Planning Contact Email
+  <%= first_aid_station.planning_contact_email %><br>
+</div>
 <% end %>

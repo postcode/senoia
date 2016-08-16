@@ -1,0 +1,26 @@
+@import "compass/css3";
+
+.shadow {
+  @include box-shadow(rgba(0,0,0,0.37) 0 1px 4px 0);
+}
+
+.list {
+  background: #fff;
+  width: 98%;
+  padding: 0px;
+  margin-bottom: 1.5em;
+  p {
+    padding: 0px 15px;
+  }
+  .title {
+    background: #ECEFF1;
+    padding: 15px;
+    margin: 0em;
+  }
+  &.with-padding {
+    padding: 15px;
+    p {
+      padding: 0px;
+    }
+  }
+}

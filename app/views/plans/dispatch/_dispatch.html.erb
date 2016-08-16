@@ -1,19 +1,26 @@
-  <% op.dispatchs.each do |dispatch| %>
-  <tr>
-    <td><%= dispatch.name %></td>
-    <td><%= dispatch.level %></td>
-    <td><%= dispatch.organization.try :name %>
-    </td>
-    <td><a href="#" data-reveal-id="first_aid_info">More Info</a></td>
-  </tr>
-    <div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2 id="modalTitle">More Info</h2>
-      Planning Contact Name
-      <%= dispatch.contact_name %><br>
-      Planning Contact Phone
-      <%= dispatch.contact_phone %><br>
-      Planning Contact Email
-      <%= dispatch.planning_contact_email %><br>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+<% op.dispatchs.each do |dispatch| %>
+<div class="row">
+  <div class="large-12 columns">
+    <h4><%= dispatch.name %></h4>
+    <div class="large-4 columns">Level
+      <p><%= dispatch.level %></p>
     </div>
+    <div class="large-4 columns">Provider
+      <p><%= dispatch.provider.name unless dispatch.provider.blank? %></p>
+    </div>
+    <div class="large-4 columns end">
+      <span><a href="#" data-reveal-id="first_aid_info">More Info</a></span>
+    </div>
+  </div>
+</div>
+<div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">More Info</h2>
+  Planning Contact Name
+  <%= dispatch.contact_name %><br>
+  Planning Contact Phone
+  <%= dispatch.contact_phone %><br>
+  Planning Contact Email
+  <%= dispatch.planning_contact_email %><br>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
 <% end %>

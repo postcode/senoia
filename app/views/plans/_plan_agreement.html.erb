@@ -1,41 +1,30 @@
 <% @plan = plan unless plan.blank?  %>
   <div id="planAgreement" class="row">
-      <fieldset id="stepTwelve">
-        <legend>EVENT FOOTPRINT RESPONSIBILITY</legend>
-        <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC (phone: 415-575-0737) to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
-        <% if @plan.responsibility == true %>
-          <div>
-            <% @event = @plan.versions.where(event: "update responsibility").first %>
-            <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em> by: <%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
-            <% end %>
-          </div>
-        <% else %>
-        <div id="responsibility">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
+    <div class="large-12 columns card large end">
+      <div id="stepTwelve" class="row">
+        <h3>Event Footprint Responsibility</h3>
         </div>
-        <% end %>
-      </fieldset>
-
-      <fieldset>
-        <legend>CPR & 911</legend>
-        <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
-        <% if @plan.cpr == true %>
-          <div>
-            <% @event = @plan.versions.where(event: "update cpr").first %>
-            <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em>by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
-            <% end %>
+        <div class="row">
+          <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC (phone: 415-575-0737) to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
+          <% if @plan.responsibility == true %>
+            <div>
+              <% @event = @plan.versions.where(event: "update responsibility").first %>
+              <% if @event.present? %>
+                <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em> by: <%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+              <% end %>
+            </div>
+          <% else %>
+          <div id="responsibility">
+            <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
           </div>
-        <% else %>
-        <div id="cpr">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
+          <% end %>
         </div>
-        <% end %>
-      </fieldset>
-
-      <fieldset>
-        <legend>COMMUNICATIONS</legend>
+    </div>
+    <div class="large-12 columns card large end">
+      <div class="row">
+        <h3>Communications</h3>
+      </div>
+      <div class="row">
         <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
         <div class="row">
           <div class="large-3 columns">
@@ -43,23 +32,23 @@
           </div>
         </div>
         <% if @plan.communication == true %>
-          <div>
-            <% @event = @plan.versions.where(event: "update communication").first %>
-            <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
-            <% end %>
-          </div>
+        <div>
+          <% @event = @plan.versions.where(event: "update communication").first %>
+          <% if @event.present? %>
+            <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+          <% end %>
+        </div>
         <% else %>
         <div id="communication">
           <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
         </div>
         <% end %>
-      </fieldset>
-
-      <fieldset id="stepThirteen">
-        <legend>STAFF RESPONSIBILITY</legend>
+      </div>
+    </div>
+    <div class="large-12 columns list shadow with-padding end">
+      <div id="stepThirteen" class="row">
+        <h3>Staff Responsibility</h3>
         <p>All contracted medical interventionists will be active, current, and in good-standing at the time of the operational period. The event producer will ensure that a complete staff list is provided no less than one week prior to the first operational period.</p>
-
         <p>This staff list will include the following information for each contracted medical interventionist:
           <ul>
             <li>Full legal name</li>
@@ -90,10 +79,11 @@
             <% end %>
           <% end %>
         <% end %>
-      </fieldset>
-
-      <fieldset>
-        <legend>MCI CAPABILITIES</legend>
+      </div>
+    </div>
+    <div class="large-12 columns card large end">
+      <div class="row">
+        <h3>MCI Capabilities</h3>
         <p>A written MCI plan and an approved MCI will be present at the event. All contracted responders will be briefed and trained on their contents and use.</p>
         <% if @plan.mci == true %>
           <div>
@@ -107,8 +97,9 @@
           <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
         </div>
         <% end %>
-      </fieldset>
+      </div>
     </div>
+  </div>
 
 <script type="text/javascript">
   $('.accept').click(function() {
