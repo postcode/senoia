@@ -131,13 +131,14 @@ hr {
   background: $promptlyblue;
   color: #fff;
   width: 98%;
-  height-min: 100px;
+  min-height: 100px;
   h1 {
     color: #fff;
   }
   input[type="text"]{
     font-size: 1em;
     height: 4rem;
+    color: #fff;
     box-shadow: none;
     border-color: #fafafa;
   }
@@ -391,7 +392,7 @@ fieldset{
   height: 0;
   border-top: 50px solid transparent;
   border-bottom: 50px solid transparent;
-  border-left: 35px solid $promptlyblue;
+  border-left: 30px solid #fff;
   position: absolute;
   top: 50%;
   margin-top: -50px;
