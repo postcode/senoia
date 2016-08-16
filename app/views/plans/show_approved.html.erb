@@ -1,15 +1,17 @@
 <%= simple_form_for [@plan] do |f| %>
-<div class="row pageTitle">
-  <div class="large-9 columns">
-    <h1><%= @plan.name %> </h1>
-  </div>
-  <div class="large-2 columns">
-    <% if can? :read, :admin_only_items %>
-      <%= link_to "Email Approval", send_approved_plan_plan_path(@plan), class: "button tiny", method: :post %>
-    <% end %>
-  </div>
-  <div class="large-1 columns end">
-    <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
+<div class="row">
+  <div class="large-12 columns pageTitle">
+    <div class="large-9 columns">
+      <h1><%= @plan.name %> </h1>
+    </div>
+    <div class="large-2 columns">
+      <% if can? :read, :admin_only_items %>
+        <%= link_to "Email Approval", send_approved_plan_plan_path(@plan), class: "button tiny", method: :post %>
+      <% end %>
+    </div>
+    <div class="large-1 columns end">
+      <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
+    </div>
   </div>
 </div>
 <div class="large-12 columns plan_form">

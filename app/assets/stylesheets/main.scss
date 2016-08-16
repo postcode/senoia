@@ -5,6 +5,7 @@
 @import "card";
 @import "tabs";
 @import "list";
+@import "icons";
 body {
 }
 /* FONTS */
@@ -112,7 +113,7 @@ ol{
 
 
 /* FOOTER */
-.footer{
+.footer {
   border-top: 1px solid $lightgray;
   margin-top: 1em;
   margin-bottom: 5em;
@@ -121,40 +122,47 @@ ol{
 
 /* GENERAL */
 
-hr{
+hr {
   margin:0rem;
 }
-.pageTitle{
+.pageTitle {
   margin-top: 1em;
-  margin-bottom: 0em;
+  margin-bottom: -1em;
+  background: $promptlyblue;
+  color: #fff;
+  width: 98%;
+  height: 100px;
+  h1 {
+    color: #fff;
+  }
   input[type="text"]{
     font-size: 1em;
     height: 4rem;
     box-shadow: none;
     border-color: #fafafa;
   }
-  p{
+  p {
     color: $orange;
     font-size: .75em;
   }
 }
-fieldset{
+fieldset {
   padding-bottom: .3rem;
-  p{
+  p {
     margin-bottom: .25em;
   }
-  i{
+  i {
     margin-right: .5em;
   }
 }
-legend{
+legend {
   color: $typography;
   font-family: $secondary-font;
 }
-.content-padding{
+.content-padding {
   padding: 2.5em 0em 3em 0em;
 }
-.input{
+.input {
   margin-bottom: 1em;
 }
 
