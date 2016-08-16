@@ -15,18 +15,125 @@
     </div>
   </div>
   <% end %>
-  <div class="large-12 columns">
-    <div class="row">
-      <div class="large-8 columns pageTitle">
+  <div class="row">
+    <div class="large-12 columns pageTitle">
+      <div class="large-9 columns">
         <h1><%= f.input :name, label: false %></h1>
       </div>
-      <div class="large-3 columns end pageTitle">
+      <div class="large-3 columns">
         <p>EDIT MODE<br>
-          <em>Last Updated: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
+        <em>Last Updated: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
       </div>
+      <%= render 'plan_state' %>
     </div>
   </div>
-  <%= render 'plan_state' %>
+
+  <div class="large-12 columns plan_form">
+  <div class="plan-info">
+    <div class="row">
+      <div class="large-12 columns card large end">
+        <div class="row">
+          <h3>Plan Overview</h3>
+          <hr/>
+          <div class="large-6 columns">
+            <h4>Event Type</h4>
+              <div id="stepThree" class="large-8 columns">
+              <% if can? :edit, @plan %>
+                <%= f.association :event_type,
+                collection: EventType.all,
+                label_method: :name,
+                value_method: :id,
+                include_blank: false,
+                label: false %>
+              <% else %>
+                <p>
+                  <%= @plan.event_type %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+          <div class="large-6 columns">
+            <h4>Alcohol</h4>
+            <div id="stepFive" class="small-5 columns">
+              <%= f.input :alcohol, as: :radio_buttons, label: false %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns card-actions">
+            <span><%= link_to "Contact List", [@plan, :communication_plan], class: "communication-plan" %></span>
+            <span><%= link_to "Post Event Treatment Report", [@plan, :post_event_treatment_report], class: "post-event-treatment-report" %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-8 columns card small">
+        <div class="large-12 columns">
+          <h4>Event Plan Creator</h4>
+          <% if @plan.creator.present? %>
+            <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
+            <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number.phony_formatted(format: :national, spaces: ' ') %></p>
+          <% else %>
+            <%= f.association :creator,
+                              collection: User.all,
+                              label_method: :email,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false %>
+          <% end %>
+        </div>
+      </div>
+      <div class="large-8 columns card small" >
+        <div class="large-12 columns">
+          <h4>Collaborators</h4>
+          <div class="row">
+            <div class="large-9 columns">
+              <table id="users_table">
+                <thead>
+                  <th>Email</th>
+                  <th>Role</th>
+                </thead>
+                <tbody>
+                  <% @plan.users.each do |user| %>
+                    <tr>
+                      <td><%= user.email %></td>
+                      <td><%= PlanUser.where(user_id: user.id, plan_id: @plan.id).first.present? ? PlanUser.where(user_id: user.id, plan_id: @plan.id).first.role : nil %></td>
+                      <td><%= link_to "Remove", remove_user_plan_path(plan_id: @plan.id, user_id: user.id), method: :delete %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            <div class="large-3 columns">
+              <a id="new_plan_user_button" href="#" data-reveal-id="new-plan-user" class="button tiny radius"><i class="fi-plus"></i> ADD USERS</a>
+              <%= render 'new_plan_user', :plan => @plan %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="large-8 columns card small end">
+        <h4>Permitting Agency</h4>
+        <div class="row">
+          <div class="small-3 columns input_label">
+            <%= f.label :organization, class: "inline", required: true, label: "Permitting Agency" %>
+          </div>
+          <div id="stepFour" class="small-5 columns">
+            <%= f.association :organization,
+                              collection: OrganizationType.find_permitters,
+                              label_method: :name,
+                              value_method: :id,
+                              include_blank: false,
+                              label: false,
+                              prompt: "(Please select)"%>
+            <%= render partial: "permitters/permitter", collection: OrganizationType.find_permitters, permitter: @plan.permitter %>
+          </div>
+      </div>
+    </div>
+    <hr/>
+  </div>
+
+
   <div class="large-12 columns plan_form">
     <div class="row">
       <div class="large-8 columns">

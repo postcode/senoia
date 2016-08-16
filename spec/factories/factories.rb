@@ -54,6 +54,7 @@ FactoryGirl.define do
 
     factory :approved_plan do
       workflow_state :approved
+      approval_date Time.now
     end
 
     factory :no_operation_period do

@@ -128,7 +128,6 @@ feature "Plan" do
       plan.save!
       p plan.permitter.organization_users
       p plan.users
-      save_screenshot
       expect(page).to have_content plan.permitter.organization_users.first.user.phone_number.phony_formatted(format: :national, spaces: ' ')
     end
 
@@ -144,6 +143,7 @@ feature "Plan" do
       fill_in "operation_period_start_date", with: "01/01/2020"
       fill_in "operation_period_end_date", with: "02/01/2020"
       fill_in "operation_period_attendance", with: 10000
+      save_screenshot
       expect {
         click_link "Save"
         expect(page).to have_content("Create Duplicate Operation Period")
@@ -275,7 +275,7 @@ feature "Plan" do
       }.to change{ Plan.with_approved_state.count }.by(1)
       visit "/plans/#{plan.id}"
       p plan.reload
-      expect(page).to have_content "Plan approved on: #{plan.reload.approval_date}"
+      expect(page).to have_content "#{plan.reload.approval_date.strftime('%D %l:%M %P')}"
       expect(plan.reload.approval_date).to_not eq nil
     end
 
@@ -379,18 +379,18 @@ feature "Plan" do
     end
 
     scenario "an admin can see the 'email approved plan' button" do
-      expect(page).to have_content 'Email Approval Notification'
+      expect(page).to have_content 'Email Approval'
     end
 
     scenario "an admin can send an email to the plan approval group" do
-      click_link 'Email Approval Notification'
+      click_link 'Email Approval'
       email = find_email(group_member.email)
       expect(email).to_not be_nil
       expect(email).to have_body_text("approved")
     end
 
     scenario "an admin can send an email to the plan approval group and it will contain a pdf of the plan" do
-      click_link 'Email Approval Notification'
+      click_link 'Email Approval'
       email = find_email(group_member.email)
       expect(email).to_not be_nil
       expect(email.attachments.map(&:filename).select{ |name| name == "#{approved_plan.name}.pdf"}.include?("#{approved_plan.name}.pdf")).to eq true

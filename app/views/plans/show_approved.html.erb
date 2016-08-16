@@ -22,8 +22,10 @@
           <h3>Plan Overview</h3>
           <hr/>
           <div class="large-4 columns">
+          <% unless @plan.approval_date.blank? %>
             <h4>Approved</h4>
             <%= @plan.approval_date.strftime("%D %l:%M %P") %>
+          <% end %>
           </div>
           <div class="large-4 columns">
             <h4>Event Type</h4>

@@ -5,6 +5,10 @@ feature "Plan Permissions" do
   shared_examples "can view" do
 
     background do
+      if plan.approved?
+        plan.approval_date = Time.now
+        plan.save
+      end
       visit "/plans/#{plan.id}"
     end
 

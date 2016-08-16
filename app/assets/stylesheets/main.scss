@@ -131,7 +131,7 @@ hr {
   background: $promptlyblue;
   color: #fff;
   width: 98%;
-  height: 100px;
+  height-min: 100px;
   h1 {
     color: #fff;
   }
@@ -391,7 +391,7 @@ fieldset{
   height: 0;
   border-top: 50px solid transparent;
   border-bottom: 50px solid transparent;
-  border-left: 30px solid white;
+  border-left: 35px solid $promptlyblue;
   position: absolute;
   top: 50%;
   margin-top: -50px;
