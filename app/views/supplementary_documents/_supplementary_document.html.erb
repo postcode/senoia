@@ -1,24 +1,30 @@
 <% @doc = supplementary_document %>
 <% if !supplementary_document.staff_contact || (can? :manage, supplementary_document.parent) %>
   <div class="supplementary-document row" id="supplementary-document-<%= supplementary_document.id %>">
-    <h4>
-      <%= supplementary_document.name %>
-    </h4>
-    <p>
-      <%= simple_format supplementary_document.description %>
-    </p>
-    <p>
-      <%= link_to "View", supplementary_document.file.url, target: "_blank" %>
-      <% if can? :edit, supplementary_document.parent %>
-        &middot;
-        <%= link_to "Remove", supplementary_document, method: "DELETE", remote: true, data: { confirm: "Are you sure you want to remove this document?" } %>
-      <% end %>
-    </p>
-    <% return unless current_user.present? %>
-      <% if current_user.admin? && f.present? %>
-        <%= f.simple_fields_for :supplementary_documents, @doc do |d| %>
-          <%= d.input :email, as: :boolean, checked_value: true, unchecked_value: false, label: "Email with plan approval" %>
-        <% end %>
-      <% end %>
+    <div class="large-12 columns">
+      <div class="row">
+        <div class="large-9 columns">
+          <h4><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;<%= supplementary_document.name %></h4>
+        </div>
+        <div class="large-3 columns end">
+          <%= link_to "View", supplementary_document.file.url, target: "_blank" %>
+          <% if can? :edit, supplementary_document.parent %>
+            &middot;
+            <%= link_to "Remove", supplementary_document, method: "DELETE", remote: true, data: { confirm: "Are you sure you want to remove this document?" } %>
+          <% end %>
+          <% return unless current_user.present? %>
+            <% if current_user.admin? && f.present? %>
+              <%= f.simple_fields_for :supplementary_documents, @doc do |d| %>
+                <%= d.input :email, as: :boolean, checked_value: true, unchecked_value: false, label: "Email with plan approval" %>
+              <% end %>
+            <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns">
+          <%= simple_format supplementary_document.description %>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
