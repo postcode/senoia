@@ -1,6 +1,5 @@
 class StaffListReminder
   def self.remind(plan, reminder_field)
-    print "SENDING A REMINDER"
     # Send the email
     StaffResponsibilityReminderMailer.send_responsibility_reminder(plan).deliver_now
 

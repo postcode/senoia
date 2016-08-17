@@ -16,9 +16,6 @@ feature "Staff List Reminder" do
   end
 
   context "two week reminder" do
-    # Plan.delete_all
-    # OperationPeriod.delete_all
-
     let!(:plan) { FactoryGirl.create(:op_within_two_weeks_approved) }
 
     it "sends two week reminder" do
@@ -31,28 +28,61 @@ feature "Staff List Reminder" do
         .and_call_original
 
       run_rake_task
-      # expect()
-      # expect(subject).to receive(:bar).with([plan])
+
+      plan.reload
+      expect(plan.staff_responsibility_reminder_2wk).to eq(true)
     end
 
-    xit "doesn't remind twice" do
-      # run_rake_task
+    it "doesn't remind twice" do
+      expect(StaffListReminder).to receive(:remind)
+      run_rake_task
+
+      expect(StaffListReminder).to_not receive(:remind)
+      run_rake_task
     end
   end
 
-  xcontext "past events" do
+  context "one week reminder" do
+    let!(:plan) { FactoryGirl.create(:op_within_week_approved) }
+
+    it "sends one week reminder" do
+      expect(StaffListReminder).to receive(:remind)
+        .with(plan, 'staff_responsibility_reminder_1wk')
+        .and_call_original
+
+      expect(StaffResponsibilityReminderMailer).to receive(:send_responsibility_reminder)
+        .with(plan)
+        .and_call_original
+
+      run_rake_task
+
+      plan.reload
+      expect(plan.staff_responsibility_reminder_1wk).to eq(true)
+      expect(plan.staff_responsibility_reminder_2wk).to eq(true)
+    end
+
+    it "doesn't remind twice" do
+      expect(StaffListReminder).to receive(:remind)
+      run_rake_task
+
+      expect(StaffListReminder).to_not receive(:remind)
+      run_rake_task
+    end
+  end
+
+  context "past events" do
     let(:plan) { FactoryGirl.create(:past_op) }
     it "doesn't remind for past events" do
-      # run_rake_task
+      expect(StaffListReminder).to_not receive(:remind)
+      run_rake_task
     end
   end
 
-  xcontext "way far out events" do
+  context "way far out events" do
     let(:plan) { FactoryGirl.create(:far_out_op) }
     it "doesn't remind far out" do
-      # run_rake_task
+      expect(StaffListReminder).to_not receive(:remind)
+      run_rake_task
     end
   end
-
-
 end

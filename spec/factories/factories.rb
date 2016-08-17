@@ -109,11 +109,14 @@ FactoryGirl.define do
       op_within_two_weeks
     end
 
-    factory :op_within_week do
+    trait :op_within_week do
       operation_periods { [FactoryGirl.create(:in_next_week)] }
     end
 
     factory :op_within_week_approved do
+      # Let's say we've already sent the 2 week reminder.
+      staff_responsibility_reminder_2wk true
+
       approved
       op_within_week
     end
