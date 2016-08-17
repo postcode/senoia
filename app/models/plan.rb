@@ -117,6 +117,10 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  def has_staff_plan
+    supplementary_documents.staff_contact.exists?
+  end
+
   def end_date
     d = operation_periods.map(&:end_date).compact.max
     t = operation_periods.map(&:end_time).compact.max
