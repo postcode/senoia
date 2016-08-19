@@ -1,29 +1,27 @@
 <div class="row">
-  <div class="large-12 columns operation-period-container list with-padding">
-    <% if @plan.operation_periods.present? %>
-      <ul class="tabs" id="operation-period-tabs" data-tab>
-        <%= render 'plans/operation_period_button', plan: @plan %>
-        <% @plan.operation_periods.each_with_index do |operation_period, index| %>
-          <%= render 'plans/operation_period_tabs', count: index+1, period: operation_period %>
-        <% end %>
-      </ul>
-      <div class="tabs-content">
-          <% @plan.operation_periods.each.with_index do |operation_period, index| %>
-            <% if can? :edit, @plan and !@plan.approved? %>
-              <%= render 'operation_periods/form', operation_period: operation_period, count: index+1, f: f %>
-            <% else %>
-              <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1 %>
-            <% end %>
+  <% if @plan.operation_periods.present? %>
+    <ul class="tabs" id="operation-period-tabs" data-tab>
+      <%= render 'plans/operation_period_button', plan: @plan %>
+      <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+        <%= render 'plans/operation_period_tabs', count: index+1, period: operation_period %>
+      <% end %>
+    </ul>
+    <div class="tabs-content">
+        <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+          <% if can? :edit, @plan and !@plan.approved? %>
+            <%= render 'operation_periods/form', operation_period: operation_period, count: index+1, f: f %>
+          <% else %>
+            <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1 %>
           <% end %>
-      </div>
-    <% elsif can? :edit, @plan %>
-      <ul class="tabs" id="operation-period-tabs" data-tab>
-        <li class="tab-title active"><a href="#panel0">Operational Period</a></li>
-      </ul>
-      <div class="tabs-content">
-        <%= render 'plans/operation_period', count: 0 %>
-      </div>
-    <% end %>
-    <p>Fill out all of the available boxes. If you would like to appeal the requirements, add an explanation for why as a comment.</p>
-  </div>
+        <% end %>
+    </div>
+  <% elsif can? :edit, @plan %>
+    <ul class="tabs" id="operation-period-tabs" data-tab>
+      <li class="tab-title active"><a href="#panel0">Operational Period</a></li>
+    </ul>
+    <div class="tabs-content">
+      <%= render 'plans/operation_period', count: 0 %>
+    </div>
+  <% end %>
+  <p>Fill out all of the available boxes. If you would like to appeal the requirements, add an explanation for why as a comment.</p>
 </div>

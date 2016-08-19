@@ -166,17 +166,20 @@
   <%= render "supplementary_documents/index", parent: @plan, f: f %>
 
    <div id="stepFifteen" class="row">
-      <fieldset>
-        <legend>POST EVENT TREATMENT REPORT CREATOR</legend>
+      <div class="small-12 columns list shadow with-padding">
         <div class="row">
-          <div class="small-4 columns">
+          <h3>Post Event Treatment Report Creator</h3>
+        </div>
+        <div class="row">
+          <div class="small-8 columns">
             <%= f.input :post_event_name, required: true, label: "Name" %>
             <%= f.input :post_event_email, required: true, label: "Email" %>
             <%= f.input :post_event_phone, required: true, label: "Phone Number" %>
           </div>
         </div>
-      </fieldset>
+      </div>
     </div>
+  </div>
 
   <% if can? :edit, @plan %>
   <div class="plan_action_container">
