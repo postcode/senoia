@@ -90,21 +90,15 @@
       </div>
     </div>
     <div id="stepEleven" class="row">
-      <div class="large-9 columns">
-        <fieldset>
-          <legend>FIRST AID STATIONS</legend>
-          <div class="row">
+      <div class="small-12 columns list shadow with-padding">
+        <h4>First Aid Stations</h4>
+        <div class="row">
+          <div class="small-8 columns">
             <table id="first_aid_table">
               <thead>
                 <th>Name</th>
                 <th width="75">Level</th>
-                <!-- <th>MDs</th>
-                <th>RNs</th>
-                <th>EMTs</th>
-                <th>AEDs</th> -->
                 <th width="155">Provider</th>
-                <!-- <th>Contact Name</th>
-                <th>Contact Phone</th> -->
               </thead>
               <tbody>
                 <%= @asset_text[:first_aid_station] unless @asset_text.blank? %>
@@ -117,26 +111,22 @@
               <%= render partial: 'plans/first_aid_station/new_first_aid_station', :locals => { :operation_period => op.object, :operation => "operation_periods[id][#{count}]", :operation_period_index => count - 1 } %>
             </div>
           </div>
-        </fieldset>
-      </div>
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_first_aid_stations" %>
+          <div class="small-3 columns right end">
+            <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_first_aid_stations" %>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="large-9 columns">
-        <fieldset>
-          <legend>MOBILE TEAMS</legend>
-          <div class="row">
+      <div class="small-12 columns list shadow with-padding">
+        <h4>Mobile Teams</h4>
+        <div class="row">
+          <div class="small-8 columns">
             <table id="mobile_team_table">
               <thead>
                 <th>Name</th>
                 <th width="75">Level</th>
-                <!-- <th width="75">Type</th>
-                <th>AEDs</th> -->
                 <th width="155">Provider</th>
-                <!-- <th>Contact Name</th>
-                <th>Contact Phone</th> -->
               </thead>
               <tbody>
                 <%= @asset_text[:mobile_team] unless @asset_text.blank? %>
@@ -148,18 +138,17 @@
               <%= render partial: 'plans/mobile_team/new_mobile_team', :locals => { :operation_period => op.object, :operation_period_index => count - 1 } %>
             </div>
           </div>
-        </fieldset>
-      </div>
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_mobile_teams" %>
+          <div class="small-3 columns right end">
+            <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_mobile_teams" %>
+          </div>
+        </div>
       </div>
     </div>
-
     <div class="row">
-      <div class="large-9 columns">
-        <fieldset>
-          <legend>TRANSPORTS</legend>
-          <div class="row">
+      <div class="small-12 columns list shadow with-padding">
+        <h4>Transports</h4>
+        <div class="row">
+          <div class="small-8 columns">
             <%= simple_fields_for :transports do |t| %>
               <table id="transport_table">
                 <thead>
@@ -176,17 +165,17 @@
               </div>
             <% end %>
           </div>
-        </fieldset>
-      </div>
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_transport" %>
+          <div class="small-3 columns right end">
+            <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_transport" %>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="large-9 columns">
-        <fieldset>
-          <div class="row">
-            <legend>DISPATCH</legend>
+      <div class="small-12 columns list shadow with-padding">
+        <h4>Dispatch</h4>
+        <div class="row">
+          <div class="small-8 columns">
             <%= simple_fields_for :dispatchs do |d| %>
               <table id="dispatch_table">
                 <thead>
@@ -203,10 +192,10 @@
               </div>
             <% end %>
           </div>
-        </fieldset>
-      </div>
-      <div class="large-3 columns right end">
-        <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_dispatch" %>
+          <div class="small-3 columns right end">
+            <%= render 'plans/comment_form', plan: @plan, title: "#{op.object.id}_dispatch" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

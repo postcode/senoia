@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="large-12 columns operation-period-container">
+  <div class="large-12 columns operation-period-container list with-padding">
     <% if @plan.operation_periods.present? %>
-      <%= render 'plans/operation_period_button', plan: @plan %>
       <ul class="tabs" id="operation-period-tabs" data-tab>
+        <%= render 'plans/operation_period_button', plan: @plan %>
         <% @plan.operation_periods.each_with_index do |operation_period, index| %>
           <%= render 'plans/operation_period_tabs', count: index+1, period: operation_period %>
         <% end %>
