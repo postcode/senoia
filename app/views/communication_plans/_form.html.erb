@@ -14,103 +14,113 @@
     </div>
   </div>
   <div class="row">
-  <div class="row">
-    <div class="small-5 columns command-select">
-      <h5>Will there be a unified command?</h5>
-      <%= radio_button_tag 'command', 'yes', false, class: 'command-radio' %>&nbsp;Yes</br>
-      <%= radio_button_tag 'command', 'no', false, class: 'command-radio' %>&nbsp;No
-    </div>
-    <div class="small-5 columns command-list">
-      <%= render "supplementary_documents/contact_list", parent: @communication_plan %>
-    </div>
-  </div>
-    <div class="large-5 columns input_label">
-      <h2>Event Coordinator</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
-      <%= f.input :event_coordinator_name %>
-      <%= f.input :event_coordinator_phone %>
-      <%= f.input :event_coordinator_email %>
-      <%= f.input :event_coordinator_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
-    </div>
-    <div class="large-5 large-offset-1 end columns input_label">
-      <h2>Event Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
-      <%= f.input :event_supervisor_name %>
-      <%= f.input :event_supervisor_phone %>
-      <%= f.input :event_supervisor_email %>
-      <%= f.input :event_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+    <div class="large-12 columns list shadow with-padding">
+      <div class="small-5 columns command-select">
+        <h5>Will there be a unified command?</h5>
+        <%= radio_button_tag 'command', 'yes', false, class: 'command-radio' %>&nbsp;Yes</br>
+        <%= radio_button_tag 'command', 'no', false, class: 'command-radio' %>&nbsp;No
+      </div>
+      <div class="small-5 columns command-list">
+        <%= render "supplementary_documents/contact_list", parent: @communication_plan %>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="large-5 columns input_label">
-      <h2>Dispatch Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
-      <%= f.input :dispatch_supervisor_name %>
-      <%= f.input :dispatch_supervisor_phone %>
-      <%= f.input :dispatch_supervisor_email %>
-      <%= f.input :dispatch_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
-    </div>
-    <div class="large-5 large-offset-1 end columns input_label">
-      <h2>Med Group Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
-      <%= f.input :medical_group_supervisor_name %>
-      <%= f.input :medical_group_supervisor_phone %>
-      <%= f.input :medical_group_supervisor_email %>
-      <%= f.input :medical_group_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-5 columns input_label">
-      <h2>Triage Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
-      <%= f.input :triage_supervisor_name %>
-      <%= f.input :triage_supervisor_phone %>
-      <%= f.input :triage_supervisor_email %>
-      <%= f.input :triage_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false
-                              %>
-    </div>
-    <div class="large-5 large-offset-1 end columns input_label">
-      <h2>Transport Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
-      <%= f.input :transport_supervisor_name %>
-      <%= f.input :transport_supervisor_phone %>
-      <%= f.input :transport_supervisor_email %>
-      <%= f.input :transport_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+    <div class="large-12 columns list shadow">
+      <div class="large-5 columns input_label">
+        <h2>Event Coordinator</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
+        <%= f.input :event_coordinator_name %>
+        <%= f.input :event_coordinator_phone %>
+        <%= f.input :event_coordinator_email %>
+        <%= f.input :event_coordinator_organization,
+                                collection: OrganizationType.find_providers,
+                                label_method: :name,
+                                value_method: :id,
+                                include_blank: false %>
+      </div>
+      <div class="large-5 large-offset-1 end columns input_label">
+        <h2>Event Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
+        <%= f.input :event_supervisor_name %>
+        <%= f.input :event_supervisor_phone %>
+        <%= f.input :event_supervisor_email %>
+        <%= f.input :event_supervisor_organization,
+                                collection: OrganizationType.find_providers,
+                                label_method: :name,
+                                value_method: :id,
+                                include_blank: false %>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="large-5 columns input_label">
-      <h2>Non-Transport Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
-      <%= f.input :non_transport_supervisor_name %>
-      <%= f.input :non_transport_supervisor_phone %>
-      <%= f.input :non_transport_supervisor_email %>
-      <%= f.input :non_transport_supervisor_organization,
-                              collection: OrganizationType.find_providers,
-                              label_method: :name,
-                              value_method: :id,
-                              include_blank: false %>
+    <div class="large-12 columns list shadow">
+      <div class="large-5 columns input_label">
+        <h2>Dispatch Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
+        <%= f.input :dispatch_supervisor_name %>
+        <%= f.input :dispatch_supervisor_phone %>
+        <%= f.input :dispatch_supervisor_email %>
+        <%= f.input :dispatch_supervisor_organization,
+                                collection: OrganizationType.find_providers,
+                                label_method: :name,
+                                value_method: :id,
+                                include_blank: false %>
+      </div>
+      <div class="large-5 large-offset-1 end columns input_label">
+        <h2>Med Group Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
+        <%= f.input :medical_group_supervisor_name %>
+        <%= f.input :medical_group_supervisor_phone %>
+        <%= f.input :medical_group_supervisor_email %>
+        <%= f.input :medical_group_supervisor_organization,
+                                collection: OrganizationType.find_providers,
+                                label_method: :name,
+                                value_method: :id,
+                                include_blank: false %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns list shadow">
+      <div class="large-5 columns input_label">
+        <h2>Triage Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
+        <%= f.input :triage_supervisor_name %>
+        <%= f.input :triage_supervisor_phone %>
+        <%= f.input :triage_supervisor_email %>
+        <%= f.input :triage_supervisor_organization,
+                                collection: OrganizationType.find_providers,
+                                label_method: :name,
+                                value_method: :id,
+                                include_blank: false
+                                %>
+      </div>
+      <div class="large-5 large-offset-1 end columns input_label">
+        <h2>Transport Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
+        <%= f.input :transport_supervisor_name %>
+        <%= f.input :transport_supervisor_phone %>
+        <%= f.input :transport_supervisor_email %>
+        <%= f.input :transport_supervisor_organization,
+                                collection: OrganizationType.find_providers,
+                                label_method: :name,
+                                value_method: :id,
+                                include_blank: false %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns list shadow">
+      <div class="large-5 columns input_label">
+        <h2>Non-Transport Supervisor</h2><%= check_box_tag "N/A", "na", false, class: "na-check" %>&nbsp;N/A
+        <%= f.input :non_transport_supervisor_name %>
+        <%= f.input :non_transport_supervisor_phone %>
+        <%= f.input :non_transport_supervisor_email %>
+        <%= f.input :non_transport_supervisor_organization,
+                                collection: OrganizationType.find_providers,
+                                label_method: :name,
+                                value_method: :id,
+                                include_blank: false %>
+      </div>
     </div>
   </div>
   <div class="row asset-comms">
-    <div class="small-12 columns">
+    <div class="small-12 columns list shadow with-padding">
       <h2>Asset Communication</h2>
       <% @plan.operation_periods.each do |op| %>
         <div class="row">
