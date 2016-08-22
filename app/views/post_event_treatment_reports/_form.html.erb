@@ -15,109 +15,104 @@
   </div>
 
   <div class="row">
-    <div class="small-7 columns">
-      
-      <div class="row">
-        <div class="small-4 columns input_label">
-          <label><%= t ".event_type" %></label>
+    <div class="large-12 columns list shadow with-padding">
+      <div class="small-7 columns">
+        <div class="row">
+          <div class="small-4 columns input_label">
+            <label><%= t ".event_type" %></label>
+          </div>
+          <div class="small-8 columns">
+            <p>
+              <%= @plan.event_type %>
+            </p>
+          </div>
         </div>
-        <div class="small-8 columns">
-          <p>
-            <%= @plan.event_type %>
-          </p>
+
+        <div class="row">
+          <div class="small-4 columns input_label">
+            <label><%= t ".event_date" %></label>
+          </div>
+          <div class="small-8 columns">
+            <p>
+              <%= l @plan.start_date if @plan.start_date %>
+              to
+              <%= l @plan.end_date if @plan.end_date %>
+            </p>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="small-5 columns input_label">
+            <label><%= t ".attendance" %></label>
+          </div>
+          <div class="small-5 columns">
+            <p>
+              <%= @plan.attendance %>
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="small-5 columns input_label">
+            <%= f.label :actual_crowd_size, class: "inline" %>
+          </div>
+          <div class="small-5 columns">
+            <%= f.input :actual_crowd_size, label: false, as: :string %>
+          </div>
+        </div>
+
       </div>
 
-      <div class="row">
-        <div class="small-4 columns input_label">
-          <label><%= t ".event_date" %></label>
-        </div>
-        <div class="small-8 columns">
-          <p>
-            <%= l @plan.start_date if @plan.start_date %>
-            to
-            <%= l @plan.end_date if @plan.end_date %>
-          </p>
-        </div>
+      <div class="small-5 columns">
+        <%= render "creator", creator: current_user %>
       </div>
-
-      <div class="row">
-        <div class="small-5 columns input_label">
-          <label><%= t ".attendance" %></label>
-        </div>
-        <div class="small-5 columns">
-          <p>
-            <%= @plan.attendance %>
-          </p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="small-5 columns input_label">
-          <%= f.label :actual_crowd_size, class: "inline" %>
-        </div>
-        <div class="small-5 columns">
-          <%= f.input :actual_crowd_size, label: false, as: :string %>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="small-5 columns">
-      <%= render "creator", creator: current_user %>
     </div>
   </div>
 
   <div class="row">
-    <div class="small-12 columns input_label">
+    <div class="small-12 columns input_label list shadow with-padding">
       <%= f.label :resource_differences %>
       <%= f.input :resource_differences, label: false, input_html: { rows: 5 } %>
     </div>
   </div>
 
-  <hr/>
-
   <%= render partial: "patient_reports_container" %>
-  
-  <hr/>
-  
+
   <div class="row">
-    <div class="small-4 columns input_label">
-      <%= f.label :medical_resource_sufficiency %>
-    </div>
-    <div class="small-8 columns">
-      <%= f.collection_radio_buttons :medical_resource_sufficiency,
-      PostEventTreatmentReport::VALID_MEDICAL_RESOURCE_SUFFICIENCY_OPTIONS,
-      :to_s,
-      :humanize %>
+    <div class="large-12 columns list shadow with-padding">
+      <div class="row">
+        <div class="small-4 columns input_label">
+          <%= f.label :medical_resource_sufficiency %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.collection_radio_buttons :medical_resource_sufficiency,
+          PostEventTreatmentReport::VALID_MEDICAL_RESOURCE_SUFFICIENCY_OPTIONS,
+          :to_s,
+          :humanize %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns input_label">
+          <%= f.label :medical_resource_sufficiency_explanation %>
+          <%= f.input :medical_resource_sufficiency_explanation, label: false, input_html: { rows: 5 } %>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="small-12 columns input_label">
+          <%= f.label :other_comments %>
+          <%= f.input :other_comments, label: false, input_html: { rows: 5 } %>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="small-12 columns input_label">
-      <%= f.label :medical_resource_sufficiency_explanation %>
-      <%= f.input :medical_resource_sufficiency_explanation, label: false, input_html: { rows: 5 } %>
-    </div>
-  </div>
-
-  <hr/>
-  
-  <div class="row">
-    <div class="small-12 columns input_label">
-      <%= f.label :other_comments %>
-      <%= f.input :other_comments, label: false, input_html: { rows: 5 } %>
-    </div>
-  </div>
-
-  <hr/>
-
-  <div class="row">
-    <div class="small-12 columns">
+    <div class="small-12 columns list shadow with-padding">
       <%= render "supplementary_documents/index", parent: @post_event_treatment_report %>
     </div>
   </div>
-
-  <hr/>
 
   <div class="row">
     <div class="small-12 columns buttons">

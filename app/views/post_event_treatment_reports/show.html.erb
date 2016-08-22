@@ -1,18 +1,16 @@
 <div id="post-event-treatment-report">
   <div class="row">
-    <div class="large-12 columns">
-      <div class="large-7 columns pageTitle">
+    <div class="large-12 columns pageTitle">
+      <div class="large-7 columns">
         <h1><%= link_to @plan.name, @plan %></h1>
       </div>
-      <div class="large-3 columns text-right pageTitle">
-        <p><em>UPDATED: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
+      <div class="large-3 columns text-right">
+        <p>UPDATED: <%= @plan.updated_at.strftime("%D %l:%M %P") %></p>
       </div>
     </div>
   </div>
-  <%= render "plans/plan_state" %>
   <div class="row">
     <div class="large-12 columns">
-
       <% if @post_event_treatment_report.submitted? %>
         <%= render @post_event_treatment_report %>
       <% else %>
