@@ -8,6 +8,10 @@
     <%= wicked_pdf_javascript_include_tag "application" %>
   </head>
   <style type="text/css">
+    h3 {
+      border-bottom: 1px solid #d5d5d5;
+    }
+
     div.alwaysbreak { page-break-before: always; }
     div.nobreak:before { clear:both; }
     div.nobreak { page-break-inside: avoid; }
@@ -24,6 +28,54 @@
 
     [class*="column"] + [class*="column"]:last-child { float: right; }
     [class*="column"] + [class*="column"].end { float: left; }
+
+
+    .list {
+      background: #fff;
+      width: 98%;
+      padding: 0px;
+      margin-bottom: 1.5em;
+
+      p {
+        padding: 0px 15px;
+      }
+      .title {
+        background: #ECEFF1;
+        padding: 15px;
+        margin: 0em;
+      }
+    }
+    .with-padding {
+      padding: 15px;
+    }
+
+    .card {
+      margin-right: 10px;
+      margin-bottom: 25px;
+      padding: 15px;
+      background: #fff;
+      height: 250px;
+    }
+    .card .small {
+      width: 32%;
+    }
+    .card .medium {
+      width: 48.5%;
+    }
+    .card .large {
+      width: 98%;
+    }
+    .card .end {
+      margin-right: 0px;
+    }
+
+    .card-actions {
+      margin-top: 35px;
+      a {
+        padding-right: 30px;
+        text-transform: uppercase;
+      }
+    }
 
     .large-1,
     .row .large-1 { width: 8.33333%; }
@@ -63,265 +115,383 @@
 
     .center { text-align: center; }
 
-    .asset_container {
+    .op-section {
+      margin-bottom: 80px;
+    }
 
+    .asset-list {
+      margin-left: 50px;
     }
 
   </style>
-  <body>
-    <div id="content">
-      <% @plan.nil? ? @plan = plan : @plan %>
-      <%= render "/plans/pdf/approval_letter", locals: { plan: @plan } %>
-      <div class="row">
-        <div class="large-12 columns pageTitle">
-          <h1><%= @plan.name %></h1>
-          <h4>Event Period:  <br/><%= @plan.total_plan_period %></h4>
-          <div>Created by: </div>
-          <ul class="no-bullet">
-            <li class="fn"><%= @plan.creator.name %></li>
-            <li><%= @plan.creator.phone_number %></li>
-            <li class="email"><a href="#"><%= @plan.creator.email %></a></li>
-          </ul>
-          <div>Plan approved on: <%= @plan.approval_date.strftime("%B %e, %Y") unless @plan.approval_date.nil? %></div>
-        </div>
-        <div class="large-12 columns plan_form">
+<body>
+  <div id="content">
+    <% @plan.nil? ? @plan = plan : @plan %>
+    <%= render "/plans/pdf/approval_letter", locals: { plan: @plan } %>
+    <div class="large-12 columns plan_form">
+      <div class="plan-info">
+        <div class="row">
+          <div class="large-12 columns card large end">
             <div class="row">
-              <div class="large-8 columns">
-              <% if @plan.users.present? %>
-                <h3>Collaborators</h3>
-                <% @plan.users.each do |user| %>
-                  <ul class="no-bullet">
-                    <li class="fn"><%= user.name %></li>
-                    <li><%= user.phone_number %></li>
-                    <li class="email"><a href="#"><%= user.email %></a></li>
-                  </ul>
-                <% end %>
+              <h3>Plan Overview</h3>
+              <hr/>
+              <div class="large-4 columns">
+              <% unless @plan.approval_date.blank? %>
+                <h4>Approved</h4>
+                <%= @plan.approval_date.strftime("%D %l:%M %P") %>
               <% end %>
               </div>
-            </div>
-            <div class="row">
-              <div class="small-8 columns end">
-                Event Type: <%= @plan.event_type %>
+              <div class="large-4 columns">
+                <h4>Event Type</h4>
+                <%= @plan.event_type.name %>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="small-8 columns end">
-                Permitting Agency: <%= @plan.permitter.name unless @plan.permitter.blank? %>
+              <div class="large-4 columns">
+                <h4>Alcohol</h4>
+                <%= @plan.alcohol? ? "yes" : "no" %>
               </div>
-            </div>
-             <div class="row">
-              <div class="small-8 columns">
-                Alcohol Present: <%= @plan.alcohol ? 'Yes' : 'No' %>
-              </div>
-            </div>
-            <hr/>
-            <div>
-              <% @plan.operation_periods.each.with_index do |period, index| %>
-              <% if index > 0 %>
-                <div class="alwaysbreak">
-                  <p>&nbsp;</p>
-                </div>
-              <% end %>
-               <h2>Operational Period  <%= index + 1 %></h2>
-                <div class="content operation-period-form active" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
-                  <div class="row">
-                    <div class="small-8 columns">
-                      Start: <%= period.formatted_start_date %>&nbsp;<%= period.formatted_start_time %>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="small-8 columns end">
-                      End: <%= period.formatted_end_date %>&nbsp;<%= period.formatted_end_time %>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="small-4 columns end">
-                      Attendance: <%= period.attendance %>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="small-4 columns end">
-                      Event Footprint: <%= period.location %>
-                    </div>
-                  </div>
-                    <div class="row">
-                      <div class="large-12 columns">
-                      <h3>First Aid Stations</h3>
-                      <% period.first_aid_stations.each do |first_aid_station| %>
-                      <div class="asset_container">
-                        <h4><%= first_aid_station.name %></h4>
-                        <div>Level: <%= first_aid_station.level %></div>
-                        <div>MDs: <%= first_aid_station.md %></div>
-                        <div>RNs: <%= first_aid_station.rn %></div>
-                        <div>EMTs: <%= first_aid_station.emt %></div>
-                        <div>AEDs: <%= first_aid_station.aed %></div>
-                        <% if first_aid_station.provider.present? %>
-                        <div>Provider: </div>
-                        <ul class="no-bullet">
-                          <li class="fn"><%= first_aid_station.provider.name %></li>
-                          <li><%= first_aid_station.provider.phone_number %></li>
-                          <li class="email"><a href="#"><%= first_aid_station.provider.email %></a></li>
-                        </ul>
-                        <% end %>
-                      </div>
-                        <% first_aid_station.asset_communications.each do |comms| %>
-                          <%= comms.communication.name %>:&nbsp;<%= comms.description %>
-                        <% end %>
-                      <% end %>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="large-12 columns">
-                      <h3>MOBILE TEAMS</h3>
-                      <div class="row">
-                        <table id="mobile_team_table">
-                          <thead>
-                            <th width="125">Name</th>
-                            <th width="75">Level</th>
-                            <th width="75">Type</th>
-                            <th>AEDs</th>
-                            <th>Provider</th>
-                          </thead>
-                          <tbody>
-                          <% period.mobile_teams.each do |mobile_team| %>
-                            <tr>
-                              <% %w(name level mobile_team_type aed).each do |attribute| %>
-                                <td>
-                                  <%= mobile_team.send(attribute) %>
-                                </td>
-                              <% end %>
-                              <td>
-                                <%= mobile_team.provider.name unless mobile_team.provider.blank? %>
-                              </td>
-                              <% mobile_team.asset_communications.each do |comms| %>
-                                <td>
-                                  <%= comms.communication.name %>:&nbsp;<%= comms.description %>
-                                </td>
-                              <% end %>
-                            </tr>
-                            <% end %>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-                    <div class="row">
-                      <div class="large-12 columns">
-                        <fieldset>
-                          <legend>TRANSPORT</legend>
-                          <div class="row">
-                            <%= simple_fields_for :transports do |t| %>
-                              <table id="transport_table">
-                                <thead>
-                                  <th width="125">Name</th>
-                                  <th>Provider</th>
-                                </thead>
-                                <tbody>
-                                <% period.transports.each do |transport| %>
-                                  <tr>
-                                    <% %w(name location).each do |attribute| %>
-                                      <td>
-                                        <%= transport.send(attribute) %>
-                                      </td>
-                                    <% end %>
-                                    <td>
-                                      <%= transport.provider.name unless transport.provider.blank? %>
-                                    </td>
-                                    <% transport.asset_communications.each do |comms| %>
-                                      <td>
-                                        <%= comms.communication.name %>:&nbsp;<%= comms.description %>
-                                      </td>
-                                  <% end %>
-                                  </tr>
-                                <% end %>
-                                </tbody>
-                              </table>
-                            <% end %>
-                          </div>
-                        </fieldset>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="large-12 columns">
-                        <fieldset>
-                          <legend>DISPATCHs</legend>
-                          <div class="row">
-                            <table id="dispatch_table">
-                              <thead>
-                                <th width="125">Name</th>
-                                <th>Provider</th>
-                              </thead>
-                              <tbody>
-                                <% period.dispatchs.each do |dispatch| %>
-                                  <tr>
-                                    <% %w(name provider).each do |attribute| %>
-                                      <td>
-                                        <%= dispatch.send(attribute) %>
-                                      </td>
-                                    <% end %>
-                                      <td>
-                                        <%= dispatch.provider.name unless dispatch.provider.blank? %>
-                                      </td>
-                                    <% dispatch.asset_communications.each do |comms| %>
-                                    <td>
-                                      <%= comms.communication.name %>:&nbsp;<%= comms.description %>
-                                    </td>
-                                  <% end %>
-                                  </tr>
-                                <% end %>
-                              </tbody>
-                            </table>
-                          </div>
-                        </fieldset>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
             </div>
           </div>
-          <div class="row">
-            <div class="large-12 columns">
-            <% if @plan.supplementary_documents.to_be_emailed.present? %>
-              <h3>Supplemental Documents</h3>
-              <p>To download, right-click and select "Save Link As..."</p>
-              <% @plan.supplementary_documents.to_be_emailed.each do |doc|  %>
-                <%= link_to "#{doc.name}", doc.file.url, target: "_blank" %>
-              <% end %>
-            <% end %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-            <% if @plan.communication_plan.present? %>
-              <dl>
-                <% @plan.communication_plan.attributes.each do |name, value| %>
-                  <div><%= name.humanize %>:&nbsp;<%= value %></div>
-                <% end %>
-              </dl>
-            <% end %>
-          </div>
-        </div>
-        <div class="alwaysbreak">
-          <p>&nbsp;</p>
         </div>
         <div class="row">
-          <div class="large-12 columns">
-            <h3>EVENT FOOTPRINT RESPONSIBILITY</h3>
-            <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC (phone: 415-575-0737) to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
-            <h3>CPR & 911</h3>
-            <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
-            <h3>COMMUNICATIONS</h3>
-            <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
-            <h3>STAFF RESPONSIBILITY</h3>
-            <p>All contracted medical interventionists will be active, current, and in good-standing at the time of the operational period. The event producer will ensure that a complete staff list is provided no less than one week prior to the first operational period.</p>
-            <h3>MCI CAPABILITIES</h3>
-            <p>A written MCI plan and an approved MCI will be present at the event. All contracted responders will be briefed and trained on their contents and use.</p>
+          <div class="large-4 columns card small">
+            <h4>Event Plan Creator</h4>
+            <% if @plan.creator.present? %>
+              <div><i class="fi-torso"></i> <%= @plan.creator.name %></div>
+              <div><i class="fi-mail"></i> <%= @plan.creator.email %></div>
+              <div><i class="fi-telephone"></i> <%= @plan.creator.phone_number %></div>
+            <% else %>
+              <div>Contact information is missing!</div>
+            <% end %>
+          </div>
+          <div class="large-4 columns card small" >
+            <h4>Collaborators</h4>
+            <% @plan.users.each do |u| %>
+              <div><i class="fi-mail"></i>&nbsp;<%= u.email %></div>
+            <% end %>
+          </div>
+          <div class="large-3 columns card small end">
+            <h4>Permitting Agency</h4>
+            <%= @plan.permitter.present? ? @plan.permitter.name : "No Permitter" %>
           </div>
         </div>
       </div>
     </div>
-  </body>
+
+      <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+        <% if index > 0 %>
+        <div class="alwaysbreak">
+          <p>&nbsp;</p>
+        </div>
+        <% end %>
+      <div class="large-12 columns card large op-section">
+        <div class="row">
+          <hr/>
+          <h3>Operation Period <%= index+1 %> Overview</h3>
+          <div class="large-4 columns">
+            <h4>Time Period</h4>
+             <div>Start
+              <p><%= operation_period.formatted_start_date %> at <%= operation_period.formatted_start_time %></p>
+             </div>
+             <div>End
+               <p><%= operation_period.formatted_end_date %> at <%= operation_period.formatted_end_time %></p>
+             </div>
+          </div>
+          <div class="large-4 columns">
+            <h4>Crowd</h4>
+            <div>Peak Crowd Size
+              <p><%= @plan.attendance %></p>
+            </div>
+            <div>Total Crowd Estimate
+              <p><%= operation_period.crowd_estimate %></p>
+            </div>
+          </div>
+          <div class="large-4 columns">
+            <h4>Event Footprint</h4>
+              <p><%= operation_period.location %></p>
+          </div>
+        </div>
+      </div>
+      <% if operation_period.first_aid_stations.present? %>
+      <div class="row">
+        <div class="large-12 columns list with-padding">
+          <h3>First Aid Stations</h3>
+          <% operation_period.first_aid_stations.each do |first_aid_station| %>
+          <div class="row">
+            <div class="large-12 columns with-padding asset-list">
+              <h4 style="text-decoration:underline;"><%= first_aid_station.name %></h4>
+              <div class="large-2 columns">Level
+                <p><%= first_aid_station.level %></p>
+              </div>
+              <div class="large-2 columns">Provider
+                <p><%= first_aid_station.provider.name %></p>
+              </div>
+              <div class="large-2 columns">
+                <div>MD</div>
+                <div><%= first_aid_station.md %></div>
+              </div>
+              <div class="large-2 columns">
+                <div>RN</div>
+                <div><%= first_aid_station.rn %></div>
+              </div>
+              <div class="large-2 columns">
+                <div>EMT</div>
+                <div><%= first_aid_station.emt %></div>
+              </div>
+              <div class="large-2 columns end">
+                <div>AED</div>
+                <div><%= first_aid_station.aed %></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns asset-list">
+              <div class="large-12 columns">Planning Contact</div>
+              <div class="large-4 columns">
+                  <div>Name:&nbsp;<%= first_aid_station.contact_name %></div>
+              </div>
+              <div class="large-4 columns">
+                <div>Phone:&nbsp;<%= first_aid_station.contact_phone %></div>
+              </div>
+              <div class="large-4 columns">
+                <div>Email:&nbsp;<%= first_aid_station.planning_contact_email %></div>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+      <% if operation_period.mobile_teams.present? %>
+      <div class="row">
+        <div class="large-12 columns list with-padding end">
+          <h3>Mobile Teams</h3>
+          <% operation_period.mobile_teams.each do |mobile_team| %>
+            <div class="row">
+              <div class="large-12 columns asset-list">
+                <h4 style="text-decoration:underline;"><%= mobile_team.name %></h4>
+                <div class="large-3 columns">
+                  <div>Level</div>
+                  <div><%= mobile_team.level %></div>
+                </div>
+                <div class="large-3 columns">
+                  <div>Type</div>
+                  <div><%= mobile_team.mobile_team_type %></div>
+                </div>
+                <div class="large-3 columns">
+                  <div>Provider</div>
+                  <p><%= mobile_team.provider.name %></p>
+                </div>
+                <div class="large-3 columns end">
+                  <div>AED</div>
+                  <div><%= mobile_team.aed %></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns asset-list">
+                <div class="large-12 columns">Planning Contact</div>
+                <div class="large-4 columns">
+                  <div>Name:&nbsp;<%= mobile_team.contact_name %></div>
+                </div>
+                <div class="large-4 columns">
+                  <div>Phone:&nbsp;<%= mobile_team.contact_phone %></div>
+                </div>
+                <div class="large-4 columns">
+                  <div>Email:&nbsp;<%= mobile_team.planning_contact_email %></div>
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <% end %>
+        </div>
+      </div>
+      <% end %>
+      <% if operation_period.transports.present? %>
+      <div class="row">
+        <div class="large-12 columns list with-padding">
+          <h3>Transport</h3>
+          <% operation_period.transports.each do |transport| %>
+            <div class="row">
+              <div class="large-12 columns asset-list">
+                <h4 style="text-decoration:underline;"><%= transport.name %></h4>
+                <div class="large-4 columns">Provider
+                  <p><%= transport.provider.name unless transport.provider.blank? %></p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns asset-list">
+                <div class="large-12 columns">Planning Contact</div>
+                <div class="large-4 columns">
+                  <div>Name:&nbsp;<%= transport.contact_name %></div>
+                </div>
+                <div class="large-4 columns">
+                  <div>Phone:&nbsp;<%= transport.contact_phone %></div>
+                </div>
+                <div class="large-4 columns">
+                  <div>Email:&nbsp;<%= transport.planning_contact_email %></div>
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if operation_period.dispatchs.present? %>
+        <div class="row">
+          <div class="large-12 columns list with-padding end">
+            <h3>Dispatch</h3>
+            <% operation_period.dispatchs.each do |dispatch| %>
+            <div class="row">
+              <div class="large-12 columns asset-list">
+                <h4 style="text-decoration:underline;"><%= dispatch.name %></h4>
+                <div class="large-4 columns">Level
+                  <p><%= dispatch.level %></p>
+                </div>
+                <div class="large-4 columns">Provider
+                  <p><%= dispatch.provider.name unless dispatch.provider.blank? %></p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns asset-list">
+                <div class="large-12 columns">Planning Contact</div>
+                <div class="large-4 columns">
+                  <div>Name:&nbsp;<%= dispatch.contact_name %></div>
+                </div>
+                <div class="large-4 columns">
+                  <div>Phone:&nbsp;<%= dispatch.contact_phone %></div>
+                </div>
+                <div class="large-4 columns">
+                  <div>Email:&nbsp;<%= dispatch.planning_contact_email %></div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+    <div class="row">
+      <div class="large-12 columns">
+      <hr/>
+        <% if @plan.communication_plan.present? %>
+        <h2>Communication Plan</h2>
+        <div class="row">
+          <div class="large-12 columns list shadow">
+            <div class="large-6 columns">
+              <h3>Event Coordinator</h3>
+              <% if @plan.communication_plan.event_coordinator_name.present? %>
+              <div>Name:&nbsp;<%= @plan.communication_plan.event_coordinator_name %></div>
+              <div>Phone:&nbsp;<%= @plan.communication_plan.event_coordinator_phone %></div>
+              <div>Email:&nbsp;<%= @plan.communication_plan.event_coordinator_email %></div>
+              <div>Organization:&nbsp;<%= Organization.find(@plan.communication_plan.event_coordinator_organization).name unless @plan.communication_plan.event_coordinator_organization.blank? %></div>
+              <% end %>
+            </div>
+            <div class="large-6 columns end">
+              <h3>Event Supervisor</h3>
+              <% if @plan.communication_plan.event_supervisor_name.present? %>
+              <div>Name:&nbsp;<%= @plan.communication_plan.event_supervisor_name %></div>
+              <div>Phone:&nbsp;<%= @plan.communication_plan.event_supervisor_phone %></div>
+              <div>Email:&nbsp;<%= @plan.communication_plan.event_supervisor_email %></div>
+              <div>Organization:&nbsp;<%= Organization.find(@plan.communication_plan.event_supervisor_organization).name unless @plan.communication_plan.event_supervisor_organization.blank? %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns list shadow">
+            <div class="large-6 columns">
+              <h3>Dispatch Supervisor</h3>
+              <% if @plan.communication_plan.dispatch_supervisor_name.present? %>
+              <div>Name:&nbsp;<%= @plan.communication_plan.dispatch_supervisor_name %></div>
+              <div>Phone:&nbsp;<%= @plan.communication_plan.dispatch_supervisor_phone %></div>
+              <div>Email:&nbsp;<%= @plan.communication_plan.dispatch_supervisor_email %></div>
+              <div>Organization:&nbsp;<%= Organization.find(@plan.communication_plan.dispatch_supervisor_organization).name unless @plan.communication_plan.dispatch_supervisor_organization.blank? %></div>
+              <% end %>
+            </div>
+            <div class="large-6 columns end">
+              <h3>Medical Group Supervisor</h3>
+              <% if @plan.communication_plan.medical_group_supervisor_name.present? %>
+              <div>Name:&nbsp;<%= @plan.communication_plan.medical_group_supervisor_name %></div>
+              <div>Phone:&nbsp;<%= @plan.communication_plan.medical_group_supervisor_phone %></div>
+              <div>Email:&nbsp;<%= @plan.communication_plan.medical_group_supervisor_email %></div>
+              <div>Organization:&nbsp;<%= Organization.find(@plan.communication_plan.medical_group_supervisor_organization).name unless @plan.communication_plan.medical_group_supervisor_organization.blank? %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns list shadow">
+            <div class="large-6 columns">
+              <h3>Triage Supervisor</h3>
+              <% if @plan.communication_plan.triage_supervisor_name.present? %>
+              <div>Name:&nbsp;<%= @plan.communication_plan.triage_supervisor_name %></div>
+              <div>Phone:&nbsp;<%= @plan.communication_plan.triage_supervisor_phone %></div>
+              <div>Email:&nbsp;<%= @plan.communication_plan.triage_supervisor_email %></div>
+              <div>Organization:&nbsp;<%= Organization.find(@plan.communication_plan.triage_supervisor_organization).name unless @plan.communication_plan.triage_supervisor_organization.blank? %></div>
+              <% end %>
+            </div>
+            <div class="large-6 columns end">
+              <h3>Transport Supervisor</h3>
+              <% if @plan.communication_plan.transport_supervisor_name.present? %>
+              <div>Name:&nbsp;<%= @plan.communication_plan.transport_supervisor_name %></div>
+              <div>Phone:&nbsp;<%= @plan.communication_plan.transport_supervisor_phone %></div>
+              <div>Email:&nbsp;<%= @plan.communication_plan.transport_supervisor_email %></div>
+              <div>Organization:&nbsp;<%= Organization.find(@plan.communication_plan.transport_supervisor_organization).name unless @plan.communication_plan.transport_supervisor_organization.blank? %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns list shadow">
+            <div class="large-6 columns end">
+              <h3>Non-Transport Supervisor</h3>
+              <% if @plan.communication_plan.non_transport_supervisor_name.present? %>
+              <div>Name:&nbsp;<%= @plan.communication_plan.non_transport_supervisor_name %></div>
+              <div>Phone:&nbsp;<%= @plan.communication_plan.non_transport_supervisor_phone %></div>
+              <div>Email:&nbsp;<%= @plan.communication_plan.non_transport_supervisor_email %></div>
+              <div>Organization:&nbsp;<%= Organization.find(@plan.communication_plan.non_transport_supervisor_organization).name unless @plan.communication_plan.non_transport_supervisor_organization.blank? %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+      <% if @plan.supplementary_documents.to_be_emailed.present? %>
+        <h3>Supplemental Documents</h3>
+        <p>To download, right-click and select "Save Link As..."</p>
+        <% @plan.supplementary_documents.to_be_emailed.each do |doc|  %>
+          <%= link_to "#{doc.name}", doc.file.url, target: "_blank" %>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+    <div class="alwaysbreak">
+      <p>&nbsp;</p>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <h3>EVENT FOOTPRINT RESPONSIBILITY</h3>
+        <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC (phone: 415-575-0737) to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational operation_period.</p>
+        <h3>CPR & 911</h3>
+        <p>During the operational period of the event safety personnel will follow the existing communications plan and will contact 911 only if medical needs overwhelm the capabilities of dedicated contracted medical assets. All medical interventions are the responsibility of the dedicated/contracted medical staff.</p>
+        <h3>COMMUNICATIONS</h3>
+        <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
+        <h3>STAFF RESPONSIBILITY</h3>
+        <p>All contracted medical interventionists will be active, current, and in good-standing at the time of the operational operation_period. The event producer will ensure that a complete staff list is provided no less than one week prior to the first operational period.</p>
+        <h3>MCI CAPABILITIES</h3>
+        <p>A written MCI plan and an approved MCI will be present at the event. All contracted responders will be briefed and trained on their contents and use.</p>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
