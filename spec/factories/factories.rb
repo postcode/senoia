@@ -32,6 +32,26 @@ FactoryGirl.define do
     end_date   DateTime.now + 1.day
     end_time   Time.current
     attendance Faker::Number.number(5)
+
+    factory :past do
+      start_date 10.days.ago
+      end_date 9.days.ago
+    end
+
+    factory :in_next_week do
+      start_date 5.days.from_now
+      end_date 6.days.from_now
+    end
+
+    factory :in_next_two_weeks do
+      start_date 12.days.from_now
+      end_date 13.days.from_now
+    end
+
+    factory :far_out do
+      start_date 30.days.from_now
+      end_date 31.days.from_now
+    end
   end
 
   factory :plan do
@@ -39,6 +59,7 @@ FactoryGirl.define do
     event_type
     operation_periods { [FactoryGirl.create(:operation_period)] }
     organization { FactoryGirl.create(:permitter) }
+    creator { FactoryGirl.create(:promoter_user) }
 
     factory :plan_under_review do
       workflow_state :under_review
@@ -52,13 +73,52 @@ FactoryGirl.define do
       workflow_state :revision_requested
     end
 
-    factory :approved_plan do
+    trait :approved do
       workflow_state :approved
       approval_date Time.now
     end
 
+    factory :approved_plan do
+      approved
+    end
+
     factory :no_operation_period do
       operation_periods []
+    end
+
+    factory :far_out_ops do
+      approved
+      operation_periods { [FactoryGirl.create(:far_out)] }
+    end
+
+    factory :past_op do
+      approved
+      operation_periods { [FactoryGirl.create(:past)] }
+    end
+
+    trait :op_within_two_weeks do
+      operation_periods { [FactoryGirl.create(:in_next_two_weeks)] }
+    end
+
+    factory :op_within_two_weeks_unapproved do
+      op_within_two_weeks
+    end
+
+    factory :op_within_two_weeks_approved do
+      approved
+      op_within_two_weeks
+    end
+
+    trait :op_within_week do
+      operation_periods { [FactoryGirl.create(:in_next_week)] }
+    end
+
+    factory :op_within_week_approved do
+      # Let's say we've already sent the 2 week reminder.
+      staff_responsibility_reminder_2wk true
+
+      approved
+      op_within_week
     end
   end
 
