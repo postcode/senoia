@@ -8,7 +8,6 @@ class StaffListReminder
   end
 end
 
-
 desc "Send reminder emails about missing staff lists"
 
 task staff_responsibility_reminder: :environment do
@@ -45,4 +44,3 @@ task staff_responsibility_reminder: :environment do
     end
   end
 end
-

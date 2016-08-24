@@ -134,7 +134,7 @@ FactoryGirl.define do
     user
 
     factory :comment_on_event_type do
-      element_id "event_type_comment_text"
+      element_id "contact_comment_text"
     end
   end
 

@@ -7,12 +7,12 @@ feature "Comments" do
   let(:plan) { create(:plan_under_review) }
 
   context "Admin", js: true do
-    
+
     background do
       @comment = create(:comment)
       @plan_with_outstanding_comment = create(:plan, comments: [ @comment ])
       @reply_body = Faker::Lorem.paragraph
-      
+
       sign_in(admin)
     end
 
@@ -21,7 +21,7 @@ feature "Comments" do
       background do
         visit "/comments"
       end
-      
+
       scenario "views comments" do
         expect(page).to have_content(@plan_with_outstanding_comment.name)
         click_on "1 comment"
@@ -33,7 +33,7 @@ feature "Comments" do
         click_on "RESOLVE"
         expect(page).to_not have_content @comment.body
       end
-      
+
       scenario "replies to a comment" do
         click_on "1 comment"
         find("textarea").set @reply_body
@@ -54,7 +54,7 @@ feature "Comments" do
       scenario "views a comment" do
         expect(page).to have_content @comment_on_event_type.body
       end
-      
+
       scenario "posts a comment" do
         post_comment(@new_comment_body)
         expect(page).to have_content @new_comment_body
@@ -69,7 +69,7 @@ feature "Comments" do
             find("textarea").set new_comment_body
             click_on "SUBMIT"
           end
-          
+
           expect(page).to have_content new_comment_body
         end
       end
@@ -83,6 +83,7 @@ feature "Comments" do
       scenario "replies to a comment twice" do
         2.times do
           new_comment_body = Faker::Lorem.paragraph
+          save_and_open_page
           find(".comment-area textarea").set new_comment_body
           click_on "REPLY"
           expect(page).to have_content new_comment_body
@@ -93,9 +94,7 @@ feature "Comments" do
         click_on "RESOLVE"
         expect(page).to_not have_content @comment_on_event_type.body
       end
-
     end
-    
   end
 
   context "Guest" do
@@ -108,6 +107,6 @@ feature "Comments" do
       visit "/comments"
       expect(page).to have_content "not authorized"
     end
-    
+
   end
 end

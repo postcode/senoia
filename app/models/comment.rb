@@ -43,7 +43,7 @@ class Comment < ActiveRecord::Base
   end
 
   def send_notifications!
-    commentable.send_notifications_on_new_comment(self)
+    # commentable.send_notifications_on_new_comment(self)
   end
-  
+
 end
