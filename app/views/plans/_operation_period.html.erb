@@ -1,44 +1,46 @@
 <%= simple_fields_for :operation_period do |op| %>
   <div class="content operation-period-form active" id="panel<%= count %>" data-url="<%= url_for([ @plan, :operation_periods ]) %>">
-    <div class="row">
-      <div class="small-2 columns input_label">
-        <%= op.label :start_date, class: "inline", label: "START" %>
+    <div class="large-12 columns operation-period-container list with-padding shadow">
+      <div class="row">
+        <div class="small-2 columns input_label">
+          <%= op.label :start_date, class: "inline", label: "START" %>
+        </div>
+        <div class="small-2 columns">
+          <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
+        </div>
+        <div class="small-2 columns end">
+          <%= op.input_field :start_time, label: false, class: "time-input", placeholder: "Time", as: "string" %>
+        </div>
       </div>
-      <div class="small-2 columns">
-        <%= op.input_field :start_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
+      <div class="row">
+        <div class="small-2 columns input_label">
+          <%= op.label :end_date, class: "inline", label: "END" %>
+        </div>
+        <div class="small-2 columns">
+          <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
+        </div>
+        <div class="small-2 columns end">
+          <%= op.input_field :end_time, label: false, class: "time-input", placeholder: "Time", as: "string" %>
+        </div>
       </div>
-      <div class="small-2 columns end">
-        <%= op.input_field :start_time, label: false, class: "time-input", placeholder: "Time", as: "string" %>
+      <div class="row">
+        <div class="small-2 columns input_label">
+          <%= op.label :attendance, class: "inline" do %>
+            * Peak Crowd Size&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="Number of participants and observers at peak time.">
+            <i class="fi-info"></i>
+            </span>
+          <% end %>
+        </div>
+        <div class="small-4 columns end">
+          <%= op.input :attendance, label: false, as: :text %>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="small-2 columns input_label">
-        <%= op.label :end_date, class: "inline", label: "END" %>
-      </div>
-      <div class="small-2 columns">
-        <%= op.input_field :end_date, label: false, placeholder: "Date", as: "string", class: "dateSelect" %>
-      </div>
-      <div class="small-2 columns end">
-        <%= op.input_field :end_time, label: false, class: "time-input", placeholder: "Time", as: "string" %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-2 columns input_label">
-        <%= op.label :attendance, class: "inline" do %>
-          * Crowd Size&nbsp;<span data-tooltip aria-haspopup="true" class="has-tip" title="Number of participants and observers at peak time.">
-          <i class="fi-info"></i>
-          </span>
-        <% end %>
-      </div>
-      <div class="small-4 columns end">
-        <%= op.input :attendance, label: false, as: :text %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-4 columns small-offset-2">
-        <%= link_to "Save", "javascript:void(0);", class: "button tiny radius save-operation-period disabled" %>
-        <p class="error hidden">There was a problem submitting the operational
-        period. Have you filled in all the fields?</p>
+      <div class="row">
+        <div class="small-4 columns small-offset-2">
+          <%= link_to "Save", "javascript:void(0);", class: "button tiny radius save-operation-period disabled" %>
+          <p class="error hidden">There was a problem submitting the operational
+          period. Have you filled in all the fields?</p>
+        </div>
       </div>
     </div>
   </div>

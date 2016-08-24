@@ -10,3 +10,11 @@ input#plan_name {
   background: $promptlyblue;
   border: none;
 }
+
+.plan_form {
+  &.new_plan {
+    input#plan_name {
+      background: #fff;
+    }
+  }
+}

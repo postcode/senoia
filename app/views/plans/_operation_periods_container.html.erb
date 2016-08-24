@@ -2,12 +2,12 @@
   <% if @plan.operation_periods.present? %>
     <ul class="tabs" id="operation-period-tabs" data-tab>
       <%= render 'plans/operation_period_button', plan: @plan %>
-      <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+      <% @plan.operation_periods.order(:id).each_with_index do |operation_period, index| %>
         <%= render 'plans/operation_period_tabs', count: index+1, period: operation_period %>
       <% end %>
     </ul>
     <div class="tabs-content">
-        <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+        <% @plan.operation_periods.order(:id).each.with_index do |operation_period, index| %>
           <% if can? :edit, @plan and !@plan.approved? %>
             <%= render 'operation_periods/form', operation_period: operation_period, count: index+1, f: f %>
           <% else %>

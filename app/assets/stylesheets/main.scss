@@ -149,6 +149,9 @@ hr {
   a {
     color: #fff;
   }
+  &.with-margin {
+    margin-bottom: 1em;
+  }
 }
 fieldset {
   padding-bottom: .3rem;
@@ -509,9 +512,6 @@ select.provider-dropdown {
   }
 }
 
-.plan_form {
-  // margin: 2em 0.5em 0em 0.5em;
-}
 .plan-state {
   .button {
     background: $mediumgray;

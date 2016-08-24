@@ -75,12 +75,12 @@
   <div class="row">
     <ul class="tabs" data-tab>
       <h2>Operation <%= "Period".pluralize(@plan.operation_periods.count) %></h2>
-      <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+      <% @plan.operation_periods.order(:id).each_with_index do |operation_period, index| %>
         <%= render 'operation_period_tabs', count: index+1, period: operation_period, f: f %>
       <% end %>
     </ul>
     <div class="tabs-content">
-      <% @plan.operation_periods.each.with_index do |operation_period, index| %>
+      <% @plan.operation_periods.order(:id).each_with_index do |operation_period, index| %>
         <%= render 'operation_periods/operation_period', operation_period: operation_period, count: index+1, f: f %>
       <% end %>
     </div>

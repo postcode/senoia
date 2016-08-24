@@ -51,7 +51,7 @@
           </div>
           <div class="small-4 columns">
             <h4>Event Type</h4>
-              <div id="stepThree" class="small-8 columns">
+              <div id="stepTwo" class="small-8 columns">
               <% if can? :edit, @plan %>
                 <%= f.association :event_type,
                 collection: EventType.all,
@@ -68,7 +68,7 @@
           </div>
           <div class="small-4 columns end">
             <h4>Alcohol</h4>
-            <div id="stepFive" class="small-8 columns">
+            <div id="stepThree" class="small-8 columns">
               <%= f.input :alcohol, as: :radio_buttons, label: false %>
             </div>
           </div>
