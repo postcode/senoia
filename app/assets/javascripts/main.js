@@ -115,6 +115,22 @@ $(function() {
   })
 
   $.each(assets, function(index, asset) {
+    var button = ".update-" + asset
+    $("body").on("click", button, function(event) {
+      var formElement = "." + asset + "-form"
+      var form = $(this).closest(formElement);
+      var data = form.find(":input").serialize();
+      var url = form.data().url
+      $.ajax({
+        method: "PUT",
+        url: url,
+        data: data,
+        success: document.location.reload(true)
+      });
+    });
+  })
+
+  $.each(assets, function(index, asset) {
     var select = "#"+asset+"_provider_id"
     $(select).change( function(event) {
     });

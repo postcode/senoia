@@ -18,11 +18,13 @@ class FirstAidStationsController < ApplicationController
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @first_aid_station = FirstAidStation.find(params[:id])
     @first_aid_station.update(first_aid_station_params)
-    # params[:first_aid_station][:communications].each do |communication|
-    #   if params[:first_aid_station][:communication_description][communication[0]].present?
-    #     @first_aid_station.asset_communications.create(communication_id: communication[1], first_aid_station_id: @first_aid_station.id, description: params[:first_aid_station][:communication_description][communication[0]])
-    #   end
-    # end
+    params[:first_aid_station][:communications].present?
+      params[:first_aid_station][:communications].each do |communication|
+        if params[:first_aid_station][:communication_description][communication[0]].present?
+          @first_aid_station.asset_communications.create(communication_id: communication[1], first_aid_station_id: @first_aid_station.id, description: params[:first_aid_station][:communication_description][communication[0]])
+        end
+      end
+    end
     @first_aid_station.save!
   end
 
