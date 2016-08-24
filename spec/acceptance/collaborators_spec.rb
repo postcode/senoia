@@ -17,13 +17,13 @@ feature "Collaborators" do
     end
 
     scenario "removes a collaborator" do
-      within find("fieldset", text: "COLLABORATORS") do
+      within find("#users_table") do
         within find("tr", text: @collaborator.email) do
           click_on "Remove"
         end
       end
 
-      expect(find("fieldset", text: "COLLABORATORS")).to_not have_content(@collaborator.email)
+      expect(find("#users_table")).to_not have_content(@collaborator.email)
     end
 
     scenario "cannot invite a collaborator without an email" do
@@ -37,7 +37,7 @@ feature "Collaborators" do
       sign_out
       sign_in(@collaborator)
       visit "/plans/#{plan.id}"
-      expect(find("fieldset", text: "COLLABORATORS")).to have_content(@user_email)
+      expect(find(".collaborators")).to have_content(@user_email)
     end
 
     scenario "invites a collaborator", js: true do
@@ -79,7 +79,7 @@ feature "Collaborators" do
 
       visit "/plans"
       click_on "#{plan.name}"
-      expect(find("fieldset", text: "COLLABORATORS")).to have_content(@user_email)
+      expect(find(".collaborators")).to have_content(@user_email)
     end
   end
 

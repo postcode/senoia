@@ -46,7 +46,7 @@
     </div>
     <div class="row">
       <div class="large-8 columns card small">
-        <div class="large-12 columns">
+        <div class="large-12 columns creator">
           <h4>Event Plan Creator</h4>
           <% if @plan.creator.present? %>
             <div><i class="fi-torso"></i> <%= @plan.creator.name %></div>
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="large-8 columns card small" >
-        <div class="large-12 columns">
+        <div class="large-12 columns collaborators">
           <h4>Collaborators</h4>
           <% @plan.users.each do |u| %>
             <div><i class="fi-mail"></i>&nbsp;<%= u.email %></div>

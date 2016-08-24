@@ -83,7 +83,6 @@ feature "Comments" do
       scenario "replies to a comment twice" do
         2.times do
           new_comment_body = Faker::Lorem.paragraph
-          save_and_open_page
           find(".comment-area textarea").set new_comment_body
           click_on "REPLY"
           expect(page).to have_content new_comment_body
