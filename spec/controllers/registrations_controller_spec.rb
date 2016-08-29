@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Devise::RegistrationsController do
+RSpec.describe Users::RegistrationsController do
   describe "#update" do
 
     let(:user) { create(:user) }
@@ -11,7 +11,7 @@ RSpec.describe Devise::RegistrationsController do
     end
 
     it "doesn't allow users to change their own roles" do
-      expect { 
+      expect {
         put :update, { "user" => { "roles" => "admin", "current_password" => user.password } }
       }.to change { User.all.select(&:is_admin?).count }.by(0)
     end
