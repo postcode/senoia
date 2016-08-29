@@ -106,6 +106,7 @@ feature "Users" do
       fill_in "user_password_confirmation", with: password
       click_button "Sign Up"
       expect(page).to have_content("activate your account")
+      expect(User.last.roles).to include(:user)
     end
 
   end
