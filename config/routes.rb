@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   resources :supplementary_documents, only: [ :destroy ]
   resources :organizations
 
-  devise_for :users
+  devise_for :users, controllers: { :registrations => "users/registrations" }
   resources :users_admin, controller: 'users'
 
 
