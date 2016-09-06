@@ -30,11 +30,11 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="large-6 columns card medium">
-        <h3>First Aid Stations&nbsp;<i class="material-icons right md-48">local_hospital</i></h3>
+        <h3>First Aid Stations&nbsp;(<%= operation_period.first_aid_stations.count %>)&nbsp;<i class="material-icons right md-48">local_hospital</i></h3>
         <%= render 'plans/first_aid_station/first_aid_station', op: operation_period, operation_period: operation_period %>
       </div>
       <div class="large-6 columns card medium end">
-        <h3>Mobile Teams&nbsp;<i class="material-icons right md-48">directions_walk</i></h3>
+        <h3>Mobile Teams&nbsp;(<%= operation_period.mobile_teams.count %>)&nbsp;<i class="material-icons right md-48">directions_walk</i></h3>
           <%= render 'plans/mobile_team/mobile_team', op: operation_period, operation_period: operation_period %>
       </div>
     </div>
@@ -42,11 +42,11 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="large-6 columns card medium">
-        <h3>Transport&nbsp;<i class="material-icons right md-48">airport_shuttle</i></h3>
+        <h3>Transport&nbsp;(<%= operation_period.transports.count %>)&nbsp;<i class="material-icons right md-48">airport_shuttle</i></h3>
         <%= render 'plans/transport/transport', op: operation_period, operation_period: operation_period %>
       </div>
       <div class="large-6 columns card medium end">
-        <h3>Dispatch&nbsp;<i class="material-icons right md-48">mic</i></h3>
+        <h3>Dispatch&nbsp;(<%= operation_period.dispatchs.count %>)&nbsp;<i class="material-icons right md-48">mic</i></h3>
           <%= render 'plans/dispatch/dispatch', op: operation_period, operation_period: operation_period %>
       </div>
     </div>

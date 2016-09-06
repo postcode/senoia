@@ -92,7 +92,7 @@
     </div>
     <div id="stepEleven" class="row">
       <div class="small-12 columns list shadow with-padding">
-        <h4>First Aid Stations</h4>
+        <h4>First Aid Stations&nbsp;(<%= operation_period.first_aid_stations.count %>)</h4>
         <div class="row">
           <div class="small-8 columns">
             <table id="first_aid_table">
@@ -120,7 +120,7 @@
     </div>
     <div class="row">
       <div class="small-12 columns list shadow with-padding">
-        <h4>Mobile Teams</h4>
+        <h4>Mobile Teams&nbsp;(<%= operation_period.mobile_teams.count %>)</h4>
         <div class="row">
           <div class="small-8 columns">
             <table id="mobile_team_table">
@@ -147,7 +147,7 @@
     </div>
     <div class="row">
       <div class="small-12 columns list shadow with-padding">
-        <h4>Transports</h4>
+        <h4>Transports&nbsp;(<%= operation_period.transports.count %>)</h4>
         <div class="row">
           <div class="small-8 columns">
             <%= simple_fields_for :transports do |t| %>
@@ -174,7 +174,7 @@
     </div>
     <div class="row">
       <div class="small-12 columns list shadow with-padding">
-        <h4>Dispatch</h4>
+        <h4>Dispatch&nbsp;(<%= operation_period.dispatchs.count %>)</h4>
         <div class="row">
           <div class="small-8 columns">
             <%= simple_fields_for :dispatchs do |d| %>

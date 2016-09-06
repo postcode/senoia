@@ -17,23 +17,40 @@
 <div class="large-12 columns plan_form">
   <div class="plan-info">
     <div class="row">
-      <div class="large-12 columns card large end">
+      <div class="large-12 columns list with-padding end">
         <div class="row">
           <h3>Plan Overview</h3>
           <hr/>
-          <div class="large-4 columns">
-          <% unless @plan.approval_date.blank? %>
-            <h4>Approved</h4>
-            <%= @plan.approval_date.strftime("%D %l:%M %P") %>
+          <% if @plan.operation_periods.present? %>
+            <div class="row">
+              <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+                <div class="small-3 columns end">
+                  <h5>Operation Period&nbsp;<%= index +1 %></h5>
+                  <p>Date:&nbsp;<%= operation_period.formatted_start_date %>&nbsp;<%= operation_period.formatted_start_time %></p>
+                  <p>Peak Crowd Size:&nbsp;<%= operation_period.attendance %></p>
+                </div>
+                <% if index/3 >= 1 %>
+                </div>
+                <div class="row">
+                <% end %>
+              <% end %>
+            </div>
           <% end %>
-          </div>
-          <div class="large-4 columns">
-            <h4>Event Type</h4>
-            <%= @plan.event_type.name %>
-          </div>
-          <div class="large-4 columns">
-            <h4>Alcohol at Event</h4>
-            <%= @plan.alcohol? ? "yes" : "no" %>
+          <div class="row">
+            <div class="large-4 columns">
+            <% unless @plan.approval_date.blank? %>
+              <h4>Approved</h4>
+              <%= @plan.approval_date.strftime("%D %l:%M %P") %>
+            <% end %>
+            </div>
+            <div class="large-4 columns">
+              <h4>Event Type</h4>
+              <%= @plan.event_type.name %>
+            </div>
+            <div class="large-4 columns">
+              <h4>Alcohol at Event</h4>
+              <%= @plan.alcohol? ? "yes" : "no" %>
+            </div>
           </div>
         </div>
         <div class="row">
