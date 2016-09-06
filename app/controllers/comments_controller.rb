@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    authorize! :manage, Comment
+    authorize! :edit, Comment
     @comment = Comment.find(params[:id])
     @comment.update(comment_params)
     if @comment.open == false
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
 
   def create
     @plan = Plan.find(params[:plan_id])
-    authorize! :manage, @plan
+    authorize! :create, Comment
     @comment = @plan.comments.create(comment_params.merge(user: current_user, element_id: params[:element_id]))
     respond_to do |format|
       format.js

@@ -12,6 +12,7 @@ class Ability
       can :create, Plan
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
       can :manage, Plan, :creator_id => user.id
+      can :manage, Comment
     elsif user.has_role? :guest
       can [:create, :edit, :update, :read], Comment
       cannot [:create, :edit, :destroy, :manage], Plan

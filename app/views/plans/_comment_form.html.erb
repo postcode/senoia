@@ -1,4 +1,4 @@
-<% if can? :manage, plan %>
+<% if can? :create, Comment %>
   <% threads = plan.root_comments.element("#{title}_comment_text") %>
   <% if (plan.persisted? && can?(:create, plan.comments.build) && !plan.approved?) || threads.any? %>
     <div id="<%= title %>_comment" class="comment-section">
