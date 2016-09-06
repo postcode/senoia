@@ -150,7 +150,10 @@ $(function() {
       req.error(function() {
         form.find('.error').fadeIn();
       });
-      $(document).foundation().foundation('joyride', 'start', { start_offset: 7 });
+      req.done(function() {
+        $(document).foundation('tooltip','reflow');
+        $(document).foundation().foundation('joyride', 'start', { start_offset: 9 });
+      })
     }
   });
 

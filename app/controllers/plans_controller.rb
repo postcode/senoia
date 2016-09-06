@@ -194,7 +194,7 @@ class PlansController < ApplicationController
   def send_approved_plan
     @plan = Plan.find(params[:id])
     @plan.email_approved
-    redirect_to @plan, notice: 'Request for contact sent.'
+    redirect_to @plan, notice: 'Change to approval sent.'
   end
 
   def update_plan_user
