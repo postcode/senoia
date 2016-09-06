@@ -33,6 +33,21 @@
       <div class="small-12 columns list shadow with-padding">
         <div class="row">
           <h3>Plan Overview</h3>
+          <% if @plan.operation_periods.present? %>
+            <div class="row">
+              <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+                <div class="small-3 columns end">
+                  <h5>Operation Period&nbsp;<%= index +1 %></h5>
+                  <p>Date:&nbsp;<%= operation_period.formatted_start_date %>&nbsp;<%= operation_period.formatted_start_time %></p>
+                  <p>Peak Crowd Size:&nbsp;<%= operation_period.attendance %></p>
+                </div>
+                <% if index/3 >= 1 %>
+                </div>
+                <div class="row">
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
           <div class="small-4 columns">
             <h4>Event Plan Creator</h4>
             <% if @plan.creator.present? %>
@@ -67,7 +82,7 @@
             </div>
           </div>
           <div class="small-4 columns end">
-            <h4>Alcohol</h4>
+            <h4>Alcohol at Event</h4>
             <div id="stepThree" class="small-8 columns">
               <%= f.input :alcohol, as: :radio_buttons, label: false %>
             </div>
