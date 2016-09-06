@@ -1,20 +1,19 @@
 <div class="row">
   <div class="pageHeader small-12 large-12 columns">
-    <span class="pageTitle large-9 columns">
+    <span class="pageTitle with-margin large-9 columns">
       <h2><%= @notification_group.name %></h2>
       <p><%= @notification_group.description %></p>
     </span>
   </div>
 </div>
 <div class="row spacing">
-  <div class="large-7">
+  <div class="large-7 columns">
     <%= simple_form_for @notification_group do |f| %>
-      
+
       <table class="table table-hover datatable small-12 twelve" id="organization-users">
         <thead>
           <tr>
             <th width="100">Add to Notification Group</th>
-
             <th width="300">Name</th>
             <th width="300">Email</th>
             <th width="100">Role</th>
@@ -30,13 +29,13 @@
                 </td>
                 <td><%= user.name %></td>
                 <td><%= user.email %></td>
-                <td><%= user.role %></td>
+                <td><%= user.roles.map { |role| role.to_s } %></td>
               </tr>
             <% end %>
           <% end %>
         </tbody>
       </table>
-      
+
       <%= f.submit class: "button" %>
     <% end %>
     <%= link_to '< Back', :admin %>
