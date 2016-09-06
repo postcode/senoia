@@ -150,6 +150,7 @@ $(function() {
       req.error(function() {
         form.find('.error').fadeIn();
       });
+      $(document).foundation().foundation('joyride', 'start', { start_offset: 7 });
     }
   });
 

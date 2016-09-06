@@ -8,7 +8,7 @@
       <%= f.input :organization_type_id, collection: OrganizationType.order(:name).all, value_method: :id, label_method: :name, label: "Type", prompt: 'Choose a type' %>
   </div>
   <div class="large-10 end columns">
-      <table class="table table-hover datatable small-12 twelve" id="organization-users">
+    <table class="table table-hover datatable small-12 twelve" id="organization-users">
       <thead>
         <tr>
           <th width="80">Add to Organization</th>
@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-      <% User.all.each do |user| %>
+      <% User.all.order(:name).each do |user| %>
         <tr>
           <% if OrganizationUser.exists?(organization_id: @organization.id, user_id: user.id) %>
             <td><%= check_box "organizations_user[user_ids]", user.id, class: 'table-row-checkbox member', data: { "userid": user.id }, checked: true %></td>
@@ -31,7 +31,7 @@
 
           <td><%= user.name %></td>
           <td><%= user.email %></td>
-          <td><%= user.role %></td>
+          <td><%= user.roles.map { |role| role.to_s } %></td>
         </tr>
         <% end %>
       </tbody>
