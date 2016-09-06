@@ -11,14 +11,18 @@
       <% end %>
     </div>
      <% if threads.any? { |thread| thread.open == false } %>
-      <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
+      <div>
+        <a class="show-resolved-comments" href="#">Show Resolved Comments</a><br/>
+      </div>
       <% end %>
       <div class="existing-comments">
         <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
       </div>
   <% else %>
     <% if threads.any? { |thread| thread.open == false } %>
-      <a class="show-resolved-comments" href="#">Show Resolved Comments</a>
+      <div>
+        <a class="show-resolved-comments" href="#">Show Resolved Comments</a><br/>
+      </div>
       <div class="existing-comments">
         <%= render partial: "comments/thread", collection: threads, as: :root_comment %>
       </div>

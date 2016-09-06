@@ -37,7 +37,7 @@ $(function() {
 
   $(".show-resolved-comments").click( function(event) {
     event.preventDefault();
-    $(this).next(".existing-comments").find(".resolved-comments").toggle()
+    $(this).parent("div").next(".existing-comments").find(".resolved-comments").toggle()
   })
 
   $('#all_plans tbody tr').css('cursor', 'pointer')
