@@ -12,7 +12,6 @@ feature "Plan" do
   let!(:providers) { 1.upto(3).map{ |i| FactoryGirl.create(:provider, organization_type: provider_type) }.sort_by(&:name) }
 
   context "admin create a new plan", js: true do
-
     before do
       @event_type = create(:event_type)
       sign_in(admin)

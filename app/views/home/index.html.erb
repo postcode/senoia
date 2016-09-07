@@ -6,26 +6,26 @@
           <%= link_to new_plan_path do %>
             <div class="main-section">
               <i class="fi-plus"></i>
-              <h2>New Plan</h2> 
-            </div>         
-          <% end %>        
-        </div>      
+              <h2>New Plan</h2>
+            </div>
+          <% end %>
+        </div>
         <div class="large-4 columns">
           <%= link_to plans_path do %>
-            <div class="main-section">     
+            <div class="main-section">
               <i class="fi-magnifying-glass"></i>
               <h2>Browse Plans</h2>
-            </div>  
-          <% end %> 
-        </div> 
+            </div>
+          <% end %>
+        </div>
         <div class="large-4 columns">
         <%= link_to learn_more_path do %>
           <div class="main-section">
-            <i class="fi-info"></i>                  
+            <i class="fi-info"></i>
             <h2>Learn More</h2>
           </div>
         <% end %>
-        </div>               
+        </div>
       </div>
     </div>
   </div>
@@ -41,8 +41,8 @@
           <% if op.count > 0 %>
           <% plan_names = [] %>
           <% unique_id = SecureRandom.hex(16) %>
-          <% op.map{ |p| 
-              if p.plan.present? 
+          <% op.map{ |p|
+              if p.plan.present?
                 plan_names << p.plan.name unless p.plan.name.blank?
               end
                 }
@@ -50,7 +50,9 @@
             <div class="day-op <%= op.count >= 5 ? 'day-alert' : 'day-normal' %>">
               <button href="#" data-dropdown="drop_<%= unique_id %>" aria-controls="drop1" aria-expanded="false" class="button dropdown small landing-dropdown"><%= op.count %></button><br>
                 <ul id="drop_<%= unique_id %>" data-dropdown-content class="f-dropdown" aria-hidden="true">
-                <li><%= link_to op.first.plan.name, plan_path(op.first.plan) %></li>
+                <% plan_names.each do |name| %>
+                  <li><%= link_to name, plan_path(Plan.find_by_name(name)) %></li>
+                <% end %>
                 </ul>
             </div>
           <% end %>
