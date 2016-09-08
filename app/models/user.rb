@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :phone_number, presence: true
+  phony_normalize :phone_number, default_country_code: 'US'
 
   scope :to_notify_on, -> (notification_type) do
     if notification_type.present?
