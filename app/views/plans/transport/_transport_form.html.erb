@@ -1,6 +1,6 @@
 <div class="modal-body">
   <%= simple_fields_for asset do |a| %>
-    <%= a.input :name, required: false %>
+    <%= a.input :name, required: false, label: "Asset Identification Name/Number" %>
     <%= a.input :level, required: false, collection: Transport::LEVELS %>
     <%= a.input :location, required: false %>
     <%= a.input :organization_id,

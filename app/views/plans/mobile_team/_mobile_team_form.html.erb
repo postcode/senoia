@@ -1,6 +1,6 @@
 <div class="modal-body">
   <%= simple_fields_for asset do |a| %>
-    <%= a.input :name, required: false %>
+    <%= a.input :name, required: false, label: "Asset Identification Name/Number" %>
     <%= a.input :level, required: false, collection: MobileTeam::LEVELS %>
     <%= a.input :mobile_team_type, required: false, collection: MobileTeam::TEAM_TYPES %>
     <%= a.input :aed, input_html: {value: 0}, required: false, label: "Number of AEDs" %>
