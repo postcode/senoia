@@ -154,7 +154,6 @@ feature "Comments" do
       end
 
       scenario "replies to a comment" do
-        save_screenshot
         find(".comment-area textarea").set @new_comment_body
         click_on "REPLY"
         expect(page).to have_content @new_comment_body
