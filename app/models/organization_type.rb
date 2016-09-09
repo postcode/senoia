@@ -23,6 +23,7 @@ class OrganizationType < ActiveRecord::Base
     type = OrganizationType.find_by_name("Event Permitter")
     type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations = [NullOrganization.new]
     organizations = [NullOrganization.new] unless organizations.present?
+    type.add_other(organizations) if type.present?
     organizations
   end
 
@@ -30,6 +31,7 @@ class OrganizationType < ActiveRecord::Base
     type = OrganizationType.find_by_name("Event Producer")
     type.present? ? organizations = Organization.all.where(organization_type_id: type.id).sort_by(&:name) : organizations = [NullOrganization.new]
     organizations = [NullOrganization.new] unless organizations.present?
+    type.add_other(organizations) if type.present?
     organizations
   end
 

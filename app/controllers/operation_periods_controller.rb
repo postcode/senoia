@@ -22,8 +22,8 @@ class OperationPeriodsController < ApplicationController
   def update
     @operation_period = OperationPeriod.find(params[:id])
     @plan = @operation_period.plan
-    params[:operation_period][:attendance]= params[:operation_period][:attendance].gsub(/\D/, '').to_i
-    params[:operation_period][:crowd_estimate]= params[:operation_period][:crowd_estimate].gsub(/\D/, '').to_i
+    params[:operation_period][:attendance] = params[:operation_period][:attendance].gsub(/\D/, '').to_i unless params[:operation_period][:attendance].nil?
+    params[:operation_period][:crowd_estimate] = params[:operation_period][:crowd_estimate].gsub(/\D/, '').to_i unless params[:operation_period][:crowd_estimate].nil?
     authorize! :manage, @operation_period.plan
     @operation_period.update(operation_period_params)
     render nothing: true
