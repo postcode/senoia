@@ -6,7 +6,7 @@
       <th width="75"><%= smart_listing.sortable "Attendance", "total_attendance" %></th>
       <th width="75">Start Date</th>
       <th width="75">End Date</th>
-      <% if current_user.try(:is_admin?) %>
+      <% if can? :read, :user_only_items %>
         <th width="20">Status</th>
       <% end %>
     </thead>
@@ -18,7 +18,7 @@
         <td class="attendance"><%= o.attendance if o.attendance > 0%></td>
         <td><%= o.start_date.present? ? o.start_date.strftime("%D %l:%M %P") : "No Date" %></td>
         <td><%= o.end_date.present? ? o.end_date.strftime("%D %l:%M %P") : "No Date" %></td>
-        <% if current_user.try(:is_admin?) %>
+        <% if can? :read, :user_only_items %>
           <td><%= t(o.workflow_state, scope: "plans.state") %></td>
         <% end %>
       </tr>

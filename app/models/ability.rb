@@ -8,6 +8,7 @@ class Ability
       can :read, :admin_only_items
       can :manage, :all
     elsif (user.has_role? :user) || (user.has_role? :producer )|| (user.has_role? :provider) || (user.has_role? :permitter)
+      can :read, :user_only_items
       can :view, Plan, :plan_users => { role: "view", user_id: user.id }
       can :create, Plan
       can :manage, Plan, :plan_users => { role: "edit", user_id: user.id }
