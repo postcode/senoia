@@ -125,7 +125,7 @@
         <div class="row">
           <div class="small-12 columns">
               <div id="stepSix" class="small-5 columns input_label">
-                <%= f.association :venues, collection: Venue.all.sort_by(&:name), input_html: {class: "chosen-input", placeholder: "Type a venue name", multiple: false}, label: false %>
+                <%= f.association :venues, collection: Venue.order(:name), input_html: {class: "chosen-input", placeholder: "Type a venue name", multiple: false}, label: false %>
               </div>
               <div class="small-3 columns end right">
                 <%= render 'comment_form', plan: @plan, title: "venue" %>
