@@ -262,6 +262,7 @@ class PlansController < ApplicationController
               :venue_ids,
               :approval_date,
               :creator_id,
+              :deleted,
               supplementary_documents_attributes: [
                 :id,
                 :name,

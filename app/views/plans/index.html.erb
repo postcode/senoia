@@ -154,6 +154,14 @@
                       <button class="button postfix primary"><i class="fi-magnifying-glass"></i></button>
                     </div>
                   </div>
+                  <h5>DELETED:</h5>
+                  <div>
+                    <%= hidden_field_tag "query[deleted_plans]", "0", id: "deleted_plans" %>
+                    <label>
+                      <%= check_box_tag "query[deleted_plans]" %>
+                      <span class="overdue">Deleted</span>
+                    </label>
+                  </div>
                 <% end %>
               </div>
             </div>

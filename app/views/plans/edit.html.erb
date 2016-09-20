@@ -24,9 +24,9 @@
       <div class="small-3 columns">
         <p>EDIT MODE<br>
         <em>Last Updated: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
-        <% if can? :manage, @plan %>
+        <% if (can? :read, :admin_only_items) && !@plan.deleted? %>
           <div>
-            <%= link_to @plan, method: "DELETE", remote: true, class: "button alert right tiny radius delete-plan", data: { confirm: "Are you sure you want to remove this plan?" } do %>
+            <%= link_to @plan, method: :delete, class: "button alert right tiny radius delete-plan", data: { confirm: "Are you sure you want to remove this plan?" } do %>
               <i class="fi-x"></i>
               Delete Plan
             <% end %>

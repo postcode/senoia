@@ -169,6 +169,8 @@ class Plan < ActiveRecord::Base
       scope :like, ->(search) { where("plans.name ilike ?", '%' + search + '%') }
       scope :alcohol, -> { where("alcohol = ?", true) }
       scope :owner, -> (search) { where("creator_id = ?", search) }
+      scope :deleted_plans, -> { where("deleted = ?", true) }
+
 
       scope :event_type, lambda { |*args|
         event_type = args[0][:event_type]
@@ -183,9 +185,13 @@ class Plan < ActiveRecord::Base
     class_methods do
       def search(options)
         scope = all
+        if options[:deleted_plans] == '1'
+          scope = scope.deleted_plans
+        else
+          scope = Plan.active
+        end
         scope = scope.like(options[:filter]) if options[:filter]
         scope = scope.alcohol if options[:alcohol] == '1'
-
         if options[:start_date].present?
           scope = scope.calculating_end_date
           scope = scope.where("end_date >= ?", options[:start_date])
