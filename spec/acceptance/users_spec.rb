@@ -28,7 +28,7 @@ feature "Users" do
         fill_in "Current password", with: user.password
         click_on "Update"
         click_on user.to_s
-        expect(page.body).to match Regexp.new(Regexp.escape(new_phone_number))
+        expect(page).to have_selector("input[value='#{PhonyRails.normalize_number(new_phone_number, default_country_code: 'US')}']")
       end
     end
 
