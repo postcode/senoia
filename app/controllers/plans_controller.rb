@@ -136,6 +136,17 @@ class PlansController < ApplicationController
     end
   end
 
+  def destroy
+    @plan = Plan.find(params[:id])
+    authorize! :manage, @plan
+    @plan.deleted = true
+    if @plan.save
+      redirect_to plans_path, notice: "Plan successfully deleted"
+    else
+      redirect_to plan_path(@plan), notice: "Something went wrong. Please try again."
+    end
+  end
+
   def add_first_aid_station
     @first_aid_station = params[:first_aid_station]
     @operation_period = params[:operation_period]

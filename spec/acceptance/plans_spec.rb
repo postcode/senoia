@@ -395,4 +395,41 @@ feature "Plan" do
       expect(email.attachments.map(&:filename).select{ |name| name == "#{approved_plan.name}.pdf"}.include?("#{approved_plan.name}.pdf")).to eq true
     end
   end
+
+  context "delete a plan" do
+
+    before do
+      visit "/plans/#{plan.id}"
+    end
+
+    context "as an admin" do
+
+      before do
+        sign_in(admin)
+        visit "/plans/#{plan.id}"
+      end
+
+      scenario "can see the delete button" do
+        expect(page).to have_selector ".delete-plan"
+      end
+
+      scenario "can delete a plan" do
+        expect {
+          click_link "Delete Plan"
+        }.to change{ Plan.deleted.count }.by(1)
+      end
+    end
+
+    context "as a user" do
+
+      before do
+        sign_in(test_user)
+        visit "/plans/#{plan.id}"
+      end
+
+      scenario "cannot see the delete button" do
+        expect(page).to have_no_selector ".delete-plan"
+      end
+    end
+  end
 end

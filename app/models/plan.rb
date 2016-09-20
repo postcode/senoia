@@ -61,6 +61,8 @@ class Plan < ActiveRecord::Base
   # validates :post_event_phone, presence: true
 
   scope :with_outstanding_comments, -> { joins(:comment_threads).where(comments: { open: true, parent_id: nil }).uniq }
+  scope :deleted, -> { where(deleted: true) }
+  scope :active, -> { where(deleted: false) }
 
   include Workflow
   workflow do

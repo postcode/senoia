@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908134933) do
+ActiveRecord::Schema.define(version: 20160920134144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -301,6 +301,7 @@ ActiveRecord::Schema.define(version: 20160908134933) do
     t.datetime "approval_date"
     t.boolean  "staff_responsibility_reminder_1wk"
     t.boolean  "staff_responsibility_reminder_2wk"
+    t.boolean  "deleted",                           default: false
   end
 
   create_table "post_event_treatment_reports", force: :cascade do |t|
