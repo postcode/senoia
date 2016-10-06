@@ -12,7 +12,7 @@ class ClonesController < ApplicationController
 
   def new_plan
     @plan = Plan.find(params[:plan_id])
-    authorize! :manage, @plan
+    authorize! :create, @plan
 
     @clone = @plan.deep_clone(except: :workflow_state, include: {operation_periods: [ :first_aid_stations, :mobile_teams, :transports, :dispatchs ] })
     if @clone.save

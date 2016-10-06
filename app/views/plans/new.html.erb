@@ -23,6 +23,11 @@
           <%= f.association :event_type, options_for_event_type_select %>
         </div>
       </div>
+      <div class="row">
+        <div class="large-12 columns">
+          <p>You can also make a copy of any existing approved plans. <%= link_to "Head back to the archive to search.", plans_path %></p>
+        </div>
+      </div>
 
       <div class="large-12 columns text-center actions plan-action">
         <%= f.submit "Continue", class: "button large radius" %>
