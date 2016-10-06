@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       delete 'remove_user(/:plan_id/:user_id)', :to => 'plans#remove_user', :as => :remove_user
       post :send_approved_plan
     end
+    post '/plan_clone/', to: 'clones#new_plan', as: :clones
+    resources :clones, only: :new_plan
     resources :comments, only: :create
     resources :invitations, only: :create
     resources :operation_periods, only: [ :new, :create ]
