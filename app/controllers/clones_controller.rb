@@ -14,9 +14,10 @@ class ClonesController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     authorize! :manage, @plan
 
-    @clone = @plan.deep_clone(include: {operation_periods: [ :first_aid_stations, :mobile_teams, :transports, :dispatchs ] })
-    @clone.save
-    redirect_to plan_path(@clone)
+    @clone = @plan.deep_clone(except: :workflow_state, include: {operation_periods: [ :first_aid_stations, :mobile_teams, :transports, :dispatchs ] })
+    if @clone.save
+      redirect_to plan_path(@clone), notice: "Plan successfully duplicated."
+    end
   end
 
 end

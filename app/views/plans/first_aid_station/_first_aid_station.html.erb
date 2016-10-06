@@ -6,7 +6,7 @@
       <p><%= first_aid_station.level %></p>
     </div>
     <div class="large-4 columns">Provider
-      <p><%= first_aid_station.provider.name %></p>
+      <p><%= first_aid_station.provider.name unless first_aid_station.provider.blank? %></p>
     </div>
     <div class="large-4 columns end">
       <span><a href="#" data-reveal-id="first_aid_info">More Info</a></span>
