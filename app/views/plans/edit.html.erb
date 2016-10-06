@@ -26,10 +26,11 @@
         <em>Last Updated: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
         <% if (can? :read, :admin_only_items) && !@plan.deleted? %>
           <div>
-            <%= link_to @plan, method: :delete, class: "button alert right tiny radius delete-plan", data: { confirm: "Are you sure you want to remove this plan?" } do %>
+            <a id="delete_plan_button" class="button alert right tiny radius" href="#" data-reveal-id="delete-plan" rel="nofollow">
               <i class="fi-x"></i>
               Delete Plan
-            <% end %>
+            </a>
+            <%= render "plans/delete_plan", plan: @plan, f: f %>
           </div>
         <% end %>
       </div>

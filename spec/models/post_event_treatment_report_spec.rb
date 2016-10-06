@@ -13,6 +13,7 @@
 #  submitted                                :boolean
 #  created_at                               :datetime         not null
 #  updated_at                               :datetime         not null
+#  weather                                  :text
 #
 
 require 'rails_helper'

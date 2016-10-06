@@ -26,6 +26,8 @@
 #  approval_date                     :datetime
 #  staff_responsibility_reminder_1wk :boolean
 #  staff_responsibility_reminder_2wk :boolean
+#  deleted                           :boolean          default(FALSE)
+#  deleted_reason                    :text
 #
 
 require 'rails_helper'

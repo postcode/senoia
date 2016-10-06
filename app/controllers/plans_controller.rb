@@ -136,11 +136,13 @@ class PlansController < ApplicationController
     end
   end
 
-  def destroy
+  def delete_plan
     @plan = Plan.find(params[:id])
     authorize! :manage, @plan
     @plan.deleted = true
+    @plan.deleted_reason = params[:deleted_reason] unless params[:deleted_reason].blank?
     if @plan.save
+      impressionist(@plan, "Plan deleted")
       redirect_to plans_path, notice: "Plan successfully deleted"
     else
       redirect_to plan_path(@plan), notice: "Something went wrong. Please try again."
@@ -263,6 +265,7 @@ class PlansController < ApplicationController
               :approval_date,
               :creator_id,
               :deleted,
+              :deleted_reason,
               supplementary_documents_attributes: [
                 :id,
                 :name,

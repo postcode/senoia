@@ -26,11 +26,14 @@
 #  approval_date                     :datetime
 #  staff_responsibility_reminder_1wk :boolean
 #  staff_responsibility_reminder_2wk :boolean
+#  deleted                           :boolean          default(FALSE)
+#  deleted_reason                    :text
 #
 
 class Plan < ActiveRecord::Base
   has_paper_trail
   acts_as_commentable
+  is_impressionable
   belongs_to :owner, class_name: User
   belongs_to :event_type
   has_many :plan_users

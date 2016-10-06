@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post :send_approved_plan
     end
     post '/plan_clone/', to: 'clones#new_plan', as: :clones
+    post '/plan_delete/', to: 'plans#delete_plan', as: :delete_plan
     resources :clones, only: :new_plan
     resources :comments, only: :create
     resources :invitations, only: :create
