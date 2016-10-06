@@ -10,6 +10,15 @@ class FirstAidStationsController < ApplicationController
       @first_aid_station.contact_name = @provider.name
       @first_aid_station.contact_phone = @provider.phone_number
       @first_aid_station.planning_contact_email = @provider.email
+    else
+      @first_aid_station.organization = Organization.where(name: params[:organization_name]).first_or_create do |organization|
+        organization.organization_type = OrganizationType.find_by_name("EMS Provider")
+        organization.phone_number = params[:first_aid_station][:contact_phone]
+        organization.email = params[:first_aid_station][:planning_contact_email]
+      end
+      @first_aid_station.contact_name = @first_aid_station.organization.name
+      @first_aid_station.contact_phone = @first_aid_station.organization.phone_number
+      @first_aid_station.planning_contact_email = @first_aid_station.organization.email
     end
     @first_aid_station.save!
   end

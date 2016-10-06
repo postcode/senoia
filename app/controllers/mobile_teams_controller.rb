@@ -10,6 +10,15 @@ class MobileTeamsController < ApplicationController
       @mobile_team.contact_name = @provider.name
       @mobile_team.contact_phone = @provider.phone_number
       @mobile_team.planning_contact_email = @provider.email
+    else
+      @mobile_team.organization = Organization.where(name: params[:organization_name]).first_or_create do |organization|
+        organization.organization_type = OrganizationType.find_by_name("EMS Provider")
+        organization.phone_number = params[:mobile_team][:contact_phone]
+        organization.email = params[:mobile_team][:planning_contact_email]
+      end
+      @mobile_team.contact_name = @mobile_team.organization.name
+      @mobile_team.contact_phone = @mobile_team.organization.phone_number
+      @mobile_team.planning_contact_email = @mobile_team.organization.email
     end
     @mobile_team.save!
   end

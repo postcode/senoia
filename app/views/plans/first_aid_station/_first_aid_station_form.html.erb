@@ -17,9 +17,14 @@
     required: false,
     as: :select,
     input_html: {class: "provider-select"} %>
-    <%= a.input :contact_name, required: false, label: 'Provider Contact Name', wrapper_html: { class: "provider-information" } %>
-    <%= a.input :contact_phone, required: false, label: 'Provider Contact Phone', wrapper_html: { class: "provider-information" } %>
-    <%= a.input :planning_contact_email, required: false, label: 'Provider Contact Email', wrapper_html: { class: "provider-information" } %>
+    <div class="provider-information">
+      <h4>Other Medical Provider:</h4>
+      <%= label_tag "Company Name" %>
+      <%= text_field_tag :organization_name, nil %>
+    </div>
+    <%= a.input :contact_name, required: false, label: 'Contact Name', wrapper_html: { class: "provider-information" } %>
+    <%= a.input :contact_phone, required: false, label: 'Contact Phone', wrapper_html: { class: "provider-information" } %>
+    <%= a.input :planning_contact_email, required: false, label: 'Contact Email', wrapper_html: { class: "provider-information" } %>
   <% end %>
 </div>
 

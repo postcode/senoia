@@ -6,10 +6,20 @@ class DispatchesController < ApplicationController
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @provider =  Organization.find(params[:dispatch][:organization_id])
     @dispatch = @operation_period.dispatchs.create(dispatch_params)
+    @dispatch = @operation_period.dispatchs.create(dispatch_params)
     if @provider.present? && @provider.name != "Other"
       @dispatch.contact_name = @provider.name
       @dispatch.contact_phone = @provider.phone_number
       @dispatch.planning_contact_email = @provider.email
+    else
+      @dispatch.organization = Organization.where(name: params[:organization_name]).first_or_create do |organization|
+        organization.organization_type = OrganizationType.find_by_name("EMS Provider")
+        organization.phone_number = params[:dispatch][:contact_phone]
+        organization.email = params[:dispatch][:planning_contact_email]
+      end
+      @dispatch.contact_name = @dispatch.organization.name
+      @dispatch.contact_phone = @dispatch.organization.phone_number
+      @dispatch.planning_contact_email = @dispatch.organization.email
     end
     @dispatch.save!
   end
