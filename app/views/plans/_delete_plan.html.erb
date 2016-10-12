@@ -1,0 +1,28 @@
+<div class="reveal-modal small hide-for-print" data-reveal id="delete-plan">
+  <a class="close-reveal-modal">&#215;</a>
+  <h3>Delete this plan?</h3>
+  <div class="modal-body">
+  <%= text_area :plan, :deleted_reason, rows: 5, placeholder: "Reason for deleting this plan." %>
+  <%= hidden_field_tag :id, plan.id %>
+  <div class="modal-footer">
+    <%= link_to "Delete", "javascript:void(0);", class: "button alert right tiny radius delete-plan" %>
+  </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  $(".delete-plan").click(function() {
+    var delete_reason = $("#plan_deleted_reason").val()
+    var id = $("#id").val()
+    $.ajax({
+      data: {
+            'deleted_reason': delete_reason,
+            'id': id
+        },
+      type: 'post',
+      url: '<%= j plan_delete_plan_path(plan.id) %>'
+    });
+  });
+});
+</script>
