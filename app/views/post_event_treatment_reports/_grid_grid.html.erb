@@ -1,0 +1,7 @@
+<%= grid(@post_event_treatment_reports, show_filters: :always) do |g|
+      g.column name: 'Event', attribute: 'name', assoc: :plan
+      g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
+      g.column name: 'Calls' do |r|
+        r.treatment_total
+      end
+    end -%>

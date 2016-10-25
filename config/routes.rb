@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :post_event_treatment_reports, only: :none do
     resources :supplementary_documents, only: [ :new, :create ]
   end
+  resources :post_event_treatment_reports, only: :index
   resources :treatment_records, only: [ :edit, :update, :destroy ]
   resources :transportation_records, only: [ :edit, :update, :destroy ]
   resources :comments do
