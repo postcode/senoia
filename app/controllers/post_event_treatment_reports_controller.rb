@@ -7,6 +7,7 @@ class PostEventTreatmentReportsController < ApplicationController
     authorize! :read, :admin_only_items
     @post_event_treatment_reports = initialize_grid(PostEventTreatmentReport,
                                          include:  :plan,
+                                         include: :treatment_records,
                                          enable_export_to_csv: true,
                                          csv_file_name:        'events')
     export_grid_if_requested

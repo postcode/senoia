@@ -1,7 +1,12 @@
 <%= grid(@post_event_treatment_reports, show_filters: :always) do |g|
-      g.column name: 'Event', attribute: 'name', assoc: :plan
+      g.column name: 'Event', attribute: 'name', assoc: :plan do |r|
+        link_to r.plan.name, plan_path(r.plan)
+      end
       g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
-      g.column name: 'Calls' do |r|
-        r.treatment_total
+      g.column name: 'Calls', ordering: true do |r|
+        r.treatment_records.persons_count unless r.treatment_records.blank?
+      end
+      g.column name: ' ' do |r|
+        link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button tiny default'
       end
     end -%>
