@@ -196,9 +196,10 @@ legend {
 }
 
 .day-op {
-  .dropdown.button.landing-dropdown, button.dropdown.landing-dropdown {
-    padding: 0em;
+  .button.landing-dropdown, button.dropdown.landing-dropdown {
+    background: transparent;
     font-size: 1.0em;
+    padding: 0em;
   }
 }
 
