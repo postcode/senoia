@@ -3,17 +3,17 @@
         link_to r.plan.name, plan_path(r.plan) unless r.plan.blank?
       end
       g.column name: 'Start Date', ordering: true do |r|
-        r.plan.start_date.strftime("%D %H:%M") unless r.plan.start_date.blank? || r.plan.blank?
+        r.plan.start_date.strftime("%D %H:%M") unless r.plan.blank? || r.plan.start_date.blank?
       end
       g.column name: 'End Date', ordering: true do |r|
-        r.plan.end_date.strftime("%D %H:%M") unless r.plan.end_date.blank? || r.plan.blank?
+        r.plan.end_date.strftime("%D %H:%M") unless r.plan.blank? || r.plan.end_date.blank?
       end
       g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
       g.column name: 'Calls', ordering: true do |r|
-        r.treatment_total unless r.treatment_records.blank? || r.plan.blank?
+        r.treatment_total unless r.treatment_records.blank?
       end
       g.column name: 'Treatment', ordering: true do |r|
-        r.treatments unless r.treatment_records.blank? || r.plan.blank?
+        r.treatments unless r.treatment_records.blank?
       end
       g.column name: ' ' do |r|
         link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button secondary tiny' unless r.plan.blank?
