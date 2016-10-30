@@ -3,12 +3,10 @@
         link_to r.plan.name, plan_path(r.plan) unless r.plan.blank?
       end
       g.column name: 'Start Date', ordering: true do |r|
-        next unless r.plan.start_date
-        r.plan.start_date.strftime("%D %H:%M")
+        r.plan.start_date.strftime("%D %H:%M") unless r.plan.start_date.blank?
       end
       g.column name: 'End Date', ordering: true do |r|
-        next unless r.plan.end_date
-        r.plan.end_date.strftime("%D %H:%M")
+        r.plan.end_date.strftime("%D %H:%M") unless r.plan.end_date.blank?
       end
       g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
       g.column name: 'Calls', ordering: true do |r|
