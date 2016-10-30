@@ -1,6 +1,6 @@
 <%= grid(@post_event_treatment_reports, show_filters: :always) do |g|
-      g.column name: 'Event', attribute: 'name', assoc: :plan, filter: false do |r|
-        link_to r.plan.name, plan_path(r.plan)
+      g.column name: 'Event', attribute: 'name', assoc: :plan do |r|
+        link_to(r.plan.name, plan_path(r.plan))
       end
       g.column name: 'Start Date', ordering: true do |r|
         next unless r.plan.start_date
@@ -18,6 +18,6 @@
         r.treatments unless r.treatment_records.blank?
       end
       g.column name: ' ' do |r|
-        link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button secondary tiny'
+        link_to 'View', plan_post_event_treatment_report_path(r.plan), class: 'button secondary tiny'
       end
     end -%>
