@@ -1,7 +1,5 @@
-<%= grid(@post_event_treatment_reports, show_filters: :always) do |g|
-      g.column name: 'Event', attribute: 'name', assoc: :plan do |r|
-        link_to r.plan.name, plan_path(r.plan)
-      end
+<%= grid(@post_event_treatment_reports) do |g|
+      g.column name: 'Event', attribute: 'name', assoc: :plan
       # g.column name: 'Start Date', attribute: 'start_date', assoc: :plan, ordering: true do |r|
       #   next unless r.plan.start_date
       #   r.plan.start_date.strftime("%D %H:%M")
