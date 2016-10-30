@@ -11,6 +11,9 @@ class PostEventTreatmentReportsController < ApplicationController
                                          enable_export_to_csv: true,
                                          csv_file_name:        'events')
     export_grid_if_requested
+    respond_to do |format|
+      format.html
+    end
   end
 
   def show

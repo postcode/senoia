@@ -1,21 +1,23 @@
 <%= grid(@post_event_treatment_reports, show_filters: :always) do |g|
-      g.column name: 'Event', attribute: 'name', assoc: :plan
-      g.column name: 'Start Date', ordering: true do |r|
-        next unless r.plan.start_date
-        r.plan.start_date.strftime("%D %H:%M")
+      g.column name: 'Event', attribute: 'name', assoc: :plan do |r|
+        link_to r.plan.name, plan_path(r.plan)
       end
-      g.column name: 'End Date', ordering: true do |r|
-        next unless r.plan.end_date
-        r.plan.end_date.strftime("%D %H:%M")
-      end
-      g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
-      g.column name: 'Calls', ordering: true do |r|
-        r.treatment_total unless r.treatment_records.blank?
-      end
-      g.column name: 'Treatment', ordering: true do |r|
-        r.treatments unless r.treatment_records.blank?
-      end
-      g.column name: ' ' do |r|
-        link_to 'View', plan_post_event_treatment_report_path(r.plan), class: 'button secondary tiny'
-      end
+      # g.column name: 'Start Date', attribute: 'start_date', assoc: :plan, ordering: true do |r|
+      #   next unless r.plan.start_date
+      #   r.plan.start_date.strftime("%D %H:%M")
+      # end
+      # g.column name: 'End Date', attribute: 'end_date', assoc: :plan, ordering: true do |r|
+      #   next unless r.plan.end_date
+      #   r.plan.end_date.strftime("%D %H:%M")
+      # end
+      # g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
+      # g.column name: 'Calls', ordering: true do |r|
+      #   r.treatment_total unless r.treatment_records.blank?
+      # end
+      # g.column name: 'Treatment', ordering: true do |r|
+      #   r.treatments unless r.treatment_records.blank?
+      # end
+      # g.column name: ' ' do |r|
+      #   link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button secondary tiny'
+      # end
     end -%>
