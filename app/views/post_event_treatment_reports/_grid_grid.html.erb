@@ -2,11 +2,22 @@
       g.column name: 'Event', attribute: 'name', assoc: :plan do |r|
         link_to r.plan.name, plan_path(r.plan)
       end
+      g.column name: 'Start Date', ordering: true do |r|
+        next unless r.plan.start_date
+        r.plan.start_date.strftime("%D %H:%M")
+      end
+      g.column name: 'End Date', ordering: true do |r|
+        next unless r.plan.end_date
+        r.plan.end_date.strftime("%D %H:%M")
+      end
       g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
       g.column name: 'Calls', ordering: true do |r|
         r.treatment_records.persons_count unless r.treatment_records.blank?
       end
+      g.column name: 'Treatment', ordering: true do |r|
+        r.treatment_records.treatment unless r.treatment_records.blank?
+      end
       g.column name: ' ' do |r|
-        link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button tiny default'
+        link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button secondary tiny'
       end
     end -%>

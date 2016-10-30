@@ -8,6 +8,8 @@ class PostEventTreatmentReportsController < ApplicationController
     @post_event_treatment_reports = initialize_grid(PostEventTreatmentReport,
                                          include:  :plan,
                                          include: :treatment_records,
+                                         order:           'plans.name',
+                                         order_direction: 'asc',
                                          enable_export_to_csv: true,
                                          csv_file_name:        'events')
     export_grid_if_requested
