@@ -33,6 +33,8 @@ class PostEventTreatmentReport < ActiveRecord::Base
     validates attribute, presence: true, if: :submitted?
   end
 
+  scope :with_plan, -> { where("plan_id is not null") }
+
   delegate :event_type, :start_date, :end_date, :attendance, to: :plan
 
   def submit_email!
