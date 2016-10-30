@@ -1,5 +1,5 @@
 <%= grid(@post_event_treatment_reports, show_filters: :always) do |g|
-      g.column name: 'Event', attribute: 'name', assoc: :plan do |r|
+      g.column name: 'Event' do |r|
         link_to(r.plan.name, plan_path(r.plan)) unless r.plan.name.blank?
       end
       g.column name: 'Start Date', ordering: true do |r|
