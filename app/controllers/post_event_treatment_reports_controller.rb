@@ -5,7 +5,7 @@ class PostEventTreatmentReportsController < ApplicationController
   def index
     authorize! :read, :admin_only_items
     @post_event_treatment_reports = initialize_grid(PostEventTreatmentReport,
-                                         include:  [:plan, :treatment_records],
+                                         include:  :plan,
                                          order:           'plans.name',
                                          order_direction: 'asc',
                                          enable_export_to_csv: true,
