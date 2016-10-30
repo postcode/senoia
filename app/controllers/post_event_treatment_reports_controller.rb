@@ -1,5 +1,4 @@
 class PostEventTreatmentReportsController < ApplicationController
-
   load_and_authorize_resource :plan
   load_and_authorize_resource :post_event_treatment_report, through: :plan, singleton: true, except: :index
 

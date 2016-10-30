@@ -12,10 +12,10 @@
       end
       g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
       g.column name: 'Calls', ordering: true do |r|
-        r.treatment_records.persons_count unless r.treatment_records.blank?
+        r.treatment_total unless r.treatment_records.blank?
       end
       g.column name: 'Treatment', ordering: true do |r|
-        r.treatment_records.treatment unless r.treatment_records.blank?
+        r.treatments unless r.treatment_records.blank?
       end
       g.column name: ' ' do |r|
         link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button secondary tiny'

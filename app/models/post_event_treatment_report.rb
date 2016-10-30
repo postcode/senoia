@@ -36,13 +36,16 @@ class PostEventTreatmentReport < ActiveRecord::Base
   delegate :event_type, :start_date, :end_date, :attendance, to: :plan
 
   def submit_email!
-    self.plan.users.each do |contact|
-      PostEventTreatmentReportMailer.submit(recipient: contact, plan: self.plan).deliver_later
+    plan.users.each do |contact|
+      PostEventTreatmentReportMailer.submit(recipient: contact, plan: plan).deliver_later
     end
   end
 
   def treatment_total
-    self.treatment_records.map.sum(&:persons_count)
+    treatment_records.map.sum(&:persons_count)
   end
 
+  def treatments
+    treatment_records.map(&:treatment)
+  end
 end
