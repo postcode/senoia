@@ -1,5 +1,4 @@
 class AssetAllocationService
-
   def initialize(args)
     @type = args[:type]
     args[:crowd_size].present? ? @crowd_size = args[:crowd_size] : @crowd_size = 0
@@ -24,10 +23,11 @@ class AssetAllocationService
 
   def calculate_mobile_teams
     if @type.name == "Athletic or Sporting Event" || @type.name == "Outside Parade, Block Party, or Street Fair"
-       @text[:mobile_team] = "You will need 1 or more Mobile Teams." if @crowd_size > 2500
+      @text[:mobile_team] = "You will need 1 or more Mobile Teams." if @crowd_size > 2500
+    elsif @type.name == "Water-based"
+      @text[:mobile_team] = "It is recommended that you have at least one water-based ALS response team."
     else
       @text[:mobile_team] = "It is recommended that you have 1 or more Mobile Teams."
     end
   end
-
 end
