@@ -1,12 +1,16 @@
 class VenuesController < ApplicationController
-
   load_and_authorize_resource
-  
+
   def index
-    @venue_grid = initialize_grid(Venue)
+    @venue_grid = initialize_grid(Venue,
+                                  order: 'name',
+                                  custom_order: {
+                                    'venues.name' => 'lower(?)'
+                                  },
+                                  order_direction: 'asc'
+                                 )
     respond_to do |format|
       format.html
-      format.json { render json: @venues }
     end
   end
 
@@ -27,7 +31,7 @@ class VenuesController < ApplicationController
       format.html
       format.json { render json: @venue }
     end
-  end  
+  end
 
   def create
     @venue = Venue.new(venue_params)
@@ -46,7 +50,7 @@ class VenuesController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def venue_params
     params.require(:venue).permit(:name)

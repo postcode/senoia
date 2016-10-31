@@ -3,7 +3,11 @@ class OrganizationsController < ApplicationController
 
   def index
     @organization_grid = initialize_grid(Organization,
-                                         include:  :organization_type)
+                                         include:  :organization_type,
+                                         order: 'organizations.name',
+                                         custom_order: {
+                                           'organizations.name' => 'lower(organizations.name)'
+                                         })
     respond_to do |format|
       format.html
     end
