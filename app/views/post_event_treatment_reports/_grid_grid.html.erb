@@ -15,6 +15,10 @@
       g.column name: 'Treatment', ordering: true do |r|
         r.treatments unless r.treatment_records.blank?
       end
+
+      g.column name: 'Venue', ordering: true do |r|
+        r.plan.venues.first.name unless r.plan.blank? || r.plan.venues.blank?
+      end
       g.column name: ' ' do |r|
         link_to 'View', plan_post_event_treatment_report_path(r.plan), clas: 'button secondary tiny' unless r.plan.blank?
       end
