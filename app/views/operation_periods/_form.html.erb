@@ -120,7 +120,11 @@
     </div>
     <div class="row">
       <div class="small-12 columns list shadow with-padding">
+      <% if @plan.event_type.name = "Water-based" %>
+        <h4>On water teams&nbsp;(<%= operation_period.mobile_teams.count %>)</h4>
+      <% else %>
         <h4>Mobile Teams&nbsp;(<%= operation_period.mobile_teams.count %>)</h4>
+      <% end %>
         <div class="row">
           <div class="small-8 columns">
             <table id="mobile_team_table">
