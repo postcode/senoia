@@ -9,10 +9,10 @@
         r.plan.end_date.strftime("%D %H:%M") unless r.plan.blank? || r.plan.end_date.blank?
       end
       g.column name: 'Actual Crowd Size', attribute: 'actual_crowd_size'
-      g.column name: 'Calls', ordering: true do |r|
+      g.column name: 'Calls', ordering: true, filter: true do |r|
         r.treatment_total unless r.treatment_records.blank?
       end
-      g.column name: 'Treatment', ordering: true do |r|
+      g.column name: 'Treatment', ordering: true, filter: true do |r|
         r.treatments unless r.treatment_records.blank?
       end
 

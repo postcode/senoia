@@ -25,7 +25,7 @@ class AssetAllocationService
     if @type.name == "Athletic or Sporting Event" || @type.name == "Outside Parade, Block Party, or Street Fair"
       @text[:mobile_team] = "You will need 1 or more Mobile Teams." if @crowd_size > 2500
     elsif @type.name == "Water-based"
-      @text[:mobile_team] = "It is recommended that you have at least one water-based ALS response team."
+      @text[:mobile_team] = "You must have at least one water-based ALS response team in addition to your land-based team."
     else
       @text[:mobile_team] = "It is recommended that you have 1 or more Mobile Teams."
     end

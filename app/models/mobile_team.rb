@@ -26,5 +26,5 @@ class MobileTeam < ActiveRecord::Base
   has_many :communications, through: :asset_communications
 
   LEVELS =  ["ALS", "BLS", "Non-Medical"]
-  TEAM_TYPES = ["Foot", "Bike", "Gator/Cart", "Sag Wagon", "Boat-based", "Personal Water Craft"]
+  TEAM_TYPES = ["Foot", "Bike", "Gator/Cart", "Sag Wagon", "Boat-based", "Personal Water Craft", "Kayak"]
 end

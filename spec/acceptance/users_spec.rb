@@ -1,7 +1,6 @@
 require_relative "./acceptance_helper"
 
 feature "Users" do
-
   context "User" do
     let(:user) { create(:user) }
 
@@ -10,7 +9,6 @@ feature "Users" do
     end
 
     context "updates" do
-
       background do
         visit "/"
         click_on user.to_s
@@ -33,7 +31,6 @@ feature "Users" do
     end
 
     context "cannot" do
-
       let(:other_user) { create(:user) }
 
       scenario "edit another user's profile" do
@@ -56,11 +53,9 @@ feature "Users" do
         expect(page).to have_content "not authorized"
       end
     end
-
   end
 
   context "Admin" do
-
     let(:admin) { create(:admin) }
     let(:user) { create(:user) }
 
@@ -91,11 +86,9 @@ feature "Users" do
       fill_in "user_password_confirmation", with: password
       click_on "Save"
     end
-
   end
 
   context "Guest" do
-
     scenario "signs up" do
       visit "/"
       click_on "Sign Up"
@@ -108,7 +101,5 @@ feature "Users" do
       expect(page).to have_content("activate your account")
       expect(User.last.roles).to include(:user)
     end
-
   end
-
 end
