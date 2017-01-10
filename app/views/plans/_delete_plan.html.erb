@@ -5,14 +5,14 @@
   <%= text_area :plan, :deleted_reason, rows: 5, placeholder: "Reason for deleting this plan." %>
   <%= hidden_field_tag :id, plan.id %>
   <div class="modal-footer">
-    <%= link_to "Delete", "javascript:void(0);", class: "button alert right tiny radius delete-plan" %>
+    <%= link_to "Delete", "javascript:void(0);", class: "button alert right tiny radius submit-delete-plan" %>
   </div>
   </div>
 </div>
 
 <script>
 $(function() {
-  $(".delete-plan").click(function() {
+  $(".submit-delete-plan").click(function() {
     var delete_reason = $("#plan_deleted_reason").val()
     var id = $("#id").val()
     $.ajax({
@@ -21,7 +21,11 @@ $(function() {
             'id': id
         },
       type: 'post',
-      url: '<%= j plan_delete_plan_path(plan.id) %>'
+      url: '<%= j plan_delete_plan_path(plan.id) %>',
+    })
+    .always(function() {
+      location.reload();
+      $('#delete-plan').foundation('reveal', 'close');
     });
   });
 });
