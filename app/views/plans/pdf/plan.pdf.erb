@@ -221,7 +221,7 @@
                 <p><%= first_aid_station.level %></p>
               </div>
               <div class="large-2 columns">Provider
-                <p><%= first_aid_station.provider.name %></p>
+                <p><%= first_aid_station.provider.name unless first_aid_station.provider.blank? %></p>
               </div>
               <div class="large-2 columns">
                 <div>MD</div>
@@ -278,7 +278,7 @@
                 </div>
                 <div class="large-3 columns">
                   <div>Provider</div>
-                  <p><%= mobile_team.provider.name %></p>
+                  <p><%= mobile_team.provider.name unless mobile_team.provider.blank? %></p>
                 </div>
                 <div class="large-3 columns end">
                   <div>AED</div>
