@@ -8,9 +8,11 @@
     <div class="large-3 columns">Type
       <p><%= mobile_team.mobile_team_type %></p>
     </div>
+    <% if mobile_team.provider.present? %>
     <div class="large-3 columns">Provider
       <p><%= mobile_team.provider.name %></p>
     </div>
+    <% end %>
     <div class="large-3 columns end">
       <span><a href="#" data-reveal-id="first_aid_info">More Info</a></span>
     </div>
