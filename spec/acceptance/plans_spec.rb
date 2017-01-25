@@ -410,7 +410,7 @@ feature "Plan" do
       end
 
       scenario "can see the delete button" do
-        expect(page).to have_selector ".delete-plan"
+        expect(page).to have_selector "#delete_plan_button"
       end
 
       scenario "can delete a plan" do
@@ -428,7 +428,7 @@ feature "Plan" do
       end
 
       scenario "cannot see the delete button" do
-        expect(page).to have_no_selector ".delete-plan"
+        expect(page).to have_no_selector "#delete_plan_button"
       end
     end
   end
