@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   has_many :providers, through: :providers_users
   has_many :providers_users
   has_many :organization_users
-  has_many :organizations, through: :organizations_users
+  has_many :organizations, through: :organization_users
   has_many :notification_group_memberships, inverse_of: :user, dependent: :destroy
   has_many :notification_groups, through: :notification_group_memberships, source: :notification_group, inverse_of: :members
 
