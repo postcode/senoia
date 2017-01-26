@@ -2,7 +2,7 @@
 <% asset = a.object %>
 <tr>
   <td><%= asset.name %></td>
-  <td><%= asset.organization.name %></td>
+  <td><%= asset.organization.name unless asset.organization.blank? %></td>
   <td>
     <a href="#" data-reveal-id="dispatch-info-<%= asset.id %>">More Info</a>
     <div id="dispatch-info-<%= asset.id %>" class="update-dispatch reveal-modal medium asset-modal dispatch-form" data-url="<%= url_for([ operation_period, asset ]) %>" data-reveal>
