@@ -15,7 +15,7 @@
             </div>
           <% else %>
           <div id="responsibility">
-            <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
+            <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
           </div>
           <% end %>
         </div>
@@ -44,7 +44,7 @@
         </div>
         <% else %>
         <div id="communication">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
+          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
         </div>
         <% end %>
       </div>
@@ -70,7 +70,7 @@
           </div>
         <% else %>
         <div id="staff_responsibility">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
+          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
         </div>
         <% end %>
         <% if @plan.start_date.present? && (can? :manage, @plan) %>
@@ -99,7 +99,7 @@
           </div>
         <% else %>
         <div id="mci">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' %>
+          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
         </div>
         <% end %>
       </div>
