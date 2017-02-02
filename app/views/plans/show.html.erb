@@ -10,7 +10,7 @@
       <% end %>
     </div>
     <div class="large-1 columns end">
-      <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button tiny" %>
+      <%= link_to "Print", plan_path(@plan, format: :pdf), class: "button" %>
     </div>
   </div>
 </div>
@@ -106,9 +106,7 @@
 </div>
 
   <%= render 'plan_agreement', f: f, plan: @plan %>
-  <% if can? :manage, @plan %>
-    <%= render "supplementary_documents/index", parent: @plan %>
-  <% end %>
+  <%= render "supplementary_documents/index", parent: @plan %>
   <div class="row">
     <% if (can? :read, :admin_only_items) && !@plan.deleted? %>
       <div>

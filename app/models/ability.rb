@@ -36,14 +36,14 @@ class Ability
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
-      can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id }}
+      can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id } }
       cannot :read, User
       cannot :index, User
       cannot :read, Provider
       cannot :read, Permitter
       cannot :read, NotificationGroup
       can :view, Plan do |plan|
-       plan.approved?
+        plan.approved?
       end
       can :manage, Plan, creator_id: user.id
     else
@@ -53,11 +53,11 @@ class Ability
       can :view, Plan, plan_users: { role: "view", user_id: user.id }
       can [:edit, :view], Plan, plan_users: { role: "edit", user_id: user.id }
       can :view, Plan do |plan|
-       plan.approved?
+        plan.approved?
       end
     end
     cannot :edit, PostEventTreatmentReport, submitted: true
-    cannot [ :edit, :destroy ], TreatmentRecord, post_event_treatment_report: { submitted: true }
-    cannot [ :edit, :destroy ], TransportationRecord, post_event_treatment_report: { submitted: true }
+    cannot [:edit, :destroy], TreatmentRecord, post_event_treatment_report: { submitted: true }
+    cannot [:edit, :destroy], TransportationRecord, post_event_treatment_report: { submitted: true }
   end
 end

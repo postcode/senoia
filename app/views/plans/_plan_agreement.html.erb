@@ -28,7 +28,11 @@
         <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
         <div class="row">
           <div class="large-3 columns">
+          <% if @plan.approved? %>
+            <p><%= @plan.communication_phone %></p>
+          <% else %>
             <%= text_field_tag :plan_communication_phone, @plan.communication_phone, input_html: {placeholder: "(123) 456-7890"} %>
+          <% end %>
           </div>
         </div>
         <% if @plan.communication == true %>

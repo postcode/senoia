@@ -1,5 +1,5 @@
 <% @doc = supplementary_document %>
-<% if !supplementary_document.staff_contact || (can? :manage, supplementary_document.parent) %>
+<% if !supplementary_document.staff_contact || (can? :view, supplementary_document.parent) %>
   <div class="supplementary-document row" id="supplementary-document-<%= supplementary_document.id %>">
     <div class="large-12 columns">
       <div class="row">
