@@ -20,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <% User.all.each do |user| %>
+          <% User.all.order(:email).each do |user| %>
             <%= f.simple_fields_for :notification_group_memberships, @notification_group.notification_group_memberships.detect{|x| x.user_id == user.id } || @notification_group.notification_group_memberships.build(user: user) do |g| %>
               <tr>
                 <td>
