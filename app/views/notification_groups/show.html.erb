@@ -17,6 +17,7 @@
             <th width="300">Name</th>
             <th width="300">Email</th>
             <th width="100">Role</th>
+            <th width="300">Organization</th>
           </tr>
         </thead>
         <tbody>
@@ -29,7 +30,8 @@
                 </td>
                 <td><%= user.name %></td>
                 <td><%= user.email %></td>
-                <td><%= user.roles.map { |role| role.to_s } %></td>
+                <td><%= user.roles.map { |role| role.to_s }.join(", ") %></td>
+                <td><%= user.organizations.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
           <% end %>
