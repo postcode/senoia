@@ -77,41 +77,29 @@
       }
     }
 
-    .large-1,
-    .row .large-1 { width: 8.33333%; }
+    .large-1 { width: 8.33333%; }
 
-    .large-2,
-    .row .large-2 { width: 16.66667%; }
+    .large-2 { width: 16.66667%; }
 
-    .large-3,
-    .row .large-3 { width: 25%; }
+    .large-3 { width: 25%; }
 
-    .large-4,
-    .row .large-4 { width: 33.33333%; }
+    .large-4 { width: 33.33333%; }
 
-    .large-5,
-    .row .large-5 { width: 41.66667%; }
+    .large-5 { width: 41.66667%; }
 
-    .large-6,
-    .row .large-6 { width: 50%; }
+    .large-6 { width: 50%; }
 
-    .large-7,
-    .row .large-7 { width: 58.33333%; }
+    .large-7 { width: 58.33333%; }
 
-    .large-8,
-    .row .large-8 { width: 66.66667%; }
+    .large-8 { width: 66.66667%; }
 
-    .large-9,
-    .row .large-9 { width: 75%; }
+    .large-9 { width: 75%; }
 
-    .large-10,
-    .row .large-10 { width: 83.33333%; }
+    .large-10 { width: 83.33333%; }
 
-    .large-11,
-    .row .large-11 { width: 91.66667%; }
+    .large-11 { width: 91.66667%; }
 
-    .large-12,
-    .row .large-12 { width: 100%; }
+    .large-12 { width: 100%; }
 
     .center { text-align: center; }
 
@@ -468,7 +456,7 @@
         <h3>Supplemental Documents</h3>
         <p>To download, right-click and select "Save Link As..."</p>
         <% @plan.supplementary_documents.to_be_emailed.each do |doc|  %>
-          <%= link_to "#{doc.name}", doc.file.url, target: "_blank" %>
+          <p><%= link_to "#{doc.name}", doc.file.url, target: "_blank" %></p>
         <% end %>
       <% end %>
       </div>
