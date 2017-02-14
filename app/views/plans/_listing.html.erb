@@ -4,7 +4,7 @@
       <th width="75"><%= smart_listing.sortable "Name", "name" %></th>
       <th width="100"><%= smart_listing.sortable "Event Type", "event_types.name" %></th>
       <th width="75"><%= smart_listing.sortable "Attendance", "total_attendance" %></th>
-      <th width="75">Start Date</th>
+      <th width="75"><%= smart_listing.sortable "Start Date", "start_date" %></th>
       <th width="75">End Date</th>
       <% if can? :read, :user_only_items %>
         <th width="20">Status</th>

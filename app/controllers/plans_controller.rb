@@ -18,7 +18,10 @@ class PlansController < ApplicationController
     @plans = smart_listing_create(:plans,
                                   plans_scope,
                                   partial: 'plans/listing',
-                                  default_sort: { "plans.created_at" => "desc" })
+                                  sort_attributes: [[:start_date, "operation_periods.start_date"],
+                                                    [:name, "name"], [:total_attendance, "total_attendance"],
+                                                    [:event_type, "event_types.name"]],
+                                  default_sort: { start_date: "desc" })
     respond_to do |format|
       format.js
       format.html
