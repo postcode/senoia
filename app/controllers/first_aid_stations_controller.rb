@@ -26,6 +26,7 @@ class FirstAidStationsController < ApplicationController
   def update
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @first_aid_station = FirstAidStation.find(params[:id])
+    return unless params[:first_aid_station]
     @first_aid_station.update(first_aid_station_params)
     if params[:first_aid_station][:communications].present?
       params[:first_aid_station][:communications].each do |communication|

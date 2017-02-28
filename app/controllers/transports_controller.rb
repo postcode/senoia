@@ -11,6 +11,7 @@ class TransportsController < ApplicationController
   def update
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @transport = Transport.find(params[:id])
+    return unless params[:transport]
     @transport.update(transport_params)
     if params[:transport][:communications].present?
       params[:transport][:communications].each do |communication|

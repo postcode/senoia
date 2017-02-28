@@ -26,6 +26,7 @@ class MobileTeamsController < ApplicationController
   def update
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @mobile_team = MobileTeam.find(params[:id])
+    return unless params[:mobile_team]
     @mobile_team.update(mobile_team_params)
     if params[:mobile_team][:communications].present?
       params[:mobile_team][:communications].each do |communication|

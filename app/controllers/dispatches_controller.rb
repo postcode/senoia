@@ -26,6 +26,7 @@ class DispatchesController < ApplicationController
   def update
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @dispatch = Dispatch.find(params[:id])
+    return unless params[:dispatch]
     @dispatch.update(dispatch_params)
     if params[:dispatch][:communications].present?
       params[:dispatch][:communications].each do |communication|
