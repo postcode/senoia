@@ -229,7 +229,7 @@ class PlansController < ApplicationController
     @plan_user = PlanUser.where(user_id: params[:user_id], plan_id: params[:plan_id])
     @plan_user.first.destroy
     @invitation = Invitation.where(email: User.find(params[:user_id]).email, plan_id: params[:plan_id])
-    @invitation.first.destroy
+    @invitation.first.destroy unless @invitation.empty?
     redirect_to plan_path(@plan)
   end
 

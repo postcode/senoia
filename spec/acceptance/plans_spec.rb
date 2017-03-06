@@ -416,7 +416,7 @@ feature "Plan" do
       scenario "can delete a plan" do
         expect {
           click_link "Delete Plan"
-        }.to change{ Plan.deleted.count }.by(1)
+        }.to change { Plan.deleted.count }.by(1)
       end
     end
 
