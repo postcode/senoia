@@ -153,6 +153,7 @@ class PlansController < ApplicationController
   end
 
   def add_first_aid_station
+    return unless params[:operation_period]
     @first_aid_station = params[:first_aid_station]
     @operation_period = params[:operation_period]
     @operation_period_index = params[:operation_period_index]
@@ -162,6 +163,7 @@ class PlansController < ApplicationController
   end
 
   def update_first_aid_station
+    return unless params[:operation_period]
     @operation_period = params[:operation_period]
     @operation_period_index = params[:operation_period_index]
     respond_to do |format|
@@ -170,6 +172,7 @@ class PlansController < ApplicationController
   end
 
   def add_mobile_team
+    return unless params[:operation_period]
     @operation_period = params[:operation_period].to_s
     respond_to do |format|
       format.js
@@ -177,6 +180,7 @@ class PlansController < ApplicationController
   end
 
   def add_transport
+    return unless params[:operation_period]
     @operation_period = params[:operation_period].to_s
     respond_to do |format|
       format.js
@@ -184,6 +188,7 @@ class PlansController < ApplicationController
   end
 
   def add_dispatch
+    return unless params[:operation_period]
     @operation_period = params[:operation_period].to_s
     respond_to do |format|
       format.js
@@ -223,6 +228,8 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     @plan_user = PlanUser.where(user_id: params[:user_id], plan_id: params[:plan_id])
     @plan_user.first.destroy
+    @invitation = Invitation.where(email: User.find(params[:user_id]).email, plan_id: params[:plan_id])
+    @invitation.first.destroy
     redirect_to plan_path(@plan)
   end
 
