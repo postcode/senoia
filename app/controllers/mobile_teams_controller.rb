@@ -1,4 +1,6 @@
 class MobileTeamsController < ApplicationController
+  before_action :check_params, only: [:update]
+
   def new
   end
 
@@ -39,6 +41,10 @@ class MobileTeamsController < ApplicationController
   end
 
   private
+
+  def check_params
+    return unless params[:mobile_team]
+  end
 
   def mobile_team_params
     params

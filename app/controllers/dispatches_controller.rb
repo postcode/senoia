@@ -1,4 +1,6 @@
 class DispatchesController < ApplicationController
+  before_action :check_params, only: [:update]
+
   def new
   end
 
@@ -39,6 +41,10 @@ class DispatchesController < ApplicationController
   end
 
   private
+
+  def check_params
+    return unless params[:dispatch]
+  end
 
   def dispatch_params
     params

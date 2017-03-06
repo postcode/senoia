@@ -1,4 +1,6 @@
 class TransportsController < ApplicationController
+  before_action :check_params, only: [:update]
+
   def new
   end
 
@@ -24,6 +26,10 @@ class TransportsController < ApplicationController
   end
 
   private
+
+  def check_params
+    return unless params[:transport]
+  end
 
   def transport_params
     params

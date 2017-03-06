@@ -1,4 +1,6 @@
 class FirstAidStationsController < ApplicationController
+  before_action :check_params, only: [:update]
+
   def new
   end
 
@@ -39,6 +41,10 @@ class FirstAidStationsController < ApplicationController
   end
 
   private
+
+  def check_params
+    return unless params[:first_aid_station]
+  end
 
   def first_aid_station_params
     params
