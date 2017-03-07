@@ -42,6 +42,24 @@ feature "Medical Provider Confirmation" do
         expect(@email).to have_body_text("#{admin} of #{plan} has indicated that")
       end
 
+      scenario "provider doesn't have to confirm twice" do
+        sign_in(admin)
+        visit "/plans/#{plan.id}"
+        click_link 'new_first_aid_station'
+        sleep 0.5 #FIXME Waiting for modal
+
+        within '.first_aid_station_name' do
+          fill_in 'Name', with: Faker::Lorem.word
+        end
+
+         within ".first_aid_station_organization_id" do
+          select_from_chosen(providers.first.name, from: "first_aid_station_organization_id")
+        end
+
+        click_on "Confirm This Asset"
+        expect(ActionMailer::Base.deliveries.count).to eq 1
+      end
+
       context "when clicking yes on the confirmation email" do
 
         before do

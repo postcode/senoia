@@ -10,11 +10,12 @@ module MedicalAsset
     default_scope { order('created_at ASC') }
 
     def create_provider_confirmation
-      super(organization: self.organization, requester: Current.user)
+      super(organization: self.organization, requester: Current.user, plan: operation_period.plan)
     end
 
     after_create do
       if organization && operation_period
+        next if exisiting_confirmation?
         create_provider_confirmation
         provider_confirmation.deliver_email!
       end
@@ -34,6 +35,10 @@ module MedicalAsset
 
     def to_s
       name
+    end
+
+    def exisiting_confirmation?
+      ProviderConfirmation.where(plan_id: operation_period.plan.id, organization_id: organization.id).present?
     end
   end
 end

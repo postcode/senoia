@@ -10,17 +10,19 @@
 #  workflow_state     :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  plan_id            :integer
 #
 
 class ProviderConfirmation < ActiveRecord::Base
-
   belongs_to :organization
   belongs_to :medical_asset, polymorphic: true
   belongs_to :requester, class_name: "User"
+  belongs_to :plan
 
   validates :organization, presence: true
   validates :medical_asset, presence: true
   validates :organization_id, uniqueness: { scope: [ :medical_asset_id, :medical_asset_type ] }
+
 
   include Workflow
   workflow do
@@ -41,5 +43,4 @@ class ProviderConfirmation < ActiveRecord::Base
   def to_s
     workflow_state.humanize
   end
-
 end
