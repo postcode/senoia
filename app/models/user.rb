@@ -96,4 +96,8 @@ class User < ActiveRecord::Base
   def self.pretty_roles
     pretty_roles = { "DEM Admin": :admin, "Event Producer": :producer, "EMS Provider": :provider, "Event Permitter / Staff": :permitter }
   end
+
+  def self.admins
+    User.where(roles_mask: 1)
+  end
 end

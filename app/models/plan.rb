@@ -282,11 +282,11 @@ class Plan < ActiveRecord::Base
     end
 
     def send_notifications_on_request_revision
-      notify_stakeholders("revision_requested")
+      notify_owner("revision_requested")
     end
 
     def send_notifications_on_request_review
-      notify_stakeholders("review_requested")
+      notify_owner("review_requested")
     end
 
     def send_notifications_on_approve
@@ -299,6 +299,17 @@ class Plan < ActiveRecord::Base
 
     def stakeholders
       [users, owner, creator].flatten.compact.uniq
+    end
+
+    def owners
+      [owner, creator, User.admins].flatten.compact.uniq
+    end
+
+    def notify_owner(key)
+      users_to_notify = (owners + User.to_notify_on("plan.#{key}")).uniq
+      users_to_notify.each do |stakeholder|
+        stakeholder.notifications.create(subject: self, key: key)
+      end
     end
 
     def notify_stakeholders(key)
