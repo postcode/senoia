@@ -1,6 +1,6 @@
 class PostEventTreatmentReportsController < ApplicationController
-  load_and_authorize_resource :plan
-  load_and_authorize_resource :post_event_treatment_report, through: :plan, singleton: true, except: :index
+  # load_and_authorize_resource :plan
+  # load_and_authorize_resource :post_event_treatment_report, through: :plan, singleton: true, except: [:index, :show]
 
   def index
     authorize! :read, :admin_only_items
@@ -12,12 +12,18 @@ class PostEventTreatmentReportsController < ApplicationController
   end
 
   def show
+    @plan = Plan.find(params[:plan_id])
+    @post_event_treatment_report = @plan.post_event_treatment_report
+    authorize! :edit, @plan
     unless @post_event_treatment_report
       @post_event_treatment_report = @plan.create_post_event_treatment_report
     end
   end
 
   def update
+    @plan = Plan.find(params[:plan_id])
+    authorize! :edit, @plan
+    @post_event_treatment_report = @plan.post_event_treatment_report
     if @post_event_treatment_report.update(post_event_treatment_report_params)
       @post_event_treatment_report.submit_email!
       redirect_to action: :show

@@ -9,15 +9,6 @@ class Ability
       can :manage, :all
     elsif (user.has_role? :user) || (user.has_role? :producer )|| (user.has_role? :provider) || (user.has_role? :permitter)
       can :read, :user_only_items
-      can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
-      can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, CommunicationPlan, plan: { creator_id: user.id }
-      can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
-      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
-      can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
-      can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
-      can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id } }
       can :view, Plan, plan_users: { role: "view", user_id: user.id }
       can :create, Plan
       can :manage, Plan, plan_users: { role: "edit", user_id: user.id }
@@ -61,6 +52,15 @@ class Ability
       cannot [:create, :view, :edit, :destroy], Plan
       can :view, Plan, plan_users: { role: "view", user_id: user.id }
       can [:edit, :view], Plan, plan_users: { role: "edit", user_id: user.id }
+      can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
+      can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :manage, CommunicationPlan, plan: { creator_id: user.id }
+      can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
+      can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id } }
       can :view, Plan do |plan|
         plan.approved?
       end
