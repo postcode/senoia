@@ -18,6 +18,8 @@ class Ability
       can :view, Plan do |plan|
         plan.approved?
       end
+    elsif user.has_role? :permitter
+      can :read, Comment
     elsif user.has_role? :guest
       can [:create, :edit, :update, :read], Comment
       cannot [:create, :edit, :destroy, :manage], Plan
