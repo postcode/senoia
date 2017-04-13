@@ -60,8 +60,9 @@
           <div class="small-4 columns">
             <h4>Event Plan Creator</h4>
             <% if @plan.creator.present? %>
-              <p><i class="fi-mail"></i> <%= @plan.creator.email %></p>
-              <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number.phony_formatted(format: :national, spaces: ' ') %></p>
+              <div><i class="fi-torso"></i> <%= @plan.creator.name %></div>
+              <div><i class="fi-mail"></i> <%= @plan.creator.email %></div>
+              <div><i class="fi-telephone"></i> <%= @plan.creator.phone_number.phony_formatted(format: :national, spaces: ' ') %></div>
             <% else %>
               <%= f.association :creator,
                                 collection: User.all.reject{ |u| u.name.nil? }.sort_by(&:name),
