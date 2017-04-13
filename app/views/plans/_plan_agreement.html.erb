@@ -79,9 +79,7 @@
             <%= render 'plans/staff_list', parent: @plan %>
           <% else %>
             <p>Staff List added: <%= @plan.supplementary_documents.staff_contact.first.created_at.strftime("%B %e, %Y") %></p>
-            <% if can? :manage, Plan %>
-              <p><%= link_to "#{@plan.supplementary_documents.staff_contact.first.name}", @plan.supplementary_documents.staff_contact.first.file.url, target: "_blank" %></p>
-            <% end %>
+            <%= render 'plans/staff_list', parent: @plan %>
           <% end %>
         <% end %>
       </div>
