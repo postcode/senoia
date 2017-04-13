@@ -28,6 +28,8 @@
 #  staff_responsibility_reminder_2wk :boolean
 #  deleted                           :boolean          default(FALSE)
 #  deleted_reason                    :text
+#  start_datetime                    :datetime
+#  end_datetime                      :datetime
 #
 
 class Plan < ActiveRecord::Base
@@ -125,7 +127,7 @@ class Plan < ActiveRecord::Base
     DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, t.hour, t.min) if d.present? && t.present?
   end
 
-  def has_staff_plan
+  def staff_plan?
     supplementary_documents.staff_contact.exists?
   end
 

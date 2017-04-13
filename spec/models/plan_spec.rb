@@ -28,6 +28,8 @@
 #  staff_responsibility_reminder_2wk :boolean
 #  deleted                           :boolean          default(FALSE)
 #  deleted_reason                    :text
+#  start_datetime                    :datetime
+#  end_datetime                      :datetime
 #
 
 require 'rails_helper'

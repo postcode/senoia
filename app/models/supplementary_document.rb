@@ -35,5 +35,4 @@ class SupplementaryDocument < ActiveRecord::Base
       super
     end
   end
-
 end

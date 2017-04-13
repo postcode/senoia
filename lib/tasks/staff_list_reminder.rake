@@ -23,7 +23,7 @@ task staff_responsibility_reminder: :environment do
   )
 
   plans.each do |plan|
-    if not plan.has_staff_plan
+    if not plan.staff_plan?
       StaffListReminder.remind(plan, 'staff_responsibility_reminder_2wk')
     end
   end
@@ -39,7 +39,7 @@ task staff_responsibility_reminder: :environment do
   )
 
   plans.each do |plan|
-    if not plan.has_staff_plan
+    if not plan.staff_plan?
       StaffListReminder.remind(plan, 'staff_responsibility_reminder_1wk')
     end
   end
