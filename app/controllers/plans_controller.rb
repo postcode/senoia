@@ -13,15 +13,12 @@ class PlansController < ApplicationController
       plans_scope = plans_scope.with_approved_state
     end
 
-    plans_scope = plans_scope.search(params[:query] || { })
+    plans_scope = plans_scope.search(params[:query] || {})
 
     @plans = smart_listing_create(:plans,
                                   plans_scope,
                                   partial: 'plans/listing',
-                                  sort_attributes: [[:start_date, "operation_periods.start_date"],
-                                                    [:name, "name"], [:total_attendance, "total_attendance"],
-                                                    [:event_type, "event_types.name"]],
-                                  default_sort: { start_date: "desc" })
+                                  default_sort: { start_datetime: "asc" })
     respond_to do |format|
       format.js
       format.html
@@ -69,6 +66,7 @@ class PlansController < ApplicationController
   def create
     authorize! :create, Plan, message: "Sorry, you are not authorized to create a new plan."
     @plan = Plan.create(plan_params.merge(creator: current_user, owner: current_user))
+    @plan.add_start_end_dates
     if !@plan.valid?
       flash.now[:alert] = @plan.errors.full_messages.to_sentence
       render action: :new
@@ -126,6 +124,7 @@ class PlansController < ApplicationController
       end
     end
     @plan.add_permitter_contact
+    @plan.add_start_end_dates
 
     respond_to do |format|
       if @plan.valid?

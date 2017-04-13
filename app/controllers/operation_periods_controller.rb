@@ -11,6 +11,7 @@ class OperationPeriodsController < ApplicationController
     @operation_period = @plan.operation_periods.create(operation_period_params)
     @count = @plan.operation_periods.count
     @asset_text = AssetAllocationService.new(type: @plan.event_type, crowd_size: @operation_period.attendance).asset_text
+    @plan.add_start_end_dates
   end
 
   def destroy
@@ -28,6 +29,7 @@ class OperationPeriodsController < ApplicationController
     @operation_period.update(operation_period_params)
     render nothing: true
     @asset_text = AssetAllocationService.new(type: @plan.event_type, crowd_size: @operation_period.attendance).asset_text
+    @plan.add_start_end_dates
   end
 
   private

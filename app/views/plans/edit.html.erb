@@ -64,7 +64,7 @@
               <p><i class="fi-telephone"></i> <%= @plan.creator.phone_number.phony_formatted(format: :national, spaces: ' ') %></p>
             <% else %>
               <%= f.association :creator,
-                                collection: User.all.sort_by(&:name),
+                                collection: User.all.reject{ |u| u.name.nil? }.sort_by(&:name),
                                 label_method: :email,
                                 value_method: :id,
                                 include_blank: false,

@@ -71,6 +71,19 @@ feature "OperationPeriod" do
     end
   end
 
+  xcontext "plan start and end dates are updated", js: true do
+    before do
+      sign_in(admin)
+      plan.save
+    end
+
+    scenario "when an operation period is updated" do
+      create_operation_period(10_000)
+      p plan.reload.operation_periods.first
+      expect(plan.start_datetime).to eq DateTime.parse("01/01/2020 8:00am")
+    end
+  end
+
   def create_operation_period(attendance)
     visit "/plans/#{plan.id}"
     within "#panel0" do

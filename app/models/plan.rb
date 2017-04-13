@@ -114,12 +114,15 @@ class Plan < ActiveRecord::Base
     send_notifications_on_approve
   end
 
+  def add_start_end_dates
+    update_attributes(start_datetime: start_date, end_datetime: end_date)
+    p self
+  end
+
   def start_date
     d = operation_periods.map(&:start_date).compact.min
     t = operation_periods.map(&:start_time).compact.min
-    if d.present? && t.present?
-      DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, t.hour, t.min)
-    end
+    DateTime.new(d.getutc.year, d.getutc.month, d.getutc.day, t.hour, t.min) if d.present? && t.present?
   end
 
   def has_staff_plan

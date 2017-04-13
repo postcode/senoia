@@ -2,10 +2,10 @@
   <table id="all_plans" class="plan_table large-12 columns">
     <thead>
       <th width="75"><%= smart_listing.sortable "Name", "name" %></th>
-      <th width="100"><%= smart_listing.sortable "Event Type", "event_types.name" %></th>
+      <th width="100">Event Type</th>
       <th width="75"><%= smart_listing.sortable "Attendance", "total_attendance" %></th>
-      <th width="75"><%= smart_listing.sortable "Start Date", "start_date" %></th>
-      <th width="75">End Date</th>
+      <th width="75"><%= smart_listing.sortable "Start Date", "start_datetime" %></th>
+      <th width="75"><%= smart_listing.sortable "End Date", "end_datetime" %></th>
       <% if can? :read, :user_only_items %>
         <th width="20">Status</th>
       <% end %>
@@ -15,9 +15,9 @@
       <tr>
         <td class="name"><%= link_to o.name, plan_path(o) %></td>
         <td><%= o.event_type.nil? ? "N/A" : o.event_type.name %></td>
-        <td class="attendance"><%= o.attendance if o.attendance > 0%></td>
-        <td><%= o.start_date.present? ? o.start_date.strftime("%D %l:%M %P") : "No Date" %></td>
-        <td><%= o.end_date.present? ? o.end_date.strftime("%D %l:%M %P") : "No Date" %></td>
+        <td class="attendance"><%= o.attendance if o.attendance > 0 %></td>
+        <td><%= o.start_datetime.present? ? o.start_datetime.strftime("%D %l:%M %P") : "No Date" %></td>
+        <td><%= o.end_datetime.present? ? o.end_datetime.strftime("%D %l:%M %P") : "No Date" %></td>
         <% if can? :read, :user_only_items %>
           <td><%= t(o.workflow_state, scope: "plans.state") %></td>
         <% end %>
