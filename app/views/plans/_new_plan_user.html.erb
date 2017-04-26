@@ -1,6 +1,6 @@
 <div id="new-plan-user" class="reveal-modal small" data-reveal>
   <a class="close-reveal-modal">&#215;</a>
-  <h3>Add New User</h3>
+  <h3>Add New Collaborator</h3>
   <div class="modal-body">
     <table id="all_users" class="user_table large-12 columns">
       <thead>
@@ -12,12 +12,12 @@
       <%= render @plan.invitations.pending %>
       <% if @plan.persisted? && can?(:manage, @plan) %>
         <%= render partial: "invitations/form" %>
-      <% end %>      
+      <% end %>
       </tbody>
     </table>
 
   </div>
-  
+
   <div class="modal-footer">
     <%= link_to "Add Collaborator", update_user_plan_path, id: "new-plan-user-submit", class: "button primary save-modal", remote: true, method: :post %>
   </div>

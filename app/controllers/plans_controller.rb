@@ -77,7 +77,6 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
-
     @plan.update(plan_params)
     plan_params[:supplementary_documents_attributes].try(:each) do |doc|
       @plan.supplementary_documents.find_by_id(doc[1][:id]).update_attribute(:email, doc[1][:email])
@@ -269,7 +268,6 @@ class PlansController < ApplicationController
               :communication,
               :communication_phone,
               :event_contact,
-              :venue_ids,
               :approval_date,
               :creator_id,
               :deleted,
@@ -278,6 +276,7 @@ class PlansController < ApplicationController
                 :id,
                 :name,
                 :email],
+              :venue_ids => [],
               venue_attributes: [
                 :id,
                 :name],

@@ -1,6 +1,6 @@
 <tr>
   <td colspan="3" class="invitation-form" data-url="<%= url_for([ @plan, :invitations]) %>">
-    <h4>Invite by email:</h4>
+    <h4>Invite existing user:</h4>
     <div class="row large-collapse">
       <div class="large-7 columns">
         <%= select_tag "invitation[email]", options_for_select(User.all.map(&:email).sort), placeholder: "Select an Existing User." %>
@@ -10,6 +10,9 @@
       </div>
       <div class="large-2 columns">
         <%= link_to "Invite", "javascript:void(0);", id: "invite", class: "button tiny radius", style: "margin-left: 1em; margin-top: 0.1em" %>
+      </div>
+      <div class="large-4 columns end dynamic-button">
+        <%= link_to "+ Add New User", "javascript:void(0);", id: "invite_new_user", class: "button tiny radius", style: "margin-left: 1em; margin-top: 0.1em" %>
       </div>
     </div>
   </td>
@@ -21,4 +24,11 @@
     enable_split_word_search: true,
     search_contains: true
   });
+
+  $(".dynamic-button").on("click", "#invite_new_user", function() {
+    $(".chosen-container").hide()
+    $(".invitation-form h4").text("Invite a new user:")
+    $("#invitation_email").replaceWith('<%= text_field_tag "invitation[email]" %>');
+    $(this).remove()
+  })
 </script>
