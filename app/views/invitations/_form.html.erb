@@ -3,7 +3,7 @@
     <h4>Invite by email:</h4>
     <div class="row large-collapse">
       <div class="large-7 columns">
-        <%= select_tag "invitation-email", options_for_select(User.all.map(&:email).sort), placeholder: "Select an Existing User." %>
+        <%= select_tag "invitation[email]", options_for_select(User.all.map(&:email).sort), placeholder: "Select an Existing User." %>
       </div>
       <div class="large-3 columns">
         <%= select_tag "invitation[role]", options_for_select([ [ "Can View", "view" ], [ "Can Edit", "edit" ] ]) %>
@@ -16,7 +16,7 @@
 </tr>
 
 <script>
-  $("#invitation-email").chosen({
+  $("#invitation_email").chosen({
     width: "100%",
     enable_split_word_search: true,
     search_contains: true
