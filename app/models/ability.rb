@@ -12,8 +12,17 @@ class Ability
       can :view, Plan, plan_users: { role: "view", user_id: user.id }
       can :create, Plan
       can :manage, Plan, plan_users: { role: "edit", user_id: user.id }
-      can :manage, Plan, creator_id: user.id
+      can :manage, Plan, owner_id: user.id
       can :manage, Comment
+      can :manage, PostEventTreatmentReport, plan: { owner_id: user.id }
+      can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :manage, CommunicationPlan, plan: { owner_id: user.id }
+      can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { owner_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { owner_id: user.id } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
+      can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id } }
       cannot :resolve, Comment
       can :view, Plan do |plan|
         plan.approved?
@@ -25,18 +34,18 @@ class Ability
       cannot [:create, :edit, :destroy, :manage], Plan
       cannot [:edit, :manage], Plan do |p|
         user.id.blank?
-        p.creator_id.blank?
+        p.owner_id.blank?
       end
 
       can :view, Plan, plan_users: { role: "view", user_id: user.id }
       can [:edit, :manage], Plan, plan_users: { role: "edit", user_id: user.id }
-      can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
+      can :manage, PostEventTreatmentReport, plan: { owner_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, CommunicationPlan, plan: { creator_id: user.id }
+      can :manage, CommunicationPlan, plan: { owner_id: user.id }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { owner_id: user.id } }
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
-      can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { owner_id: user.id } }
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id } }
       cannot :read, User
@@ -47,20 +56,20 @@ class Ability
       can :view, Plan do |plan|
         plan.approved?
       end
-      can :manage, Plan, creator_id: user.id
+      can :manage, Plan, owner_id: user.id
     else
       cannot :read, User
       cannot :index, User
       cannot [:create, :view, :edit, :destroy], Plan
       can :view, Plan, plan_users: { role: "view", user_id: user.id }
       can [:edit, :view], Plan, plan_users: { role: "edit", user_id: user.id }
-      can :manage, PostEventTreatmentReport, plan: { creator_id: user.id }
+      can :manage, PostEventTreatmentReport, plan: { owner_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, CommunicationPlan, plan: { creator_id: user.id }
+      can :manage, CommunicationPlan, plan: { owner_id: user.id }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
-      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TreatmentRecord, post_event_treatment_report: { plan: { owner_id: user.id } }
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
-      can :manage, TransportationRecord, post_event_treatment_report: { plan: { creator_id: user.id } }
+      can :manage, TransportationRecord, post_event_treatment_report: { plan: { owner_id: user.id } }
       can :manage, TransportationRecord, post_event_treatment_report: { plan: { plan_users: { role: "edit", user_id: user.id } } }
       can :manage, ProviderConfirmation, provider: { contact_users: { id: user.id } }
       can :view, Plan do |plan|
