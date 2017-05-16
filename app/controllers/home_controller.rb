@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
 
-    @plans = Plan.with_approved_state
+    @plans = Plan.active.with_approved_state
     @operation_period = OperationPeriod.all_approved
 
     respond_to do |format|

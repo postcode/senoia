@@ -80,7 +80,7 @@ class OperationPeriod < ActiveRecord::Base
 
   def self.all_approved
     op = []
-    Plan.with_approved_state.each do |p|
+    Plan.active.with_approved_state.each do |p|
       op << p.operation_periods
     end
     op.flatten
