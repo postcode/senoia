@@ -3,7 +3,7 @@
     <%= a.input :name, required: false, label: "Asset Identification Name/Number" %>
     <%= a.input :level, required: false, collection: MobileTeam::LEVELS %>
     <%= a.input :mobile_team_type, required: false, collection: MobileTeam::TEAM_TYPES %>
-    <%= a.input :aed, input_html: {value: 0}, required: false, label: "Number of AEDs" %>
+    <%= a.input :aed, required: false, label: "Number of AEDs" %>
     <%= a.input :location, required: false %>
     <%= a.input :organization_id,
     collection: OrganizationType.find_providers,
