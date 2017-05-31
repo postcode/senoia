@@ -5,19 +5,24 @@
         <h3>Event Footprint Responsibility</h3>
         </div>
         <div class="row">
-          <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC (phone: 415-575-0737) to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
-          <% if @plan.responsibility == true %>
-            <div>
-              <% @event = @plan.versions.where(event: "update responsibility").first %>
-              <% if @event.present? %>
-                <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em> by: <%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
-              <% end %>
+          <div class="columns small-8">
+            <p>The medical group supervisor or the event coordinator must contact the dispatch supervisor at DEC (phone: 415-575-0737) to take responsibility for the event footprint at the beginning of each operational period and release responsibility for the footprint at the end of each operational period.</p>
+            <% if @plan.responsibility == true %>
+              <div>
+                <% @event = @plan.versions.where(event: "update responsibility").first %>
+                <% if @event.present? %>
+                  <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span> <em> by: <%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+                <% end %>
+              </div>
+            <% else %>
+            <div id="responsibility">
+              <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
             </div>
-          <% else %>
-          <div id="responsibility">
-            <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
+            <% end %>
           </div>
-          <% end %>
+          <div class="columns small-4">
+            <%= render 'comment_form', plan: @plan, title: "footprint" %>
+          </div>
         </div>
     </div>
     <div class="large-12 columns card large end">
@@ -25,81 +30,96 @@
         <h3>Communications</h3>
       </div>
       <div class="row">
-        <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
-        <div class="row">
-          <div class="large-3 columns">
-          <% if @plan.approved? %>
-            <p><%= @plan.communication_phone %></p>
-          <% else %>
-            <%= text_field_tag :plan_communication_phone, @plan.communication_phone, input_html: {placeholder: "(123) 456-7890"} %>
-          <% end %>
+        <div class="columns small-8">
+          <p>All event safety personnel will have a list of contact info and will be communicating as specified in the Medical Assets section<br> In case of emergency during the event, the event coordinator can be reached at all times at:</p>
+          <div class="row">
+            <div class="large-3 columns">
+            <% if @plan.approved? %>
+              <p><%= @plan.communication_phone %></p>
+            <% else %>
+              <%= text_field_tag :plan_communication_phone, @plan.communication_phone, input_html: {placeholder: "(123) 456-7890"} %>
+            <% end %>
+            </div>
           </div>
-        </div>
-        <% if @plan.communication == true %>
-        <div>
-          <% @event = @plan.versions.where(event: "update communication").first %>
-          <% if @event.present? %>
-            <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+          <% if @plan.communication == true %>
+          <div>
+            <% @event = @plan.versions.where(event: "update communication").first %>
+            <% if @event.present? %>
+              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+            <% end %>
+          </div>
+          <% else %>
+          <div id="communication">
+            <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
+          </div>
           <% end %>
         </div>
-        <% else %>
-        <div id="communication">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
+        <div class="columns small-4">
+          <%= render 'comment_form', plan: @plan, title: "communication" %>
         </div>
-        <% end %>
       </div>
     </div>
     <div class="large-12 columns list shadow with-padding end">
       <div id="stepSixteen" class="row">
-        <h3>Staff Responsibility</h3>
-        <p>All contracted medical interventionists will be active, current, and in good-standing at the time of the operational period. The event producer will ensure that a complete staff list is provided no less than one week prior to the first operational period.</p>
-        <p>This staff list will include the following information for each contracted medical interventionist:
-          <ul>
-            <li>Full legal name</li>
-            <li>Certification/License Number</li>
-            <li>Level of certification/licensure</li>
-            <li>Certification/license expiration</li>
-          </ul>
-        </p>
-        <% if @plan.staff_responsibility == true %>
-          <div>
-            <% @event = @plan.versions.where(event: "update staff_responsibility").first %>
-            <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
-            <% end %>
-          </div>
-        <% else %>
-        <div id="staff_responsibility">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
-        </div>
-        <% end %>
-        <% if @plan.start_date.present? && (can? :manage, @plan) %>
-          <% if @plan.supplementary_documents.staff_contact.empty? %>
-            <p>Don't forget to upload your staff list by <%= (@plan.start_date - 1.week).strftime("%B %e, %Y") %></p>
-            <%= render 'plans/staff_list', parent: @plan %>
+        <div class="columns small-8">
+          <h3>Staff Responsibility</h3>
+          <p>All contracted medical interventionists will be active, current, and in good-standing at the time of the operational period. The event producer will ensure that a complete staff list is provided no less than one week prior to the first operational period.</p>
+          <p>This staff list will include the following information for each contracted medical interventionist:
+            <ul>
+              <li>Full legal name</li>
+              <li>Certification/License Number</li>
+              <li>Level of certification/licensure</li>
+              <li>Certification/license expiration</li>
+            </ul>
+          </p>
+          <% if @plan.staff_responsibility == true %>
+            <div>
+              <% @event = @plan.versions.where(event: "update staff_responsibility").first %>
+              <% if @event.present? %>
+                <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+              <% end %>
+            </div>
           <% else %>
-            <p>Staff List added: <%= @plan.supplementary_documents.staff_contact.first.created_at.strftime("%B %e, %Y") %></p>
-            <%= render 'plans/staff_list', parent: @plan %>
+          <div id="staff_responsibility">
+            <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
+          </div>
           <% end %>
-        <% end %>
+          <% if @plan.start_date.present? && (can? :manage, @plan) %>
+            <% if @plan.supplementary_documents.staff_contact.empty? %>
+              <p>Don't forget to upload your staff list by <%= (@plan.start_date - 1.week).strftime("%B %e, %Y") %></p>
+              <%= render 'plans/staff_list', parent: @plan %>
+            <% else %>
+              <p>Staff List added: <%= @plan.supplementary_documents.staff_contact.first.created_at.strftime("%B %e, %Y") %></p>
+              <%= render 'plans/staff_list', parent: @plan %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="columns small-4">
+          <%= render 'comment_form', plan: @plan, title: "responsibility" %>
+        </div>
       </div>
     </div>
     <div class="large-12 columns card large end">
       <div class="row">
-        <h3>MCI Capabilities</h3>
-        <p>A written MCI plan and an approved MCI Kit will be present at the event. All contracted responders will be briefed and trained on their contents and use. (see the San Francisco MCI plan <a href="http://sfdem.org/sites/default/files/MCI%20Policy%26Plan2016MERGED.pdf">here.</a>)</p>
-        <% if @plan.mci == true %>
-          <div>
-            <% @event = @plan.versions.where(event: "update mci").first %>
-            <% if @event.present? %>
-              <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
-            <% end %>
+        <div class="columns small-8">
+          <h3>MCI Capabilities</h3>
+          <p>A written MCI plan and an approved MCI Kit will be present at the event. All contracted responders will be briefed and trained on their contents and use. (see the San Francisco MCI plan <a href="http://sfdem.org/sites/default/files/MCI%20Policy%26Plan2016MERGED.pdf">here.</a>)</p>
+          <% if @plan.mci == true %>
+            <div>
+              <% @event = @plan.versions.where(event: "update mci").first %>
+              <% if @event.present? %>
+                <br><p><span class="plan-accepted">&#x2713 Accepted &nbsp;&nbsp;&nbsp;</span><em> by:&nbsp;<%= @event.whodunnit.present? ? User.find(@event.whodunnit).to_s : "No User" %>&nbsp;at&nbsp;<%= @event.created_at.strftime("%D %r") %></em></p>
+              <% end %>
+            </div>
+          <% else %>
+          <div id="mci">
+            <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
           </div>
-        <% else %>
-        <div id="mci">
-          <%= link_to "ACCEPT", "javascript:void(0);", class: 'button primary tiny accept' unless @plan.approved? %>
+          <% end %>
         </div>
-        <% end %>
+        <div class="columns small-4">
+          <%= render 'comment_form', plan: @plan, title: "mci" %>
+        </div>
       </div>
     </div>
   </div>
