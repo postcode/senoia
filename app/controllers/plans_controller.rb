@@ -368,6 +368,7 @@ class PlansController < ApplicationController
                                                                     :contact_phone,
                                                                     :planning_contact_email,
                                                                     :location,
+                                                                    :radio_channel,
                                                                     :_destroy
                                                                    ]
                                             ]
@@ -445,7 +446,8 @@ class PlansController < ApplicationController
                                                                :location,
                                                                :lat,
                                                                :lng,
-                                                               :service_area
+                                                               :service_area,
+                                                               :radio_channel
                                                               ]
                                                          ]
                                               ])

@@ -60,7 +60,8 @@ class DispatchesController < ApplicationController
                :lat,
                :lng,
                :service_area,
-               :location
+               :location,
+               :radio_channel
               ])
   end
 end
