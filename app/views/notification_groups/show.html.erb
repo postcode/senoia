@@ -13,15 +13,15 @@
       <table class="table table-hover datatable small-12 twelve" id="organization-users">
         <thead>
           <tr>
-            <th width="100">Add to Notification Group</th>
-            <th width="300">Name</th>
-            <th width="300">Email</th>
-            <th width="100">Role</th>
+            <th width="100"><%= sort_link "notification_group_memberships" %></th>
+            <th width="300"><%= sort_link "name" %></th>
+            <th width="300"><%= sort_link "email" %></th>
+            <th width="100"><%= sort_link "role" %></th>
             <th width="300">Organization</th>
           </tr>
         </thead>
         <tbody>
-          <% User.all.order(:email).each do |user| %>
+          <% @users.each do |user| %>
             <%= f.simple_fields_for :notification_group_memberships, @notification_group.notification_group_memberships.detect{|x| x.user_id == user.id } || @notification_group.notification_group_memberships.build(user: user) do |g| %>
               <tr>
                 <td>
