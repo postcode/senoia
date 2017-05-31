@@ -3,7 +3,7 @@
     <h1><%= @plan %></h1>
   </div>
   <div class="large-12 columns">
-    
+
     <% case @provider_confirmation.workflow_state %>
     <% when "requested" %>
 
@@ -29,15 +29,15 @@
                   });
          });
         </script>
-        
+
       <% end %>
-              
-      
+
+
     <% when "confirmed" %>
 
       <h2>Confirmed!</h2>
       <p>
-        <%= @provider %> will be providing
+        <%= @provider.name %> will be providing
         a <%= @medical_asset.class.name.titleize %> on
         <%= l @operation_period.start_date %>
         to
@@ -49,7 +49,7 @@
     <% when "rejected" %>
       <h2>Rejected</h2>
       <p>
-        <%= @provider %> will not be providing
+        <%= @provider.name %> will not be providing
         a <%= @medical_asset.class.name.titleize %> on
         <%= l @operation_period.start_date %>
         to

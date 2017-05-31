@@ -21,7 +21,4 @@ class ProviderConfirmationsController < ApplicationController
     end
     redirect_to action: :show, status: 303
   end
-
 end
-
-
