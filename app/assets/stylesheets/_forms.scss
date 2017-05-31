@@ -18,3 +18,9 @@ input#plan_name {
     }
   }
 }
+
+td a {
+  &.button.secondary:link {
+    color: #333;
+  }
+}
