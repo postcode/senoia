@@ -21,8 +21,7 @@ class ProviderConfirmation < ActiveRecord::Base
 
   validates :organization, presence: true
   validates :medical_asset, presence: true
-  validates :organization_id, uniqueness: { scope: [ :medical_asset_id, :medical_asset_type ] }
-
+  validates :organization_id, uniqueness: { scope: [:medical_asset_id, :medical_asset_type] }
 
   include Workflow
   workflow do
