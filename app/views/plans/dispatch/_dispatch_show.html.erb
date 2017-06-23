@@ -15,7 +15,7 @@
   </td>
   <% if current_user.is_admin? && (asset.provider_confirmation && asset.provider_confirmation.requested?) %>
     <td>
-      <%= link_to "Confirm", provider_confirmation_path(asset.provider_confirmation.id, confirm: true), class: "button tiny primary save-modal" %>
+      <%= link_to "Confirm", provider_confirmation_path(asset.provider_confirmation.id, confirm: true, manual: true), class: "button tiny primary save-modal" %>
     </td>
   <% end %>
 </tr>

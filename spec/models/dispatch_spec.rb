@@ -16,6 +16,7 @@
 #  lng                    :decimal(10, 6)
 #  service_area           :text
 #  planning_contact_email :string
+#  radio_channel          :string
 #
 
 require 'rails_helper'

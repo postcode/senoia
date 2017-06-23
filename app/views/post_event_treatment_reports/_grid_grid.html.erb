@@ -13,7 +13,7 @@
         r.treatment_total unless r.treatment_records.blank?
       end
       g.column name: 'Treatment', ordering: true, filter: true do |r|
-        r.treatments unless r.treatment_records.blank?
+        r.treatment_records.map(&:treatment).join(', ') unless r.treatment_records.blank?
       end
 
       g.column name: 'Venue', ordering: true do |r|

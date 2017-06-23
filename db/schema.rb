@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412151007) do
+ActiveRecord::Schema.define(version: 20170531153720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20170412151007) do
     t.decimal  "lng",                    precision: 10, scale: 6
     t.text     "service_area"
     t.string   "planning_contact_email"
+    t.string   "radio_channel"
   end
 
   create_table "dispatchs_users", force: :cascade do |t|
