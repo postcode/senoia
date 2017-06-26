@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   end
 
   def self.pretty_roles
-    pretty_roles = { "DEM Admin": :admin, "Event Producer": :producer, "EMS Provider": :provider, "Event Permitter / Staff": :permitter , "Guest": :guest }
+    pretty_roles = { "DEM Admin": :admin, "Event Producer": :producer, "EMS Provider": :provider, "Event Permitter / Staff": :permitter , "Guest": :guest, "Notifications": :user }
   end
 
   def self.admins
