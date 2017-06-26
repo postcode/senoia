@@ -15,6 +15,11 @@
     </div>
   </div>
   <% end %>
+  <% if can? :edit, @plan %>
+    <div class="plan_action_container">
+      <%= render 'actions', f: f, plan: @plan %>
+    </div>
+  <% end %>
   <%= render 'plan_state' %>
   <div class="row">
     <div class="small-12 columns pageTitle">
