@@ -28,7 +28,7 @@
       </div>
       <div class="small-3 columns">
         <p>EDIT MODE<br>
-        <em>Last Updated: <%= @plan.updated_at.strftime("%D %l:%M %P") %></em></p>
+        <em>Last Updated: <%= @plan.updated_at.strftime("%D %l:%M %P") %><br/> by: <%= @plan.last_updated.to_s %></em></p>
         <% if (can? :read, :admin_only_items) && !@plan.deleted? %>
           <div>
             <a id="delete_plan_button" class="button alert right tiny radius" href="#" data-reveal-id="delete-plan" rel="nofollow">

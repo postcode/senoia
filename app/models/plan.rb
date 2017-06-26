@@ -168,6 +168,10 @@ class Plan < ActiveRecord::Base
     permitter.organization_users.default_contact.map { |u| plan_users.create(user: u.user, role: "edit") unless users.include?(u.user) }
   end
 
+  def last_updated
+    User.find(versions.last.whodunnit)
+  end
+
   concerning :Search do
     included do
       scope :affiliated_to, -> (user) { where("owner_id = ? OR creator_id = ? OR plans.id IN(?)", user.id, user.id, user.collaborated_plans.select(:id)) }
