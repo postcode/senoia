@@ -17,6 +17,7 @@ class OperationPeriodsController < ApplicationController
   def destroy
     @operation_period = OperationPeriod.find(params[:id])
     authorize! :manage, @operation_period.plan
+    delete_open_comments
     @operation_period.destroy
   end
 
@@ -48,5 +49,10 @@ class OperationPeriodsController < ApplicationController
               :location)
   end
 
+  def delete_open_comments
+    @plan = @operation_period.plan
+    @open_comments = @plan.comments.select { |c| c.element_id.starts_with?(@operation_period.id.to_s) }
+    @open_comments.each(&:delete)
+  end
 end
 
