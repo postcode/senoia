@@ -43,7 +43,7 @@
           <% unique_id = SecureRandom.hex(16) %>
           <% op.map{ |p|
               if p.plan.present?
-                plan_names << p.plan.name unless p.plan.name.blank?
+                plan_names << {id: p.plan.id, name: p.plan.name} unless p.plan.name.blank?
               end
                 }
             %>
@@ -51,7 +51,7 @@
               <button href="#" data-dropdown="drop_<%= unique_id %>" aria-controls="drop1" aria-expanded="false" class="button small landing-dropdown"><%= op.count %></button><br>
                 <ul id="drop_<%= unique_id %>" data-dropdown-content class="f-dropdown" aria-hidden="true">
                 <% plan_names.each do |name| %>
-                  <li><%= link_to name, plan_path(Plan.find_by_name(name)) %></li>
+                  <li><%= link_to name[:name], plan_path(name[:id]) %></li>
                 <% end %>
                 </ul>
             </div>
