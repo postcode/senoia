@@ -7,7 +7,6 @@ class PostEventTreatmentReportMailer < ActionMailer::Base
     @post_event_treatment_report = plan.post_event_treatment_report
     @recipient = recipient
     mail(to: @recipient.email,
-         cc: "aram.bronston@sfgov.org",
          subject: "The Post Event Treatment Report has been submitted for plan #{@plan.name}")
   end
 end

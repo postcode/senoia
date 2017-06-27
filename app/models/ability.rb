@@ -16,6 +16,7 @@ class Ability
       can :manage, Comment
       can :manage, PostEventTreatmentReport, plan: { owner_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :view, PostEventTreatmentReport, plan: { plan_users: { role: "view", user_id: user.id } }
       can :manage, CommunicationPlan, plan: { owner_id: user.id }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { owner_id: user.id } }
@@ -41,6 +42,7 @@ class Ability
       can [:edit, :manage], Plan, plan_users: { role: "edit", user_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { owner_id: user.id }
       can :manage, PostEventTreatmentReport, plan: { plan_users: { role: "edit", user_id: user.id } }
+      can :view, PostEventTreatmentReport, plan: { plan_users: { role: "view", user_id: user.id } }
       can :manage, CommunicationPlan, plan: { owner_id: user.id }
       can :manage, CommunicationPlan, plan: { plan_users: { role: "edit", user_id: user.id } }
       can :manage, TreatmentRecord, post_event_treatment_report: { plan: { owner_id: user.id } }

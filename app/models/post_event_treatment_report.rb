@@ -41,6 +41,7 @@ class PostEventTreatmentReport < ActiveRecord::Base
     plan.users.each do |contact|
       PostEventTreatmentReportMailer.submit(recipient: contact, plan: plan).deliver_later
     end
+    PostEventTreatmentReportMailer.submit(recipient: User.find_by_email("aram.bronston@sfgov.org"), plan: plan).deliver_later
   end
 
   def treatment_total
