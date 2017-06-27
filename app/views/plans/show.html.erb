@@ -29,7 +29,7 @@
           <hr/>
           <% if @plan.operation_periods.present? %>
             <div class="row">
-              <% @plan.operation_periods.each_with_index do |operation_period, index| %>
+              <% @plan.operation_periods.order(:start_date).each_with_index do |operation_period, index| %>
                 <div class="small-3 columns end">
                   <h5>Operation Period&nbsp;<%= index +1 %></h5>
                   <p>Date:&nbsp;<%= operation_period.formatted_start_date %>&nbsp;<%= operation_period.formatted_start_time %></p>
