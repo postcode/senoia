@@ -89,8 +89,13 @@
               <p>Don't forget to upload your staff list by <%= (@plan.start_date - 1.week).strftime("%B %e, %Y") %></p>
               <%= render 'plans/staff_list', parent: @plan %>
             <% else %>
-              <p>Staff List added: <%= @plan.supplementary_documents.staff_contact.first.created_at.strftime("%B %e, %Y") %></p>
-              <%= render 'plans/staff_list', parent: @plan %>
+              <% if SupplementaryDocument.admin_override?(@plan.supplementary_documents) && current_user.is_admin? %>
+                <p>Staff List overridden: <%= @plan.supplementary_documents.overridden_doc.first.created_at.strftime("%B %e, %Y") %></p>
+                <%= link_to "Cancel", @plan.supplementary_documents.overridden_doc.first, method: "DELETE", remote: true, data: { confirm: "Are you sure?" } %>
+              <% else %>
+                <p>Staff List added: <%= @plan.supplementary_documents.staff_contact.first.created_at.strftime("%B %e, %Y") %></p>
+                <%= render 'plans/staff_list', parent: @plan %>
+              <% end %>
             <% end %>
           <% end %>
         </div>

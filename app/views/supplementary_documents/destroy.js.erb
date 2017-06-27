@@ -1,1 +1,5 @@
-$("#supplementary-document-<%= @supplementary_document.id %>").fadeOut();
+<% if @supplementary_document.override? %>
+  window.location.reload(true);
+<% else %>
+  $("#supplementary-document-<%= @supplementary_document.id %>").fadeOut();
+<% end %>

@@ -1,4 +1,9 @@
-<% if can? :edit, parent %>
+<% if (can? :edit, parent) && !SupplementaryDocument.admin_override?(parent.supplementary_documents) %>
+  <% if current_user.is_admin? %>
+    <%= link_to [ :new, parent, :supplementary_document, staff: true, override: true ], class: "button tiny radius warning", remote: true do %>
+      <i class="fi-prohibited"></i> Override Staff List</a>
+    <% end %>
+  <% end %>
   <% if parent.supplementary_documents.staff_contact.present? %>
     <% parent.supplementary_documents.staff_contact.each do |doc| %>
       <div class="supplementary-document small-12 columns" id="supplementary-document-<%= doc.id %>">

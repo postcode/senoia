@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627133454) do
+ActiveRecord::Schema.define(version: 20170627140200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -385,6 +385,7 @@ ActiveRecord::Schema.define(version: 20170627133454) do
     t.string   "parent_type"
     t.boolean  "email",         default: true
     t.boolean  "staff_contact", default: false
+    t.boolean  "override",      default: false
   end
 
   create_table "transportation_records", force: :cascade do |t|

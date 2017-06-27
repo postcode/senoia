@@ -1,3 +1,7 @@
-$("#supplementary-document-modal").html('<%= j render "form", parent: @parent, staff_file: @staff_contact %>');
-$("#supplementary-document-modal [data-reveal]").foundation('reveal', 'open');
-initDirectUpload('<%= @s3_direct_post.url %>', <%= @s3_direct_post.fields.to_json.html_safe %>, '<%= @s3_direct_post.url.host %>');
+<% if params[:override] == "true" %>
+  window.location.reload(true);
+<% else %>
+  $("#supplementary-document-modal").html('<%= j render "form", parent: @parent, staff_file: @staff_contact %>');
+  $("#supplementary-document-modal [data-reveal]").foundation('reveal', 'open');
+  initDirectUpload('<%= @s3_direct_post.url %>', <%= @s3_direct_post.fields.to_json.html_safe %>, '<%= @s3_direct_post.url.host %>');
+<% end %>

@@ -3,6 +3,9 @@ class SupplementaryDocumentsController < ApplicationController
     @parent = parent
     @staff_contact = true if params[:staff] == "true"
     authorize! :edit, @parent
+    if params[:override] == "true"
+      @parent.supplementary_documents.create(name: :override, email: false, staff_contact: true, override: true).save(validate: false)
+    end
     @s3_direct_post =
       AWS::S3.new.buckets[ENV["S3_BUCKET"]]
       .presigned_post(key: "#{SecureRandom.uuid}/${filename}",
@@ -41,7 +44,7 @@ class SupplementaryDocumentsController < ApplicationController
   end
 
   def supplementary_document_params
-    params.require(:supplementary_document).permit(:name, :description, :file, :email, :staff_contact)
+    params.require(:supplementary_document).permit(:name, :description, :file, :email, :staff_contact, :override)
   end
 
 end

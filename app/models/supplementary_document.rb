@@ -26,6 +26,7 @@ class SupplementaryDocument < ActiveRecord::Base
   scope :to_be_emailed, -> { where(email: true) }
   scope :staff_contact, -> { where(staff_contact: true) }
   scope :not_staff_contact, -> { where(staff_contact: false) }
+  scope :overridden_doc, -> { where(override: true) }
 
   def file=(f)
     # The test environment will send an UploadedFile
@@ -34,5 +35,9 @@ class SupplementaryDocument < ActiveRecord::Base
     else
       super
     end
+  end
+
+  def self.admin_override?(docs)
+    docs.map(&:override).include?(true)
   end
 end
