@@ -254,6 +254,7 @@ class PlansController < ApplicationController
     params
       .require(:plan)
       .permit(:name,
+              :description,
               :event_type,
               :owner,
               :alcohol,

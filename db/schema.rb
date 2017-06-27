@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531153720) do
+ActiveRecord::Schema.define(version: 20170627133454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,6 +331,7 @@ ActiveRecord::Schema.define(version: 20170531153720) do
     t.text     "deleted_reason"
     t.datetime "start_datetime"
     t.datetime "end_datetime"
+    t.text     "description"
   end
 
   create_table "post_event_treatment_reports", force: :cascade do |t|

@@ -47,6 +47,12 @@
       <div class="small-12 columns list shadow with-padding">
         <div class="row">
           <h3>Plan Overview</h3>
+            <div class="row">
+              <div class="small-10 columns">
+                <h5>Enter a description of the activities of your event</h5>
+                <%= f.input :description, label: false %>
+              </div>
+            </div>
           <% if @plan.operation_periods.present? %>
             <div class="row">
               <% @plan.operation_periods.each_with_index do |operation_period, index| %>
