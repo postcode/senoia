@@ -169,7 +169,7 @@ class Plan < ActiveRecord::Base
   end
 
   def last_updated
-    User.find(versions.last.whodunnit)
+    User.find(versions.last.whodunnit) if verisions.last.whodunnit
   end
 
   concerning :Search do
