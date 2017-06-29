@@ -7,7 +7,7 @@ class Ability
     if user.has_role? :admin
       can :read, :admin_only_items
       can :manage, :all
-    elsif (user.has_role? :user) || (user.has_role? :producer )|| (user.has_role? :provider) || (user.has_role? :permitter)
+    elsif (user.has_role? :user) || (user.has_role? :producer )|| (user.has_role? :provider) || (user.has_role? :permitter) || || (user.has_role? :notifier)
       can :read, :user_only_items
       can :view, Plan, plan_users: { role: "view", user_id: user.id }
       can :create, Plan

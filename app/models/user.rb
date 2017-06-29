@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
 
   # declare the valid roles -- do not change the order if you add more
   # roles later, always append them at the end!
-  roles :admin, :user, :guest, :provider, :promoter, :staff, :permitter, :producer
+  roles :admin, :user, :guest, :provider, :promoter, :staff, :permitter, :producer, :notifier
 
   validates :name, presence: true
   validates :phone_number, presence: true
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   end
 
   def self.pretty_roles
-    pretty_roles = { "DEM Admin": :admin, "Event Producer": :producer, "EMS Provider": :provider, "Event Permitter / Staff": :permitter , "Guest": :guest, "Notifications": :user }
+    pretty_roles = { "DEM Admin": :admin, "Event Producer": :producer, "EMS Provider": :provider, "Event Permitter / Staff": :permitter , "Guest": :guest, "Notifications": :notifier }
   end
 
   def self.admins
