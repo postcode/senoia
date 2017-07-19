@@ -37,7 +37,7 @@
             <% if @plan.approved? %>
               <p><%= @plan.communication_phone %></p>
             <% else %>
-              <%= text_field_tag :plan_communication_phone, @plan.communication_phone, input_html: {placeholder: "(123) 456-7890"} %>
+              <%= text_field_tag :plan_communication_phone, @plan.communication_phone, input_html: {placeholder: "(123) 456-7890"}, name: "plan[communication_phone]" %>
             <% end %>
             </div>
           </div>
