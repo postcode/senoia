@@ -4,15 +4,15 @@
     <span>Edwin M. Lee</span>
   </div>
   <div class="large-6 columns center">
-    <h3>Department of Emergency Management</h3>
-    <div>1011 Turk Street, San Francisco, CA  94102</div>
-    <div>Division of Emergency Communications</div>
-    <div>Phone: (415) 558-3800  Fax: (415) 558-3843</div>
+    <h3>SF Department of Public Health</h3>
+    <div>30 Van Ness Ste#3300</div>
+    <div>Population Health Division</div>
+    <div>Phone: (415)  Fax: (415) 558-3843</div>
     <div>Division of Emergency Services</div>
     <div>Phone: (415) 487-5000  Fax: (415) 487-5043</div>
   </div>
   <div class="large-3 columns end center">
-    <%= wicked_pdf_image_tag 'DEM_logo.jpg' %>
+    <%= wicked_pdf_image_tag 'PHD_logo_Color.jpg' %>
     <span>Anne Kronenberg</span>
   </div>
 </div>
@@ -24,9 +24,11 @@
 </div>
 <div class="row">
   <div class="large-9 columns">
-    <div><%= @plan.creator.name %></div>
-    <div><%= @plan.creator.email %></div>
-    <div><%= @plan.creator.phone_number %></div>
+    <% if @plan.creator %>
+      <div><%= @plan.creator.name %></div>
+      <div><%= @plan.creator.email %></div>
+      <div><%= @plan.creator.phone_number %></div>
+    <% end %>
   </div>
   <div class="large-3 columns end">
     <div><%= Time.current.strftime("%B %e, %Y") %></div>
