@@ -16,6 +16,14 @@
     <% if current_user.admin? %>
       <%= render "plans/request_review", plan: plan %>
       <%= render "plans/approve", plan: plan %>
+      <%= render "plans/provisionally_approve", plan: plan %>
+    <% elsif can? :manage, plan %>
+      <%= render "plans/request_review", plan: plan %>
+    <% end %>
+  <% when "provisionally_approved" %>
+    <% if current_user.admin? %>
+      <%= render "plans/request_review", plan: plan %>
+      <%= render "plans/approve", plan: plan %>
     <% elsif can? :manage, plan %>
       <%= render "plans/request_review", plan: plan %>
     <% end %>

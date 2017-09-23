@@ -12,12 +12,18 @@ class PlanEventsController < ApplicationController
       redirect_to @plan
       @plan.approve! if current_user.is_admin?
       return
+    when "provisionally_approve"
+      authorize! :manage, Plan
+      @plan.provisionally_approve! if current_user.is_admin?
     when "request_revision"
       authorize! :manage, Plan
       @plan.request_revision! if current_user.is_admin?
     when "request_review"
       authorize! :manage, Plan
       @plan.request_review!
+    when "reopen_plan"
+      authorize! :manage, Plan
+      @plan.request_revision!
     when "reject"
       authorize! :manage, Plan
       @plan.reject! if current_user.is_admin?

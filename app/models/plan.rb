@@ -77,8 +77,15 @@ class Plan < ActiveRecord::Base
     state :under_review do
       event :request_revision, transitions_to: :revision_requested
       event :approve, transitions_to: :approved
+      event :provisionally_approve, transitions_to: :provisionally_approved
     end
     state :revision_requested do
+      event :approve, transitions_to: :approved, if: Proc.new(&:all_comments_resolved?)
+      event :request_review, transitions_to: :under_review
+      event :reject, transitions_to: :rejected
+      event :provisionally_approve, transitions_to: :provisionally_approved
+    end
+    state :provisionally_approved do
       event :approve, transitions_to: :approved, if: Proc.new(&:all_comments_resolved?)
       event :request_review, transitions_to: :under_review
       event :reject, transitions_to: :rejected
@@ -102,6 +109,10 @@ class Plan < ActiveRecord::Base
 
   def request_review
     send_notifications_on_request_review
+  end
+
+  def provisionally_approve
+    send_notifications_on_provisional
   end
 
   def approve
@@ -300,6 +311,10 @@ class Plan < ActiveRecord::Base
 
     def send_notifications_on_approve
       notify_stakeholders("approved")
+    end
+
+    def send_notifications_on_provisional
+      notify_stakeholders("provisional")
     end
 
     def send_notifications_on_reject

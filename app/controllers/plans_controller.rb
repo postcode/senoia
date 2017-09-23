@@ -43,6 +43,16 @@ class PlansController < ApplicationController
             template: "plans/pdf/plan.pdf.erb"
           end
         end
+      elsif @plan.provisionally_approved?
+        respond_to do |format|
+          format.html do
+            render "plans/edit"
+          end
+          format.pdf do
+            render pdf: "#{@plan.name}",   # Excluding ".pdf" extension.
+            template: "plans/pdf/plan.pdf.erb"
+          end
+        end
       elsif can? :edit, @plan
         render "plans/edit"
       else
