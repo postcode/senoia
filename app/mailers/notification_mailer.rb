@@ -17,9 +17,13 @@ class NotificationMailer < ActionMailer::Base
       end
     end
 
-    mail(to: @recipient.email,
+    begin
+      mail(to: @recipient.email,
          subject: t(@notification.translation_key,
                     scope: "notification_mailer.subject",
                     subject: @notification.subject))
+    rescue Postmark::InvalidMessageError => e
+      p e
+    end
   end
 end
