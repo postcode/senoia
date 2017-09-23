@@ -16,8 +16,8 @@
         <td class="name"><%= link_to o.name, plan_path(o) %></td>
         <td><%= o.event_type.nil? ? "N/A" : o.event_type.name %></td>
         <td class="attendance"><%= o.attendance if o.attendance > 0 %></td>
-        <td><%= o.start_datetime.present? ? o.start_datetime.in_time_zone("UTC").strftime("%D %l:%M %P") : "No Date" %></td>
-        <td><%= o.end_datetime.present? ? o.end_datetime.in_time_zone("UTC").strftime("%D %l:%M %P") : "No Date" %></td>
+        <td><%= o.operation_periods.first.start_date_time.present? ? o.operation_periods.first.start_date_time.strftime("%D %l:%M %P") : "No Date" %></td>
+        <td><%= o.operation_periods.last.end_date_time.present? ? o.operation_periods.last.end_date_time.strftime("%D %l:%M %P") : "No Date" %></td>
         <% if can? :read, :user_only_items %>
           <td><%= t(o.workflow_state, scope: "plans.state") %></td>
         <% end %>
