@@ -11,6 +11,7 @@
     <% if current_user.admin? %>
       <%= render "plans/request_revision", plan: plan %>
       <%= render "plans/approve", plan: plan %>
+      <%= render "plans/provisionally_approve", plan: plan %>
     <% end %>
   <% when "revision_requested" %>
     <% if current_user.admin? %>
