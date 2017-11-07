@@ -7,6 +7,21 @@ class TransportsController < ApplicationController
   def create
     @operation_period = OperationPeriod.find(params[:operation_period_id])
     @transport = @operation_period.transports.create(transport_params)
+    @provider =  Organization.find(params[:transport][:organization_id])
+    if @provider.present? && @provider.name != "Other"
+      @transport.contact_name = @provider.name
+      @transport.contact_phone = @provider.phone_number
+      @transport.planning_contact_email = @provider.email
+    else
+      @transport.organization = Organization.where(name: params[:organization_name]).first_or_create do |organization|
+        organization.organization_type = OrganizationType.find_by_name("EMS Provider")
+        organization.phone_number = params[:transport][:contact_phone]
+        organization.email = params[:transport][:planning_contact_email]
+      end
+      @transport.contact_name = @transport.organization.name
+      @transport.contact_phone = @transport.organization.phone_number
+      @transport.planning_contact_email = @transport.organization.email
+    end
     @transport.save!
   end
 

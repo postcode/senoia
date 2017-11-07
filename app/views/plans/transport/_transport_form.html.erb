@@ -9,7 +9,10 @@
     value_method: :id,
     include_blank: false,
     prompt: "Select a provider",
-    label: "Provider", required: false %>
+    label: "Provider",
+    required: false,
+    as: :select,
+    input_html: {class: "provider-select"} %>
     <div class="provider-information">
       <h4>Other Medical Provider:</h4>
       <%= label_tag "Company Name" %>
