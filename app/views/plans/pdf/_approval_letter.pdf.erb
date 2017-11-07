@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="large-3 columns end center">
+  <div class="large-3 columns center small-font">
     <%= wicked_pdf_image_tag 'sf_seal.jpg' %>
-    <span>Edwin M. Lee</span>
+    <div>Edwin M. Lee <br/> Mayor</div>
   </div>
   <div class="large-6 columns center">
     <h3>Emergency Medical Services Agency</h3>
@@ -10,9 +10,9 @@
     <div>30 Van Ness Ste#3300</div>
     <div>San Francisco, CA 94102</div>
   </div>
-  <div class="large-3 columns end center">
+  <div class="large-3 columns end center small-font">
     <%= wicked_pdf_image_tag 'PHD_logo_Color.jpg' %>
-    <span>Barbara Garcia <br/> Executive Director</span>
+    <div>Barbara Garcia <br/> Director of Health</div>
   </div>
 </div>
 <div class="row">
@@ -30,7 +30,9 @@
     <% end %>
   </div>
   <div class="large-3 columns end">
-    <div><%= Time.current.strftime("%B %e, %Y") %></div>
+    <% unless @plan.approval_date.blank? %>
+      <div><%= @plan.approval_date.strftime("%B %e, %Y") %></div>
+    <% end %>
   </div>
 </div>
 <div class="row">
