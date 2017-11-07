@@ -1,4 +1,5 @@
 <% op.mobile_teams.each do |mobile_team| %>
+<% uuid_name = SecureRandom.uuid %>
 <div class="row">
   <div class="large-12 columns">
     <h4><%= mobile_team.name %></h4>
@@ -14,11 +15,11 @@
     </div>
     <% end %>
     <div class="large-3 columns end">
-      <span><a href="#" data-reveal-id="first_aid_info">More Info</a></span>
+      <span><a href="#" data-reveal-id="mobile_team_info_<%= uuid_name %>">More Info</a></span>
     </div>
   </div>
 </div>
-<div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+<div id="mobile_team_info_<%= uuid_name %>" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
   <h2 id="modalTitle">More Info</h2>
   AED <%= mobile_team.aed %><br>
 

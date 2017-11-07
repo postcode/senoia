@@ -1,4 +1,5 @@
 <% op.dispatchs.each do |dispatch| %>
+<% uuid_name = SecureRandom.uuid %>
 <div class="row">
   <div class="large-12 columns">
     <h4><%= dispatch.name %></h4>
@@ -9,11 +10,11 @@
       <p><%= dispatch.provider.name unless dispatch.provider.blank? %></p>
     </div>
     <div class="large-4 columns end">
-      <span><a href="#" data-reveal-id="dispatch_info">More Info</a></span>
+      <span><a href="#" data-reveal-id="dispatch_info_<%= uuid_name %>">More Info</a></span>
     </div>
   </div>
 </div>
-<div id="first_aid_info" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+<div id="dispatch_info_<%= uuid_name %>" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
   <h2 id="modalTitle">More Info</h2>
   Radio Channel
   <%= dispatch.radio_channel %><br>
