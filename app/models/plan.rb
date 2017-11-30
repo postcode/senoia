@@ -69,6 +69,10 @@ class Plan < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
+  scope :creator_find_plans, (lambda do |search|
+    joins(:creator).where("users.name ILIKE (?) OR users.email ILIKE (?)", "%#{search}%", "%#{search}%")
+  end)
+
   include Workflow
   workflow do
     state :draft do
@@ -235,6 +239,10 @@ class Plan < ActiveRecord::Base
 
         if options[:event_type]
           scope = scope.filter_by_event_type(options[:event_type])
+        end
+
+        if options[:creator]
+          scope = scope.creator_find_plans(options[:creator])
         end
 
         scope
