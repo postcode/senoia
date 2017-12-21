@@ -1,10 +1,10 @@
 <div id="post-event-treatment-report">
   <div class="row">
-    <div class="large-12 columns pageTitle">
+    <div class="large-12 columns pageTitle petr">
       <div class="large-7 columns">
         <h1><%= link_to @plan.name, @plan %></h1>
       </div>
-      <div class="large-3 columns text-right">
+      <div class="large-3 columns text-right end">
         <p>UPDATED: <%= @plan.updated_at.strftime("%D %l:%M %P") %></p>
         <p><%= link_to "<< Back to plan", @plan %></p>
       </div>

@@ -26,6 +26,7 @@ class PostEventTreatmentReportsController < ApplicationController
     @post_event_treatment_report = @plan.post_event_treatment_report
     if @post_event_treatment_report.update(post_event_treatment_report_params)
       @post_event_treatment_report.submit_email!
+      PostEventTreatmentReportMailer.submit(recipient: User.find_by_email("aram.bronston@sfgov.org"), plan: @plan).deliver_later
       redirect_to action: :show
     else
       @post_event_treatment_report.submitted = false
