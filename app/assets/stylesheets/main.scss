@@ -618,8 +618,11 @@ select.provider-dropdown {
 
 .reveal-modal-bg {
   position: fixed;
+  overflow: hidden;
 }
 .reveal-modal {
+  height: 100%;
+  overflow-y: auto;
   position: fixed;
 }
 
