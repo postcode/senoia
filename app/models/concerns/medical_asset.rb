@@ -14,6 +14,7 @@ module MedicalAsset
     end
 
     after_create do
+      next if clone?
       if organization && operation_period
         next if exisiting_confirmation?
         create_provider_confirmation
@@ -22,6 +23,7 @@ module MedicalAsset
     end
 
     after_update do
+      next if clone?
       if organization_id_changed? || operation_period_id_changed? && (organization && operation_period)
         provider_confirmation.try(:destroy)
         create_provider_confirmation
