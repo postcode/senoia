@@ -87,6 +87,17 @@
               <div><i class="fi-torso"></i> <%= @plan.creator.name %></div>
               <div><i class="fi-mail"></i> <%= @plan.creator.email %></div>
               <div><i class="fi-telephone"></i> <%= @plan.creator.phone_number.phony_formatted(format: :national, spaces: ' ') %></div>
+              <% if can? :edit, @plan %>
+                <div><a id="new_plan_creator_button" href="#" class="button tiny radius">CHANGE PLAN CREATOR</a></div>
+                <div id="creator_updater">
+                  <%= f.association :creator,
+                                  collection: User.all.reject{ |u| u.name.nil? }.sort_by(&:name),
+                                  label_method: :email,
+                                  value_method: :id,
+                                  include_blank: false,
+                                  label: false %>
+                </div>
+              <% end %>
             <% else %>
               <%= f.association :creator,
                                 collection: User.all.reject{ |u| u.name.nil? }.sort_by(&:name),
@@ -250,16 +261,25 @@ $(document).ready(function() {
     enable_split_word_search: true,
     search_contains: true
   });
+  $("#creator_updater").hide();
 
   $('.chosen-input').chosen({
       width: "100%",
       enable_split_word_search: true,
       search_contains: true
   });
+  $('#plan_creator_id').chosen({
+    width: "100%",
+    enable_split_word_search: true,
+    search_contains: true
+  });
   $('#plan_event_type_id').chosen({
     width: "100%",
     enable_split_word_search: true,
     search_contains: true
+  });
+  $("#new_plan_creator_button").click(function() {
+    $("#creator_updater").show();
   });
 });
 </script>
